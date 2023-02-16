@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import FeedPage from './pages/FeedPage';
+//import NavBar from './components/NavBar';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
+import Register from './pages/Register';
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      type: "light",
+      primary: {
+        main: "#FC7704",
+      },
+      backgroundHome:{
+        paper: "#B70760",
+      },
+      typography: {
+        fontFamily:"montserrat"
+      },
+      secondary:{
+        main: "#B70760",
+      }
+    }
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <ThemeProvider theme={theme}>
+      <CssBaseline />
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+          <Route
+            path="/feed"
+            element={<FeedPage />}
+          />
+          <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" />} />
+        </Routes>
+    </ThemeProvider>
   );
 }
 

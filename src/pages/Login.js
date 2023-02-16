@@ -83,7 +83,7 @@ const Login = () => {
                 <div style={{marginTop: 30, color: "white", fontSize: 12, fontFamily: "montserrat", fontWeight: "lighter"}}>Haven't Jibed yet? Register now!</div>
                 <div>
                     <Link to={"/register"} style={{textDecoration: "none"}}>
-                    <Button variant="contained"/*disabled={isFormInvalid()}*/ type="submit" color="secondary" sx={{height:30, width: "20%", borderRadius:6, color:"#EEE8DB", fontFamily:"montserrat", fontWeight:"bold", marginTop: 1, marginBottom: 5, fontSize: 10}}>
+                    <Button variant="contained"/*disabled={isFormInvalid()}*/ type="submit" color="secondary" sx={{height:30, width: "25%", borderRadius:6, color:"#EEE8DB", fontFamily:"montserrat", fontWeight:"bold", marginTop: 1, marginBottom: 5, fontSize: 12}}>
                         Sign up
                     </Button>
                     </Link> 

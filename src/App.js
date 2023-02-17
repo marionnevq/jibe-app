@@ -13,12 +13,10 @@ function App() {
       primary: {
         main: "#FC7704",
       },
-      backgroundHome:{
-        paper: "#B70760",
-      },
       typography: {
-        fontFamily:"montserrat"
+        fontFamily:["montserrat", "poppins"]
       },
+    
       secondary:{
         main: "#B70760",
       }

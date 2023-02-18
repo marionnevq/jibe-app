@@ -12,10 +12,10 @@
   font-family: "poppins";
   color: #1A212E;
   font-weight: 30;
-  padding-top: 0;
+  margin-top: 10px;
   font-size: 17px;
   margin-left: 40px;
-  margin-bottom: 10;
+  margin-bottom: 15px;
 }
 
 .reg{
@@ -81,7 +81,23 @@
   font-weight: bold;
   margin-top: 30px; 
   font-size: 20px; 
-  margin-bottom: 10;
+  margin-bottom: 20px;
+}
+
+.helperText{
+  color: red;
+}
+
+.reg-form .img-btn{
+  width: 300px; 
+  margin-top: 15px; 
+  background-color: #B70760; 
+  color: white;
+  border-radius: 10px;
+}
+
+.reg-form .img-btn:hover{
+  background-color: #9c0b53;
 }
 
 @media only screen and (max-width: 650px) {

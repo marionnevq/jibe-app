@@ -4,6 +4,7 @@ import FeedPage from './pages/FeedPage';
 //import NavBar from './components/NavBar';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
           <Route
             path="/feed"
             element={<FeedPage />}
+          />
+           <Route
+            path="/profile/:username"
+            element={<ProfilePage />}
           />
           <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />

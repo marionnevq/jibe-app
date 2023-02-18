@@ -16,6 +16,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import nav from "../images/nav.png"
 import nik from "../images/nik.jpg"
 import "../style/NavBar.css";
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar() {
   
@@ -64,7 +65,7 @@ function NavBar() {
   }));
 
   const open = Boolean(anchorEl);
-
+  const navigate = useNavigate();
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -72,6 +73,14 @@ function NavBar() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    navigate("/login")
+  }
+
+  const handlePathToProfile = () => {
+    navigate("/profile/:username")
+  }
 
   return (
     <Grid container sx={{ flexGrow: 1}}>
@@ -134,13 +143,13 @@ function NavBar() {
           onClose={handleCloseMenu}
           sx={{width:"500px"}}
         >
-          <MenuItem className='menu'>
+          <MenuItem className='menu' onClick={handlePathToProfile}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
-          <MenuItem className='menu'>
+          <MenuItem className='menu' >
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
-          <MenuItem sx={{fontFamily: "montserrat"}}>
+          <MenuItem sx={{fontFamily: "montserrat"}} onClick={handleLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
           </MenuItem>
         </Menu>

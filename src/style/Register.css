@@ -1,0 +1,90 @@
+.reg #join{
+  line-height: 50px;
+  font-family: "montserrat";
+  color: #B70760;
+  font-weight: bolder;
+  font-size: 50px;
+  margin-left: 40px;
+  padding-top: 120px;
+}
+
+.reg #invite{
+  font-family: "poppins";
+  color: #1A212E;
+  font-weight: 30;
+  padding-top: 0;
+  font-size: 17px;
+  margin-left: 40px;
+  margin-bottom: 10;
+}
+
+.reg{
+  background-color: #EEE8DB;
+  background-image: url("../images/bg.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: block;
+  align-content: center;
+}
+
+.reg1{
+  width: 70%;
+  margin-left: 30px;
+  margin-bottom: 0;
+  margin-top: 90px;
+}
+
+.reg-form{
+  background-color: white;
+  display: inline-block;
+  text-align: center;
+}
+
+.reg-form img{
+  width: 15%; 
+  height: 15%;
+  object-fit: scale-down;
+  margin-top: 20px;
+} 
+
+.page-title{
+  font-family: "montserrat";
+  color: #1A212E;
+  font-weight: bolder;
+  font-size: 35px;
+  padding-bottom: 30px;
+  margin-top: 5;
+}
+
+.field-one{
+  background-color: white;
+  width: 34.3%;
+  border-radius: 1;
+  margin-top: 1;
+}
+
+.field-two{
+  background-color: white;
+  width: 70%;
+  border-radius: 1;
+  margin-top: 8px;
+}
+
+.btn button{
+  height: 50;
+  width: 35%;
+  border-radius: 30px;
+  color: #EEE8DB;
+  font-family: "montserrat";
+  font-weight: bold;
+  margin-top: 30px; 
+  font-size: 20px; 
+  margin-bottom: 10;
+}
+
+@media only screen and (max-width: 650px) {
+    .reg1{
+      display: none;
+     }
+}

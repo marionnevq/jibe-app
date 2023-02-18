@@ -65,6 +65,7 @@ const Register = () => {
                 size="small"
                 fullWidth
                 className='field-two'
+                sx={{width: "70%"}}
             />
             <TextField
                 name="username"

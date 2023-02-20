@@ -14,6 +14,7 @@ function App() {
       primary: {
         main: "#FC7704",
       },
+      
       typography: {
         fontFamily:["montserrat", "poppins"]
       },

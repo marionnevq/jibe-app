@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
+import Onboarding from "./pages/Onboarding";
 
 function App() {
   const theme = createTheme({
@@ -34,6 +35,10 @@ function App() {
           <Route
             path="/login"
             element={<Login />}
+          />
+          <Route
+            path="/onboarding"
+            element={<Onboarding />}
           />
           <Route
             path="/register"

@@ -28,7 +28,7 @@ const Login = () => {
     event.preventDefault();
         // onLogin(form.username, form.password);
         console.log("Hello")
-        navigate("/feed")
+        navigate("/onboarding")
     };
     
     const handleChange = ({ currentTarget: input }) => {

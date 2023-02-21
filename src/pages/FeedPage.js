@@ -5,7 +5,7 @@ import Like1 from '../images/likeone.png'
 import Like2 from '../images/likewo.png'
 
 const FeedPage = () => {
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(true);
 
   const handleChangeIcon = () =>{
     if(like === false){

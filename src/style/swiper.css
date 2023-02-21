@@ -1,0 +1,48 @@
+.container{
+    
+}
+
+.container .myswiper{
+    width: 100%;
+}
+
+.myswiper .swiperslide img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.swiper-button-next { 
+    color: #2C3568;
+    margin-right: 10px; 
+    max-height: 5px;
+}
+
+.swiper-button-prev { 
+    color: #2C3568;
+    text-shadow: 10px;  
+    margin-left: 10px;
+    max-height: 5px;  
+}
+
+.myswiper .swiperslide{
+    width: 100%;
+    object-fit: scale-down;
+}
+
+.swiperslide .preview{
+    object-fit: scale-down;
+    max-width: 80%;
+    max-height: 80vh;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2C3568;
+  }
+
+.bio {
+  font-family: "montserrat" !important;
+}
+
+.myswiper .last-btn:hover{
+    background-color: #ece4d2;
+}

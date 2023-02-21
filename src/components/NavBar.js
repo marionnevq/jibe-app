@@ -94,7 +94,7 @@ function NavBar() {
         >
           <img src={nav} style={{width: "15%", marginTop:10}} />
         </Typography>
-        <Search>
+        <Search sx={{color: "#2c3568"}}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>

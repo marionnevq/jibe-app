@@ -7,7 +7,7 @@ import "@fontsource/poppins"
 import reg from "../images/reg.png"
 import "../style/Register.css"
 import Joi from 'joi';
-
+import LoginSwiper from '../components/LoginSwiper';
 
 const Register = () => {
 
@@ -25,24 +25,34 @@ const Register = () => {
     password: "",
     confirmPwd: "",
     image: "",
-});
+    bio: "",
+  });
+  const [newUser, setNewUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    username: "",
+    password: "",
+    image: "",
+    bio: "",
+  });
 
-const handleImage = (event) => {
-    const img = event.target.files[0];
-      setImageUrl(URL.createObjectURL(img));
-      setForm({
-        ...form,
-        image: img
-      });
-      console.log(form);
-    }
+// const handleImage = (event) => {
+//     const img = event.target.files[0];
+//       setImageUrl(URL.createObjectURL(img));
+//       setForm({
+//         ...form,
+//         image: img
+//       });
+//       console.log(form);
+//       console.log(img);
+//     }
     
-
 const schema = Joi.object({
     firstname: Joi.string().min(3).max(20).required(),
     lastname: Joi.string().min(3).max(20).required(),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-    username: Joi.string().min(3).max(10).required(),
+    username: Joi.string().min(3).max(20).required(),
     password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
     .required()
@@ -55,20 +65,30 @@ const schema = Joi.object({
         "any.only": "The two passwords do not match",
         "any.required": "Please re-enter the password",
     }),
+    image: Joi.optional(),
+    bio: Joi.optional(),
 });
 
 const handleSubmit = async (event) => {
+    event.preventDefault();
     console.log(form);
-event.preventDefault();
+    console.log(newUser);
     // onLogin(form.username, form.password);
     navigate("/feed")
 };
 
 const handleChange = ({ currentTarget: input }) => {
-setForm({
-    ...form,
-    [input.name]: input.value,
+    setForm({
+        ...form,
+        [input.name]: input.value,
 });
+
+if(input.name !== "confirmPwd"){
+    setNewUser({
+        ...newUser,
+        [input.name]: input.value,
+    });
+}
 
 const { error } = schema
     .extract(input.name)
@@ -91,6 +111,15 @@ const isFormInvalid = () => {
     return !!result.error;
 };
 
+const viewStyle = () => {
+    return {
+      flex: 1,
+      backgroundColor: '#EEE8DB',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+}
+
 return (
     <Grid container style={{ minHeight: "100vh"}}>
         <Grid className='reg' item xs={12} sm={6}>
@@ -105,6 +134,26 @@ return (
                 <img src={Logo2}/>
             </div>
             <div className='page-title'>Registration</div>
+            {/* <div><img src={imageUrl}/></div>
+            <div style={{display: 'flex', justifyContent: "center"}}>
+                <Button
+                    variant="contained"
+                    component="label"
+                    className='img-btn'
+                    sx={{marginBottom: "15px"}}
+                >
+                    <Typography sx={{fontFamily: "montserrat", fontSize: "12px"}}>Choose Profile Picture</Typography>
+                    <input
+                        accept="image/*"
+                        type="file"
+                        hidden
+                        onChange={(event) => handleImage(event)}
+                    />
+                </Button>
+            </div> */}
+            {/* <div>
+                <LoginSwiper />
+            </div> */}
             <div>
                 <div style={{display: "flex", justifyContent: "center"}}>
                 <TextField
@@ -214,30 +263,11 @@ return (
                 }}
             />
             </div>
-            <div style={{display: 'flex', justifyContent: "center"}}>
-                
-                    <Button
-                        variant="contained"
-                        component="label"
-                        className='img-btn'
-                    >
-                        <Typography sx={{fontFamily: "montserrat", fontSize: "12px"}}>Choose Profile Picture</Typography>
-                        <input
-                            accept="image/*"
-                            type="file"
-                            hidden
-                            onChange={(event) => handleImage(event)}
-                        />
-                    </Button>
-                
-
-                
-            </div>
-            <div><img src={imageUrl}/></div>
+            
             <div className='btn'>
-                    <Button variant="contained" disabled={isFormInvalid()} onClick={handleSubmit}>
-                        Sign up
-                    </Button>
+                <Button variant="contained" disabled={isFormInvalid()} onClick={handleSubmit}>
+                    Sign up
+                </Button>
             </div>
         </Grid>
     </Grid>

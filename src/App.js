@@ -1,5 +1,6 @@
 import { Button, Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import LoginSwiper from './components/LoginSwiper';
 import FeedPage from './pages/FeedPage';
 //import NavBar from './components/NavBar';
 import Login from './pages/Login';
@@ -12,17 +13,19 @@ function App() {
     palette: {
       type: "light",
       primary: {
-        main: "#FC7704",
+        main: "#eb4660",
       },
+      
       typography: {
         fontFamily:["montserrat", "poppins"]
       },
-    
+
       secondary:{
-        main: "#B70760",
+        main: "#2c3568",
       }
     }
   });
+
   return (
   <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -35,6 +38,10 @@ function App() {
           <Route
             path="/register"
             element={<Register />}
+          />
+          <Route
+            path="/onboarding"
+            element={<LoginSwiper />}
           />
           <Route
             path="/feed"

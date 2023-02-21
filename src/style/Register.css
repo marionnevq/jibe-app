@@ -1,12 +1,23 @@
 .reg #join{
   line-height: 50px;
   font-family: "montserrat";
-  color: #B70760;
+  background: -webkit-linear-gradient(#2c3568, #eb4660);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: bolder;
   font-size: 50px;
   margin-left: 40px;
   padding-top: 120px;
 }
+
+.MuiInputLabel-root {
+  font-family: "montserrat" !important;
+}
+
+input{
+  font-family: "poppins" !important;
+}
+
 
 .reg #invite{
   font-family: "poppins";
@@ -76,12 +87,16 @@
   height: 50;
   width: 35%;
   border-radius: 30px;
-  color: #EEE8DB;
+  color: white;
   font-family: "montserrat";
   font-weight: bold;
   margin-top: 30px; 
   font-size: 20px; 
   margin-bottom: 20px;
+}
+
+.btn button:disabled{
+  background-color: #cfd4f1;
 }
 
 .helperText{

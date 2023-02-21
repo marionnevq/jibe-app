@@ -25,24 +25,34 @@ const Register = () => {
     password: "",
     confirmPwd: "",
     image: "",
-});
+    bio: "",
+  });
+  const [newUser, setNewUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    username: "",
+    password: "",
+    image: "",
+    bio: "",
+  });
 
-const handleImage = (event) => {
-    const img = event.target.files[0];
-      setImageUrl(URL.createObjectURL(img));
-      setForm({
-        ...form,
-        image: img
-      });
-      console.log(form);
-      console.log(img);
-    }
+// const handleImage = (event) => {
+//     const img = event.target.files[0];
+//       setImageUrl(URL.createObjectURL(img));
+//       setForm({
+//         ...form,
+//         image: img
+//       });
+//       console.log(form);
+//       console.log(img);
+//     }
     
 const schema = Joi.object({
     firstname: Joi.string().min(3).max(20).required(),
     lastname: Joi.string().min(3).max(20).required(),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-    username: Joi.string().min(3).max(10).required(),
+    username: Joi.string().min(3).max(20).required(),
     password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
     .required()
@@ -56,20 +66,29 @@ const schema = Joi.object({
         "any.required": "Please re-enter the password",
     }),
     image: Joi.optional(),
+    bio: Joi.optional(),
 });
 
 const handleSubmit = async (event) => {
+    event.preventDefault();
     console.log(form);
-event.preventDefault();
+    console.log(newUser);
     // onLogin(form.username, form.password);
     navigate("/feed")
 };
 
 const handleChange = ({ currentTarget: input }) => {
-setForm({
-    ...form,
-    [input.name]: input.value,
+    setForm({
+        ...form,
+        [input.name]: input.value,
 });
+
+if(input.name !== "confirmPwd"){
+    setNewUser({
+        ...newUser,
+        [input.name]: input.value,
+    });
+}
 
 const { error } = schema
     .extract(input.name)
@@ -132,9 +151,9 @@ return (
                     />
                 </Button>
             </div> */}
-            <div>
+            {/* <div>
                 <LoginSwiper />
-            </div>
+            </div> */}
             <div>
                 <div style={{display: "flex", justifyContent: "center"}}>
                 <TextField

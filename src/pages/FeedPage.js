@@ -18,13 +18,13 @@ const FeedPage = () => {
   return (
     <>
     <NavBar />
-    <div>
-    <IconButton onClick={handleChangeIcon} >
-      {
-        like? <img src={Like1} /> : <img src={Like2} /> 
-      }
-    </IconButton>
-    </div>
+      <div>
+        <IconButton onClick={handleChangeIcon} >
+          {
+            like? <img src={Like1} /> : <img src={Like2} /> 
+          }
+        </IconButton>
+      </div>
     
     </>
   )

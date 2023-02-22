@@ -92,7 +92,7 @@ function NavBar() {
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          <img src={nav} style={{width: "15%", marginTop:10}} />
+          <img src={nav} style={{width: "10%", marginTop:10}} />
         </Typography>
         <Search sx={{color: "#2c3568"}}>
           <SearchIconWrapper>
@@ -131,7 +131,7 @@ function NavBar() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, marginLeft: 3, borderRadius: 1, color: "#1A212E" }}
+            sx={{ marginLeft: 2, borderRadius: 1, color: "#1A212E" }}
             onClick={handleOpenMenu}  
           >
             <MenuIcon /> 

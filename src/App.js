@@ -6,8 +6,11 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
+import { POSTS_DATA } from './data/posts';
+import { useState } from 'react';
 
 function App() {
+  const [posts, setPosts] = useState(POSTS_DATA);
   const theme = createTheme({
     palette: {
       type: "light",
@@ -23,6 +26,7 @@ function App() {
       }
     }
   });
+  console.log("This is POSTS_DATA from App.js ", posts);
   return (
   <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -42,7 +46,7 @@ function App() {
           />
            <Route
             path="/profile/:username"
-            element={<ProfilePage />}
+            element={<ProfilePage posts={posts} />}
           />
           <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />

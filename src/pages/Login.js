@@ -69,7 +69,7 @@ const Login = () => {
             <div>
                 <img src={Logo2}/>
             </div>
-            <div className='page-title'>Login</div>
+            <div id='page-title'>Login</div>
                 <div>
                     <TextField
                         name="username"
@@ -123,7 +123,7 @@ const Login = () => {
                         </Button>
                 </div>
                 <div className='lower-text'>Haven't Jibed yet? Register now!</div>
-                <div>
+                <div className='reg-btn'>
                     <Link to={"/register"} style={{textDecoration: "none"}}>
                     <Button 
                         variant="contained"

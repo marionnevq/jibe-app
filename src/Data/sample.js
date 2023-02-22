@@ -1,6 +1,6 @@
 export const USER_DATA = [
     {
-        name: "Jim Lloyd De Guzman dddddddd gggggggg",
+        name: "Jim Lloyd De Guzman",
         username: "jdeguzman0123",
     },
     {

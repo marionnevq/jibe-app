@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;700&display=swap');
+
+.main-container {
+    background-color: #EEE8DB;
+}
+.sub-container {
+    padding-top: 50px;
+}
+.profile-pic {
+    padding-top: 90px;
+    padding-left: 430px;
+}
+
+.profile-name {
+    line-height: 0.5;
+    font-family: "montserrat";
+    color: #2C3568;
+    font-weight: bolder;
+    font-size: 50px;
+    margin-left: 40px;
+    padding-top: 120px;
+}
+
+.profile-tag {
+    line-height: 2;
+    font-family: "poppins";
+    color: #EB4660;
+    font-size: 20px;
+    margin-left: 40px;
+}
+
+.profile-bio {
+    line-height: 2;
+    font-family: "montserrat";
+    color: #2C3568;
+    font-size: 20px;
+    margin-left: 40px;
+}
+
+.left {
+    line-height: 1;
+    font-family: "poppins";
+    color:#2C3568;
+    font-size: 30px;
+}
+
+.left .left-title{
+    font-family: "montserrat";
+    font-weight: bolder;
+    text-align: center;
+    /* padding-left: 200px; */
+}
+.left .left-sub{
+    font-size: 25px;
+    text-align: center;
+    /* padding-left: 200px; */
+}
+
+.middle {
+    line-height: 1;
+    font-family: "poppins";
+    color:#2C3568;
+    font-size: 30px;
+}
+
+.middle .middle-title {
+    font-family: "montserrat";
+    font-weight: bolder;
+    text-align: center;
+}
+
+.middle .middle-sub {
+    font-size: 25px;
+    text-align: center;
+}
+
+.right {
+    line-height: 1;
+    font-family: "poppins";
+    color:#2C3568;
+    font-size: 30px;
+}
+
+.right .right-title {
+    font-family: "montserrat";
+    font-weight: bolder;
+    text-align: center;
+}
+
+.right .right-sub {
+    font-size: 25px;
+    text-align: center;
+}
+
+.post{
+    align-content: center;
+    padding-left: 40px; 
+}
+.post-body {
+    font-family: "poppins";
+    color:#EB4660;
+}

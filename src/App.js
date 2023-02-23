@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
 import Onboarding from "./pages/Onboarding";
+import { useEffect } from 'react';
 
 function App() {
   const theme = createTheme({
@@ -27,6 +28,11 @@ function App() {
     }
   });
 
+  const getAccessToken = () => {
+    return localStorage.getItem("accessToken");
+  }
+
+  const accessToken = localStorage.getItem("accessToken");
   return (
   <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -38,7 +44,8 @@ function App() {
           />
           <Route
             path="/onboarding"
-            element={<Onboarding />}
+            element={getAccessToken !== null  ?
+            <Onboarding /> : <Login />}
           />
           <Route
             path="/register"
@@ -50,7 +57,7 @@ function App() {
           />
           <Route
             path="/feed"
-            element={<FeedPage />}
+            element={ getAccessToken !== null ? <FeedPage /> : <Login />}
           />
            <Route
             path="/profile/:username"

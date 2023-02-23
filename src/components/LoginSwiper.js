@@ -141,7 +141,7 @@ return (
                                 like? <img src={Like1} /> : <img src={Like2} /> 
                             }
                             </button>
-                            <h1>enjoy jibing...</h1>
+                            <h1>enjoy jibing.</h1>
                         </div>
                     </Paper>
                 </SwiperSlide>

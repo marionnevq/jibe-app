@@ -18,14 +18,14 @@ const FeedPage = () => {
   return (
     <>
     <NavBar />
-    <div>
+    {/* <div>
     <IconButton onClick={handleChangeIcon} >
       {
         like? <img src={Like1} /> : <img src={Like2} /> 
       }
     </IconButton>
     </div>
-    
+     */}
     </>
   )
 }

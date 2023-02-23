@@ -1,34 +1,71 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { Button, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
+import React, { useContext, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo2 from "../images/logo-noblack-label.png"
 import { Link, useNavigate } from 'react-router-dom';
 import "@fontsource/poppins"
 import "../style/Login.css";
 import Joi from 'joi';
+import { getAccessToken, login } from '../services/auth';
+import { UserContext } from '../context/UserContext';
 
 const Login = () => {
-
+    const { onLogin } = useContext(UserContext)
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const [errors, setErrors] = useState({});
+    const [accessToken, setAccessToken] = useState(null);
     const [form, setForm] = useState({
-        username: "",
+        email: "",
         password: "",
     });
     
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
 
     const schema = Joi.object({
-        username: Joi.string().min(3).max(10).required(),
-        password: Joi.string().required(),
+        email: Joi.alternatives()
+           .try(
+              Joi.string()
+                 .lowercase()
+                 .email({
+                     minDomainSegments: 2,
+                     tlds: {
+                        allow: ["com", "net"],
+                     },
+                 }),
+              Joi.string().min(3).max(20)
+            )
+           .required(),
+        password: Joi.string().alphanum().required(),
     });
 
-    const handleSubmit = async (event) => {
-    event.preventDefault();
-        // onLogin(form.username, form.password);
-        console.log("Hello")
-        navigate("/onboarding")
+    const getAccessToken = () => {
+        localStorage.getItem("accessToken")
+    }
+
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        try {
+            console.log("hello log")
+            const response = await login(form.email, form.password).then((response) => {
+                const token = response.data.token;
+                console.log(token);
+                localStorage.setItem("accessToken", token);
+            });
+            if(getAccessToken !== null){
+                console.log("logged in")
+                navigate("/onboarding")
+            } else {
+                localStorage.removeItem("accessToken");
+                alert("Invalid Credentials")
+                navigate("/login")
+            }
+            console.log("logged innn")  
+          } catch (error) {
+            if (error.response && error.response.status === 400) {
+              alert(error.response.data.message);
+            }
+          }
     };
     
     const handleChange = ({ currentTarget: input }) => {
@@ -42,8 +79,10 @@ const Login = () => {
         .label(input.name)
         .validate(input.value);
 
-        if (error) {
-            setErrors({ ...errors, [input.name]: error.details[0].message });
+        if(error && input.name === "username"){
+            setErrors({ ...errors, [input.name]: "Invalid username or email" });
+        } else if (error){
+            setErrors({ ...errors, [input.name]: "Only use letters and numbers" });
         } else {
             delete errors[input.name];
             setErrors(errors);
@@ -72,7 +111,7 @@ const Login = () => {
             <div id='page-title'>Login</div>
                 <div>
                     <TextField
-                        name="username"
+                        name="email"
                         error={!!errors.username}
                         helperText={errors.username}
                         onChange={handleChange}

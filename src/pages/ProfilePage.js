@@ -47,14 +47,14 @@ const ProfilePage = ({ posts }) => {
             <Avatar src={sana} sx={{ width: 250, height: 250 }} />
           </div>
         </Grid>
-        <Grid item xs>
+        <Grid item xs >
           <div className="profile-name">Nikki Fagara</div>
           <div className="profile-tag">@NikkiFagara</div>
           <div className="profile-bio">
             <em>"I am the greatest..."</em>
           </div>
           <Grid container spacing={2} columns={15} className="sub-container">
-            <Grid item xs={3} className="left">
+            <Grid item xs={2.7} className="left">
               <div className="left-title">Posts</div>
               <div className="left-sub">12345</div>
             </Grid>
@@ -68,7 +68,7 @@ const ProfilePage = ({ posts }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container spacing={2} columns={16} className="posts-container" >
+        <Grid container spacing={2} columns={16} className="posts-container">
           {posts.map((post) => (
             <ProfilePostPage key={posts.id} post={post} />
           ))}

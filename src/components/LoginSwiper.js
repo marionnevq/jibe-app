@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { Navigation, Keyboard, Pagination } from 'swiper';
 import { Swiper, SwiperSlide} from 'swiper/react';
@@ -25,8 +25,10 @@ const LoginSwiper = () => {
         }
         setTimeout(function() {
             navigate("/feed");
-         }, 400);
+        }, 400);
     }
+
+   
 
     const handleImage = (event) => {
         const img = event.target.files[0];
@@ -141,7 +143,7 @@ return (
                                 like? <img src={Like1} /> : <img src={Like2} /> 
                             }
                             </button>
-                            <h1>enjoy jibing...</h1>
+                            <h1>enjoy jibing.</h1>
                         </div>
                     </Paper>
                 </SwiperSlide>

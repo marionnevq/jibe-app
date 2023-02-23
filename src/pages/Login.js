@@ -1,34 +1,42 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { Button, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
+import React, { useContext, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo2 from "../images/logo-noblack-label.png"
 import { Link, useNavigate } from 'react-router-dom';
 import "@fontsource/poppins"
 import "../style/Login.css";
 import Joi from 'joi';
+import { getAccessToken, login } from '../services/auth';
+import { UserContext } from '../context/UserContext';
 
-const Login = () => {
-
-    const [showPassword, setShowPassword] = useState(false);
+const Login = ({ onLogin }) => {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
-        username: "",
+        email: "",
         password: "",
     });
     
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
 
     const schema = Joi.object({
-        username: Joi.string().min(3).max(10).required(),
-        password: Joi.string().required(),
+        email: Joi.alternatives()
+           .try(
+              Joi.string()
+                 .lowercase()
+                 .email({minDomainSegments: 2,
+                     tlds: { allow: ['com', 'net'] }
+                }),
+              Joi.string().alphanum().min(8).max(20)
+            )
+           .required(),
+        password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(5).required(),
     });
 
-    const handleSubmit = async (event) => {
-    event.preventDefault();
-        // onLogin(form.username, form.password);
-        console.log("Hello")
-        navigate("/onboarding")
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        onLogin(form);
     };
     
     const handleChange = ({ currentTarget: input }) => {
@@ -42,8 +50,10 @@ const Login = () => {
         .label(input.name)
         .validate(input.value);
 
-        if (error) {
-            setErrors({ ...errors, [input.name]: error.details[0].message });
+        if(error && input.name === "email"){
+            setErrors({ ...errors, [input.name]: "Invalid username or email" });
+        } else if (error){
+            setErrors({ ...errors, [input.name]: "Use at least one uppercase, lowercase, special character and number" });
         } else {
             delete errors[input.name];
             setErrors(errors);
@@ -52,7 +62,6 @@ const Login = () => {
     
     const isFormInvalid = () => {
         const result = schema.validate(form);
-        console.log(!!result.error);
         return !!result.error;
     };
 
@@ -72,12 +81,12 @@ const Login = () => {
             <div id='page-title'>Login</div>
                 <div>
                     <TextField
-                        name="username"
-                        error={!!errors.username}
-                        helperText={errors.username}
+                        name="email"
+                        error={!!errors.email}
+                        helperText={errors.email}
                         onChange={handleChange}
-                        value={form.username}
-                        label="Username"
+                        value={form.email}
+                        label="Username / Email"
                         variant="filled"
                         size="small"
                         fullWidth

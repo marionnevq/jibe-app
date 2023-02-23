@@ -23,6 +23,7 @@ const FollowCard = () => {
         <Swiper
              effect={"coverflow"}
             speed={500}
+            watchSlidesProgress = {true}
             slidesPerView={"2.5"}
             centeredSlides={true}
             pagination={{

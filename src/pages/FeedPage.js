@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar'
 import Like1 from '../images/likeone.png'
 import Like2 from '../images/likewo.png'
 
-const FeedPage = () => {
+const FeedPage = ({ onLogout }) => {
   const [like, setLike] = useState(false);
 
   const handleChangeIcon = () =>{
@@ -17,15 +17,15 @@ const FeedPage = () => {
   }
   return (
     <>
-    <NavBar />
-    <div>
+    <NavBar onLogout={onLogout}/>
+    {/* <div>
     <IconButton onClick={handleChangeIcon} >
       {
         like? <img src={Like1} /> : <img src={Like2} /> 
       }
     </IconButton>
     </div>
-    
+     */}
     </>
   )
 }

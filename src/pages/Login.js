@@ -9,12 +9,10 @@ import Joi from 'joi';
 import { getAccessToken, login } from '../services/auth';
 import { UserContext } from '../context/UserContext';
 
-const Login = () => {
-    const { onLogin } = useContext(UserContext)
-    const [showPassword, setShowPassword] = useState(false);
+const Login = ({ onLogin }) => {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
-    const [accessToken, setAccessToken] = useState(null);
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -27,45 +25,18 @@ const Login = () => {
            .try(
               Joi.string()
                  .lowercase()
-                 .email({
-                     minDomainSegments: 2,
-                     tlds: {
-                        allow: ["com", "net"],
-                     },
-                 }),
-              Joi.string().min(3).max(20)
+                 .email({minDomainSegments: 2,
+                     tlds: { allow: ['com', 'net'] }
+                }),
+              Joi.string().alphanum().min(8).max(20)
             )
            .required(),
-        password: Joi.string().alphanum().required(),
+        password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(5).required(),
     });
 
-    const getAccessToken = () => {
-        localStorage.getItem("accessToken")
-    }
-
-    const handleSubmit = async(event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        try {
-            console.log("hello log")
-            const response = await login(form.email, form.password).then((response) => {
-                const token = response.data.token;
-                console.log(token);
-                localStorage.setItem("accessToken", token);
-            });
-            if(getAccessToken !== null){
-                console.log("logged in")
-                navigate("/onboarding")
-            } else {
-                localStorage.removeItem("accessToken");
-                alert("Invalid Credentials")
-                navigate("/login")
-            }
-            console.log("logged innn")  
-          } catch (error) {
-            if (error.response && error.response.status === 400) {
-              alert(error.response.data.message);
-            }
-          }
+        onLogin(form);
     };
     
     const handleChange = ({ currentTarget: input }) => {
@@ -79,10 +50,10 @@ const Login = () => {
         .label(input.name)
         .validate(input.value);
 
-        if(error && input.name === "username"){
+        if(error && input.name === "email"){
             setErrors({ ...errors, [input.name]: "Invalid username or email" });
         } else if (error){
-            setErrors({ ...errors, [input.name]: "Only use letters and numbers" });
+            setErrors({ ...errors, [input.name]: "Use at least one uppercase, lowercase, special character and number" });
         } else {
             delete errors[input.name];
             setErrors(errors);
@@ -91,7 +62,6 @@ const Login = () => {
     
     const isFormInvalid = () => {
         const result = schema.validate(form);
-        console.log(!!result.error);
         return !!result.error;
     };
 
@@ -112,11 +82,11 @@ const Login = () => {
                 <div>
                     <TextField
                         name="email"
-                        error={!!errors.username}
-                        helperText={errors.username}
+                        error={!!errors.email}
+                        helperText={errors.email}
                         onChange={handleChange}
-                        value={form.username}
-                        label="Username"
+                        value={form.email}
+                        label="Username / Email"
                         variant="filled"
                         size="small"
                         fullWidth

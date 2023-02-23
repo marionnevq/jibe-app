@@ -46,15 +46,8 @@ const schema = Joi.object({
     firstname: Joi.string().min(3).max(20).required(),
     lastname: Joi.string().min(3).max(20).required(),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-    username: Joi.string().min(3).max(20).required(),
-    password: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .required()
-    .messages({
-      "string.pattern.base": `Password should be between 3 to 30 characters and contain letters or numbers only`,
-      "string.empty": `Password cannot be empty`,
-      "any.required": `Password is required`,
-    }),
+    username: Joi.string().min(8).max(20).required(),
+    password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(8).required(),
     confirmPwd: Joi.valid(form.password).messages({
         "any.only": "The two passwords do not match",
         "any.required": "Please re-enter the password",

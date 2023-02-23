@@ -18,7 +18,7 @@ import nik from "../images/nik.jpg"
 import "../style/NavBar.css";
 import { Link, useNavigate } from 'react-router-dom';
 
-function NavBar() {
+const NavBar = ({onLogout}) => {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -73,11 +73,6 @@ function NavBar() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken")
-    navigate("/login")
-  }
 
   const handlePathToProfile = () => {
     navigate("/profile/:username")
@@ -150,7 +145,7 @@ function NavBar() {
           <MenuItem className='menu' >
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
-          <MenuItem sx={{fontFamily: "montserrat"}} onClick={handleLogout}>
+          <MenuItem sx={{fontFamily: "montserrat"}} onClick={onLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
           </MenuItem>
         </Menu>

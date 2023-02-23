@@ -1,7 +1,6 @@
-import { async } from "q";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { login, register } from "../services/auth";
+import { getAccessToken, login, register } from "../services/auth";
 
 export const UserContext = createContext({
   accessToken: [],
@@ -12,17 +11,19 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
 
-  const [accessToken, setAccessToken] = useState([]);
+  const [accessToken, setAccessToken] = useState(getAccessToken());
   const navigate = useNavigate();
 
-  const handleLogin = (form) => {
+  const handleLogin = async(form) => {
     try {
-      const response = login(form.email, form.password);
-      console.log(response.data.token);
-      localStorage.setItem("accessToken", response.data.token);
-      setAccessToken(response.data.token);
-      
-      accessToken !== null ? navigate("/onboarding") : navigate("/login")
+      await login(form.email, form.password).then((response) => {
+        localStorage.setItem("accessToken", response.data.token);
+        const token = localStorage.getItem("accessToken");
+        console.log(token);
+        setAccessToken(response.data.token);
+      });
+      console.log("state token", accessToken);
+      accessToken? navigate("/onboarding") : navigate("/login")
       
     } catch (error) {
       if (error.response && error.response.status === 400) {

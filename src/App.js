@@ -12,7 +12,7 @@ import useLocalStorage from 'use-local-storage';
 
 function App() {
   
-  const [theme, setTheme] = useLocalStorage("theme", "light")
+  const [theme, setTheme] = useLocalStorage("theme", "dark")
 
   useEffect(() => {
     console.log(theme);

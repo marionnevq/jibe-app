@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap');
+:root {
+    --background: #f2f2f2; /*white*/
+    --background-two: #EEE8DB; /*cream*/
+    --text-primary: #000; /*black*/
+    --text-secondary: #f2f2f2; /*white*/
+    --primary: #EB4660; /*pink*/
+    --secondary: #2C3568; /*dark blue*/
+}
+  
+[data-theme='dark'] {
+    --background: #1C2835; /*dark blue*/
+    --background-two: #16202A; /*darker blue*/
+    --text-primary: #f2f2f2; /*white*/
+    --text-secondary: #f2f2f2; /*white*/
+    --primary: #1C2835; /*dark blue*/
+    --secondary: #16202A; /*darker blue*/
+}
+
+.profileSide{
+    background-color: transparent;
+}
+
+.profile{
+    background-color: transparent;
+    margin-left: 15px;
+    border-radius: 1rem;
+}
+
+.profile>img{
+    width: 6rem;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -3rem;
+    box-shadow: 3px;
+    margin-bottom: 470px;
+    margin-left: 93px;
+    box-shadow: 2px 2px 2px gray; 
+}
+
+.names>h3{
+    margin-top: 53px;
+    margin-left: 80px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.names>p{
+    margin-top: -20px;
+    margin-left: 89px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.names>h3:hover{
+    cursor: pointer;
+}
+
+.followerPart{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.followers{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.followers>span:nth-of-type(1){
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.followers>span:nth-of-type(2){
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.following{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.following>span:nth-of-type(1){
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.following>span:nth-of-type(2){
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.followPart box{
+    align-items: center;
+    justify-content: center;
+}
+
+.myProfile{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.goProfile .myProfile:hover{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    background-color: var(--primary);
+    color: secondary;
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+
+.goProfile{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/********************************************/
+/* End of Profile*/
+
+.postSide{
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.post>img{
+    width: 3rem;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -3rem;
+    box-shadow: 3px;
+    margin-bottom: 500px;
+    margin-left: 20px;
+}
+
+.post>input{
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    width: 75%;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.feedType{
+    justify-content: center;
+    display: flex;
+    
+}
+
+.world{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    width: 100px;
+}
+
+.world:hover{
+    cursor: pointer;
+}
+
+.world>span{
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.fyp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    width: 100px;
+}
+
+.fyp:hover{
+    cursor: pointer;
+}
+
+.fyp>span{
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.world>span:hover, .fyp>span:hover {
+    text-decoration: 2px underline #EB4660 !important;
+  }
+
+
+/********************************************/
+/* End of Post*/
+
+.trendSide{
+    background-color: #E3DAC9;
+}

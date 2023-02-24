@@ -135,20 +135,21 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
               theme === "light"? false : true
             } 
             onChange={onSwitch}
+            color="primary"
             className="switch"
             sx={{marginTop: "6px"}}
           />
         </div>
           <IconButton
             className='icons'
+            id='menu'
             size="large"
             edge="start"
-            color="inherit"
             aria-label="open drawer"
-            sx={{ marginLeft: 2, borderRadius: 1}}
+            sx={{ marginLeft: 2, borderRadius: 1, color: (() => theme === "light" ? "#1C2835" : "#f2f2f2")}}
             onClick={handleOpenMenu}  
           >
-            <MenuIcon /> 
+            <MenuIcon className='icons'/> 
           </IconButton>
         <Menu
           id="basic-menu"

@@ -21,27 +21,16 @@ function App() {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme)
   }
-  // const lightTheme = createTheme({
-  //   palette: {
-  //     mode: "light",
-  //     type: "dark",
-  //     primary: {
-  //       main: "#2C3568", //dark blue
-  //     },
-  //     secondary:{
-  //       main: "#EB4660", //bright pink
-  //     },
-  //     tertiary:{
-  //       main: "#EEE8DB", //cream
-  //     },
-  //     white:{
-  //       main: "#F2F2F2", //white
-  //     },
-  //     typography: {
-  //       fontFamily:["montserrat", "poppins"],
-  //     }
-  //   }
-  // });
+
+  const themes = createTheme({
+    palette: {
+      type: "light",
+      primary: {
+        main: "#5ecbf6"
+      },
+    }
+  });
+
   const [accessToken, setAccessToken] = useState(getAccessToken());
   const navigate = useNavigate();
 
@@ -73,8 +62,7 @@ function App() {
 
   return (
    
-  // <ThemeProvider theme={lightTheme}>
-     <>
+  <ThemeProvider theme={themes}>
       <CssBaseline />
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
@@ -104,8 +92,7 @@ function App() {
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
-      </>
-    // </ThemeProvider>
+    </ThemeProvider>
   );
 }
 

@@ -45,7 +45,9 @@ const LoginSwiper = () => {
       setLike(false);
     }
     setTimeout(function () {
-      navigate("/feed");
+      userService.updateCurrentUser({ firstTimeLogin: false }).then(() => {
+        navigate("/feed");
+      });
     }, 400);
   };
 

@@ -7,3 +7,7 @@ export function getCurrentUser() {
 export function updateCurrentUser(user) {
   return http.put("/profiles/update", user);
 }
+
+export function getRandomUsers(count, userID) {
+  return http.get(`/profiles/random/${count}/${userID}`);
+}

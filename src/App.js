@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, Paper, ThemeProvider } from '@mui/material';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import LoginSwiper from './components/LoginSwiper';
 import FeedPage from './pages/FeedPage';
@@ -6,28 +6,42 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import Onboarding from "./pages/Onboarding";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAccessToken, login } from './services/auth';
+import useLocalStorage from 'use-local-storage';
 
 function App() {
   
-  const theme = createTheme({
-    palette: {
-      type: "light",
-      primary: {
-        main: "#eb4660",
-      },
-      
-      typography: {
-        fontFamily:["montserrat", "poppins"]
-      },
+  const [theme, setTheme] = useLocalStorage("theme", "light")
 
-      secondary:{
-        main: "#2c3568",
-      }
-    }
-  });
-
+  useEffect(() => {
+    console.log(theme);
+  })
+  const switchTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme)
+  }
+  // const lightTheme = createTheme({
+  //   palette: {
+  //     mode: "light",
+  //     type: "dark",
+  //     primary: {
+  //       main: "#2C3568", //dark blue
+  //     },
+  //     secondary:{
+  //       main: "#EB4660", //bright pink
+  //     },
+  //     tertiary:{
+  //       main: "#EEE8DB", //cream
+  //     },
+  //     white:{
+  //       main: "#F2F2F2", //white
+  //     },
+  //     typography: {
+  //       fontFamily:["montserrat", "poppins"],
+  //     }
+  //   }
+  // });
   const [accessToken, setAccessToken] = useState(getAccessToken());
   const navigate = useNavigate();
 
@@ -59,35 +73,39 @@ function App() {
 
   return (
    
-  <ThemeProvider theme={theme}>
-     
+  // <ThemeProvider theme={lightTheme}>
+     <>
       <CssBaseline />
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route
             path="/login"
-            element={<Login onLogin={handleLogin}/>}
+            element={ accessToken ? <Navigate to="/feed" /> : <Login onLogin={handleLogin} />}
           />
       
           <Route
             path="/onboarding"
-            element={accessToken ? <Onboarding onLogout={handleLogout}/> : <Login onLogin={handleLogin}/>}
+            element={accessToken ? <Onboarding onLogout={handleLogout}/> : <Navigate to="/login" />}
           />
 
           <Route
             path="/register"
-            element={accessToken? <FeedPage onLogout={handleLogout}/> : <Register />}
+            element={accessToken? <Navigate to="/feed" /> : <Register />}
           />
 
           <Route
             path="/feed"
-            element={accessToken? <FeedPage onLogout={handleLogout}/> : <Login onLogin={handleLogin}/>}
+            element={accessToken? <FeedPage 
+              onLogout={handleLogout}
+              onSwitch={switchTheme}
+              theme={theme}/> : <Navigate to="/login" />}
           />
           
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
-    </ThemeProvider>
+      </>
+    // </ThemeProvider>
   );
 }
 

@@ -9,16 +9,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Avatar, Grid, Menu, MenuItem } from '@mui/material';
+import { Avatar, FormControlLabel, FormGroup, Grid, Menu, MenuItem, Paper, Switch } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import nav from "../images/nav.png"
+import nav1 from "../images/nav1.png"
 import nik from "../images/nik.jpg"
 import "../style/NavBar.css";
 import { Link, useNavigate } from 'react-router-dom';
+import { color } from '@mui/system';
 
-const NavBar = ({onLogout}) => {
+const NavBar = ({onLogout, onSwitch, theme}) => {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -78,9 +80,12 @@ const NavBar = ({onLogout}) => {
     navigate("/profile/:username")
   }
 
+  const themeNow = theme;
+
   return (
+   <Paper>
     <Grid container sx={{ flexGrow: 1}}>
-      <AppBar position="static" sx={{backgroundColor:"#EEE8DB"}}>
+      <AppBar position="static" >
       <Toolbar>
         <Typography
           variant="h6"
@@ -88,7 +93,12 @@ const NavBar = ({onLogout}) => {
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          <img src={nav} style={{width: "10%", marginTop:10}} />
+         {
+          themeNow === "light" ? 
+          <img src={nav} style={{width: "10%", marginTop:10}} /> :
+          <img src={nav1} style={{width: "10%", marginTop:10}} />
+         } 
+          
         </Typography>
         <Search sx={{color: "#2c3568"}}>
           <SearchIconWrapper>
@@ -148,10 +158,18 @@ const NavBar = ({onLogout}) => {
           <MenuItem sx={{fontFamily: "montserrat"}} onClick={onLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
           </MenuItem>
+          <MenuItem>
+          {/* <Stack direction="row" spacing={1} alignItems="center">
+        <Typography>Light</Typography>
+        <Switch color="#1C2835" inputProps={{ 'aria-label': 'ant design' }} />
+        <Typography>Dark</Typography>
+      </Stack> */}
+          </MenuItem>
         </Menu>
       </Toolbar>
       </AppBar>
     </Grid>
+    </Paper> 
   );
 }
 export default NavBar

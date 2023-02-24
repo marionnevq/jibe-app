@@ -22,7 +22,16 @@ import * as userService from "../services/user";
 const NavBar = ({ onLogout }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   //marionne
-  const [user, setCurrentUser] = React.useState(userService.getCurrentUser());
+  const [currentUser, setCurrentUser] = React.useState(null);
+
+  async function getUser() {
+    const user = await userService.getCurrentUser();
+    setCurrentUser(user.data);
+  }
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -132,7 +141,7 @@ const NavBar = ({ onLogout }) => {
             </IconButton>
             <IconButton>
               <Avatar
-                src={user.imageUrl}
+                src={currentUser == null ? "" : currentUser.imageUrl}
                 sx={{ width: 50, height: 50, margin: "0, 5" }}
               />
             </IconButton>

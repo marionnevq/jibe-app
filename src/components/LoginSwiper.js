@@ -23,14 +23,14 @@ const LoginSwiper = () => {
   const [imageUrl, setImageUrl] = useState(null);
   //marionne
   const [imageUpload, setImageUpload] = useState(null);
+  const [bio, setBio] = useState(null);
   const swiperRef = useRef(null);
   const navigate = useNavigate();
 
   //marionne
   async function getUser() {
-    const user = await userService.getCurrentUserAPI();
-    userService.setCurrentUser(user.data);
-    console.log(userService.getCurrentUser());
+    const user = await userService.getCurrentUser();
+    console.log(user.data);
     if (!user.data.firstTimeLogin) {
       navigate("/feed");
     }
@@ -56,6 +56,10 @@ const LoginSwiper = () => {
     console.log(img);
   };
 
+  const handleBio = (event) => {
+    setBio(event.target.value);
+  };
+
   //marionne
   const handleSaveChanges = () => {
     if (imageUpload == null) return;
@@ -68,10 +72,8 @@ const LoginSwiper = () => {
       const path = snapshot.metadata.fullPath;
       const uRef = ref(storage, path);
       getDownloadURL(uRef).then((url) => {
-        userService.updateCurrentUser({ imageUrl: url });
-        console.log(userService.getCurrentUser());
+        userService.updateCurrentUser({ imageUrl: url, bio });
       });
-
       swiperRef.current.swiper.slideTo(2);
     });
   };
@@ -146,6 +148,7 @@ const LoginSwiper = () => {
                           multiline
                           rows={5}
                           className="bio"
+                          onChange={(event) => handleBio(event)}
                         />
                       </div>
                       <div className="icon">

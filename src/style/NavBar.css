@@ -28,14 +28,14 @@
     color: var(--icon);
   }
 
-  .menu{
-    border-bottom: .05;
-    background-color: #dedad1;
-    font-family: "montserrat";
+  .icons #menu{
+    color: var(--icon);
   }
 
-  .btn-nav .switch{
-    backcolor: rgb(10, 218, 255);
+  .menu{
+    border-bottom: .05;
+    background-color: #d1dade;
+    font-family: "montserrat";
   }
 
   @media only screen and (max-width: 900px) {

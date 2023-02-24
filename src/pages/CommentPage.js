@@ -1,4 +1,3 @@
-import React from 'react'
 import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -21,14 +20,56 @@ import sana from "../images/sana.jpg";
 import "../style/Profile.css";
 import open from "../images/open.png";
 import close from "../images/close.png";
+import CommentSection from "../components/CommentSection"
+import NavBar from "../components/NavBar";
 
-
-const CommentPage = () => {
+const CommentPage = ({ posts }) => {
+    const [like, setLike] = useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const isMenuOpen = Boolean(anchorEl);
+  
+  
+    const handleChangeIcon = () => {
+      if (like === false) {
+        setLike(true);
+      } else {
+        setLike(false);
+      }
+    };
+  
+    const menuId = "primary-search-account-menu";
+    const handleProfileMenuOpen = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+      setAnchorEl(null);
+    };
+    const renderMenu = (
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleMenuClose}>Edit</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+      </Menu>
+    );
     return (
     <>
+    <NavBar />
         <Grid container spacing={2} columns={16} className="posts-container">
-            <Grid item xs={6} sx={{ backgroundColor: "#DFDEDB" }}></Grid>
-            <Grid item xs={8} sx={{ backgroundColor: "#DFDEDB" }}>
+            <Grid item xs={6} ></Grid>
+            <Grid item xs={8} >
                 <Card sx={{ maxWidth: "50%" }} className="post">
                     <CardHeader
                         avatar={<Avatar src={sana} sx={{ bgcolor: "purple" }} />}
@@ -42,23 +83,25 @@ const CommentPage = () => {
 
                     </CardContent>
 
-                    <CardActions disableSpacing>
+                    <CardActions>
                         <IconButton className="likebtn" onClick={handleChangeIcon}>
                             {like ? <img src={close} height="40px" /> : <img src={open} height="40px" />}
-                        </IconButton>
+                        </IconButton> 
+                            {like ? <Typography>Liked</Typography> : <Typography>Like</Typography>}
                         <IconButton aria-label="comment">
                             <CommentIcon />
                         </IconButton>
+                        Comment
                     </CardActions>
                 </Card>
                 {renderMenu}
             </Grid>
-            <Grid item xs={2} sx={{ backgroundColor: "#DFDEDB" }}>
+            <Grid item xs={2}>
             </Grid>
         </Grid>
         <Grid container spacing={2} columns={16} className="posts-container">
             {posts.map((post) => (
-                <ProfilePostPage key={posts.id} post={post} />
+                <CommentSection key={posts.id} post={post} />
             ))}
         </Grid>
     </>

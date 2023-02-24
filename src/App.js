@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import Register from './pages/Register';
 import { POSTS_DATA } from './data/posts';
 import { useState } from 'react';
+import CommentPage from './pages/CommentPage';
 
 function App() {
   const [posts, setPosts] = useState(POSTS_DATA);
@@ -47,6 +48,10 @@ function App() {
            <Route
             path="/profile/:username"
             element={<ProfilePage posts={posts} />}
+          />
+          <Route
+            path="/post/comment"
+            element={<CommentPage posts={posts} />}
           />
           <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />

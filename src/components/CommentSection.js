@@ -14,18 +14,17 @@ import {
   CardActions,
   Checkbox,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import sana from "../images/sana.jpg";
 import "../style/Profile.css";
 import open from "../images/open.png";
 import close from "../images/close.png";
+import { fontFamily } from "@mui/system";
 function CommentSection({ post }) {
-
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-
 
   const handleChangeIcon = () => {
     if (like === false) {
@@ -65,13 +64,18 @@ function CommentSection({ post }) {
 
   return (
     <>
-      <Grid item xs={6} sx={{ backgroundColor: "#DFDEDB"}}></Grid>
+      <Grid item xs={6} sx={{ backgroundColor: "#DFDEDB" }}></Grid>
       <Grid item xs={8} sx={{ backgroundColor: "#DFDEDB" }}>
         <Card sx={{ maxWidth: "50%" }} className="post">
           <CardHeader
             avatar={<Avatar src={sana} sx={{ bgcolor: "purple" }} />}
             action={
-              <IconButton aria-label="settings" aria-haspopup="true" aria-controls={menuId} onClick={handleProfileMenuOpen}>
+              <IconButton
+                aria-label="settings"
+                aria-haspopup="true"
+                aria-controls={menuId}
+                onClick={handleProfileMenuOpen}
+              >
                 <MoreVertIcon />
               </IconButton>
             }
@@ -80,24 +84,32 @@ function CommentSection({ post }) {
           />
           <CardContent className="post-body">
             <Typography>{post.postMessage}</Typography>
-            {}
           </CardContent>
-          
-          <CardActions disableSpacing >
+          <hr></hr>
+          <CardActions>
             <IconButton className="likebtn" onClick={handleChangeIcon}>
-              {
-                like ? <img src={close} height="40px" /> : <img src={open} height="40px" />
-              }
+              {like ? (
+                <img src={close} height="40px" />
+              ) : (
+                <img src={open} height="40px" />
+              )}
             </IconButton>
+            <div className="post-actions">
+              {like ? (
+                <Typography>Liked</Typography>
+              ) : (
+                <Typography>Like</Typography>
+              )}
+            </div>
             <IconButton aria-label="comment">
               <CommentIcon />
             </IconButton>
+            <Typography>Comment</Typography>
           </CardActions>
         </Card>
         {renderMenu}
       </Grid>
-      <Grid item xs={2} sx={{ backgroundColor: "#DFDEDB" }}>
-      </Grid>
+      <Grid item xs={2} sx={{ backgroundColor: "#DFDEDB" }}></Grid>
     </>
   );
 }

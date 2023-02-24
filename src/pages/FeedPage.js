@@ -18,7 +18,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { MoreVert } from '@mui/icons-material';
 
-const FeedPage = () => {
+
+const FeedPage = ({ onLogout }) => {
 
   const [image, setImage] = useState(null);
   const imageRef = useRef();
@@ -47,19 +48,11 @@ const FeedPage = () => {
     } else {
       setLike(false);
     }
-
-    const Item = styled(Paper)(({ theme }) => ({
-      backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    }));
-    
   }
   return (
     <>
-    <NavBar />
+
+    <NavBar onLogout={onLogout}/>
    <Box className="Feed" sx={{ flexGrow: 1 }}>
     <Grid container style={{ minHeight: "100vh"}} spacing={2}>
       
@@ -277,7 +270,7 @@ const FeedPage = () => {
       </Grid>
     </Grid>
    </Box>
-    
+
     </>
   )
 }

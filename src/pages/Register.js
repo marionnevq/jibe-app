@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo2 from "../images/logo-noblack-label.png"
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,12 +8,12 @@ import reg from "../images/reg.png"
 import "../style/Register.css"
 import Joi from 'joi';
 import LoginSwiper from '../components/LoginSwiper';
+import { UserContext } from '../context/UserContext';
+import { register } from '../services/auth';
 
 const Register = () => {
-
+  const { onRegister } = useContext( UserContext );
   const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -24,18 +24,12 @@ const Register = () => {
     username: "",
     password: "",
     confirmPwd: "",
-    image: "",
+    imageUrl: "",
     bio: "",
   });
-  const [newUser, setNewUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: "",
-    password: "",
-    image: "",
-    bio: "",
-  });
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const navigate = useNavigate();
 
 // const handleImage = (event) => {
 //     const img = event.target.files[0];
@@ -52,29 +46,34 @@ const schema = Joi.object({
     firstname: Joi.string().min(3).max(20).required(),
     lastname: Joi.string().min(3).max(20).required(),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-    username: Joi.string().min(3).max(20).required(),
-    password: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .required()
-    .messages({
-      "string.pattern.base": `Password should be between 3 to 30 characters and contain letters or numbers only`,
-      "string.empty": `Password cannot be empty`,
-      "any.required": `Password is required`,
-    }),
+    username: Joi.string().min(8).max(20).required(),
+    password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(8).required(),
     confirmPwd: Joi.valid(form.password).messages({
         "any.only": "The two passwords do not match",
         "any.required": "Please re-enter the password",
     }),
-    image: Joi.optional(),
+    imageUrl: Joi.optional(),
     bio: Joi.optional(),
 });
 
 const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(form);
-    console.log(newUser);
-    // onLogin(form.username, form.password);
-    navigate("/feed")
+    try {
+        const response = await register( 
+            form.firstname,
+            form.lastname,
+            form.email,
+            form.username,
+            form.password,
+            form.imageUrl,
+            form.bio);
+        alert("Registration successful");
+        navigate("/login");
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          alert(error.response.data.message);
+        }
+      }
 };
 
 const handleChange = ({ currentTarget: input }) => {
@@ -83,12 +82,6 @@ const handleChange = ({ currentTarget: input }) => {
         [input.name]: input.value,
 });
 
-if(input.name !== "confirmPwd"){
-    setNewUser({
-        ...newUser,
-        [input.name]: input.value,
-    });
-}
 
 const { error } = schema
     .extract(input.name)
@@ -111,15 +104,6 @@ const isFormInvalid = () => {
     return !!result.error;
 };
 
-const viewStyle = () => {
-    return {
-      flex: 1,
-      backgroundColor: '#EEE8DB',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }
-}
-
 return (
     <Grid container style={{ minHeight: "100vh"}}>
         <Grid className='reg' item xs={12} sm={6}>
@@ -134,26 +118,6 @@ return (
                 <img src={Logo2}/>
             </div>
             <div className='page-title'>Registration</div>
-            {/* <div><img src={imageUrl}/></div>
-            <div style={{display: 'flex', justifyContent: "center"}}>
-                <Button
-                    variant="contained"
-                    component="label"
-                    className='img-btn'
-                    sx={{marginBottom: "15px"}}
-                >
-                    <Typography sx={{fontFamily: "montserrat", fontSize: "12px"}}>Choose Profile Picture</Typography>
-                    <input
-                        accept="image/*"
-                        type="file"
-                        hidden
-                        onChange={(event) => handleImage(event)}
-                    />
-                </Button>
-            </div> */}
-            {/* <div>
-                <LoginSwiper />
-            </div> */}
             <div>
                 <div style={{display: "flex", justifyContent: "center"}}>
                 <TextField

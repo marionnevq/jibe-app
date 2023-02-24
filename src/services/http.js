@@ -5,6 +5,7 @@ const http = axios.create({
 });
 
 http.interceptors.response.use(null, (error) => {
+  console.log("going to BE")
   const expectedError =
     error.response &&
     error.response.status >= 400 &&

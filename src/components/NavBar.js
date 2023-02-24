@@ -18,7 +18,7 @@ import nik from "../images/nik.jpg"
 import "../style/NavBar.css";
 import { Link, useNavigate } from 'react-router-dom';
 
-function NavBar() {
+const NavBar = ({onLogout}) => {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -74,10 +74,6 @@ function NavBar() {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    navigate("/login")
-  }
-
   const handlePathToProfile = () => {
     navigate("/profile/:username")
   }
@@ -92,7 +88,7 @@ function NavBar() {
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          <img src={nav} style={{width: "15%", marginTop:10}} />
+          <img src={nav} style={{width: "10%", marginTop:10}} />
         </Typography>
         <Search sx={{color: "#2c3568"}}>
           <SearchIconWrapper>
@@ -131,7 +127,7 @@ function NavBar() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, marginLeft: 3, borderRadius: 1, color: "#1A212E" }}
+            sx={{ marginLeft: 2, borderRadius: 1, color: "#1A212E" }}
             onClick={handleOpenMenu}  
           >
             <MenuIcon /> 
@@ -149,7 +145,7 @@ function NavBar() {
           <MenuItem className='menu' >
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
-          <MenuItem sx={{fontFamily: "montserrat"}} onClick={handleLogout}>
+          <MenuItem sx={{fontFamily: "montserrat"}} onClick={onLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
           </MenuItem>
         </Menu>

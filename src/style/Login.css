@@ -43,9 +43,9 @@
     margin-top: 20px;
 }
 
-.right-grid .page-title{
+.right-grid #page-title{
     font-family: "montserrat"; 
-    color: #1A212E; 
+    color: #2c3568; 
     font-weight: bolder; 
     font-size: 35px; 
     padding-bottom: 30px; 
@@ -89,4 +89,11 @@
     margin-top: 10px; 
     margin-bottom: 5px; 
     font-size: 12px;
+}
+
+@media only screen and (max-width: 650px) {
+    .right-grid .btn2{
+        width: 30%;
+        margin-bottom: 50px;
+    }
 }

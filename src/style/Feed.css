@@ -23,7 +23,7 @@
 }
 
 .profileSide{
-    /* background-color: #E3DAC9; */
+    background-color: var(--background);
     align-items: center;
     justify-content: center;
 }
@@ -141,6 +141,7 @@
 /* End of Profile*/
 
 .postSide{
+    background-color: var(--background);
     justify-content: center;
     align-items: center;
 }
@@ -361,7 +362,7 @@
     justify-content: center;
 }
 .likeButton>span{
-    color: black;
+    color: var(--text-primary);
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -377,7 +378,7 @@
 }
 
 .commentButton>span{
-    color: black;
+    color: var(--text-primary);
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
@@ -386,9 +387,9 @@
 /********************************************/
 /* End of Post*/
 
-/* .trendSide{
-    background-color: #E3DAC9;
-} */
+.trendSide{
+    background-color: var(--background);
+} 
 
 .headerTitle{
     text-align: center;

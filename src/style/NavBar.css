@@ -1,5 +1,31 @@
+:root {
+  --background: #f2f2f2; /*white*/
+  --background-two: #EEE8DB; /*cream*/
+  --text-primary: #000; /*black*/
+  --text-secondary: #f2f2f2; /*white*/
+  --primary: #EB4660; /*pink*/
+  --secondary: #2C3568; /*dark blue*/
+  --icon: #1C2835; 
+}
+
+[data-theme='dark'] {
+  --background: #1C2835; /*dark blue*/
+  --background-two: #16202A; /*darker blue*/
+  --text-primary: #f2f2f2; /*white*/
+  --text-secondary: #f2f2f2; /*white*/
+  --primary: #1C2835; /*dark blue*/
+  --secondary: #16202A; /*darker blue*/
+  --icon: #f2f2f2; 
+}
+  .nav-bar{
+    background-color: var(--background-two);
+  }
   .btn-nav{
     display: flex;
+  }
+
+  .btn-nav .icons{
+    color: var(--icon);
   }
 
   .menu{
@@ -8,6 +34,9 @@
     font-family: "montserrat";
   }
 
+  .btn-nav .switch{
+    backcolor: rgb(10, 218, 255);
+  }
 
   @media only screen and (max-width: 900px) {
   }

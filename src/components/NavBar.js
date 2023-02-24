@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Avatar, FormControlLabel, FormGroup, Grid, Menu, MenuItem, Paper, Switch } from '@mui/material';
+import { Avatar, Grid, Menu, MenuItem, Paper, Switch} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -83,10 +83,10 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
   const themeNow = theme;
 
   return (
-   <Paper>
+   <Paper data-theme={theme} >
     <Grid container sx={{ flexGrow: 1}}>
       <AppBar position="static" >
-      <Toolbar>
+      <Toolbar className='nav-bar'>
         <Typography
           variant="h6"
           noWrap
@@ -111,33 +111,41 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         </Search>
         <div className='btn-nav' style={{justifyContent:"end"}}>
           <IconButton
+            className='icons'
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, margin: "20, 20", borderRadius: 1 , color: "#1A212E" }}
+            sx={{ mr: 2, margin: "20, 20", borderRadius: 1}}
           >
             <AddCircleOutlineIcon className='addIcon' />
           </IconButton>
           <IconButton
+            className='icons'
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, margin: "20, 20", borderRadius: 1, color: "#1A212E" }}
+            sx={{ mr: 2, margin: "20, 20", borderRadius: 1}}
           >
             <NotificationsIcon/>
           </IconButton>
-          <IconButton>
-            <Avatar src={nik} sx={{width: 50, height:50, margin: "0, 5"}}/>
-          </IconButton>
+          <Switch 
+            defaultChecked={
+              theme === "light"? false : true
+            } 
+            onChange={onSwitch}
+            className="switch"
+            sx={{marginTop: "6px"}}
+          />
         </div>
           <IconButton
+            className='icons'
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ marginLeft: 2, borderRadius: 1, color: "#1A212E" }}
+            sx={{ marginLeft: 2, borderRadius: 1}}
             onClick={handleOpenMenu}  
           >
             <MenuIcon /> 
@@ -157,13 +165,6 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           </MenuItem>
           <MenuItem sx={{fontFamily: "montserrat"}} onClick={onLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
-          </MenuItem>
-          <MenuItem>
-          {/* <Stack direction="row" spacing={1} alignItems="center">
-        <Typography>Light</Typography>
-        <Switch color="#1C2835" inputProps={{ 'aria-label': 'ant design' }} />
-        <Typography>Dark</Typography>
-      </Stack> */}
           </MenuItem>
         </Menu>
       </Toolbar>

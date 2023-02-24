@@ -49,7 +49,7 @@ const FeedPage = ({onLogout, onSwitch, theme}) => {
   }
 
   return (
-    <>
+    <div data-theme={theme}>
     <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
    <Box className="Feed" sx={{ flexGrow: 1 }}>
     <Grid container style={{ minHeight: "100vh"}} spacing={2}>
@@ -266,7 +266,7 @@ const FeedPage = ({onLogout, onSwitch, theme}) => {
     </Grid>
    </Box>
     
-    </>
+    </div>
   )
 }
 

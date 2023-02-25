@@ -83,7 +83,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
   const themeNow = theme;
 
   return (
-   <Paper data-theme={theme} >
+   <Paper data-theme={theme} className="parent">
     <Grid container sx={{ flexGrow: 1}}>
       <AppBar position="static" >
       <Toolbar className='nav-bar'>
@@ -118,16 +118,6 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
             aria-label="open drawer"
             sx={{ mr: 2, margin: "20, 20", borderRadius: 1}}
           >
-            <AddCircleOutlineIcon className='addIcon' />
-          </IconButton>
-          <IconButton
-            className='icons'
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2, margin: "20, 20", borderRadius: 1}}
-          >
             <NotificationsIcon/>
           </IconButton>
           <Switch 
@@ -135,7 +125,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
               theme === "light"? false : true
             } 
             onChange={onSwitch}
-            color="primary"
+            color="tertiary"
             className="switch"
             sx={{marginTop: "6px"}}
           />
@@ -158,14 +148,25 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           onClose={handleCloseMenu}
           sx={{width:"500px"}}
         >
-          <MenuItem className='menu' onClick={handlePathToProfile}>
+          <MenuItem className='menu' onClick={handlePathToProfile} sx={{fontFamily: "montserrat"}}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
-          <MenuItem className='menu' >
+          <MenuItem className='menu' sx={{fontFamily: "montserrat"}}>
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
           <MenuItem sx={{fontFamily: "montserrat"}} onClick={onLogout}>
             <MeetingRoomIcon />&nbsp;&nbsp;Logout
+          </MenuItem>
+          <MenuItem sx={{fontFamily: "montserrat", backgroundColor: "#f2f2f2"}}>
+          <Switch 
+            defaultChecked={
+              theme === "light"? false : true
+            } 
+            onChange={onSwitch}
+            color="tertiary"
+            className="switch"
+            sx={{marginTop: "6px", marginLeft: 0}}
+          />Brightness
           </MenuItem>
         </Menu>
       </Toolbar>

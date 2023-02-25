@@ -1,25 +1,29 @@
 :root {
-  --background: #f2f2f2; /*white*/
-  --background-two: #EEE8DB; /*cream*/
+  --background: #EEE8DB; /*white*/
+  --background-two: #f2f2f2; /*cream*/
   --text-primary: #000; /*black*/
   --text-secondary: #f2f2f2; /*white*/
-  --primary: #EB4660; /*pink*/
+  --primary: #ff5d75; /*pink*/
   --secondary: #2C3568; /*dark blue*/
   --icon: #1C2835; 
+  --nav-shadow: gray;
 }
 
 [data-theme='dark'] {
-  --background: #1C2835; /*dark blue*/
-  --background-two: #16202A; /*darker blue*/
+  --background: #191919; /*dark blue*/
+    --background-two: #191919; /*darker blue*/
   --text-primary: #f2f2f2; /*white*/
   --text-secondary: #f2f2f2; /*white*/
   --primary: #1C2835; /*dark blue*/
   --secondary: #16202A; /*darker blue*/
   --icon: #f2f2f2; 
+  --nav-shadow: #c1c1c1; /*white*/
 }
   .nav-bar{
-    background-color: var(--background-two);
+    background-color: var(--background);
+    box-shadow: 0 0.1px 3px var(--nav-shadow);
   }
+
   .btn-nav{
     display: flex;
   }

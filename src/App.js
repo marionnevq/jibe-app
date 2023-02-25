@@ -17,6 +17,7 @@ function App() {
   useEffect(() => {
     console.log(theme);
   })
+
   const switchTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme)
@@ -26,7 +27,13 @@ function App() {
     palette: {
       type: "light",
       primary: {
-        main: "#5ecbf6"
+        main: "#EB4660"
+      },
+      secondary: {
+        main: "#2C3568"
+      },
+      tertiary: {
+        main: "#ff5d75"
       },
     }
   });

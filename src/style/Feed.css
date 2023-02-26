@@ -4,22 +4,153 @@
     --background: #EEE8DB; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
-    --text-secondary: #f2f2f2; /*white*/
-    --primary: #EB4660; /*pink*/
+    --text-secondary: #424242; /*white*/
+    --primary: #ff5d75; /*pink*/
     --secondary: #2C3568; /*dark blue*/
-}
+    --icon: #1C2835; 
+    --nav-shadow: rgb(185, 184, 184);
+    --nav2-logo: #1C2835;
+    --input-field: white;
+    --paper: white;
+    --textfield: #f2f2f2;
+  }
   
-[data-theme='dark'] {
-    --background: #191919; /*dark blue*/
-    --background-two: #191919; /*darker blue*/
-    --text-primary: #f2f2f2; /*white*/
-    --text-secondary: #f2f2f2; /*white*/
+  [data-theme='dark'] {
+    --background: #1b1b1b; /*dark blue*/
+    --background-two: #3f3f3f; /*darker blue*/
+    --text-primary: white; /*white*/
+    --text-secondary: #9b9b9b; /*white*/
     --primary: #1C2835; /*dark blue*/
     --secondary: #16202A; /*darker blue*/
-}
-    .parent{
-        background-color: var( --background-two);
+    --icon: #f2f2f2; 
+    --nav-shadow: #7b7b7b; /*white*/
+    --nav2-logo: #ff5d75;
+    --input-field: #333333;
+    --paper: #343434;
+    --textfield: #9b9b9b;
+  }
+
+  .MuiInputLabel-root {
+    font-family: "montserrat" !important;
+  }
+  
+  .parent{
+        background-color: var( --background);
     }
+
+    .parent .trend-part {
+        background-color: var( --background);
+    }
+    /*Light and Dark Mode*/
+
+    .parent .profileSide{
+        background-color: var( --background);
+    }
+
+    .parent .postSide{
+        background-color: var( --background);
+    }
+
+    .parent .trendSide{
+        background-color: var( --background);
+    }
+
+    .parent .postSide .feedType .world span {
+        color: white;
+    }
+
+    .parent .profile {
+        background-color: var(--paper);
+        color: var(--text-primary);
+    }
+
+    .parent .name{
+        color: var(--text-primary);
+    }
+
+    .parent .username{
+        color: var(--text-secondary);
+    }
+
+    .parent .following>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    .parent .followers>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    .parent .world{
+        color: var(--text-primary);
+    }
+
+    .primary .fyp>span{
+        color: var(--text-primary);
+    }
+
+    .parent .shareText{
+        background-color: var(--textfield);
+    }
+
+    .parent .shareText>input{
+        color: var(--text-primary);
+    }
+
+
+    .parent .opName{
+        color: var(--text-primary);
+    }
+
+    .parent .opName>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    .parent .txtContent{
+        color: var(--text-primary);
+    }
+
+    .parent .commentButton{
+        color: var(--text-primary);
+    }
+
+    .parent .commentButton>span{
+        color: var(--text-primary);
+    }
+
+    .parent .likeButton>span{
+        color: var(--text-primary);
+    }
+
+
+    .parent .latchList{
+        background-color: var(--paper);
+    }
+
+    .parent .post{
+        background-color: var(--paper);
+    }
+
+    .parent .trends{
+        background-color: var(--paper);
+    }
+
+    .parent .trendGrid{
+        color: var(--text-primary);
+    }
+
+    .parent .trendTopic{
+        color: var(--text-primary);
+    }
+
+    .parent .feedType{
+        color: var(--text-primary);
+    }
+
+    .parent .talksTopic>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    /*end*/
 
     .Feed{
         margin-top: 10px;
@@ -32,28 +163,15 @@
     }
     
     .profile{
-        margin-left: 15px;
-        border-radius: 1rem;
+        border-radius: 10rem;
         align-items: center;
         justify-content: center;
-    }
-    
-    .profileDp{
-        margin-top: -60px;
-        margin-left: 98px ;
-        width: 100px;
     }
     
     .profileDp>img{
         width: 6rem;
         border-radius: 50%;
-        /* position: absolute;
-        bottom: -3rem;
-        box-shadow: 3px;
-        margin-bottom: 480px;
-        margin-left: 98px;
-        box-shadow: 2px 2px 2px gray;  */
-    }
+}
     
     .names{
         align-items: center;
@@ -70,6 +188,7 @@
     .username>span{
         font-family: 'Montserrat', sans-serif;
         font-size: 14px;
+        font-weight: 500;
     }
     
     .names>h3:hover{
@@ -106,9 +225,6 @@
     .following{
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
         text-align: center;
     }
     
@@ -160,9 +276,20 @@
         justify-content: center;
         align-items: center;
     }
+
+    .parent .feedType{
+        background-color: var(--paper);
+    }
     
     .post{
+        align-items: center;
+        align-content: center;
+        justify-content: center;
         margin-bottom: 10px;
+    }
+
+    .postInfo{
+        margin-top: 3px;
         display: flex;
         align-items: center;
         align-content: center;
@@ -194,21 +321,26 @@
         font-weight: 500;
         margin: 5px;
     }
+
+    .shareText{
+        border-radius: 10px;
+        font-family: 'Montserrat', sans-serif;
+        margin: 5px;
+    }
     
     .postPhoto{
         width: 50px;
-        margin: 3px;
         align-content: center;
         justify-content: center;
+        display: flex;
     }
-    
+
     .shareText>input{
         background-color: #f2f2f2;
         border-radius: 10px;
         padding: 10px;
         font-size: 15px;
         border: none;
-        width: 495px;
     }
     
     .postPhoto>img{
@@ -220,11 +352,16 @@
         color: #EB4660;
     }
     
+    .previewBox{
+        margin: 7px;
+    }
+    
     .previewImage{
-        position: relative;
+        /* position: relative; */
         justify-content: center;
         align-items: center;
         display: flex;
+        flex-direction: column;
     }
     
     .previewImage>img{
@@ -234,10 +371,18 @@
         margin-bottom: 10px;
         border-radius: 5px;
     }
+
+    .previewClose{
+        width: 100%;
+        display: flex;
+        justify-content: right;
+    }
     
     .sharebtn{
-        width: 100px;
-        margin-top: 5px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
     
     .shareButton{
@@ -248,50 +393,49 @@
     .feedType{
         justify-content: center;
         display: flex;
-        width: 97%;
-    }
-    
-    .world{
+    } 
+
+    /* .world{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         align-content: center;
         text-align: center;
-        width: 100px;
-    }
+        /* width: 100px; 
+    } */
     
     .world:hover{
         cursor: pointer;
     }
     
-    .world>a{
+    .world>span{
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
     }
     
-    .fyp{
+    /* .fyp{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         align-content: center;
         text-align: center;
-        width: 100px;
-    }
+        /* width: 100px; 
+    } */
     
     .fyp:hover{
         cursor: pointer;
     }
     
-    .fyp>a{
+    .fyp>span{
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
     }
     
-    .world>a:hover, .fyp>a:hover {
+    .world>span:hover, .fyp>span:hover {
         text-decoration: 3px underline #EB4660 !important;
     }
     
@@ -344,7 +488,7 @@
         font-family: 'Poppins', sans-serif;
         font-size: 15px;
     }
-    
+
     .reactions{
         justify-content: space-evenly;
         align-items: center;
@@ -404,76 +548,48 @@
         background-color: var(--background-two);
     }
     
-    .headerTitle{
-        text-align: center;
-        height: 65px;
-        font-family: 'Montserrat', sans-serif;
+    .trendGrid>span{
+        font-weight: 700;
+        font-size: 18px;
+        
     }
-    
-    .trendTopics{
-        font-family: 'Montserrat', sans-serif;
+
+    .talks{
+        display: flex;
+        text-align: left;
+        padding-left: 10px;
+        margin-bottom: 2.5px;
+        margin-top: 2.5px;
+    }
+    .talksTopic{
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
         text-align: left;
     }
-    
-    .trendTopics>span:nth-of-type(1){
+
+    .talksTopic>span:nth-of-type(1){
         font-weight: 600;
-        font-size: 16px;
+        font-size: 15px;
     }
-    
-    .trendTopics>span:nth-of-type(2){
-        font-weight: 400;
-        font-size: 12px;
+
+    .talksTopic>span:nth-of-type(2){
+        font-size: 13px;
     }
-    
+
+    .rank{
+        align-items: center;
+        display: flex;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
     @media only screen and (max-width: 650px) {
-        .profileSide{
+        .profileSide, .trendSide{
             display: none;
-         }
-    
-        .trendSide{
-            display: none;
-         }
-    
-         .postSide{
-            align-items: center;
-            justify-content: center;
-         }
-    
-         .post{
-            margin-left: 7px;
-            width: 500px;
-            height: 200px;
-         }
-    
-         .postDp{
-            width: 50px;
-         }
-    
-         .postDp2>img{
-            width: 2rem;
-         }
-    
-         .postText{
-            width: 290px;
-         }
-    
-         .previewImage>img{
-            width: 350px;
-         }
-    
-         .feedType{
-            margin-left: 60px;
-         }
-    
-         .sharedPost{
-            margin-left: 7px;
-            width: 500px;
-         }
-    
-    
+        }
+
+        .previewImage>img{
+            width: 100%;;
+        }
     }
-    

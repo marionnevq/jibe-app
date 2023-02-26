@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Navigation, Keyboard, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import FollowCard from "./FollowCard";
@@ -17,8 +25,21 @@ import * as userService from "../services/user";
 import { USER_ACCOUNT } from "../Data/sample";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../services/firebase";
+import Loading from "../images/Loading.gif";
 
 const LoginSwiper = () => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "#fff",
+    pt: 1,
+    pl: 1,
+    pr: 1,
+    borderRadius: 25,
+  };
+
   const [like, setLike] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
   //marionne
@@ -26,6 +47,7 @@ const LoginSwiper = () => {
   const [bio, setBio] = useState(null);
   const swiperRef = useRef(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleChangeIcon = () => {
     if (like === true) {
@@ -52,6 +74,7 @@ const LoginSwiper = () => {
   //marionne
   const handleSaveChanges = () => {
     if (imageUpload == null) return;
+    setLoading(true);
     const imageRef = ref(
       storage,
       `images/profileImage_${userService.getCurrentUser().id}`
@@ -62,13 +85,19 @@ const LoginSwiper = () => {
       const uRef = ref(storage, path);
       getDownloadURL(uRef).then((url) => {
         userService.updateCurrentUser({ imageUrl: url, bio });
+        setLoading(false);
+        swiperRef.current.swiper.slideTo(2);
       });
-      swiperRef.current.swiper.slideTo(2);
     });
   };
 
   return (
     <>
+      <Modal open={loading}>
+        <Box sx={style}>
+          <img src={Loading} />
+        </Box>
+      </Modal>
       <Grid container sx={{ minHeight: "100vh" }}>
         <Grid container item>
           <Swiper
@@ -113,7 +142,10 @@ const LoginSwiper = () => {
                           sx={{ backgroundColor: "#EB4660" }}
                         >
                           <Typography
-                            sx={{ fontFamily: "montserrat", fontSize: "12px" }}
+                            sx={{
+                              fontFamily: "montserrat",
+                              fontSize: "12px",
+                            }}
                           >
                             Choose Profile Picture
                           </Typography>

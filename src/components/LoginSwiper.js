@@ -27,19 +27,6 @@ const LoginSwiper = () => {
   const swiperRef = useRef(null);
   const navigate = useNavigate();
 
-  //marionne
-  async function getUser() {
-    const user = await userService.getCurrentUser();
-    console.log(user.data);
-    if (!user.data.firstTimeLogin) {
-      navigate("/feed");
-    }
-    //set FSTL to false
-  }
-  useEffect(() => {
-    getUser();
-  }, []);
-
   const handleChangeIcon = () => {
     if (like === true) {
       setLike(false);

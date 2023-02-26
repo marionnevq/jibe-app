@@ -12,14 +12,15 @@ import alternate from "../images/mar.jpg";
 import { USER_DATA } from "../Data/sample";
 import "../style/swiper.css";
 import * as userService from "../services/user";
+import FollowSlide from "./FollowSlide";
 
 const FollowCard = () => {
   const [users, setUsers] = useState(null);
-
+  const [currentUser, setCurrentUser] = useState(null);
   async function getUsers() {
-    const currentUser = await userService.getCurrentUser();
-    console.log(currentUser.data);
-    const users = await userService.getRandomUsers(4, currentUser.data.id);
+    const currUser = await userService.getCurrentUser();
+    setCurrentUser(currUser.data);
+    const users = await userService.getRandomUsers(4, currUser.data.id);
     setUsers(users.data);
   }
   useEffect(() => {
@@ -51,18 +52,24 @@ const FollowCard = () => {
       >
         {users &&
           users.map((user) => (
+            // <FollowSlide user={user} currentUser={currentUser} />
             <SwiperSlide className="follow-swiper">
               <Paper className="paper-follow">
-                <div>
+                <FollowSlide user={user} currentUser={currentUser} />
+                {/* <div>
                   <img id="image" src={user.imageUrl} />
                   <div className="name">{user.firstname}</div>
                   <div className="username">{user.username}</div>
                   <div>
-                    <Button className="button" variant="contained">
+                    <Button
+                      className="button"
+                      variant="contained"
+                      data-tag={false}
+                    >
                       Latch
                     </Button>
                   </div>
-                </div>
+                </div> */}
               </Paper>
             </SwiperSlide>
           ))}

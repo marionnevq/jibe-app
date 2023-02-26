@@ -94,3 +94,43 @@
     text-align: center;
 }
 
+.user-details {
+    text-align: left;
+    margin-left: 130px;
+    height: 60px;
+}
+.title-head>span {
+    font-family: "montserrat";
+    color: #2C3568;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.sub-head>span {
+    font-family: "poppins";
+    color: #EB4660;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.name-head>span {
+    font-family: "montserrat";
+    color: #2C3568;
+    font-size: 60px;
+    font-weight: bolder;
+}
+
+.username-head>span {
+    font-family: "poppins";
+    color: #EB4660;
+    font-size: 40px;
+}
+.bio-head>span {
+    font-family: "poppins";
+    color: #2C3568;
+    font-size: 20px;
+    font-weight: bold;
+}
+.caption-content {
+    font-size: x-large;
+}

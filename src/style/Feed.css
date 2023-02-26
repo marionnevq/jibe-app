@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --background: #EEE8DB; /*white*/
+    --background: #fac7c7; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
     --text-secondary: #424242; /*white*/
@@ -449,7 +449,7 @@
     }
     
     .opImg{
-        width: 60px;
+        width: 680px;
         margin-left: 8px;
     }
     
@@ -476,12 +476,12 @@
     .opName>span:nth-of-type(1){
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
+        font-size: 20px;
     }
     
     .opName>span:nth-of-type(2){
         font-family: 'Montserrat', sans-serif;
-        font-size: 11px;
+        font-size: 15px;
     }
     
     .content>span{

@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import sana from "../images/sana.jpg";
 import "../style/Profile.css";
-import open from "../images/open.png";
-import close from "../images/close.png";
+import open from "../images/liked.png";
+import close from "../images/unlike.png";
 function ProfilePostPage({ post }) {
 
   const [like, setLike] = useState(false);

@@ -99,6 +99,7 @@ input[type="search"]{
 
   .nav-two{
     display: none;
+
   }
 
   .nav-bar .search{
@@ -119,6 +120,7 @@ input[type="search"]{
     .nav-bar, .nav-bar .icon1, .logo, .btn-nav{
       display: none;
     }
+
 
     .right{
       width: 10%;
@@ -169,4 +171,50 @@ input[type="search"]{
 }
 
 
-  
+    .right{
+      width: 10%;
+      display: flex; 
+      justify-content: end; 
+      align-items: center;
+    }
+
+    .left{
+      width: 90%;
+      display: flex; 
+      justify-content: start; 
+      align-items: center;
+    }
+
+    .click:focus{
+      width: 150px;
+      transition: width 0.4s;
+      padding-left: 5px;
+    }
+
+    .nav-two{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 15px;
+      width: 12%;
+    }
+
+    .nav-bar .search{
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      height: 35px;
+      margin-left: 10px;
+      padding: 2px 4px;
+    }
+
+    .menu-paper .menu1{
+      font-family: "montserrat";
+      font-size: 15px;
+      color: white;
+    }
+
+    .nav-bar .icon2{
+      margin-left: -45px;
+    }
+}

@@ -11,13 +11,13 @@ const ProfileVisitPage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    fetchUserByUsername(params.username).then((response) => {
-      setUser(response.data);
-      setLoading(false);
-    });
-  }, [params.id]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetchUserByUsername(params.username).then((response) => {
+  //     setUser(response.data);
+  //     setLoading(false);
+  //   });
+  // }, [params.id]);
 
   const handleSubmit = (form) => {
     // employeeService

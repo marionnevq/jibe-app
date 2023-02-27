@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Avatar, Grid, Menu, MenuItem, Paper, Switch, TextField} from '@mui/material';
+import { Grid, Menu, MenuItem, Paper, Switch } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -18,10 +12,8 @@ import nav from "../images/nav.png"
 import nav1 from "../images/nav1.png"
 import nav2 from "../images/nav2.png"
 import nav3 from "../images/nav3.png"
-import nik from "../images/nik.jpg"
 import "../style/NavBar.css";
-import { Link, useNavigate } from 'react-router-dom';
-import { color } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = ({onLogout, onSwitch, theme}) => {
   
@@ -40,10 +32,18 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     setAnchorEl(null);
   };
 
-  const handlePathToProfile = () => {
-    // navigate("/profile/:username")
-    console.log("profile")
-  }
+  // const handleSearchProfiles = () => {
+  //   employeeService
+  //     .updateEmployee(employee.id, form)
+  //     .then(() => {
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       if (error.response && error.response.status === 400) {
+  //         alert(error.response.data.message[0]);
+  //       }
+  //     });
+  // }
 
   const handleChange = ({ currentTarget: input }) => {
     setSearch({
@@ -77,7 +77,12 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
       className="search"
       sx={{backgroundColor: (() => theme === "light" ? "white" : "#333333")}}
     >
-      <IconButton type="button" sx={{ p: '10px',color: (() => theme === "light" ? "#1C2835" : "#f2f2f2") }} aria-label="search">
+      <IconButton 
+        type="button" 
+        sx={{ p: '10px',color: (() => theme === "light" ? "#1C2835" : "#f2f2f2") }} 
+        aria-label="search"
+        // onClick={}
+      >
         <SearchIcon />
       </IconButton>
       <Divider className='divider' x={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -134,7 +139,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           sx={{width:"500px", paddingTop: "-30px"}}
         >
           <Paper className='menu-paper' sx={{backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#272727"),  height: "auto"}}>
-         <MenuItem className='menuItem' onClick={handlePathToProfile} sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}}>
+         <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
           <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px"}}>

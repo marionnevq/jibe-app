@@ -13,7 +13,7 @@ import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import test from "../images/test.jpg";
 
-const ProfilePage = ({ posts }) => {
+const ProfilePage = ({ posts, theme, onSwitch }) => {
   console.log("This is POST_DATA from ProfilePage.js", posts);
   const [like, setLike] = useState(false);
   const [image, setImage] = useState(null);
@@ -36,55 +36,16 @@ const ProfilePage = ({ posts }) => {
     }
   };
   return (
-    <>
-      <NavBar />
-      {/* <Grid
-        container
-        style={{ minHeight: "100vh" }}
-        spacing={3}
-        className="main-container"
-      >
-        <Grid item xs={5}>
-          <div className="profile-pic">
-            <Avatar src={sana} sx={{ width: 250, height: 250 }} />
-          </div>
-        </Grid>
-        <Grid item xs >
-          <div className="profile-name">Nikki Fagara</div>
-          <div className="profile-tag">@NikkiFagara</div>
-          <div className="profile-bio">
-            <em>"I am the greatest..."</em>
-          </div>
-          <Grid container spacing={2} columns={15} className="sub-container">
-            <Grid item xs={2.7} className="left">
-              <div className="left-title">Posts</div>
-              <div className="left-sub">12345</div>
-            </Grid>
-            <Grid item xs={4} className="middle">
-              <div className="middle-title">Followers</div>
-              <div className="middle-sub">5.6m</div>
-            </Grid>
-            <Grid item xs={2} className="right">
-              <div className="right-title">Following</div>
-              <div className="right-sub">3</div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} columns={16} className="posts-container">
-          {posts.map((post) => (
-            <ProfilePostPage key={posts.id} post={post} />
-          ))}
-        </Grid>
-      </Grid> */}
+    <div data-theme={theme} className="parent">
+      <NavBar onSwitch={onSwitch} theme={theme} />
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Paper sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%" }} className="main">
           <Grid
             item
             className="header"
             sx={{
               width: "100%",
               height: "300px",
-              backgroundColor: "#FFE5D9",
               backgroundAttachment: "fixed",
               paddingBottom: "15px",
             }}
@@ -94,52 +55,61 @@ const ProfilePage = ({ posts }) => {
             className="profileDp"
             sx={{
               width: "100%",
-              marginTop: "-150px",
               display: "flex",
               paddingLeft: "150px",
+              boxShadow: "2"
             }}
           >
             <Avatar
               alt="Sana Minatozaki"
               src={sana}
-              sx={{ width: 300, height: 300, boxShadow: "2" }}
+              sx={{ width: "20rem", height: "20rem", boxShadow: "2", marginTop: "-150px", marginBottom:"20px" }}
             />
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
+            <Grid
+              container
+              item
+              xs={12}
+              className="following-holder"
+              sx={{ marginTop: "50px", paddingLeft: "200px" }}
             >
-              <Box className="title-head">
-                <span>Posts</span>
+              <Box
+                className="names"
+              >
+                <Box className="title-head">
+                  <span>Posts</span>
+                </Box>
+                <Box className="sub-head">
+                  <span>1.2k</span>
+                </Box>
               </Box>
-              <Box className="sub-head">
-                <span>1.2k</span>
+              <Box
+                className="names"
+                sx={{ paddingLeft: "200px" }}
+              >
+                <Box className="title-head">
+                  <span>Followers</span>
+                </Box>
+                <Box className="sub-head">
+                  <span>10.8m</span>
+                </Box>
               </Box>
-            </Box>
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
-            >
-              <Box className="title-head">
-                <span>Followers</span>
+              <Box
+                className="names"
+                sx={{ paddingLeft: "200px" }}
+              >
+                <Box className="title-head">
+                  <span>Following</span>
+                </Box>
+                <Box className="sub-head">
+                  <span>3</span>
+                </Box>
               </Box>
-              <Box className="sub-head">
-                <span>10.8m</span>
-              </Box>
-            </Box>
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
-            >
-              <Box className="title-head">
-                <span>Following</span>
-              </Box>
-              <Box className="sub-head">
-                <span>3</span>
-              </Box>
-            </Box>
+            </Grid>
           </Grid>
-          <Divider variant="fullWidth" sx={{ paddingTop: "50px" }} />
-          <Grid container sx={{ minHeight: "100vh" }}>
+
+          <Divider variant="fullWidth" className="divider"/>
+
+          <Grid container sx={{ minHeight: "100vh" }} className="postBG">
             <Grid item xs={12} md={4} sx={{ marginTop: "30px" }}>
               <Box className="user-details">
                 <Box className="name-head">
@@ -189,7 +159,7 @@ const ProfilePage = ({ posts }) => {
                     <Box className="postPhoto" sx={{ p: 0.5 }}>
                       <PhotoIcon
                         onClick={() => imageRef.current.click()}
-                        sx={{ cursor: "pointer", fontSize: "30px"}}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
                       />
                     </Box>
                   </Box>
@@ -214,7 +184,10 @@ const ProfilePage = ({ posts }) => {
                         <Box className="previewClose" sx={{ p: 0.5 }}>
                           <CancelRoundedIcon
                             onClick={() => setImage(null)}
-                            sx={{ cursor: "pointer", justifyContent: "right" }}
+                            sx={{
+                              cursor: "pointer",
+                              justifyContent: "right",
+                            }}
                           />
                         </Box>
                         <img src={image.image} />
@@ -304,7 +277,7 @@ const ProfilePage = ({ posts }) => {
                     <div className="likebtn" onClick={handleChangeIcon}>
                       <Button className="likeButton">
                         {like ? <img src={liked} /> : <img src={unlike} />}
-                        {like ? <span>Like</span> : <span>Liked</span>}
+                        {like ? <span>LikeD</span> : <span>Like</span>}
                       </Button>
                     </div>
                   </Box>
@@ -321,7 +294,7 @@ const ProfilePage = ({ posts }) => {
           </Grid>
         </Paper>
       </Grid>
-    </>
+    </div>
   );
 };
 

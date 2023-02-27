@@ -31,7 +31,7 @@ const FeedPage = ({onLogout, onSwitch, theme}) => {
         <TrendSide></TrendSide>
       </Grid>
     </Grid>
-    </div>  
+  </div>  
 
   )
 }

@@ -1,398 +1,634 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
-.Feed{
-    margin-top: 10px;
-}
+:root {
+    --background: #f2f2f2; /*white*/
+    --background-two: #f2f2f2; /*cream*/
+    --text-primary: #000; /*black*/
+    --text-secondary: #424242; /*white*/
+    --primary: #ff5d75; /*pink*/
+    --secondary: #2C3568; /*dark blue*/
+    --icon: #1C2835; 
+    --nav-shadow: rgb(185, 184, 184);
+    --nav2-logo: #1C2835;
+    --input-field: white;
+    --paper: white;
+    --textfield: #f2f2f2;
+    --divider: #d2d2d2;
+  }
+  
+  [data-theme='dark'] {
+    --background: #1b1b1b; /*dark blue*/
+    --background-two: #3f3f3f; /*darker blue*/
+    --text-primary: white; /*white*/
+    --text-secondary: #9b9b9b; /*white*/
+    --primary: #1C2835; /*dark blue*/
+    --secondary: #16202A; /*darker blue*/
+    --icon: #f2f2f2; 
+    --nav-shadow: #7b7b7b; /*white*/
+    --nav2-logo: #ff5d75;
+    --input-field: #333333;
+    --paper: #343434;
+    --textfield: #636363;
+    --divider: #636363;
+  }
 
-.profileSide{
-    /* background-color: #E3DAC9; */
-    align-items: center;
-    justify-content: center;
-}
+  .MuiInputLabel-root {
+    font-family: "montserrat" !important;
+  }
+  
+  .parent{
+        background-color: var( --background);
+    }
 
-.profile{
-    background-color: white;
-    margin-left: 15px;
-    border-radius: 1rem;
-}
+    /*Light and Dark Mode*/
 
-.profile>img{
-    width: 6rem;
-    border-radius: 50%;
-    position: absolute;
-    bottom: -3rem;
-    box-shadow: 3px;
-    margin-bottom: 480px;
-    margin-left: 98px;
-    box-shadow: 2px 2px 2px gray; 
-}
+    .parent .profileSide{
+        background-color: var( --background);
+    }
 
-.names>h3{
-    margin-top: 53px;
-    margin-left: 80px;
-    font-family: 'Montserrat', sans-serif;
-}
+    .parent .divider{
+        border-color: var( --divider);
+    }
 
-.names>p{
-    margin-top: -20px;
-    margin-left: 89px;
-    font-family: 'Montserrat', sans-serif;
-}
+    .parent .postSide{
+        background-color: var( --background);
+    }
 
-.names>h3:hover{
-    cursor: pointer;
-}
+    .parent .trendSide{
+        background-color: var( --background);
+    }
 
-.followerPart{
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
+    .parent .typePart{
+        background-color: var( --background);
+    }
 
-.followers{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    padding: 1rem;
-}
+    .parent .profile {
+        background-color: var(--paper);
+        color: var(--text-primary);
+    }
 
-.followers>span:nth-of-type(1){
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
+    .parent .name{
+        color: var(--text-primary);
+    }
 
-.followers>span:nth-of-type(2){
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-}
 
-.following{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-}
+    .parent .username{
+        color: var(--text-secondary);
+    }
 
-.following>span:nth-of-type(1){
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
+    .parent .following>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
 
-.following>span:nth-of-type(2){
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-}
+    .parent .followers>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
 
-.followPart box{
-    align-items: center;
-    justify-content: center;
-}
+    .parent .world>span{
+        color: var(--text-primary);
+    }
 
-.myProfile{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    height: 30px;
-    width: 150px;
-    border-radius: 10px;
-}
+    .primary .fyp>span{
+        color: var(--text-primary);
+    }
 
-.myProfile:hover{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    background-color: black;
-    color: white;
-    height: 30px;
-    width: 150px;
-    border-radius: 10px;
-}
+    .parent .shareText{
+        background-color: var(--textfield);
+    }
 
-.goProfile{
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+    .parent .previewClose{
+        color: var(--text-primary);
+    }
 
-/********************************************/
-/* End of Profile*/
 
-.postSide{
-    justify-content: center;
-    align-items: center;
-}
+    .parent .opName{
+        color: var(--text-primary);
+    }
 
-.post{
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-}
+    .parent .opName>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
 
-.postDp{
-    width: 70px;
-    /* margin-left: 10px; */
-}
+    .parent .txtContent{
+        color: var(--text-primary);
+    }
 
-.postDp2>img{
-    width: 3rem;
-    border-radius: 50%;
-    /* margin-bottom: 500px;
-    margin-left: 20px; */
-}
+    .parent .commentButton{
+        color: var(--text-primary);
+    }
 
-.postText{
-    width: 500px;
-}
+    .parent .commentButton>span{
+        color: var(--text-primary);
+    }
 
-.txtContent>span{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    margin: 5px;
-}
+    .parent .postPhoto{
+        color: var(--text-primary);
+    }
 
-.postPhoto{
-    width: 50px;
-    margin: 3px;
-    align-content: center;
-    justify-content: center;
-}
+    .parent .likeButton>span{
+        color: var(--text-primary);
+    }
 
-.shareText>input{
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 15px;
-    border: none;
-    width: 495px;
-    /* margin-left: 80px;
-    margin-top: 20px; */
-}
 
-.postPhoto>img{
-    width: 2rem;
-}
+    .parent .latchList{
+        background-color: var(--paper);
+    }
 
-.imagePhoto>img:hover{
-    cursor: pointer;
-    color: #EB4660;
-}
+    .parent .post{
+        background-color: var(--paper);
+    }
 
-.previewImage{
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
+    .parent .trends{
+        background-color: var(--paper);
+    }
 
-.previewImage>img{
-    height: 10%;
-    width: 600px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
+    .parent .trendGrid{
+        color: var(--text-primary);
+    }
 
-.sharebtn{
-    width: 100px;
-    margin-top: 5px;
-}
+    .parent .trendTopic{
+        color: var(--text-primary);
+    }
 
-.shareButton{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 100px;
-}
+    .parent .feedType{
+        color: var(--text-primary);
+    }
 
-.feedType{
-    justify-content: center;
-    display: flex;
+    .parent .talksTopic>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    .parent .latchTitle{
+        color: var(--text-secondary);
+    }
+
+    .parent .latchName>span:nth-of-type(1){
+        color: var(--text-primary);
+    }
+    .parent .latchName>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+    /*end*/
+
+    .Feed{
+        margin-top: 10px;
+    }
+
+    .profileSide{
+        position: sticky;
+    }
     
+    .profileSide{
+        background-color: var(--background-two);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .profile{
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .profileDp>img{
+        width: 6rem;
+        border-radius: 50%;
 }
+    
+    .names{
+        align-items: center;
+        text-align: center;
+        height: 60px;
+    }
+    
+    .name>span{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .username>span{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .names>h3:hover{
+        cursor: pointer;
+    }
+    
+    .followerPart{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+    
+    .followers{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+    }
+    
+    .followers>span:nth-of-type(1){
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+    
+    .followers>span:nth-of-type(2){
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+    }
+    
+    .following{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .following>span:nth-of-type(1){
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+    
+    .following>span:nth-of-type(2){
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+    }
+    
+    .followPart box{
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .myProfile{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        height: 30px;
+        width: 150px;
+        border-radius: 10px;
+    }
+    
+    .myProfile:hover{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        background-color: black;
+        color: white;
+        height: 30px;
+        width: 150px;
+        border-radius: 10px;
+    }
+    
+    .goProfile{
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 
-.world{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    width: 100px;
-}
+    .latchTitle>span{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        margin-left: 5px;
+    }
 
-.world:hover{
-    cursor: pointer;
-}
+    .latchDp>img{
+        width: 2.5rem;
+        border-radius: 50%;
+    }
 
-.world>span{
-    font-weight: 500;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
+    .latchList{
+        display: flex;
+    }
 
-.fyp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    width: 100px;
-}
+    .latchName{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        font-family: 'Montserrat', sans-serif;
+    }
 
-.fyp:hover{
-    cursor: pointer;
-}
+    .latchName>span:nth-of-type(1){
+        font-weight: 600;
+        font-size: 15px;
+    }
 
-.fyp>span{
-    font-weight: 500;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
+    .latchName>span:nth-of-type(2){
+        font-weight: 400;
+        font-size: 12px;
+    }
 
-.world>span:hover, .fyp>span:hover {
-    text-decoration: 1.5px underline #EB4660 !important;
-}
+    .latchBtn{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        font-family: 'Montserrat', sans-serif;
+    }
 
-.sharedPost{
-    margin-top: 15px;
-}
+    .latchList{
+        border-radius: 5px;
+    }
 
-.info{
-    height: 70px;
-    display: flex;
-}
+    .latchDivider{
+        color: var(--text-primary);
+    }
+    
+    
+    /********************************************/
+    /* End of Profile*/
 
-.opImg{
-    width: 60px;
-    margin-left: 8px;
-}
+    .parent .feedType{
+        background-color: var(--paper);
+    }
+    
+    .post{
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
 
-.opInfo>img{
-    width: 2.5rem;
-    border-radius: 50%;
-    box-shadow: 3px;
-    box-shadow: 2px 2px 2px gray; 
-}
+    .postInfo{
+        margin-top: 3px;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    .postDp{
+        width: 70px;
+    }
+    
+    .postDp2>img{
+        width: 3rem;
+        border-radius: 50%;
+    }
+    
+    .postText{
+        width: 500px;
+    }
+    .txtContent{
+        margin-left: 5px;
+    }
+    
+    .txtContent>span{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        margin: 5px;
+    }
 
-.opName{
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    width: 40000px;
-}
+    .postText .shareText{
+        color: var(--text-primary);
+    }
+    
+    .postPhoto{
+        width: 50px;
+        align-content: center;
+        justify-content: center;
+        display: flex;
+    }
 
-.options{
-    align-items: end;
-    justify-content: end;
-}
+    /* .shareText>input{
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 15px;
+        border: none;
+    } */
+    
+    .postPhoto>img{
+        width: 2rem;
+    }
+    
+    .imagePhoto>img:hover{
+        cursor: pointer;
+        color: #EB4660;
+    }
+    
+    .previewBox{
+        margin: 7px;
+    }
+    
+    .previewImage{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .previewImage>img{
+        height: 10%;
+        width: 600px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
 
-.opName>span:nth-of-type(1){
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-}
+    .previewClose{
+        width: 100%;
+        display: flex;
+        justify-content: right;
+    }
+    
+    .sharebtn{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+    
+    .shareButton{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 100px;
+    }
+    
+    .feedType{
+        justify-content: center;
+        display: flex;
+    } 
 
-.opName>span:nth-of-type(2){
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-}
+    .world:hover{
+        cursor: pointer;
+    }
+    
+    .world>span{
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+    
+    .fyp:hover{
+        cursor: pointer;
+    }
+    
+    .fyp>span{
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+    
+    .world>span:hover, .fyp>span:hover {
+        text-decoration: 3px underline #EB4660 !important;
+    }
+    
+    .sharedPost{
+        margin-top: 15px;
+    }
+    
+    .info{
+        height: 60px;
+        display: flex;
+    }
+    
+    .opImg{
+        width: 60px;
+        margin-left: 8px;
+    }
+    
+    .opInfo>img{
+        width: 2.5rem;
+        border-radius: 50%;
+        box-shadow: 3px;
+        box-shadow: 2px 2px 2px gray; 
+    }
+    
+    .opName{
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        width: 40000px;
+    }
+    
+    .options{
+        align-items: end;
+        justify-content: end;
+    }
+    
+    .opName>span:nth-of-type(1){
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+    }
+    
+    .opName>span:nth-of-type(2){
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+    }
+    
+    .content>span{
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+    }
 
-.content>span{
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-}
+    .reactions{
+        justify-content: space-evenly;
+        align-items: center;
+        display: flex;
+    }
+    
+    .like{
+        width: 100px;  
+        height: 30px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .comment{
+        width: 150px;  
+        height: 30px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .likeButton>span{
+        color: black;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+    }
+    
+    .likeButton:hover{
+        background-color: transparent;
+    }
+    
+    .likeButton>img{
+        height: 30px;
+        width: 30px;
+    }
+    
+    .commentButton>span{
+        color: black;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+    }
+    
+    
+    /********************************************/
+    /* End of Post*/
+    
+    .trendGrid>span{
+        font-weight: 700;
+        font-size: 18px;        
+    }
 
-.reactions{
-    justify-content: space-evenly;
-    align-items: center;
-    display: flex;
-}
+    .trends{
+        font-family: 'Montserrat', sans-serif;
+    }
 
-.like{
-    width: 20%;  
-    height: 50px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .talks{
+        display: flex;
+        text-align: left;
+        padding-left: 10px;
+        margin-bottom: 2.5px;
+        margin-top: 2.5px;
+    }
+    .talksTopic{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+    }
 
-.comment{
-    width: 20%;
-    height: 50px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.likeButton>span{
-    color: black;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-}
+    .talksTopic>span:nth-of-type(1){
+        font-weight: 600;
+        font-size: 15px;
+    }
 
-.likeButton:hover{
-    background-color: transparent;
-}
+    .talksTopic>span:nth-of-type(2){
+        font-size: 13px;
+    }
 
-.likeButton>img{
-    height: 30px;
-    width: 30px;
-}
+    .rank{
+        align-items: center;
+        display: flex;
+        font-size: 20px;
+        font-weight: 600;
+    }
 
-.commentButton>span{
-    color: black;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-}
+    @media only screen and (max-width: 650px) {
+        .profileSide, .trendSide{
+            display: none;
+        }
 
-
-/********************************************/
-/* End of Post*/
-
-/* .trendSide{
-    background-color: #E3DAC9;
-} */
-
-.headerTitle{
-    text-align: center;
-    height: 65px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.trendTopics{
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-}
-
-.trendTopics>span:nth-of-type(1){
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.trendTopics>span:nth-of-type(2){
-    font-weight: 400;
-    font-size: 12px;
-}
-
-
-
+        .previewImage>img{
+            width: 100%;;
+        }
+    }

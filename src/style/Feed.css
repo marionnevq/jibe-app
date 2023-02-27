@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --background: #fac7c7; /*white*/
+
+
+    --background: #f2f2f2; /*white*/
+
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
     --text-secondary: #424242; /*white*/
@@ -13,6 +16,9 @@
     --input-field: white;
     --paper: white;
     --textfield: #f2f2f2;
+
+    --divider: #d2d2d2;
+
   }
   
   [data-theme='dark'] {
@@ -27,7 +33,10 @@
     --nav2-logo: #ff5d75;
     --input-field: #333333;
     --paper: #343434;
-    --textfield: #9b9b9b;
+
+    --textfield: #636363;
+    --divider: #636363;
+
   }
 
   .MuiInputLabel-root {
@@ -38,14 +47,13 @@
         background-color: var( --background);
     }
 
-    .parent .trend-part {
-        background-color: var( --background);
-    }
+
     /*Light and Dark Mode*/
 
     .parent .profileSide{
         background-color: var( --background);
     }
+
 
     .parent .postSide{
         background-color: var( --background);
@@ -55,8 +63,10 @@
         background-color: var( --background);
     }
 
-    .parent .postSide .feedType .world span {
-        color: white;
+
+    .parent .typePart{
+        background-color: var( --background);
+
     }
 
     .parent .profile {
@@ -67,6 +77,7 @@
     .parent .name{
         color: var(--text-primary);
     }
+
 
     .parent .username{
         color: var(--text-secondary);
@@ -80,7 +91,9 @@
         color: var(--text-secondary);
     }
 
-    .parent .world{
+
+    .parent .world>span{
+
         color: var(--text-primary);
     }
 
@@ -92,13 +105,16 @@
         background-color: var(--textfield);
     }
 
-    .parent .shareText>input{
+
+    .parent .previewClose{
+
         color: var(--text-primary);
     }
 
 
     .parent .opName{
         color: var(--text-primary);
+
     }
 
     .parent .opName>span:nth-of-type(2){
@@ -114,6 +130,10 @@
     }
 
     .parent .commentButton>span{
+        color: var(--text-primary);
+    }
+
+    .parent .postPhoto{
         color: var(--text-primary);
     }
 
@@ -150,11 +170,28 @@
         color: var(--text-secondary);
     }
 
+    .parent .latchTitle{
+        color: var(--text-secondary);
+    }
+
+    .parent .latchName>span:nth-of-type(1){
+        color: var(--text-primary);
+    }
+    .parent .latchName>span:nth-of-type(2){
+        color: var(--text-secondary);
+    }
+
+
     /*end*/
 
     .Feed{
         margin-top: 10px;
     }
+
+    .profileSide{
+        position: sticky;
+    }
+
     
     .profileSide{
         background-color: var(--background-two);
@@ -163,7 +200,9 @@
     }
     
     .profile{
-        border-radius: 10rem;
+
+        border-radius: 10px;
+
         align-items: center;
         justify-content: center;
     }
@@ -172,7 +211,7 @@
         width: 6rem;
         border-radius: 50%;
 }
-    
+
     .names{
         align-items: center;
         text-align: center;
@@ -189,6 +228,7 @@
         font-family: 'Montserrat', sans-serif;
         font-size: 14px;
         font-weight: 500;
+
     }
     
     .names>h3:hover{
@@ -208,7 +248,7 @@
         justify-content: center;
         align-content: center;
         text-align: center;
-        padding: 1rem;
+
     }
     
     .followers>span:nth-of-type(1){
@@ -225,6 +265,7 @@
     .following{
         display: flex;
         flex-direction: column;
+
         text-align: center;
     }
     
@@ -267,14 +308,63 @@
         justify-content: center;
         text-align: center;
     }
+
+
+    .latchTitle>span{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        margin-left: 5px;
+    }
+
+    .latchDp>img{
+        width: 2.5rem;
+        border-radius: 50%;
+    }
+
+    .latchList{
+        display: flex;
+    }
+
+    .latchName{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .latchName>span:nth-of-type(1){
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .latchName>span:nth-of-type(2){
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+    .latchBtn{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .latchList{
+        border-radius: 5px;
+    }
+
+    .latchDivider{
+        color: var(--text-primary);
+    }
+    
     
     /********************************************/
     /* End of Profile*/
-    
-    .postSide{
-        background-color: var(--background-two);
-        justify-content: center;
-        align-items: center;
+
+    .parent .feedType{
+        background-color: var(--paper);
     }
 
     .parent .feedType{
@@ -290,6 +380,7 @@
 
     .postInfo{
         margin-top: 3px;
+
         display: flex;
         align-items: center;
         align-content: center;
@@ -298,14 +389,13 @@
     
     .postDp{
         width: 70px;
-        /* margin-left: 10px; */
+
     }
     
     .postDp2>img{
         width: 3rem;
         border-radius: 50%;
-        /* margin-bottom: 500px;
-        margin-left: 20px; */
+
     }
     
     .postText{
@@ -322,10 +412,11 @@
         margin: 5px;
     }
 
-    .shareText{
-        border-radius: 10px;
-        font-family: 'Montserrat', sans-serif;
-        margin: 5px;
+
+
+    .postText .shareText{
+        color: var(--text-primary);
+
     }
     
     .postPhoto{
@@ -335,13 +426,19 @@
         display: flex;
     }
 
-    .shareText>input{
+
+    /* .shareText>input{
+
+
         background-color: #f2f2f2;
         border-radius: 10px;
         padding: 10px;
         font-size: 15px;
         border: none;
-    }
+
+
+    } */
+
     
     .postPhoto>img{
         width: 2rem;
@@ -352,16 +449,18 @@
         color: #EB4660;
     }
     
+
     .previewBox{
         margin: 7px;
     }
     
     .previewImage{
-        /* position: relative; */
+
         justify-content: center;
         align-items: center;
         display: flex;
         flex-direction: column;
+
     }
     
     .previewImage>img{
@@ -371,6 +470,7 @@
         margin-bottom: 10px;
         border-radius: 5px;
     }
+
 
     .previewClose{
         width: 100%;
@@ -383,6 +483,7 @@
         align-items: center;
         justify-content: center;
         display: flex;
+
     }
     
     .shareButton{
@@ -393,49 +494,41 @@
     .feedType{
         justify-content: center;
         display: flex;
+
+
     } 
 
-    /* .world{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-        /* width: 100px; 
-    } */
-    
+
+
     .world:hover{
         cursor: pointer;
     }
     
+
+
     .world>span{
+
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
     }
     
-    /* .fyp{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-        /* width: 100px; 
-    } */
-    
+
     .fyp:hover{
         cursor: pointer;
     }
     
+
+
     .fyp>span{
+
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
     }
     
     .world>span:hover, .fyp>span:hover {
+
         text-decoration: 3px underline #EB4660 !important;
     }
     
@@ -544,14 +637,16 @@
     /********************************************/
     /* End of Post*/
     
-    .trendSide{
-        background-color: var(--background-two);
-    }
-    
+
     .trendGrid>span{
         font-weight: 700;
-        font-size: 18px;
-        
+        font-size: 18px;        
+    }
+
+
+    .trends{
+        font-family: 'Montserrat', sans-serif;
+
     }
 
     .talks{
@@ -592,4 +687,5 @@
         .previewImage>img{
             width: 100%;;
         }
+
     }

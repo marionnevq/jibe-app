@@ -15,6 +15,9 @@
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
 
+    --dividerChip: #b8b8b8;
+    --header: #16202A;
+
   }
   
   [data-theme='dark'] {
@@ -31,7 +34,8 @@
     --paper: #343434;
     --textfield: #636363;
     --divider: #636363;
-
+    --dividerChip: #b8b8b8;
+    --header: #EEE8DB;
   }
 
   .MuiInputLabel-root {
@@ -176,6 +180,18 @@
         color: var(--text-secondary);
     }
 
+    .parent .options{
+        color: var(--text-primary);
+    }
+
+    .parent .header{
+        background-color: var(--header);
+    }
+
+    .parent .dividerChip{
+        background-color: var(--dividerChip);
+        color: var(--text-primary);
+    }
 
     /*end*/
 
@@ -205,7 +221,11 @@
     .profileDp>img{
         width: 6rem;
         border-radius: 50%;
-}
+    }
+
+    .profileDp>img:hover{
+        cursor: pointer;
+    }
 
     .names{
         align-items: center;
@@ -217,6 +237,10 @@
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
         font-weight: 600;
+    }
+    
+    .name>span:hover{
+        cursor: pointer;
     }
     
     .username>span{

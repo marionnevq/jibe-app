@@ -1,4 +1,5 @@
-import { Button, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
+
+import { Button, Chip, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
 
 import { Box, color } from '@mui/system'
 import React, { useRef, useState } from 'react'
@@ -71,7 +72,7 @@ const PostSide = ({ theme }) => {
 
               </Box>
             <Box className='postPhoto' sx={{ p: 0.5}}>
-              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "40px" }} />
+              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "35px" }} />
             </Box>
            </Box>
             <div style={{ display: "none"}}>
@@ -101,7 +102,8 @@ const PostSide = ({ theme }) => {
       </Grid>
 
 
-      <Divider className='divider' sx={{marginTop:"5px", fontSize:"10px" }}>WORLD</Divider>
+      <Divider className='divider'><Chip className='dividerChip' label="WORLD" sx={{ fontFamily: 'Montserrat'}} /></Divider>
+
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
 

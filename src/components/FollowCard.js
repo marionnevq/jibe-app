@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 
-import { Button, Paper, Typography } from '@mui/material'
-import { Navigation, Keyboard, Pagination, EffectCoverflow } from 'swiper';
-import { Swiper, SwiperSlide} from 'swiper/react';
-import 'swiper/css/navigation';
+import { Button, Paper, Typography } from "@mui/material";
+import { Navigation, Keyboard, Pagination, EffectCoverflow } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
 
 import "swiper/css/effect-coverflow";
 import "swiper/css/effect-fade";
@@ -55,29 +54,13 @@ const FollowCard = () => {
       >
         {users &&
           users.map((user) => (
-            // <FollowSlide user={user} currentUser={currentUser} />
             <SwiperSlide className="follow-swiper">
               <Paper className="paper-follow">
                 <FollowSlide user={user} currentUser={currentUser} />
-                {/* <div>
-                  <img id="image" src={user.imageUrl} />
-                  <div className="name">{user.firstname}</div>
-                  <div className="username">{user.username}</div>
-                  <div>
-                    <Button
-                      className="button"
-                      variant="contained"
-                      data-tag={false}
-                    >
-                      Latch
-                    </Button>
-                  </div>
-                </div> */}
               </Paper>
             </SwiperSlide>
           ))}
       </Swiper>
-
     </div>
   );
 };

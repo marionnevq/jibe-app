@@ -6,32 +6,41 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Collapse,
   Divider,
   Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import * as postService from "../services/post";
 import alternate from "../images/alternate.jpg";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import SendIcon from "@mui/icons-material/Send";
 
 const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
+  const [expanded, setExpanded] = useState(false);
   const params = useParams();
 
   async function selectPost() {
     const post = await postService.getPost(params.postId);
     console.log(post.data);
   }
+
   useEffect(() => {
     selectPost();
   }, []);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <div data-theme={theme} className="parent">
@@ -89,12 +98,38 @@ const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
                     borderColor: "text.secondary",
                   }}
                 >
-                  <Button size="small" startIcon={<ModeCommentOutlinedIcon />}>
+                  <Button
+                    size="small"
+                    startIcon={<ModeCommentOutlinedIcon />}
+                    onClick={handleExpandClick}
+                  >
                     Comment
                   </Button>
                 </Grid>
               </Grid>
             </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <Box px={2} pb={1} textAlign="center">
+                <TextField
+                  id="filled-multiline-static"
+                  label="Comment"
+                  multiline
+                  rows={4}
+                  defaultValue=""
+                  variant="filled"
+                  fullWidth
+                  sx={{ mb: 1 }}
+                />
+
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<SendIcon />}
+                >
+                  Send
+                </Button>
+              </Box>
+            </Collapse>
           </Card>
           <Typography variant="h6" color="text.primary">
             COMMENTS

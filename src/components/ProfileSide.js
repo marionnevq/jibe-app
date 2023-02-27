@@ -1,15 +1,16 @@
 import { Button, Divider, Grid, Paper } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import dp from '../images/nik.jpg'
 
 const ProfileSide = ({ theme }) => {
 
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-//   const GoToProfile = async (event) => {
-//     navigate("/profile/:username")
-// }
+  const GoToProfile = async (event) => {
+    navigate("/profile/:username")
+}
 
   return (
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }}>
@@ -18,30 +19,32 @@ const ProfileSide = ({ theme }) => {
        <Grid item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
        <Paper className='profile' sx={{width: "90%", height: "270px", borderRadius:"0.6rem", boxShadow:"3"}}>
            <Grid item className='header' 
-              sx={{width: "100%", height: "90px", backgroundColor: (() => theme === "dark" ? "#FFE5D9" : "black"), backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
+              sx={{width: "100%", height: "90px", backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
-              <img src={dp} alt=""/>
+              <img src={dp} alt="" onClick={GoToProfile}/>
           </Grid>
            <Box className="names" sx={{ marginTop:"10px" }}>
              <Box className="name">
-               <span>Nikki Fagara</span>
+               <span onClick={GoToProfile}>Nikki Fagara</span>
              </Box>
              <Box className="username">
              <span>@nikkifagara</span>
              </Box>
            </Box>
            <Divider className='divider'/>
-           <div className='followerPart'>
-             <Box className='followers' sx={{ width: "100%", p: 0.5, border: '1px dashed grey' }}>
+           <Grid item className='followerPart'>
+             <Box className='followers' sx={{ width: "100%", p: 0.5 }}>
                <span>802</span>
                <span>Followers</span>
              </Box>
              <Divider className='divider' orientation="vertical" variant="middle" flexItem />
-             <Box className='following' sx={{ width: "100%", p: 0.5,  border: '1px dashed grey' }}>
+             <Box className='following' sx={{ width: "100%", p: 0.5  }}>
+
                <span>521</span>
                <span>Following</span>
              </Box>
-           </div>
+           </Grid>
+
         </Paper>
        </Grid>
 
@@ -51,7 +54,7 @@ const ProfileSide = ({ theme }) => {
               <span>Find more people</span>
             </Box>
             {/* <Divider className='divider'/> */}
-            <Box className="latchList"  sx={{ width: "100%", height:"210px",  flexDirection:"column", p: 0.5 }}>
+            <Box className="latchList"  sx={{ width: "100%", height:"200px",  flexDirection:"column", p: 0.5 }}>
               <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
                 <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <img src={dp}/>

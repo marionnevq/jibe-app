@@ -11,7 +11,7 @@ const TrendSide = () => {
             <span>Talks for you</span>
           </Grid>
           <Divider className='divider'/>
-          <Grid item className='trendTopic' xs={12} >
+          <Grid item className='trendTopic' xs={12} sx={{ p: 0.7 }} >
             <Box className="talks" >
               <Box className="talksTopic" sx={{ width: "90%" }}>
                 <span>Topic</span>

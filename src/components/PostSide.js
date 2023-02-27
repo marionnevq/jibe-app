@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
 import { Box, color } from '@mui/system'
 import React, { useRef, useState } from 'react'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
@@ -65,7 +65,7 @@ const PostSide = ({ theme }) => {
                   InputProps={{  sx: { height: "auto", fontFamily: "montserrat", color: (() => theme === "dark" ? "white" : "black") } }} multiline/>
               </Box>
             <Box className='postPhoto' sx={{ p: 0.5}}>
-              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "40px" }} />
+              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "35px" }} />
             </Box>
            </Box>
             <div style={{ display: "none"}}>
@@ -90,7 +90,7 @@ const PostSide = ({ theme }) => {
           </Paper>
       </Grid>
 
-      <Divider className='divider' sx={{marginTop:"5px", fontSize:"10px" }}>WORLD</Divider>
+      <Divider className='divider'><Chip className='dividerChip' label="WORLD" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
         <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>

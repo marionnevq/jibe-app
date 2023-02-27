@@ -189,7 +189,6 @@ const PostSide = ({ theme }) => {
         </Paper>
 
       </Grid>
-
     </Grid>
     </div>
   )

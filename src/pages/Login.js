@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Button, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Logo2 from "../images/logo-noblack-label.png"
@@ -28,7 +28,7 @@ const Login = ({ onLogin }) => {
                  .email({minDomainSegments: 2,
                      tlds: { allow: ['com', 'net'] }
                 }),
-              Joi.string().alphanum().min(8).max(20)
+              Joi.string().alphanum().min(3).max(20)
             )
            .required(),
         password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(5).required(),
@@ -53,7 +53,7 @@ const Login = ({ onLogin }) => {
         if(error && input.name === "email"){
             setErrors({ ...errors, [input.name]: "Invalid username or email" });
         } else if (error){
-            setErrors({ ...errors, [input.name]: "Use at least one uppercase, lowercase, special character and number" });
+            setErrors({ ...errors, [input.name]: "Invalid Password" });
         } else {
             delete errors[input.name];
             setErrors(errors);
@@ -66,7 +66,7 @@ const Login = ({ onLogin }) => {
     };
 
   return (
-    <>
+    <Paper>
     <Grid container style={{ minHeight: "100vh"}} onSubmit={handleSubmit}>
         <Grid item xs={12} sm={6} className='left-grid'>
             <div className='welcome'>Welcome Back!</div >
@@ -81,6 +81,7 @@ const Login = ({ onLogin }) => {
             <div id='page-title'>Login</div>
                 <div>
                     <TextField
+                        required={true}
                         name="email"
                         error={!!errors.email}
                         helperText={errors.email}
@@ -95,6 +96,7 @@ const Login = ({ onLogin }) => {
                 </div>
                 <div>
                     <TextField
+                    required={true}
                         name="password"
                         error={!!errors.password}
                         helperText={errors.password}
@@ -145,7 +147,7 @@ const Login = ({ onLogin }) => {
                     </Link> 
                 </div>
         </Grid>
-    </Grid></>
+    </Grid></Paper>
   )
 }
 

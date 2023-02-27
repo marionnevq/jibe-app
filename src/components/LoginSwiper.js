@@ -13,11 +13,24 @@ import 'swiper/css/effect-fade';
 import "swiper/css/pagination";
 import "../style/swiper.css";
 import 'swiper/css';
+import Joi from 'joi';
 
 const LoginSwiper = () => {
+
     const [like, setLike] = useState(true);
     const [imageUrl, setImageUrl] = useState(null);
+    const [imageUpload, setImageUpload] = useState({});
+    const [errors, setErrors] = useState({});
+    const [isError, setIsError] = useState(false);
+    const [bio, setBio] = useState({
+        bio: "",
+    });
+    
     const navigate = useNavigate();
+
+    const schema = Joi.object({
+        bio: Joi.string().allow("").min(0).max(150).optional()
+    })
 
     const handleChangeIcon = () =>{
         if(like === true){
@@ -28,13 +41,42 @@ const LoginSwiper = () => {
         }, 400);
     }
 
-   
-
     const handleImage = (event) => {
         const img = event.target.files[0];
         setImageUrl(URL.createObjectURL(img));
+        setImageUpload(img);
+        console.log(imageUpload);
         console.log(img);
     }
+
+    const handleUpdate = () => {
+        console.log(imageUpload);
+    }
+
+    const handleChange = ({ currentTarget: input }) => {
+        setBio(input.value);
+
+        const { error } = schema
+        .extract(input.name)
+        .label(input.name)
+        .validate(input.value);
+
+        if(error){
+            setIsError(true);
+            setErrors({ ...errors, [input.name]: "Maximum of 150 Characters" });
+        } else {
+            delete errors[input.name];
+            setErrors(errors);
+        }
+    }
+ 
+    const isFormInvalid = () => {
+        const result = schema.validate(bio);
+        if(errors !== null){
+            console.log(!!result.error)
+            return !!result.error;
+        }
+    };
       
 return (
     <>
@@ -80,7 +122,7 @@ return (
                                         className='img-btn'
                                         sx={{backgroundColor: "#EB4660"}}
                                     >
-                                    <Typography sx={{fontFamily: "montserrat", fontSize: "12px"}}>
+                                    <Typography id="save">
                                         Choose Profile Picture
                                     </Typography>
                                     <input
@@ -97,6 +139,11 @@ return (
                             <div style={{width: "100%"}}>
                                 <div className='icon'>
                                 <TextField
+                                    name="bio"
+                                    error={!!errors.bio}
+                                    helperText={errors.bio}
+                                    onChange={handleChange}
+                                    value={bio.bio}
                                     id="outlined-multiline-static"
                                     label="Your Bio"
                                     variant='filled'
@@ -106,14 +153,18 @@ return (
                                 />
                                 </div>
                                 <div className='icon'>
-                                <Button
-                                    variant="contained"
-                                    component="label"
-                                    className='img-btn'
-                                    sx={{backgroundColor: "#EB4660"}}
-                                >
-                                    add changes
-                                </Button>
+                                    <Button
+                                        variant="contained"
+                                        component="label"
+                                        className='img-btn'
+                                        sx={{backgroundColor: "#EB4660"}}
+                                        onClick = {handleUpdate}
+                                        disabled = {isError ? true : false}
+                                    >
+                                    <Typography id="save">
+                                        Save changes
+                                    </Typography>
+                                    </Button>`
                                 </div>
                             </div>
                         </Grid>

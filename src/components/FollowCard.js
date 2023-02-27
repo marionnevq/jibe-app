@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Paper } from '@mui/material'
+import { Button, Paper, Typography } from '@mui/material'
 import { Navigation, Keyboard, Pagination, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css/navigation';
@@ -43,12 +43,16 @@ const FollowCard = () => {
         >
             {users.map((user) => (
                 <SwiperSlide className='follow-swiper'>
-                    <Paper className='paper-follow' >
+                    <Paper className='paper-follow' id="paper" sx={{backgroundColor: "white"}}>
                         <div>
                             <img id="image" src={alternate} />
                             <div className='name' >{user.name}</div>
                             <div className='username' >{user.username}</div>
-                            <div><Button className='button' variant="contained" >Latch</Button></div>
+                            <div><Button className='button' variant="contained" sx={{backgroundColor: "#EB4660"}}>
+                                    <Typography id="save">
+                                        Latch
+                                    </Typography>
+                                </Button></div>
                         </div>
                     </Paper>
                 </SwiperSlide>

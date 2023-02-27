@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import sana from "../images/sana.jpg";
-import { Grid, Avatar, Paper, Divider, Button } from "@mui/material";
+import { Grid, Avatar, Paper, Divider, Button, TextField } from "@mui/material";
 import "../style/Profile.css";
 import NavBar from "../components/NavBar";
 import { Box } from "@mui/system";
 import ProfilePostPage from "../components/ProfilePostPage";
 import { MoreVert } from "@mui/icons-material";
+import PhotoIcon from "@mui/icons-material/Photo";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import mk from "../images/mark.jpg";
@@ -15,6 +17,18 @@ import test from "../images/test.jpg";
 const ProfilePage = ({ posts }) => {
   console.log("This is POST_DATA from ProfilePage.js", posts);
   const [like, setLike] = useState(false);
+  const [image, setImage] = useState(null);
+  const imageRef = useRef();
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      setImage({
+        image: URL.createObjectURL(img),
+      });
+    }
+  };
+
   const handleChangeIcon = () => {
     if (like === false) {
       setLike(true);
@@ -141,6 +155,95 @@ const ProfilePage = ({ posts }) => {
                   </span>
                 </Box>
               </Box>
+              <Grid
+                container
+                item
+                xs={12}
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                  alignItems: "center",
+                }}
+              >
+                <Paper
+                  className="post"
+                  sx={{
+                    width: "95%",
+                    minHeight: "120px",
+                    maxHeight: "680px",
+                    paddingBottom: "2px",
+                    marginTop: "150px",
+                    borderRadius: "0.6rem",
+                    boxShadow: "3",
+                  }}
+                >
+                  <Box className="postInfo">
+                    <Box className="postText" sx={{ p: 1 }}>
+                      <TextField
+                        className="shareText"
+                        placeholder="What's jibin'?"
+                        sx={{ width: "100%" }}
+                        InputProps={{ sx: { height: "auto" } }}
+                        multiline
+                      />
+                    </Box>
+                    <Box className="postPhoto" sx={{ p: 0.5 }}>
+                      <PhotoIcon
+                        onClick={() => imageRef.current.click()}
+                        sx={{ cursor: "pointer", fontSize: "30px"}}
+                      />
+                    </Box>
+                  </Box>
+                  <div style={{ display: "none" }}>
+                    <input
+                      type="file"
+                      name="myImage"
+                      ref={imageRef}
+                      onChange={onImageChange}
+                    />
+                  </div>
+                  {image && (
+                    <Box
+                      className="previewBox"
+                      sx={{
+                        p: 0.5,
+                        border: "1px solid #d3d3d3",
+                        borderRadius: "7px",
+                      }}
+                    >
+                      <div className="previewImage">
+                        <Box className="previewClose" sx={{ p: 0.5 }}>
+                          <CancelRoundedIcon
+                            onClick={() => setImage(null)}
+                            sx={{ cursor: "pointer", justifyContent: "right" }}
+                          />
+                        </Box>
+                        <img src={image.image} />
+                      </div>
+                    </Box>
+                  )}
+                  <Divider />
+                  <Box
+                    className="sharebtn"
+                    justifyItems={"center"}
+                    sx={{ p: 0.5 }}
+                  >
+                    <Button
+                      className="shareButton"
+                      variant="text"
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "#EB4660",
+                        fontFamily: "Montserrat",
+                        height: "30px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Post
+                    </Button>
+                  </Box>
+                </Paper>
+              </Grid>
             </Grid>
 
             <Grid
@@ -154,8 +257,6 @@ const ProfilePage = ({ posts }) => {
                 className="post"
                 sx={{
                   width: "95%",
-                  // minHeight: "160px",
-                  // maxHeight: "6900px",
                   height: "auto",
                   paddingBottom: "2px",
                   borderRadius: "0.6rem",
@@ -185,8 +286,16 @@ const ProfilePage = ({ posts }) => {
                     <Box className="caption-content" sx={{ p: 2 }}>
                       <span>#NewHeader</span>
                     </Box>
-                    <Box className="imgContent" sx={{ p: 1, display: "flex", alignItems: "center", justifyContent:"center" }}>
-                      <img src={test} style={{ width: "70%"}} />
+                    <Box
+                      className="imgContent"
+                      sx={{
+                        p: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img src={test} style={{ width: "70%" }} />
                     </Box>
                   </div>
                 </Box>

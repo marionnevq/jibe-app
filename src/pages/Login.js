@@ -53,7 +53,7 @@ const Login = ({ onLogin }) => {
         if(error && input.name === "email"){
             setErrors({ ...errors, [input.name]: "Invalid username or email" });
         } else if (error){
-            setErrors({ ...errors, [input.name]: "Use at least one uppercase, lowercase, special character and number" });
+            setErrors({ ...errors, [input.name]: "Invalid Password" });
         } else {
             delete errors[input.name];
             setErrors(errors);

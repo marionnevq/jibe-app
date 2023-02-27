@@ -5,18 +5,31 @@
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
     --text-secondary: #f2f2f2; /*white*/
-    --primary: #EB4660; /*pink*/
-    --secondary: #2C3568; /*dark blue*/
-}
+    --icon: #1C2835; 
+    --divider:  #8f8f8f;
+    --nav-shadow: rgb(185, 184, 184);
+    --input-field: white;
+  }
   
-[data-theme='dark'] {
-    --background: #191919; /*dark blue*/
-    --background-two: #191919; /*darker blue*/
-    --text-primary: #f2f2f2; /*white*/
-    --text-secondary: #f2f2f2; /*white*/
-    --primary: #1C2835; /*dark blue*/
-    --secondary: #16202A; /*darker blue*/
-}
+  [data-theme='dark'] {
+    --background: #121212; /*bg black*/
+    --background-two: #121212; /*bg black*/
+    --text-primary: #fff; /*white*/
+    --text-secondary: rgba(255, 255, 255, 0.7); /*off-white*/
+    --icon: #f2f2f2; 
+    --divider:  #d9d9d9;
+    --nav-shadow: #7b7b7b; /*white*/
+    --input-field: #333333;
+  }
+  
+
+    .parent .pro-paper{
+        background-color: var(--secondary);
+    }
+/* 
+    .body{
+        background-color: var(--background-two);
+    } */
     .parent{
         background-color: var( --background-two);
     }

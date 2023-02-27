@@ -9,10 +9,11 @@ import Onboarding from "./pages/Onboarding";
 import { useEffect, useState } from 'react';
 import { getAccessToken, login } from './services/auth';
 import useLocalStorage from 'use-local-storage';
+import ProfileVisitPage from './pages/ProfileVisitPage';
 
 function App() {
   
-  const [theme, setTheme] = useLocalStorage("theme", "dark")
+  const [theme, setTheme] = useLocalStorage("theme", "light")
 
   useEffect(() => {
     console.log(theme);
@@ -61,10 +62,11 @@ function App() {
 
   const handleLogout = () => {
     console.log(accessToken);
-    localStorage.removeItem("accessToken")
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("theme");
     setAccessToken(null);
-    
-    navigate("/login")
+    setTheme("light");
+    navigate("/login");
   }
 
   return (
@@ -81,6 +83,11 @@ function App() {
           <Route
             path="/onboarding"
             element={accessToken ? <Onboarding onLogout={handleLogout}/> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/profile/:username"
+            element={accessToken ? <ProfileVisitPage /> : <Navigate to="/login" />}
           />
 
           <Route

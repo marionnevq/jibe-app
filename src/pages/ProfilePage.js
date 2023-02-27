@@ -13,7 +13,7 @@ import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import test from "../images/test.jpg";
 
-const ProfilePage = ({ posts, theme }) => {
+const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
   console.log("This is POST_DATA from ProfilePage.js", posts);
   const [like, setLike] = useState(false);
   const [image, setImage] = useState(null);
@@ -36,8 +36,8 @@ const ProfilePage = ({ posts, theme }) => {
     }
   };
   return (
-    <>
-      <NavBar theme={theme}/>
+    <div data-theme={theme}>
+      <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
       {/* <Grid
         container
         style={{ minHeight: "100vh" }}
@@ -321,7 +321,7 @@ const ProfilePage = ({ posts, theme }) => {
           </Grid>
         </Paper>
       </Grid>
-    </>
+    </div>
   );
 };
 

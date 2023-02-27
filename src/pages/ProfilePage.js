@@ -36,7 +36,7 @@ const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
     }
   };
   return (
-    <div data-theme={theme}>
+    <div data-theme={theme} style={{backgroundColor: "black"}}>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
       {/* <Grid
         container
@@ -76,13 +76,13 @@ const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
           ))}
         </Grid>
       </Grid> */}
-      <Grid container sx={{ minHeight: "100vh" }}>
-        <Paper sx={{ width: "100%" }}>
+      <Grid container sx={{ minHeight: "100vh", width: "100%" }}>
+        <Paper sx={{ width: "100%" }} >
           <Grid
             item
             className="header"
             sx={{
-              width: "100%",
+              width: "auto",
               height: "300px",
               backgroundColor: "#FFE5D9",
               backgroundAttachment: "fixed",
@@ -93,7 +93,7 @@ const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
             item
             className="profileDp"
             sx={{
-              width: "100%",
+              width: "auto",
               marginTop: "-150px",
               display: "flex",
               paddingLeft: "150px",
@@ -139,7 +139,7 @@ const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
             </Box>
           </Grid>
           <Divider variant="fullWidth" sx={{ paddingTop: "50px" }} />
-          <Grid container sx={{ minHeight: "100vh" }}>
+          <Grid container sx={{ minHeight: "100vh"}}>
             <Grid item xs={12} md={4} sx={{ marginTop: "30px" }}>
               <Box className="user-details">
                 <Box className="name-head">

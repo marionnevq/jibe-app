@@ -92,7 +92,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         autoComplete='off'
         value={search.username}
         sx={{ ml: 1, flex: 1 }}
-        placeholder=" Search"
+        placeholder="Search"
         IconButton = {<SearchIcon/>}
         className="click" id='search'
         type="search"

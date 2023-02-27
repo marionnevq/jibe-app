@@ -2,18 +2,25 @@
 import { Button, Divider, Grid, Paper } from '@mui/material'
 
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import dp from '../images/nik.jpg'
+import { getUser } from '../services/auth'
 
-const ProfileSide = ({ theme }) => {
+const ProfileSide = ({theme}) => {
 
-//   const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(null)
 
-//   const GoToProfile = async (event) => {
-//     navigate("/profile/:username")
-// }
+    useEffect(() => {
+        loadUser();
+    },[])
 
-  return (
+    const loadUser = async() => {
+        const current = await getUser();
+        setCurrentUser(current.data);
+        console.log(currentUser);
+    }
+
+return (
 
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }}>
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >

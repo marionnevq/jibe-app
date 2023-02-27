@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
+
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
@@ -14,10 +15,8 @@
     --paper: white;
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
-
     --dividerChip: #b8b8b8;
     --header: #16202A;
-
   }
   
   [data-theme='dark'] {
@@ -46,13 +45,15 @@
         background-color: var( --background);
     }
 
-
     /*Light and Dark Mode*/
 
     .parent .profileSide{
         background-color: var( --background);
     }
 
+    .parent .divider{
+        border-color: var( --divider);
+    }
 
     .parent .postSide{
         background-color: var( --background);
@@ -62,10 +63,8 @@
         background-color: var( --background);
     }
 
-
     .parent .typePart{
         background-color: var( --background);
-
     }
 
     .parent .profile {
@@ -90,9 +89,7 @@
         color: var(--text-secondary);
     }
 
-
     .parent .world>span{
-
         color: var(--text-primary);
     }
 
@@ -104,16 +101,13 @@
         background-color: var(--textfield);
     }
 
-
     .parent .previewClose{
-
         color: var(--text-primary);
     }
 
 
     .parent .opName{
         color: var(--text-primary);
-
     }
 
     .parent .opName>span:nth-of-type(2){
@@ -180,6 +174,18 @@
         color: var(--text-secondary);
     }
 
+    .parent .options{
+        color: var(--text-primary);
+    }
+
+    .parent .header{
+        background-color: var(--header);
+    }
+
+    .parent .dividerChip{
+        background-color: var(--dividerChip);
+        color: var(--text-primary);
+    }
 
     /*end*/
 
@@ -199,9 +205,7 @@
     }
     
     .profile{
-
         border-radius: 10px;
-
         align-items: center;
         justify-content: center;
     }
@@ -209,8 +213,15 @@
     .profileDp>img{
         width: 6rem;
         border-radius: 50%;
-}
+        border: 3px solid var(--paper);
+    }
 
+
+    .profileDp>img:hover{
+        cursor: pointer;
+    }
+
+  
     .names{
         align-items: center;
         text-align: center;
@@ -457,13 +468,11 @@
     }
     
     .previewImage>img{
-        height: 10%;
-        width: 600px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 5px;
         border-radius: 5px;
     }
-
 
     .previewClose{
         width: 100%;
@@ -672,6 +681,7 @@
         }
 
         .previewImage>img{
-            width: 100%;;
+            width: 100%;
         }
     }
+

@@ -16,18 +16,13 @@ const FeedPage = ({onLogout, onSwitch, theme}) => {
   <div data-theme={theme} className="parent">
     <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
     <Grid container sx={{ minHeight: "100vh" }}>
-
-
       <Grid item xs={12} md={3}>
         <ProfileSide ></ProfileSide>
-
       </Grid>
       <Grid item xs={12} md={6}>
         <PostSide></PostSide>
       </Grid>
       <Grid item xs={12} md={3}>
-
-
         <TrendSide></TrendSide>
       </Grid>
     </Grid>

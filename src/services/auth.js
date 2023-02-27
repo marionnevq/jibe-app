@@ -51,4 +51,9 @@ export function getCurrentUser() {
     return user;
   }
 
+  export function fetchUserByUsername(username){
+    const user= http.get("/profiles/`${}`");
+    return user;
+  }
+
 

@@ -1,3 +1,19 @@
+
+import {
+  Alert,
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Snackbar,
+  TextField,
+} from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Logo2 from "../images/logo-noblack-label.png";
+import { Link, useNavigate } from "react-router-dom";
+import "@fontsource/poppins";
+
 import { Button, Grid, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -5,20 +21,20 @@ import Logo2 from "../images/logo-noblack-label.png"
 import { Link, useNavigate } from 'react-router-dom';
 import "@fontsource/poppins"
 import "../style/Login.css";
-import Joi from 'joi';
-import { getAccessToken, login } from '../services/auth';
-import { UserContext } from '../context/UserContext';
+import Joi from "joi";
+import { getAccessToken, login } from "../services/auth";
+import { UserContext } from "../context/UserContext";
 
 const Login = ({ onLogin }) => {
-    const handleClickShowPassword = () => setShowPassword(!showPassword);
-    const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({});
-    const [form, setForm] = useState({
-        email: "",
-        password: "",
-    });
-    
-    const navigate = useNavigate();
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
 
     const schema = Joi.object({
         email: Joi.alternatives()
@@ -34,21 +50,37 @@ const Login = ({ onLogin }) => {
         password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).min(5).required(),
     });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        onLogin(form);
-    };
-    
-    const handleChange = ({ currentTarget: input }) => {
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onLogin(form);
+  };
+
+  const handleChange = ({ currentTarget: input }) => {
     setForm({
-        ...form,
-        [input.name]: input.value,
+      ...form,
+      [input.name]: input.value,
     });
-    
+
     const { error } = schema
-        .extract(input.name)
-        .label(input.name)
-        .validate(input.value);
+      .extract(input.name)
+      .label(input.name)
+      .validate(input.value);
+
+    if (error && input.name === "email") {
+      setErrors({ ...errors, [input.name]: "Invalid username or email" });
+    } else if (error) {
+      setErrors({
+        ...errors,
+        [input.name]:
+          "Use at least one uppercase, lowercase, special character and number",
+      });
+    } else {
+      delete errors[input.name];
+      setErrors(errors);
+    }
+  };
+
 
         if(error && input.name === "email"){
             setErrors({ ...errors, [input.name]: "Invalid username or email" });
@@ -142,13 +174,41 @@ const Login = ({ onLogin }) => {
                         className='btn2'
                         onSubmit={handleSubmit}
                     >
-                        Sign up
-                    </Button>
-                    </Link> 
-                </div>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              disabled={isFormInvalid()}
+              type="submit"
+              className="btn1"
+              onClick={handleSubmit}
+            >
+              Sign in
+            </Button>
+          </div>
+          <div className="lower-text">Haven't Jibed yet? Register now!</div>
+          <div className="reg-btn">
+            <Link to={"/register"} style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                className="btn2"
+                onSubmit={handleSubmit}
+              >
+                Sign up
+              </Button>
+            </Link>
+          </div>
         </Grid>
+
     </Grid></Paper>
   )
 }
 
-export default Login
+export default Login;

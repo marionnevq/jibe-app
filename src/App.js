@@ -35,6 +35,7 @@ function App() {
       primary: {
         main: "#EB4660"
       },
+
       secondary: {
         main: "#2C3568"
       },
@@ -42,22 +43,53 @@ function App() {
         main: "#ff5d75"
       },
     }
+
   });
 
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("error");
   const [accessToken, setAccessToken] = useState(getAccessToken());
   const navigate = useNavigate();
 
-  const handleLogin = async(form) => {
+  const handleRegister = async (event, form) => {
+    event.preventDefault();
     try {
-       const response = await login(form.email, form.password);
-       localStorage.setItem("accessToken", response.data.token);
-       const token = localStorage.getItem("accessToken");
-       console.log(token);
-       setAccessToken(response.data.token);
-      
-       console.log("state token", accessToken);
-       navigate("/onboarding");
-      
+      const response = await register(
+        form.firstname,
+        form.lastname,
+        form.email,
+        form.username,
+        form.password,
+        form.imageUrl,
+        form.bio
+      )
+        .then(() => {
+          alert("Registration successful");
+          navigate("/login");
+        })
+        .catch((err) => {
+          const msg = err.response.data;
+          setErrorMessage(msg);
+          setOpen(true);
+        });
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      }
+    }
+  };
+
+  const handleLogin = async (form) => {
+    try {
+      const response = await login(form.email, form.password).catch((err) => {
+        const msg = err.response.data;
+        setErrorMessage(msg);
+        setOpen(true);
+      });
+
+      localStorage.setItem("accessToken", response.data.token);
+      setAccessToken(response.data.token);
+      navigate("/onboarding");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
@@ -73,6 +105,14 @@ function App() {
     setTheme("light");
     navigate("/login");
   }
+  
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
    
@@ -97,7 +137,7 @@ function App() {
 
           <Route
             path="/register"
-            element={accessToken? <Navigate to="/feed" /> : <Register />}
+            element={accessToken? <Navigate to="/feed" /> : <Register handleSubmit={handleRegister} />
           />
 
           <Route
@@ -119,6 +159,16 @@ function App() {
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
+         <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }

@@ -96,11 +96,6 @@ function App() {
           />
 
           <Route
-            path="/profile/:username"
-            element={accessToken ? <ProfileVisitPage /> : <Navigate to="/login" />}
-          />
-
-          <Route
             path="/register"
             element={accessToken? <Navigate to="/feed" /> : <Register />}
           />

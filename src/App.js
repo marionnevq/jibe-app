@@ -20,6 +20,7 @@ import ProfileVisitPage from "./pages/ProfileVisitPage";
 
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
+import PostPage from "./pages/PostPage";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -149,6 +150,22 @@ function App() {
             accessToken ? <ProfileVisitPage /> : <Navigate to="/login" />
           }
         />
+
+        <Route
+          path="/post/:postId"
+          element={
+            accessToken ? (
+              <PostPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
         <Route
           path="/register"
           element={

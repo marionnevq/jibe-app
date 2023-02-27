@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --background: #f2f2f2; /*white*/
+  --background-two: #f2f2f2; /*cream*/
+  --text-primary: #000; /*black*/
+  --text-secondary: #424242; /*white*/
+  --primary: #ff5d75; /*pink*/
+  --secondary: #2c3568; /*dark blue*/
+  --icon: #1c2835;
+  --nav-shadow: rgb(185, 184, 184);
+  --nav2-logo: #1c2835;
+  --input-field: white;
+  --paper: white;
+  --textfield: #f2f2f2;
+  --divider: #d2d2d2;
+
+  --dividerChip: #b8b8b8;
+  --header: #16202a;
+}
+
+[data-theme="dark"] {
+  --background: #1b1b1b; /*dark blue*/
+  --background-two: #3f3f3f; /*darker blue*/
+  --text-primary: white; /*white*/
+  --text-secondary: #9b9b9b; /*white*/
+  --primary: #1c2835; /*dark blue*/
+  --secondary: #16202a; /*darker blue*/
+  --icon: #f2f2f2;
+  --nav-shadow: #7b7b7b; /*white*/
+  --nav2-logo: #ff5d75;
+  --input-field: #333333;
+  --paper: #343434;
+  --textfield: #636363;
+  --divider: #636363;
+  --dividerChip: #b8b8b8;
+  --header: #eee8db;
+}

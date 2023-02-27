@@ -1,4 +1,5 @@
 import { Button, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
+
 import { Box, color } from '@mui/system'
 import React, { useRef, useState } from 'react'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
@@ -10,6 +11,7 @@ import dp from '../images/nik.jpg'
 import PhotoIcon from '@mui/icons-material/Photo';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { MoreVert } from '@mui/icons-material';
+
 
 const PostSide = ({ theme }) => {
 
@@ -46,11 +48,13 @@ const PostSide = ({ theme }) => {
               <span style={{ cursor: "pointer"}}>World</span>
             </Box>
             {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
+
             <Box className='fyp' sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
               <span style={{ cursor: "pointer"}}>For You</span>
             </Box>
           </Paper>
       </Grid>
+
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
           <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
@@ -62,7 +66,9 @@ const PostSide = ({ theme }) => {
               </Box>
               <Box className='postText' sx={{ p: 1}}>
                 <TextField className='shareText' placeholder="What's jibin'?" sx={{ width: "100%" }}
+
                   InputProps={{  sx: { height: "auto", fontFamily: "montserrat", color: (() => theme === "dark" ? "white" : "black") } }} multiline/>
+
               </Box>
             <Box className='postPhoto' sx={{ p: 0.5}}>
               <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "40px" }} />
@@ -74,14 +80,18 @@ const PostSide = ({ theme }) => {
               { image && (
                   <Box className="previewBox" sx={{ p: 0.5, border: '1px solid #d3d3d3', borderRadius:"7px" }}>
                     <div className='previewImage'>
+
                       <Box className="previewClose" sx={{ marginBottom:"-10px" }}>
+
                         <CancelRoundedIcon onClick={() => setImage(null)}  sx={{cursor: "pointer", justifyContent:"right"}}/>
                       </Box>
                       <img src={image.image} />
                   </div>
                   </Box>
               )}
+
             <Divider className='divider'/>
+
             <Box className='sharebtn' justifyItems={"center"} sx={{ p: 0.5 }}>
               <Button className='shareButton' variant='text' 
                 style={{ backgroundColor: "transparent", color:"#EB4660", fontFamily: 'Montserrat', height:"30px", fontSize:"16px", }} >
@@ -90,9 +100,11 @@ const PostSide = ({ theme }) => {
           </Paper>
       </Grid>
 
+
       <Divider className='divider' sx={{marginTop:"5px", fontSize:"10px" }}>WORLD</Divider>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+
         <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
@@ -140,6 +152,7 @@ const PostSide = ({ theme }) => {
              </Box>
            </Box>
            <Divider sx={{ marginBottom:"10px" }}/>
+
         </Paper>
 
         <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>

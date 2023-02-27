@@ -67,9 +67,11 @@ const handleSubmit = async (event) => {
             form.password,
             form.imageUrl,
             form.bio);
+        // TODO need to convert to new alert style / snackbar
         alert("Registration successful");
         navigate("/login");
       } catch (error) {
+        // TODO need to convert to new alert style / snackbar
         if (error.response && error.response.status === 400) {
           alert(error.response.data.message);
         }

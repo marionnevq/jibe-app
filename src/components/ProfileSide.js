@@ -1,4 +1,6 @@
+
 import { Button, Divider, Grid, Paper } from '@mui/material'
+
 import { Box } from '@mui/system'
 import React from 'react'
 import dp from '../images/nik.jpg'
@@ -12,6 +14,7 @@ const ProfileSide = ({ theme }) => {
 // }
 
   return (
+
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }}>
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
         
@@ -19,6 +22,7 @@ const ProfileSide = ({ theme }) => {
        <Paper className='profile' sx={{width: "90%", height: "270px", borderRadius:"0.6rem", boxShadow:"3"}}>
            <Grid item className='header' 
               sx={{width: "100%", height: "90px", backgroundColor: (() => theme === "dark" ? "#FFE5D9" : "black"), backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
+
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
               <img src={dp} alt=""/>
           </Grid>
@@ -30,6 +34,7 @@ const ProfileSide = ({ theme }) => {
              <span>@nikkifagara</span>
              </Box>
            </Box>
+
            <Divider className='divider'/>
            <div className='followerPart'>
              <Box className='followers' sx={{ width: "100%", p: 0.5, border: '1px dashed grey' }}>
@@ -38,10 +43,12 @@ const ProfileSide = ({ theme }) => {
              </Box>
              <Divider className='divider' orientation="vertical" variant="middle" flexItem />
              <Box className='following' sx={{ width: "100%", p: 0.5,  border: '1px dashed grey' }}>
+
                <span>521</span>
                <span>Following</span>
              </Box>
            </div>
+
         </Paper>
        </Grid>
 

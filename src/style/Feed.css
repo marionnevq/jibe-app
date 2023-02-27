@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --nav-background: #EEE8DB;
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
@@ -15,10 +14,13 @@
     --paper: white;
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
+
+    --dividerChip: #b8b8b8;
+    --header: #16202A;
+
   }
   
   [data-theme='dark'] {
-    --nav-background: #1b1b1b;
     --background: #1b1b1b; /*dark blue*/
     --background-two: #3f3f3f; /*darker blue*/
     --text-primary: white; /*white*/
@@ -32,6 +34,8 @@
     --paper: #343434;
     --textfield: #636363;
     --divider: #636363;
+    --dividerChip: #b8b8b8;
+    --header: #EEE8DB;
   }
 
   .MuiInputLabel-root {
@@ -219,6 +223,10 @@
         font-weight: 600;
     }
     
+    .name>span:hover{
+        cursor: pointer;
+    }
+    
     .username>span{
         font-family: 'Montserrat', sans-serif;
         font-size: 14px;
@@ -361,10 +369,6 @@
     .parent .feedType{
         background-color: var(--paper);
     }
-
-    .parent .feedType{
-        background-color: var(--paper);
-    }
     
     .post{
         align-items: center;
@@ -408,10 +412,8 @@
     }
 
 
-
     .postText .shareText{
         color: var(--text-primary);
-
     }
     
     .postPhoto{
@@ -421,16 +423,13 @@
         display: flex;
     }
 
-
     /* .shareText>input{
-
 
         background-color: #f2f2f2;
         border-radius: 10px;
         padding: 10px;
         font-size: 15px;
         border: none;
-
 
     } */
 
@@ -450,7 +449,6 @@
     }
     
     .previewImage{
-
         justify-content: center;
         align-items: center;
         display: flex;
@@ -490,16 +488,13 @@
         justify-content: center;
         display: flex;
 
-
     } 
-
 
 
     .world:hover{
         cursor: pointer;
     }
     
-
 
     .world>span{
 
@@ -513,7 +508,6 @@
         cursor: pointer;
     }
     
-
 
     .fyp>span{
 
@@ -537,7 +531,7 @@
     }
     
     .opImg{
-        width: 680px;
+        width: 60px;
         margin-left: 8px;
     }
     
@@ -564,12 +558,12 @@
     .opName>span:nth-of-type(1){
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
-        font-size: 20px;
+        font-size: 15px;
     }
     
     .opName>span:nth-of-type(2){
         font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
+        font-size: 11px;
     }
     
     .content>span{
@@ -638,10 +632,8 @@
         font-size: 18px;        
     }
 
-
     .trends{
         font-family: 'Montserrat', sans-serif;
-
     }
 
     .talks{
@@ -682,5 +674,4 @@
         .previewImage>img{
             width: 100%;;
         }
-
     }

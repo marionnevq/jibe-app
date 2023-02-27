@@ -70,21 +70,25 @@ const Register = ({ handleSubmit }) => {
     bio: Joi.optional(),
   });
 
+
   const handleChange = ({ currentTarget: input }) => {
     setForm({
       ...form,
       [input.name]: input.value,
     });
 
-    const { error } = schema
-      .extract(input.name)
-      .label(input.name)
-      .validate(input.value);
 
-    if (error && input.name === "confirmPwd") {
-      setErrors({ ...errors, [input.name]: "Password did not match" });
-    } else if (error && input.name !== "confirmPwd") {
-      setErrors({ ...errors, [input.name]: error.details[0].message });
+const { error } = schema
+    .extract(input.name)
+    .label(input.name)
+    .validate(input.value);
+
+    if(error && input.name === "confirmPwd"){
+        setErrors({ ...errors, [input.name]: "Password did not match" });
+    } else if (error && input.name === "password") {
+        setErrors({ ...errors, [input.name]: "Use at least one uppercase, lowercase, special character and number" });
+    }else if (error) {
+        setErrors({ ...errors, [input.name]: error.details[0].message });
     } else {
       delete errors[input.name];
       setErrors(errors);

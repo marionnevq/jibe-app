@@ -20,15 +20,16 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "../style/swiper.css";
+
 import "swiper/css";
+import Joi from 'joi';
 import * as userService from "../services/user";
 import { USER_ACCOUNT } from "../Data/sample";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../services/firebase";
 import Loading from "../images/Loading.gif";
-
 const LoginSwiper = () => {
-  const style = {
+    const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -39,19 +40,30 @@ const LoginSwiper = () => {
     pr: 1,
     borderRadius: 25,
   };
+  
+    const [like, setLike] = useState(true);
+    const [imageUrl, setImageUrl] = useState(null);
+    const [imageUpload, setImageUpload] = useState(null);
+    const [errors, setErrors] = useState({});
+    const [isError, setIsError] = useState(false);
+    const [bio, setBio] = useState({
+        bio: "",
+    });
+    const swiperRef = useRef(null);
+    const [loading, setLoading] = useState(false);
 
-  const [like, setLike] = useState(true);
-  const [imageUrl, setImageUrl] = useState(null);
-  //marionne
-  const [imageUpload, setImageUpload] = useState(null);
-  const [bio, setBio] = useState(null);
-  const swiperRef = useRef(null);
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
-  const handleChangeIcon = () => {
-    if (like === true) {
-      setLike(false);
+    const schema = Joi.object({
+        bio: Joi.string().allow("").min(0).max(150).optional()
+    })
+
+    const handleChangeIcon = () =>{
+        if(like === true){
+          setLike(false);
+        }
+        setTimeout(function() {
+            navigate("/feed");
+        }, 400);
     }
     setTimeout(function () {
       userService.updateCurrentUser({ firstTimeLogin: false }).then(() => {
@@ -60,16 +72,9 @@ const LoginSwiper = () => {
     }, 400);
   };
 
-  const handleImage = (event) => {
-    const img = event.target.files[0];
-    setImageUpload(img);
-    setImageUrl(URL.createObjectURL(img));
-    console.log(img);
-  };
 
-  const handleBio = (event) => {
-    setBio(event.target.value);
-  };
+
+  
 
   //marionne
   const handleSaveChanges = () => {
@@ -91,7 +96,46 @@ const LoginSwiper = () => {
     });
   };
 
-  return (
+
+    const handleImage = (event) => {
+        const img = event.target.files[0];
+        setImageUrl(URL.createObjectURL(img));
+        setImageUpload(img);
+        console.log(imageUpload);
+        console.log(img);
+    }
+
+    const handleUpdate = () => {
+        console.log(imageUpload);
+    }
+
+    const handleChange = ({ currentTarget: input }) => {
+        setBio(input.value);
+
+        const { error } = schema
+        .extract(input.name)
+        .label(input.name)
+        .validate(input.value);
+
+        if(error){
+            setIsError(true);
+            setErrors({ ...errors, [input.name]: "Maximum of 150 Characters" });
+        } else {
+            delete errors[input.name];
+            setErrors(errors);
+        }
+    }
+ 
+    const isFormInvalid = () => {
+        const result = schema.validate(bio);
+        if(errors !== null){
+            console.log(!!result.error)
+            return !!result.error;
+        }
+    };
+      
+return (
+
     <>
       <Modal open={loading}>
         <Box sx={style}>
@@ -122,100 +166,105 @@ const LoginSwiper = () => {
                 </Paper>
               </SwiperSlide>
             </Grid>
-            <SwiperSlide className="swiperslide">
-              <Paper className="paper" id="second">
-                <Grid className="second-container" container>
-                  <Grid item xs={12} sm={12}>
-                    <div>
-                      <div className="icon">
-                        {imageUrl ? (
-                          <img className="preview" src={imageUrl} />
-                        ) : (
-                          <img className="preview" src={alternate} />
-                        )}
-                      </div>
-                      <div className="icon">
-                        <Button
-                          variant="contained"
-                          component="label"
-                          className="img-btn"
-                          sx={{ backgroundColor: "#EB4660" }}
-                        >
-                          <Typography
-                            sx={{
-                              fontFamily: "montserrat",
-                              fontSize: "12px",
-                            }}
-                          >
-                            Choose Profile Picture
-                          </Typography>
-                          <input
-                            accept="image/*"
-                            type="file"
-                            hidden
-                            onChange={(event) => handleImage(event)}
-                          />
-                        </Button>
-                      </div>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} className="icon">
-                    <div style={{ width: "100%" }}>
-                      <div className="icon">
-                        <TextField
-                          id="outlined-multiline-static"
-                          label="Your Bio"
-                          variant="filled"
-                          multiline
-                          rows={5}
-                          className="bio"
-                          onChange={(event) => handleBio(event)}
-                        />
-                      </div>
-                      <div className="icon">
-                        <Button
-                          variant="contained"
-                          component="label"
-                          className="img-btn"
-                          sx={{ backgroundColor: "#EB4660" }}
-                          onClick={handleSaveChanges}
-                        >
-                          add changes
-                        </Button>
-                      </div>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide className="swiperslide">
-              <Paper className="paper" id="third-slide">
-                <div className="third">
-                  <div>
-                    <img id="image" src={txtlogo} />
-                  </div>
-                  <div>
-                    <div id="follow">follow </div>
-                  </div>
-                  <div>
-                    <FollowCard />
-                  </div>
-                </div>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide className="swiperslide">
-              <Paper className="paper" id="forth">
-                <div className="last-btn">
-                  <button onClick={handleChangeIcon}>
-                    {like ? <img src={Like1} /> : <img src={Like2} />}
-                  </button>
-                  <h1>enjoy jibing.</h1>
-                </div>
-              </Paper>
-            </SwiperSlide>
-          </Swiper>
-        </Grid>
-      </Grid>
+
+                <SwiperSlide className='swiperslide'>
+                    <Paper className='paper' id='second'>
+                    <Grid className='second-container' container>
+                        <Grid item xs={12} sm={12}>
+                            <div>
+                                <div className='icon'>
+                                {
+                                imageUrl? <img className="preview" src={imageUrl} /> : 
+                                            <img className="preview" src={alternate} /> 
+                                }
+                                </div>
+                                <div className='icon'>
+                                    <Button
+                                        variant="contained"
+                                        component="label"
+                                        className='img-btn'
+                                        sx={{backgroundColor: "#EB4660"}}
+                                    >
+                                    <Typography id="save">
+                                        Choose Profile Picture
+                                    </Typography>
+                                    <input
+                                        accept="image/*"
+                                        type="file"
+                                        hidden
+                                        onChange={(event) => handleImage(event)}
+                                    />
+                                    </Button>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} sm={12} className='icon'>
+                            <div style={{width: "100%"}}>
+                                <div className='icon'>
+                                <TextField
+                                    name="bio"
+                                    error={!!errors.bio}
+                                    helperText={errors.bio}
+                                    onChange={handleChange}
+                                    value={bio.bio}
+                                    id="outlined-multiline-static"
+                                    label="Your Bio"
+                                    variant='filled'
+                                    multiline
+                                    rows={5}
+                                    className= "bio"
+                                />
+                                </div>
+                                <div className='icon'>
+                                    <Button
+                                        variant="contained"
+                                        component="label"
+                                        className='img-btn'
+                                        sx={{backgroundColor: "#EB4660"}}
+                                         onClick={handleSaveChanges}
+                                        disabled = {isError ? true : false}
+                                    >
+                                    <Typography id="save">
+                                        Save changes
+                                    </Typography>
+                                    </Button>`
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
+                    </Paper>
+                </SwiperSlide>
+                <SwiperSlide className='swiperslide'>
+                    <Paper className='paper' id='third-slide'> 
+                        <div className='third'>
+                            <div>
+                                <img id='image' src={txtlogo}/>
+                            </div>
+                            <div>
+                                <div id='follow'>follow </div>
+                            </div>
+                            <div>
+                                <FollowCard />
+                            </div>
+                        </div>
+                    </Paper>
+                </SwiperSlide>
+                <SwiperSlide className='swiperslide' >
+                    <Paper className='paper' id='forth'>
+                        <div className='last-btn'>
+                            <button onClick={handleChangeIcon} >
+                            {
+                                like? <img src={Like1} /> : <img src={Like2} /> 
+                            }
+                            </button>
+                            <h1>enjoy jibing.</h1>
+                        </div>
+                    </Paper>
+                </SwiperSlide>
+            </Swiper>  
+        </Grid> 
+    </Grid>
+
     </>
   );
 };

@@ -258,7 +258,8 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                     <Box className="caption-content" sx={{ p: 2 }}>
                       <span>#NewHeader</span>
                     </Box>
-                    <Box
+                    {/* IMG Condition Area */}
+                    {image ? <Box
                       className="imgContent"
                       sx={{
                         p: 1,
@@ -268,7 +269,8 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                       }}
                     >
                       <img src={test} style={{ width: "70%" }} />
-                    </Box>
+                    </Box> : null}
+                    
                   </div>
                 </Box>
                 <Divider />

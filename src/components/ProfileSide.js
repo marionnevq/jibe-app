@@ -1,7 +1,7 @@
 
 import { Button, Divider, Grid, Paper } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import dp from '../images/nik.jpg'
 import { getUser } from '../services/auth'
@@ -14,12 +14,18 @@ const ProfileSide = ({theme}) => {
         loadUser();
     },[])
 
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
-  const GoToProfile = async (event) => {
-    navigate("/profile/:username")
-}
+    const GoToProfile = async (event) => {
+        navigate("/profile/:username")
+    }
+ 
+    const loadUser = async() => {
+        const current = await getUser();
+        setCurrentUser(current.data);
+        console.log(currentUser);
+        // console.log(current);
+    }
 
 return (
 

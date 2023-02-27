@@ -11,9 +11,14 @@ import { getAccessToken, login } from './services/auth';
 import useLocalStorage from 'use-local-storage';
 import ProfileVisitPage from './pages/ProfileVisitPage';
 
+import { POSTS_DATA } from './Data/posts';
+import ProfilePage from './pages/ProfilePage';
+
 function App() {
   
-  const [theme, setTheme] = useLocalStorage("theme", "light")
+  const [theme, setTheme] = useLocalStorage("theme", "dark")
+  const [posts, setPosts] = useState(POSTS_DATA);
+
 
   useEffect(() => {
     console.log(theme);
@@ -107,7 +112,15 @@ function App() {
               onSwitch={switchTheme}
               theme={theme}/> : <Navigate to="/login" />}
           />
-          
+
+          <Route
+            path="/profile/:username"
+            element={accessToken? <ProfilePage 
+              onLogout={handleLogout}
+              onSwitch={switchTheme}
+              posts={posts}
+              theme={theme}/> : <Navigate to="/login" />}
+          />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>

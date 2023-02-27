@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
+    --nav-background: #EEE8DB;
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
@@ -14,10 +15,10 @@
     --paper: white;
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
-
   }
   
   [data-theme='dark'] {
+    --nav-background: #1b1b1b;
     --background: #1b1b1b; /*dark blue*/
     --background-two: #3f3f3f; /*darker blue*/
     --text-primary: white; /*white*/
@@ -31,7 +32,6 @@
     --paper: #343434;
     --textfield: #636363;
     --divider: #636363;
-
   }
 
   .MuiInputLabel-root {

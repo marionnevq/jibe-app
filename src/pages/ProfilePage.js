@@ -11,7 +11,6 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
-import mk from "../images/mark.jpg";
 import test from "../images/test.jpg";
 
 const ProfilePage = ({ posts }) => {

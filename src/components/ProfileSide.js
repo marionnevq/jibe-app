@@ -16,7 +16,7 @@ const ProfileSide = ({ theme }) => {
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
         
        <Grid item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-       <Paper className='profile' sx={{width: "90%", height: "270px", paddingBottom: "10px", borderRadius:"0.6rem", boxShadow:"2"}}>
+       <Paper className='profile' sx={{width: "90%", height: "270px", borderRadius:"0.6rem", boxShadow:"3"}}>
            <Grid item className='header' 
               sx={{width: "100%", height: "90px", backgroundColor: (() => theme === "dark" ? "#FFE5D9" : "black"), backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
@@ -36,7 +36,7 @@ const ProfileSide = ({ theme }) => {
                <span>802</span>
                <span>Followers</span>
              </Box>
-             {/* <Divider className='divider' orientation="vertical" variant="middle" flexItem /> */}
+             <Divider className='divider' orientation="vertical" variant="middle" flexItem />
              <Box className='following' sx={{ width: "100%", p: 0.5,  border: '1px dashed grey' }}>
                <span>521</span>
                <span>Following</span>

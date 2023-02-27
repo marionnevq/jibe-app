@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -32,6 +33,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     setAnchorEl(null);
   };
 
+
   // const handleSearchProfiles = () => {
   //   employeeService
   //     .updateEmployee(employee.id, form)
@@ -53,9 +55,11 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     console.log(input.value);
   }
 
+
   const themeNow = theme;
 
   return (
+
     <Grid className='nav-bar' container style={{minHeight : "auto"}}>
       <Grid className= "logo" item xs={12} md={1}>
       {
@@ -120,12 +124,14 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           >
             <NotificationsIcon/>
           </IconButton>
+
           <IconButton
             className='icon2'
             id='menu'
             size="large"
             edge="start"
             aria-label="open drawer"
+
             sx={{ marginLeft: "2px", color: (() => theme === "light" ? "#1C2835" : "#f2f2f2")}}
             onClick={handleOpenMenu}  
           >
@@ -152,7 +158,8 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         </Menu>
         </div>
       </Grid>
+
     </Grid>
   );
-}
-export default NavBar
+};
+export default NavBar;

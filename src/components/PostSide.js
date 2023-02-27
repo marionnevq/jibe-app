@@ -173,7 +173,7 @@ const PostSide = ({ theme }) => {
                    like? <img src={liked} /> :  <img src={unlike} />
                  }
                  {
-                   like? <span>Like</span> : <span>Liked</span>
+                   like? <span>Liked</span> : <span>Like</span>
                  }
                 </Button>
                </div>

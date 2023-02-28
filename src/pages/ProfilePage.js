@@ -1,13 +1,10 @@
-import { Avatar, Button, Divider, Grid, Paper } from '@mui/material'
-import { Box, display } from '@mui/system';
+import { Avatar, Button, Divider, Grid, Paper, TextField } from '@mui/material'
+import { Box } from '@mui/system';
 import React, { useState, useEffect, useRef } from 'react'
-import { useNavigate, useParams,  } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import alt from "../images/alternate.jpg"
 import "../style/ProfileVisit.css"
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PostVisit from '../components/PostVisit';
-
+import PhotoIcon from "@mui/icons-material/Photo";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { getUser } from "../services/auth";
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -50,26 +47,6 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
     }
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchUserByUsername(params.username).then((response) => {
-  //     setUser(response.data);
-  //     setLoading(false);
-  //   });
-  // }, [params.id]);
-
-  const handleSubmit = (form) => {
-    // employeeService
-    //   .updateEmployee(employee.id, form)
-    //   .then(() => {
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response && error.response.status === 400) {
-    //       alert(error.response.data.message[0]);
-    //     }
-    //   });
-  };
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -137,7 +114,7 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
       </Grid>
       <Paper className='bottom-foot'>
         <Grid container className= 'foot' style= {{height: "auto"}}>
-          <Grid className='left' item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "start", marginTop: "10px"}}>
+          <Grid className='left' item xs={12} md={3.5} sx={{display: "flex", flexDirection:"column", marginTop: "10px"}}>
             <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
             <h1>{currentUser === null
                       ? ""
@@ -150,12 +127,84 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
                         : `${currentUser.bio}`}
                     </em> </h4>
             </Paper>
+            <Paper className='window-name' style={{marginTop: "10px", width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
+            <Box className="postInfo">
+                    <Box className="postText" sx={{ p: 1 }}>
+                      <TextField
+                        className="shareText"
+                        placeholder="What's jibin'?"
+                        sx={{ width: "100%" }}
+                        InputProps={{ sx: { height: "auto" } }}
+                        multiline
+                      />
+                    </Box>
+                    <Box className="postPhoto" sx={{ p: 0.5 }}>
+                      <PhotoIcon
+                        onClick={() => imageRef.current.click()}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
+                      />
+                    </Box>
+                  </Box>
+                  <div style={{ display: "none" }}>
+                    <input
+                      type="file"
+                      name="myImage"
+                      ref={imageRef}
+                      onChange={onImageChange}
+                    />
+                  </div>
+                  {image && (
+                    <Box
+                      className="previewBox"
+                      sx={{
+                        p: 0.5,
+                        border: "1px solid #d3d3d3",
+                        borderRadius: "7px",
+                      }}
+                    >
+                      <div className="previewImage">
+                        <Box className="previewClose" sx={{ p: 0.5 }}>
+                          <CancelRoundedIcon
+                            onClick={() => setImage(null)}
+                            sx={{
+                              cursor: "pointer",
+                              justifyContent: "right",
+                            }}
+                          />
+                        </Box>
+                        <img src={image.image} />
+                      </div>
+                    </Box>
+                  )}
+                  <Divider />
+                  <Box
+                    className="sharebtn"
+                    justifyItems={"center"}
+                    sx={{ p: 0.5 }}
+                  >
+                    <Button
+                      className="shareButton"
+                      variant="text"
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "#EB4660",
+                        fontFamily: "Montserrat",
+                        height: "30px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Post
+                    </Button>
+                  </Box>
+            </Paper>
           </Grid>
+    
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
               <ProfilePostArea theme={theme} />
           </Grid>
         </Grid>
       </Paper>
+      
     {/* <Grid container sx={{height: "auto"}}>
         <Grid container item xs={12} md={12} sx={{height: "100px"}}>
           Hello

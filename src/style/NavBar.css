@@ -15,7 +15,7 @@
   --paper: white;
   --textfield: #f2f2f2;
   --divider: #d2d2d2;
-
+  --mode: #2C3568;
 }
 
 [data-theme='dark'] {
@@ -33,7 +33,7 @@
   --paper: #343434;
   --textfield: #636363;
   --divider: #636363;
-
+  --mode: #EEE8DB;
 }
 
 [type="search"]::-webkit-search-cancel-button {
@@ -49,6 +49,10 @@ input[type="search"]{
   background-color: var(--input-field);
   outline: var(--input-field);
   color: var(--text-primary);
+}
+
+.mode{
+  color: var(--mode);
 }
 
   .click:focus{
@@ -178,6 +182,6 @@ input[type="search"]{
     }
 
     .nav-bar .icon2{
-      margin-left: -45px;
+      margin-left: -25px;
     }
   }

@@ -11,3 +11,4 @@ export function getFollowingPost(followeeID, postID) {
 export function getUserPosts(username) {
   return http.get(`/profiles/${username}/posts`);
 }
+

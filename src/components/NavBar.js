@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -16,6 +16,7 @@ import nav2 from "../images/nav2.png"
 import nav3 from "../images/nav3.png"
 import "../style/NavBar.css";
 import { useNavigate } from 'react-router-dom';
+import { getUser } from "../services/auth";
 
 const NavBar = ({onLogout, onSwitch, theme}) => {
   
@@ -34,6 +35,20 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     setAnchorEl(null);
   };
 
+  const GoToProfile = async (currentUser) => {
+    navigate(`/profile/${currentUser.username}`)
+  }
+
+  const [currentUser, setCurrentUser] = useState("");
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const current = await getUser();
+    setCurrentUser(current.data);    
+  };
 
   // const handleSearchProfiles = () => {
   //   employeeService
@@ -147,7 +162,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           sx={{width:"500px", paddingTop: "-30px"}}
         >
           <Paper className='menu-paper' sx={{backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#272727"),  height: "auto"}}>
-         <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}}>
+         <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}} onClick={() => (GoToProfile(currentUser))}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
           <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px"}}>

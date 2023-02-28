@@ -14,7 +14,6 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const [like, setLike] = useState(false);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
 
@@ -36,14 +35,6 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
       setImage({
         image: URL.createObjectURL(img),
       });
-    }
-  };
-
-  const handleChangeIcon = () => {
-    if (like === false) {
-      setLike(true);
-    } else {
-      setLike(false);
     }
   };
 

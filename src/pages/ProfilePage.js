@@ -2,7 +2,7 @@ import { Avatar, Button, Divider, Grid, Paper, TextField } from '@mui/material'
 import { Box } from '@mui/system';
 import React, { useState, useEffect, useRef } from 'react'
 import NavBar from '../components/NavBar';
-import "../style/ProfileVisit.css"
+import "../style/Profile.css"
 import PhotoIcon from "@mui/icons-material/Photo";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { getUser } from "../services/auth";

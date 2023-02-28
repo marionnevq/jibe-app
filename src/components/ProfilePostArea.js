@@ -8,9 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import bg1 from "../images/bg1.jpg";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import alt from "../images/alternate.jpg";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { Box } from "@mui/system";
@@ -114,14 +112,14 @@ const ProfilePostArea = ({ theme }) => {
               {post.length === 0 ? null : (
                 <Box
                   className="imgContent"
-                  sx={{ p: 1, display: "flex", height: "auto" }}
+                  sx={{ display: "flex", justifyContent: "center", width: "95%", marginLeft: "30px", border: "1px solid lightgrey", paddingTop: "10px", paddingBottom: "10px"}}
                 >
-                  <img src={`${post.imageUrl}`} style={{ width: "100%" }} />
+                  <img src={`${post.imageUrl}`} style={{ width: "auto" }} />
                 </Box>
               )}
             </div>
           </Box>
-          <Divider />
+          {/* <Divider /> */}
           <Box
             className="reactions"
             sx={{
@@ -149,7 +147,7 @@ const ProfilePostArea = ({ theme }) => {
               </Button>
             </Box>
           </Box>
-          <Divider sx={{ marginBottom: "10px" }} />
+          {/* <Divider sx={{ marginBottom: "10px" }} /> */}
         </Paper>
       ))}
     </div>

@@ -37,15 +37,6 @@ const loadUser = async() => {
     const apiPost = await getWorldPost();
     setPost(apiPost.data);
 }
-
-  // const [post, setPost] = useState(
-  //   { body: "",  imageURL: "" }
-  // );
-
-  const schema = Joi.object({
-    body: Joi.string().min(2).max(255).allow("").optional()
-  });
-
   const [image, setImage] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -83,10 +74,6 @@ const loadUser = async() => {
 //   onPosting(post);
 //   navigate('/feed');
 // };
-
-
-
-
 
   return (
     <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>

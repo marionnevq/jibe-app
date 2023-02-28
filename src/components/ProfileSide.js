@@ -67,7 +67,7 @@ const ProfileSide = ({ theme }) => {
               <span>Find more people</span>
             </Box>
             {/* <Divider className='divider'/> */}
-            <Box className="latchList"  sx={{ width: "100%", height:"200px",  flexDirection:"column", p: 0.5 }}>
+            <Box className="latchList"  sx={{ width: "100%", height:"200px",  flexDirection:"column", p: 0.5,  borderRadius:"0.6rem" }}>
               <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
                 <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <img src={dp}/>

@@ -1,19 +1,45 @@
-import { Button, Chip, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, InputBase, Menu, MenuItem, Paper, TextField } from '@mui/material'
 import { Box, color } from '@mui/system'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { getCurrentUser } from '../services/user'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import unlike from '../images/unlike.png'
 import liked from '../images/liked.png'
+import unlikeDark from '../images/unlike-dark.png'
+import likedDark from '../images/liked-dark.png'
 import mk from '../images/mark.jpg'
 import test from '../images/test.jpg'
 import dp from '../images/nik.jpg'
+import Joi from "joi"
 import PhotoIcon from '@mui/icons-material/Photo';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import { MoreVert } from '@mui/icons-material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { getWorldPost } from '../services/post';
+import { useNavigate } from 'react-router-dom';
 
-const PostSide = ({ theme }) => {
 
+const PostSide = ({ theme, onPosting }) => {
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [posts, setPost] = useState([])
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadUser();
+},[])
+
+const loadUser = async() => {
+    const current = await getCurrentUser();
+    setCurrentUser(current.data);
+    const apiPost = await getWorldPost();
+    setPost(apiPost.data);
+}
   const [image, setImage] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   const imageRef = useRef();
 
   const onImageChange = (event) => {
@@ -26,7 +52,6 @@ const PostSide = ({ theme }) => {
   }
 
   const [like, setLike] = useState(false);
-
   const handleChangeIcon = () =>{
     if(like === false){
       setLike(true);
@@ -35,13 +60,27 @@ const PostSide = ({ theme }) => {
     }
   }
 
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+//  for posting
+//  const handlePost = (event) => {
+//   event.preventDefault();
+//   onPosting(post);
+//   navigate('/feed');
+// };
 
   return (
     <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
       
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <Paper className='feedType' sx={{ width:"95%", height:"45px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
+        <Paper className='feedType' sx={{ width:"95%", height:"45px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
             <Box className='fyp' sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
               <span style={{ cursor: "pointer"}}>World</span>
             </Box>
@@ -53,11 +92,12 @@ const PostSide = ({ theme }) => {
       </Grid>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-          <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
+     
+          <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
            <Box className="postInfo">
             <Box className='postDp' sx={{ p: 1 }}>
                 <div className="postDp2">
-                  <img src={dp} alt=""/>
+                  <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt=""/>
                 </div>
               </Box>
               <Box className='postText' sx={{ p: 1}}>
@@ -65,7 +105,7 @@ const PostSide = ({ theme }) => {
                   InputProps={{ className: "inputTextfield", sx: { height: "auto", fontFamily: "montserrat", color: (() => theme === "dark" ? "white" : "black") } }} multiline/>
               </Box>
             <Box className='postPhoto' sx={{ p: 0.5}}>
-              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "35px" }} />
+              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "30px" }} />
             </Box>
            </Box>
             <div style={{ display: "none"}}>
@@ -93,7 +133,7 @@ const PostSide = ({ theme }) => {
       <Divider className='divider'><Chip className='dividerChip' label="WORLD" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-        <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
+        <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
                <div className="opInfo">
@@ -104,8 +144,25 @@ const PostSide = ({ theme }) => {
                <span>Mark Lee</span>
               <span>a few minutes ago</span>
              </Box>
-             <Box className='options' sx={{ p: 1 }}>
-               <MoreVert/>
+             <Box className="optionBox" sx={{ p: 1 }}>
+                <IconButton className='options' onClick={handleOpenMenu}>
+                    <MoreHorizIcon/>
+                </IconButton>
+
+                <Menu
+                  // id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleCloseMenu}
+                  className="menu"
+                >
+                  <MenuItem className='menuItem'  sx={{ fontFamily: "montserrat" }}>
+                    <EditRoundedIcon />&nbsp;&nbsp;Edit
+                  </MenuItem>
+                  <MenuItem className='menuItem' sx={{ fontFamily: "montserrat" }}>
+                    <DeleteRoundedIcon/>&nbsp; Move to trash
+                  </MenuItem>
+                </Menu>
              </Box>
            </Box>
            <Box className='postContent'  sx={{ p: 0.2 }}>
@@ -118,7 +175,7 @@ const PostSide = ({ theme }) => {
                </Box>
              </div>
            </Box>
-           <Divider />
+           <Divider className='divider'/>
            <Box className='reactions' sx={{ p: 0.2 }}>
              <Box className='like' sx={{ p: 0.2 }}> 
               <div className='likebtn' onClick={handleChangeIcon}>
@@ -139,10 +196,10 @@ const PostSide = ({ theme }) => {
                </Button>
              </Box>
            </Box>
-           <Divider sx={{ marginBottom:"10px" }}/>
+           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
         </Paper>
 
-        <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
+        <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
                <div className="opInfo">
@@ -153,8 +210,19 @@ const PostSide = ({ theme }) => {
                <span>Mark Lee</span>
               <span>a few minutes ago</span>
              </Box>
-             <Box className='options' sx={{ p: 1 }}>
-               <MoreVert/>
+             <Box sx={{ p: 1 }}>
+             <IconButton className='options' onClick={handleOpenMenu}>
+                    <MoreHorizIcon/>
+                </IconButton>
+
+                <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} className="menuBox" >
+                  <MenuItem className='menuItem'  sx={{ fontFamily: "montserrat" }}>
+                    <EditRoundedIcon />&nbsp;&nbsp;Edit
+                  </MenuItem>
+                  <MenuItem className='menuItem' sx={{ fontFamily: "montserrat" }}>
+                    <DeleteRoundedIcon/>&nbsp; Move to trash
+                  </MenuItem>
+                </Menu>
              </Box>
            </Box>
            <Box className='postContent'  sx={{ p: 0.2 }}>
@@ -164,7 +232,7 @@ const PostSide = ({ theme }) => {
                </Box>
              </div>
            </Box>
-           <Divider />
+           <Divider className='divider' />
            <Box className='reactions' sx={{ p: 0.2 }}>
              <Box className='like' sx={{ p: 0.2 }}> 
               <div className='likebtn' onClick={handleChangeIcon}>
@@ -185,7 +253,7 @@ const PostSide = ({ theme }) => {
                </Button>
              </Box>
            </Box>
-           <Divider sx={{ marginBottom:"10px" }}/>
+           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
         </Paper>
 
       </Grid>

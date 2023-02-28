@@ -8,15 +8,16 @@
     --text-secondary: #424242; /*white*/
     --primary: #ff5d75; /*pink*/
     --secondary: #2C3568; /*dark blue*/
-    --icon: #1C2835; 
+    --icon: #EB4660; 
     --nav-shadow: rgb(185, 184, 184);
     --nav2-logo: #1C2835;
     --input-field: white;
     --paper: white;
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
-    --dividerChip: #b8b8b8;
+    --dividerChip: #EEE8DB;
     --header: #16202A;
+    --icon2: #EB4660; 
   }
   
   [data-theme='dark'] {
@@ -35,6 +36,7 @@
     --divider: #636363;
     --dividerChip: #b8b8b8;
     --header: #EEE8DB;
+    --icon2: white; 
   }
 
   .MuiInputLabel-root {
@@ -76,6 +78,21 @@
         color: var(--text-primary);
     }
 
+    .parent .menu-paper{
+        background-color: var( --background);
+        color: var(--text-primary);
+    }
+
+    .parent .menuItem{
+        background-color: var( --background);
+        color: var(--text-primary);
+    }
+
+    .parent .menuBox{
+        background-color: var( --background);
+        color: var(--text-primary);
+    }
+
 
     .parent .username{
         color: var(--text-secondary);
@@ -102,7 +119,7 @@
     }
 
     .parent .previewClose{
-        color: var(--text-primary);
+        color: var(--icon2);
     }
 
 
@@ -127,7 +144,7 @@
     }
 
     .parent .postPhoto{
-        color: var(--text-primary);
+        color: var(--icon2);
     }
 
     .parent .likeButton>span{
@@ -175,7 +192,7 @@
     }
 
     .parent .options{
-        color: var(--text-primary);
+        color: var(--icon);
     }
 
     .parent .header{
@@ -185,6 +202,10 @@
     .parent .dividerChip{
         background-color: var(--dividerChip);
         color: var(--text-primary);
+    }
+
+    .parent .latchBtn{
+        color: var(--icon2);
     }
 
     /*end*/
@@ -231,7 +252,7 @@
     .name>span{
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: bold;
     }
     
     .name>span:hover{

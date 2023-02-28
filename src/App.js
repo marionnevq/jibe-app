@@ -23,7 +23,7 @@ import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
-  const [posts, setPosts] = useState(POSTS_DATA);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     console.log(theme);

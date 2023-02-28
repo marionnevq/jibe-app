@@ -35,9 +35,9 @@
 
   }
 
-.parent{
+/* .parent{
     background-color: var( --background);
-}
+} */
 
 .parent .header{
     background-color: var( --primary);
@@ -102,4 +102,8 @@
 
 .divider {
     background-color: var(--background-two);
+}
+
+@media only screen and (max-width: 650px){
+    
 }

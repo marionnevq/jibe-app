@@ -1,23 +1,54 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sana from "../images/sana.jpg";
 import { Grid, Avatar, Paper, Divider, Button, TextField } from "@mui/material";
 import "../style/Profile.css";
 import NavBar from "../components/NavBar";
 import { Box } from "@mui/system";
 import ProfilePostPage from "../components/ProfilePostPage";
-import { MoreVert } from "@mui/icons-material";
+import { MoreVert, SettingsOutlined } from "@mui/icons-material";
 import PhotoIcon from "@mui/icons-material/Photo";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import test from "../images/test.jpg";
+import { getUser } from "../services/auth";
+import { getUserPosts } from "../services/post";
+import TimeAgo from "javascript-time-ago";
+import en from 'javascript-time-ago/locale/en'
 
-const ProfilePage = ({ posts, theme, onSwitch }) => {
-  console.log("This is POST_DATA from ProfilePage.js", posts);
+const ProfilePage = ({ onLogout, theme, onSwitch }) => {
   const [like, setLike] = useState(false);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
+
+  const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
+
+  const[postDate, setPostDate] = useState("");
+  
+  const createTime = (postDate) => {
+    TimeAgo.addLocale(en);
+    const timeAgo = new TimeAgo("en-US");
+    const ago = timeAgo.format(new Date(postDate));
+    return ago;
+  }
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const current = await getUser();
+    setCurrentUser(current.data);
+    await getUserPosts(current.data.username).then((userPosts) => {
+      let dp = userPosts.data[0].datePosted;
+      let createdTime = createTime(dp);
+      setPostDate(createdTime);
+      setPosts(userPosts.data);
+    });
+    
+  };
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -35,10 +66,19 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
       setLike(false);
     }
   };
+
+
   return (
-    <div data-theme={theme} className="parent">
-      <NavBar onSwitch={onSwitch} theme={theme} />
-      <Grid container sx={{ minHeight: "100vh" }}>
+    <div
+      data-theme={theme}
+      className="parent"
+      style={{
+        minWidth: "100%",
+        backgroundColor: () => (theme === "light" ? "#EB4660" : "#333333"),
+      }}
+    >
+      <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
+      <Grid container className="parent-two">
         <Paper sx={{ width: "100%" }} className="main">
           <Grid
             item
@@ -57,13 +97,19 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
               width: "100%",
               display: "flex",
               paddingLeft: "150px",
-              boxShadow: "2"
+              boxShadow: "2",
             }}
           >
             <Avatar
               alt="Sana Minatozaki"
-              src={sana}
-              sx={{ width: "20rem", height: "20rem", boxShadow: "2", marginTop: "-150px", marginBottom:"20px" }}
+              src={currentUser === null ? "" : currentUser.imageUrl}
+              sx={{
+                width: "20rem",
+                height: "20rem",
+                boxShadow: "2",
+                marginTop: "-150px",
+                marginBottom: "20px",
+              }}
             />
             <Grid
               container
@@ -72,9 +118,7 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
               className="following-holder"
               sx={{ marginTop: "50px", paddingLeft: "200px" }}
             >
-              <Box
-                className="names"
-              >
+              <Box className="names">
                 <Box className="title-head">
                   <span>Posts</span>
                 </Box>
@@ -82,10 +126,7 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                   <span>1.2k</span>
                 </Box>
               </Box>
-              <Box
-                className="names"
-                sx={{ paddingLeft: "200px" }}
-              >
+              <Box className="names" sx={{ paddingLeft: "200px" }}>
                 <Box className="title-head">
                   <span>Followers</span>
                 </Box>
@@ -93,10 +134,7 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                   <span>10.8m</span>
                 </Box>
               </Box>
-              <Box
-                className="names"
-                sx={{ paddingLeft: "200px" }}
-              >
+              <Box className="names" sx={{ paddingLeft: "200px" }}>
                 <Box className="title-head">
                   <span>Following</span>
                 </Box>
@@ -107,20 +145,30 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
             </Grid>
           </Grid>
 
-          <Divider variant="fullWidth" className="divider"/>
+          <Divider variant="fullWidth" className="divider" />
 
           <Grid container sx={{ minHeight: "100vh" }} className="postBG">
             <Grid item xs={12} md={4} sx={{ marginTop: "30px" }}>
               <Box className="user-details">
                 <Box className="name-head">
-                  <span>Nikki Fagara</span>
+                  <span>
+                    {currentUser === null
+                      ? ""
+                      : `${currentUser.firstname} ${currentUser.lastname}`}
+                  </span>
                 </Box>
                 <Box className="username-head">
-                  <span>@nikkifagara</span>
+                  <span>
+                    @{currentUser === null ? "" : `${currentUser.username}`}
+                  </span>
                 </Box>
                 <Box className="bio-head">
                   <span>
-                    <em>"I am the greatest.."</em>
+                    <em>
+                      {`${currentUser.bio}` === ""
+                        ? "No Bio"
+                        : `${currentUser.bio}`}
+                    </em>
                   </span>
                 </Box>
               </Box>
@@ -146,6 +194,7 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                     boxShadow: "3",
                   }}
                 >
+
                   <Box className="postInfo">
                     <Box className="postText" sx={{ p: 1 }}>
                       <TextField
@@ -234,20 +283,25 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                   borderRadius: "0.6rem",
                   boxShadow: "3",
                 }}
+
               >
                 <Box className="info" sx={{ p: 3 }}>
                   <Box className="opImg" sx={{ p: 1 }}>
                     <div className="opInfo">
                       <Avatar
-                        alt="Sana Minatozaki"
-                        src={sana}
+                        alt="Display picture"
+                        src={currentUser === null ? "" : currentUser.imageUrl}
                         sx={{ width: 56, height: 56 }}
                       />
                     </div>
                   </Box>
                   <Box className="opName" sx={{ p: 2 }}>
-                    <span>Nikki Fagara</span>
-                    <span>a few minutes ago</span>
+                    <span>
+                      {currentUser === null
+                        ? ""
+                        : `${currentUser.firstname} ${currentUser.lastname}`}
+                    </span>
+                    <span>{postDate}</span>
                   </Box>
                   <Box className="options" sx={{ p: 3 }}>
                     <MoreVert />
@@ -256,21 +310,21 @@ const ProfilePage = ({ posts, theme, onSwitch }) => {
                 <Box className="postContent" sx={{ p: 3 }}>
                   <div className="postContent2">
                     <Box className="caption-content" sx={{ p: 2 }}>
-                      <span>#NewHeader</span>
+                      <span>{posts.length === 0 ? "" : posts[0].body}</span>
                     </Box>
-                    {/* IMG Condition Area */}
-                    {image ? <Box
-                      className="imgContent"
-                      sx={{
-                        p: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <img src={test} style={{ width: "70%" }} />
-                    </Box> : null}
-                    
+                    { posts.length === 0 ? null : (
+                      <Box
+                        className="imgContent"
+                        sx={{
+                          p: 1,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img src={`${posts[0].imageUrl}`} style={{ width: "70%" }} />
+                      </Box>
+                    )}
                   </div>
                 </Box>
                 <Divider />

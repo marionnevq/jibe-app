@@ -113,7 +113,6 @@ function App() {
             element={accessToken? <ProfilePage 
               onLogout={handleLogout}
               onSwitch={switchTheme}
-              posts={posts}
               theme={theme}/> : <Navigate to="/login" />}
           />
           <Route path="/not-found" element={<NotFound />} />

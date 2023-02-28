@@ -17,7 +17,7 @@ const ProfileSide = ({ theme }) => {
         loadUser();
     },[])
 
-    const navigate = useNavigate();
+
     const GoToProfile = async (event) => {
     navigate("/profile/:username")
     }
@@ -28,15 +28,6 @@ const ProfileSide = ({ theme }) => {
         console.log(current.data);
     }
 
-    useEffect(() => {
-        loadUser();
-    },[])
-
-    const loadUser = async() => {
-        const current = await getCurrentUser();
-        setCurrentUser(current.data);
-        console.log(currentUser);
-    }
 
   return (
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }} data-theme={theme}>

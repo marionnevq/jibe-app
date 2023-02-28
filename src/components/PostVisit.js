@@ -22,7 +22,7 @@ const PostVisit = () => {
 
   return (
     <div style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
-       <Paper className='post' sx={{ width:"95%", height: "auto", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"3"}}>
+       <Paper className='post-paper' >
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
                <div className="opInfo">

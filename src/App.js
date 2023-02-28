@@ -146,7 +146,10 @@ function App() {
         <Route
           path="/profile/visit/:username"
           element={
-            accessToken ? <ProfileVisitPage /> : <Navigate to="/login" />
+            accessToken ? <ProfileVisitPage 
+            onLogout={handleLogout}
+            onSwitch={switchTheme}
+            theme={theme}/> : <Navigate to="/login" />
           }
         />
         <Route

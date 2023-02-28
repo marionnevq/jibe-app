@@ -1,19 +1,31 @@
 import { Button, Divider, Grid, Paper } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import dp from '../images/nik.jpg'
+import { getCurrentUser } from '../services/user'
 
 const ProfileSide = ({ theme }) => {
 
-  const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(null)
 
-  const GoToProfile = async (event) => {
+    useEffect(() => {
+        loadUser();
+    },[])
+
+    const navigate = useNavigate();
+    const GoToProfile = async (event) => {
     navigate("/profile/:username")
-}
+    }
+
+    const loadUser = async() => {
+        const current = await getCurrentUser();
+        setCurrentUser(current.data);
+        console.log(current.data);
+    }
 
   return (
-    <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }}>
+    <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }} data-theme={theme}>
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
         
        <Grid item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -25,10 +37,10 @@ const ProfileSide = ({ theme }) => {
           </Grid>
            <Box className="names" sx={{ marginTop:"10px" }}>
              <Box className="name">
-               <span onClick={GoToProfile}>Nikki Fagara</span>
+               <span onClick={GoToProfile}>{currentUser === null ? "" : currentUser.firstname}</span>
              </Box>
              <Box className="username">
-             <span>@nikkifagara</span>
+             <span>{currentUser === null ? "" : currentUser.bio}</span>
              </Box>
            </Box>
            <Divider className='divider'/>

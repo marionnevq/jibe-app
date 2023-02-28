@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,6 +8,8 @@ import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import nav from "../images/nav.png"
 import nav1 from "../images/nav1.png"
 import nav2 from "../images/nav2.png"
@@ -95,9 +96,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         name='username'
         autoComplete='off'
         value={search.username}
-        sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
-        IconButton = {<SearchIcon/>}
         className="click" id='search'
         type="search"
         style={{border: "none", outlineColor: (() => theme === "light" ? "#f2f2f2" : "#333333")}}
@@ -105,6 +104,9 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     </Paper>
         </div>
         <div className='right' >
+          {
+            theme === "light" ? <LightModeIcon className='mode' sx={{fontSize: "20px"}}/> : <DarkModeIcon className='mode' sx={{fontSize: "20px"}}/>
+          }
         <Switch 
             defaultChecked={
               theme === "light"? false : true
@@ -112,7 +114,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
             onChange={onSwitch}
             color="tertiary"
             className="switch"
-            sx={{marginRight: "40px"}}
+            sx={{marginRight: "30px"}}
           />
           <IconButton
             className='icon1'

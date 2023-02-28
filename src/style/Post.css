@@ -36,3 +36,6 @@
   --dividerChip: #b8b8b8;
   --header: #eee8db;
 }
+.parent {
+  background-color: var(--background);
+}

@@ -16,7 +16,7 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { getWorldPost } from '../services/post';
+import { getWorldPost, getFollowingPost } from '../services/post';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -24,6 +24,14 @@ const PostSide = ({ theme, onPosting }) => {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPost] = useState([])
+  const [image, setImage] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [postDate, setPostDate] = useState("");
+
+ 
+ 
+  const open = Boolean(anchorEl);
+  const imageRef = useRef();
 
   const navigate = useNavigate();
 
@@ -34,13 +42,12 @@ const PostSide = ({ theme, onPosting }) => {
 const loadUser = async() => {
     const current = await getCurrentUser();
     setCurrentUser(current.data);
-    const apiPost = await getWorldPost();
-    setPost(apiPost.data);
+    const worldPost = await getWorldPost();
+    setPost(worldPost.data);
+    console.log(worldPost.data);
+    // const fypPost = await getFollowingPost();
+    // setPost(fypPost.data);
 }
-  const [image, setImage] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const imageRef = useRef();
 
   const onImageChange = (event) => {
     if(event.target.files && event.target.files[0]) {
@@ -69,11 +76,16 @@ const loadUser = async() => {
   };
 
 //  for posting
-//  const handlePost = (event) => {
-//   event.preventDefault();
-//   onPosting(post);
-//   navigate('/feed');
-// };
+ const handlePost = (event) => {
+  event.preventDefault();
+  onPosting(posts);
+  navigate('/feed');
+};
+
+//get post
+
+
+
 
   return (
     <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>
@@ -133,7 +145,9 @@ const loadUser = async() => {
       <Divider className='divider'><Chip className='dividerChip' label="WORLD" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-        <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+        
+          <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+          
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
                <div className="opInfo">
@@ -141,7 +155,7 @@ const loadUser = async() => {
                </div>
              </Box>
              <Box className='opName' sx={{ p: 1 }}>
-               <span>Mark Lee</span>
+               <span>Nikki</span>
               <span>a few minutes ago</span>
              </Box>
              <Box className="optionBox" sx={{ p: 1 }}>
@@ -198,6 +212,7 @@ const loadUser = async() => {
            </Box>
            <Divider className='divider' sx={{ marginBottom:"10px" }}/>
         </Paper>
+        
 
         <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
           <Box className="info" sx={{ p:0.2  }}>

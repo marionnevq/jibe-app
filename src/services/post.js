@@ -4,6 +4,6 @@ export function getWorldPost() {
   return http.post(`/posts`);
 }
 
-export function getFollowingPost(followeeID, postID) {
-    return http.post("/posts/following", { followeeID, postID });
+export function getFollowingPost() {
+    return http.post("/posts/following");
   }

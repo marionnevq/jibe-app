@@ -1,0 +1,39 @@
+.edit-form .field-one{
+    margin-bottom: 20px;
+    width: 80%;
+    align-self: center;
+}
+
+.icon .preview{
+    width: 50%;
+    height: 50%;
+    box-shadow: 10px;
+}
+
+.edit-img{
+    border-right: 1px solid black;
+}
+
+.edit-form{
+    border: none;
+}
+
+.edit-form h2{
+    font-size: 21px;
+    font-family: "montserrat";
+    margin-bottom: 20px;
+}
+.icon .img-btn{
+    border-radius: 35px;
+}
+
+.icon .img-btn:hover{
+    background-color: #1a1f3f;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .edit-img{
+        border-right: none;
+    }
+}

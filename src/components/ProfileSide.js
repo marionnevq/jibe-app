@@ -4,11 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { getCurrentUser } from '../services/user'
 import dp from '../images/nik.jpg'
+import alternate from "../images/alternate.jpg";
+import * as userService from "../services/user";
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const ProfileSide = ({ theme }) => {
 
+  const [users, setUsers] = useState(null);
   const [currentUser, setCurrentUser] = useState(null)
   const navigate = useNavigate();
 
@@ -17,7 +20,6 @@ const ProfileSide = ({ theme }) => {
         loadUser();
     },[])
 
-    const navigate = useNavigate();
     const GoToProfile = async (event) => {
     navigate("/profile/:username")
     }
@@ -25,18 +27,19 @@ const ProfileSide = ({ theme }) => {
     const loadUser = async() => {
         const current = await getCurrentUser();
         setCurrentUser(current.data);
-        console.log(current.data);
     }
 
+    //get more people
+    async function getUsers() {
+      const currUser = await userService.getCurrentUser();
+      setCurrentUser(currUser.data);
+      const users = await userService.getRandomUsers(4, currUser.data.id);
+      setUsers(users.data);
+    }
     useEffect(() => {
-        loadUser();
-    },[])
-
-    const loadUser = async() => {
-        const current = await getCurrentUser();
-        setCurrentUser(current.data);
-        console.log(currentUser);
-    }
+      getUsers();
+    }, []);
+  
 
   return (
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }} data-theme={theme}>
@@ -47,7 +50,7 @@ const ProfileSide = ({ theme }) => {
            <Grid item className='header' 
               sx={{width: "100%", height: "90px", backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
-              <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt="" onClick={GoToProfile}/>
+              <img src={currentUser === null ?  `${alternate}` : `${currentUser.imageUrl}`} alt="" onClick={GoToProfile}/>
           </Grid>
            <Box className="names" sx={{ marginTop:"10px" }}>
              <Box className="name">
@@ -83,67 +86,23 @@ const ProfileSide = ({ theme }) => {
             </Box>
             {/* <Divider className='divider'/> */}
             <Box className="latchList"  sx={{ width: "100%", height:"200px",  flexDirection:"column", p: 0.5,  borderRadius:"0.6rem" }}>
+              {users && users.map((user) => (
               <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
                 <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={dp}/>
+                  <img src={user.imageUrl}/>
                 </Box>
                 <Box className="latchName" sx={{ width: "60%"  }}>
-                  <span>Krishna Fagara</span>
-                  <span>@kfagara</span>
+                  <span>{`${user.firstname} ${user.lastname}`}</span>
+                  <span>@{user.username}</span>
                 </Box>
                 <Box className="latchBtn" sx={{ width: "20%"  }}>
                   <IconButton className='buttonLatch'>
                     <PersonAddIcon sx={{ color: "#EB4660" }}/>
                   </IconButton>
-                </Box>
+                </Box> 
+                <Divider className='divider'/>
               </Box>
-              <Divider className='divider'/>
-
-              <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
-                <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={dp}/>
-                </Box>
-                <Box className="latchName" sx={{ width: "60%"  }}>
-                  <span>Krishna Fagara</span>
-                  <span>@kfagara</span>
-                </Box>
-                <Box className="latchBtn" sx={{ width: "20%"  }}>
-                  <IconButton className='buttonLatch'>
-                    <PersonAddIcon sx={{ color: "#EB4660" }}/>
-                  </IconButton>
-                </Box>
-              </Box>
-              <Divider className='divider'/>
-              <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
-                <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={dp}/>
-                </Box>
-                <Box className="latchName" sx={{ width: "60%"  }}>
-                  <span>Krishna Fagara</span>
-                  <span>@kfagara</span>
-                </Box>
-                <Box className="latchBtn" sx={{ width: "20%"  }}>
-                  <IconButton className='buttonLatch'>
-                    <PersonAddIcon sx={{ color: "#EB4660" }}/>
-                  </IconButton>
-                </Box>
-              </Box>
-              <Divider className='divider'/>
-              <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
-                <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={dp}/>
-                </Box>
-                <Box className="latchName" sx={{ width: "60%"  }}>
-                  <span>Krishna Fagara</span>
-                  <span>@kfagara</span>
-                </Box>
-                <Box className="latchBtn" sx={{ width: "20%"  }}>
-                  <IconButton className='buttonLatch'>
-                    <PersonAddIcon sx={{ color: "#EB4660" }}/>
-                  </IconButton>
-                </Box>
-              </Box>
-              
+              ))}
             </Box>
           </Grid>
         </Grid>

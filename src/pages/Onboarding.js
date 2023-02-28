@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import LoginSwiper from "../components/LoginSwiper";
 import * as userService from "../services/user";
 
-const Onboarding = () => {
+const Onboarding = ({ setLoading }) => {
   const [firstTimeLogin, setfirstTimeLogin] = useState(false);
   const navigate = useNavigate();
 
-  //marionne
   async function getUser() {
     const user = await userService.getCurrentUser();
     if (!user.data.firstTimeLogin) {
@@ -23,7 +22,7 @@ const Onboarding = () => {
   if (firstTimeLogin == false) {
     return <></>;
   } else {
-    return <LoginSwiper />;
+    return <LoginSwiper setLoading={setLoading} />;
   }
 };
 

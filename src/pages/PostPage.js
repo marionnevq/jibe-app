@@ -27,7 +27,16 @@ import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { checkLiked, createLike, getLike, removeLike } from "../services/like";
 
-const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
+const PostPage = ({
+  postId,
+  theme,
+  onLogout,
+  onSwitch,
+  setLoading,
+  setOpen,
+  setSnackbarMessage,
+  setSeverity,
+}) => {
   const [expanded, setExpanded] = useState(false);
   const params = useParams();
   const [post, setPost] = useState(null);
@@ -46,6 +55,8 @@ const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
     setPost(post.data);
     setLike(like.data);
     console.log(post.data);
+    var date = new Date().getTime();
+    console.log(date.toString());
   }
 
   useEffect(() => {
@@ -67,6 +78,7 @@ const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
       userID: user.id,
     };
 
+    setLoading(true);
     await commentService
       .addComment(params.postId, commentToAdd)
       .then(async () => {
@@ -74,6 +86,10 @@ const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
         setComments(comment.data);
         setCommentForm("");
         handleExpandClick();
+        setSnackbarMessage("Created Comment");
+        setSeverity("success");
+        setLoading(false);
+        setOpen(true);
       });
   };
 
@@ -221,7 +237,7 @@ const PostPage = ({ postId, theme, onLogout, onSwitch }) => {
           >
             <List
               sx={{
-                width: "90%",
+                width: "98%",
 
                 overflow: "auto",
               }}

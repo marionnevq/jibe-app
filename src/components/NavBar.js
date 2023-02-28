@@ -90,7 +90,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
       >
         <SearchIcon />
       </IconButton>
-      <Divider className='divider' x={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <Divider className='divider' orientation="vertical" />
       <input
       onChange={handleChange}
         name='username'

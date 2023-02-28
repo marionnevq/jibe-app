@@ -106,6 +106,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
             <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
                 <h1>Jim Lloyd</h1>
                 <h3>@jimlloyddg</h3>
+                <Divider className='divider-info' />
                 <h4>No one can ever be word word word  word word word  word word word </h4>
             </Paper>
           </Grid>

@@ -11,9 +11,7 @@ const LatchList = ({ onLogout, onSwitch, theme }) => {
   return (
     <div data-theme={theme} className="parent">
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
-      <Grid className="latchList" sx={{ minHeight: "100%" }}>
-        <FriendList/>
-      </Grid>
+      <FriendList/>
     </div>
   )
 }

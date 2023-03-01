@@ -9,13 +9,15 @@ export function getWorldPost() {
 }
 
 export function getFollowingPost() {
-  return http.post(`/posts/following`);
+
+    return http.get(`/posts/following`);
+  }
+
+export function createPost(post) {
+  return http.post("/posts", post);
+
 }
 
 export function getUserPosts(username) {
   return http.get(`/profiles/${username}/posts`);
-}
-
-export function createPost(post) {
-  return http.post("/posts", post);
 }

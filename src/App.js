@@ -154,6 +154,7 @@ function App() {
   };
 
   return (
+    <div style={{overflow: "scroll"}}>
     <ThemeProvider theme={themes}>
       <CssBaseline />
       <Modal open={loading}>
@@ -286,7 +287,7 @@ function App() {
           {snackbarMessage}
         </Alert>
       </Snackbar>
-    </ThemeProvider>
+    </ThemeProvider></div>
   );
 }
 

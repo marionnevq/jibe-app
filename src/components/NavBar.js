@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Grid, Menu, MenuItem, Paper, Switch } from '@mui/material';
+import { Grid, Menu, MenuItem, Modal, Paper, Switch } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -20,6 +20,7 @@ import "../style/NavBar.css";
 import { getUser } from "../services/auth";
 
 import { Link, useNavigate } from 'react-router-dom';
+import ProfileSearch from './ProfileSearch';
 
 const NavBar = ({onLogout, onSwitch, theme}) => {
   
@@ -29,7 +30,16 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
   });
   const [click, setClick] = useState("unclicked");
   const open = Boolean(anchorEl);
+  
   const navigate = useNavigate();
+  const [opened, setOpen] = React.useState(false);
+  const show = Boolean(opened);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,11 +84,20 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     console.log(input.value);
   }
 
-
   const themeNow = theme;
 
   return (
-
+    <div style={{overflow: "scroll"}}>
+       <Modal
+        open={show}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll"  }}
+      >
+        <ProfileSearch handleClose={handleClose} search={search.username} theme={theme}/>
+      </Modal>
+    
     <Grid className='nav-bar' container style={{minHeight : "auto"}}>
       <Grid className= "logo" item xs={12} md={1}>
       {
@@ -104,7 +123,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         type="button" 
         sx={{ p: '10px',color: (() => theme === "light" ? "#1C2835" : "#f2f2f2") }} 
         aria-label="search"
-        // onClick={}
+        onClick={handleOpen}
       >
         <SearchIcon />
       </IconButton>
@@ -186,7 +205,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
         </div>
       </Grid>
 
-    </Grid>
+    </Grid></div>
   );
 };
 export default NavBar;

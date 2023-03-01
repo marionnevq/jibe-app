@@ -4,6 +4,9 @@ import {
   Divider,
   Grid,
   IconButton,
+  Menu,
+  MenuItem,
+  Modal,
   Paper,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -16,6 +19,7 @@ import TimeAgo from "javascript-time-ago";
 import en from 'javascript-time-ago/locale/en'
 import { getUserPosts } from "../services/post";
 import { getUser } from "../services/auth";
+import EditPost from "./EditPost";
 
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
@@ -23,7 +27,14 @@ const ProfilePostArea = ({ theme }) => {
   
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const opened = Boolean(anchorEl);
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
@@ -33,6 +44,15 @@ const ProfilePostArea = ({ theme }) => {
   useEffect(() => {
     loadUser();
   }, []);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const loadUser = async () => {
     const current = await getUser();
@@ -68,6 +88,15 @@ const ProfilePostArea = ({ theme }) => {
             backgroundColor: () => (theme === "light" ? "white" : "#333333"),
           }}
         >
+           <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
+      >
+        <EditPost handleClose={handleClose} post={post} />
+      </Modal>
           <Box className="info" sx={{ p: 0.2 }}>
             <Box className="opImg" sx={{ p: 1 }}>
               <div className="opInfo">
@@ -93,9 +122,23 @@ const ProfilePostArea = ({ theme }) => {
               <span>{convertTime(post.datePosted)}</span>
             </Box>
             <Box className="options" sx={{ p: 1 }}>
-              <IconButton>
+              <IconButton onClick={handleOpenMenu}>
                 <MoreHorizIcon />
               </IconButton>
+              <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={opened}
+          onClose={handleCloseMenu}
+          sx={{width:"500px", paddingTop: "-30px"}}
+        >
+         <MenuItem className='menuItem' onClick={handleOpen}>
+            Edit
+          </MenuItem>
+          <MenuItem className='menuItem'>
+            Profile
+          </MenuItem>
+          </Menu>
             </Box>
           </Box>
           <Box

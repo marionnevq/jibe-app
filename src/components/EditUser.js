@@ -20,7 +20,6 @@ const EditUser = ({handleClose}) => {
     const swiperRef = useRef(null);
     const [form, setForm] = useState({
     firstname: "",
-
     lastname: "",
     email: "",
     username: "",
@@ -127,11 +126,9 @@ const EditUser = ({handleClose}) => {
           });
         });
       }
-        
-      };
+    };
     
-    
-      const handleChange = ({ currentTarget: input }) => {
+    const handleChange = ({ currentTarget: input }) => {
         setForm({
           ...form,
           [input.name]: input.value,

@@ -21,7 +21,7 @@ import { UserContext } from "../context/UserContext";
 const Login = ({ onLogin, setLoading }) => {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -29,22 +29,22 @@ const Login = ({ onLogin, setLoading }) => {
 
   const navigate = useNavigate();
 
-  const schema = Joi.object({
-    email: Joi.alternatives()
-      .try(
-        Joi.string()
-          .lowercase()
-          .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
-        Joi.string().alphanum().min(3).max(20)
-      )
-      .required(),
-    password: Joi.string()
-      .pattern(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
-      )
-      .min(5)
-      .required(),
-  });
+  // const schema = Joi.object({
+  //   email: Joi.alternatives()
+  //     .try(
+  //       Joi.string()
+  //         .lowercase()
+  //         .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
+  //       Joi.string().alphanum().min(3).max(20)
+  //     )
+  //     .required(),
+  //   password: Joi.string()
+  //     .pattern(
+  //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+  //     )
+  //     .min(5)
+  //     .required(),
+  // });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,25 +57,25 @@ const Login = ({ onLogin, setLoading }) => {
       [input.name]: input.value,
     });
 
-    const { error } = schema
-      .extract(input.name)
-      .label(input.name)
-      .validate(input.value);
+    // const { error } = schema
+    //   .extract(input.name)
+    //   .label(input.name)
+    //   .validate(input.value);
 
-    if (error && input.name === "email") {
-      setErrors({ ...errors, [input.name]: "Invalid username or email" });
-    } else if (error) {
-      setErrors({ ...errors, [input.name]: "Invalid Password" });
-    } else {
-      delete errors[input.name];
-      setErrors(errors);
-    }
+    // if (error && input.name === "email") {
+    //   setErrors({ ...errors, [input.name]: "Invalid username or email" });
+    // } else if (error) {
+    //   setErrors({ ...errors, [input.name]: "Invalid Password" });
+    // } else {
+    //   delete errors[input.name];
+    //   setErrors(errors);
+    // }
   };
 
-  const isFormInvalid = () => {
-    const result = schema.validate(form);
-    return !!result.error;
-  };
+  // const isFormInvalid = () => {
+  //   const result = schema.validate(form);
+  //   return !!result.error;
+  // };
 
   return (
     <Paper>
@@ -95,8 +95,6 @@ const Login = ({ onLogin, setLoading }) => {
             <TextField
               required={true}
               name="email"
-              error={!!errors.email}
-              helperText={errors.email}
               onChange={handleChange}
               value={form.email}
               label="Username / Email"
@@ -110,8 +108,6 @@ const Login = ({ onLogin, setLoading }) => {
             <TextField
               required={true}
               name="password"
-              error={!!errors.password}
-              helperText={errors.password}
               onChange={handleChange}
               value={form.password}
               label="Password"
@@ -137,7 +133,6 @@ const Login = ({ onLogin, setLoading }) => {
           <div>
             <Button
               variant="contained"
-              disabled={isFormInvalid()}
               type="submit"
               className="btn1"
               onClick={handleSubmit}

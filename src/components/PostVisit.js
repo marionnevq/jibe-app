@@ -15,16 +15,17 @@ import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { Box } from "@mui/system";
 import { getUserPosts } from "../services/post";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import TimeAgo from "javascript-time-ago";
 import en from 'javascript-time-ago/locale/en'
+import "../style/ProfileVisit.css"
 
 const PostVisit = ({ theme, user }) => {
   const [like, setLike] = useState(false);
   const params = useParams();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     getUserPosts(params.username).then((response) => {
@@ -53,29 +54,24 @@ const PostVisit = ({ theme, user }) => {
     return <h1>Loading...</h1>;
   }
 
+  const color = theme === 'solid light'? "lightgrey" : " solid Gray"
+
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
       style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
     >
     {posts.map((post) => 
       <Paper
       className="post"
       sx={{
-        width: "95%",
-        height: "auto",
-        paddingBottom: "2px",
-        borderRadius: "0.6rem",
-        boxShadow: "3",
-        marginLeft: "20px",
         backgroundColor: () => (theme === "light" ? "white" : "#333333"),
       }}
     >
       <Box className="info" sx={{ p: 0.2 }}>
-        <Box className="opImg" sx={{ p: 1 }}>
+        <Box className="opImg" sx={{ p: 1  }}>
           <div className="opInfo">
             <Avatar
-              src={user === null? "" : user.imageUrl}
+              src={post === null? "" : post.userImageUrl}
               alt="" />
           </div>
         </Box>
@@ -110,11 +106,11 @@ const PostVisit = ({ theme, user }) => {
             <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
             <Box
               className="imgContent"
-              sx={{ display: "flex", justifyContent: "center", width: "98%", border: (() => post === null? "none" : "0.1px solid") , borderColor: (() => theme === 'light'? "lightgrey" : "Gray"), paddingTop: "10px", paddingBottom: "10px"}}
+              sx={{ display: "flex", justifyContent: "center", width: "100%", borderTop: () => theme === "dark" ? "1px solid #3F3F3F" : "1px solid lightgrey", paddingTop: "10px", paddingBottom: "10px", marginBottom: "5px"}}
             >
                <img
               src={user === null ? "" : post.imageUrl}
-              alt=""
+              alt="" style={{width: "65%"}}
             />
             </Box>
             </div>
@@ -127,7 +123,7 @@ const PostVisit = ({ theme, user }) => {
         sx={{
           p: 0.2,
           color: () => (theme === "light" ? "#333333" : "white"),
-          borderTop: (() => theme === "dark" ? "1px solid #3F3F3F" : "1px solid lightgrey")
+          borderTop: (() => theme === "dark" ? "1px solid #636363" : "1px solid lightgrey")
         }}
       >
         <Box className="like" sx={{ p: 0.2 }}>
@@ -144,7 +140,7 @@ const PostVisit = ({ theme, user }) => {
           orientation="vertical"
         />
         <Box className="comment" sx={{ p: 0.2 }}>
-          <Button className="commentButton">
+          <Button className="commentButton" onClick={() => navigate(`/posts/${post.postID}`)}>
             <ModeCommentOutlinedIcon />
             <span>Comment</span>
           </Button>

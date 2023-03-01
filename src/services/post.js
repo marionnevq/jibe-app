@@ -17,10 +17,10 @@ export function getUserPosts(username) {
 
 }
 
-export function getUserPosts(username) {
-  return http.get(`/profiles/${username}/posts`);
-}
-
 export function createPost(post) {
   return http.post("/posts", post);
+}
+
+export function updatePost(postID, post) {
+  return http.put(`/posts/update/${postID}`, {...post});
 }

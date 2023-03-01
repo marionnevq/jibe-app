@@ -19,6 +19,7 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
 
   
   const [currentUser, setCurrentUser] = useState("");
+  
 
   useEffect(() => {
     loadUser();
@@ -69,7 +70,7 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
             <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Following</h1>
           </Grid>
           <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <Button variant='outlined' className='latch-btn1'><EditIcon sx={{marginRight: "10px"}}/> Edit Profile</Button>
+            <Button variant='outlined' className='latch-btn1' sx={{fontWeight: "bold", border: "2px solid #ff5d75"}} fullWidth><EditIcon sx={{marginRight: "10px"}}/> Edit</Button>
           </Grid></div>
         </Grid>
         
@@ -99,7 +100,7 @@ const ProfilePage = ({onLogout, onSwitch, theme }) => {
       <div className='button'>
       <Grid  container item >
           <Grid item sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-            <Button className='btn-latch' variant='outlined'><EditIcon sx={{marginRight: "10px"}}/> Edit Profile</Button>
+            <Button className='btn-latch' variant='outlined'><EditIcon sx={{marginRight: "10px"}}/> Edit</Button>
           </Grid>
         </Grid></div>
       </Grid>

@@ -23,7 +23,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
       setLoading(false);
     });
   }, []);
-
+  
   const handleSubmit = (form) => {
     // employeeService
     //   .updateEmployee(employee.id, form)

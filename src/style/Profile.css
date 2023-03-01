@@ -110,11 +110,12 @@
     border: 7px solid var(--info);
 }
 
-.web .latch-btn1{
+.button-follow .latch-btn1{
     width: 70%;
     border-radius: 25px; 
     font-family: "montserrat";
     font-size: 15px;
+    border: "2px solid pink"
 }
 
 #info-head{
@@ -146,7 +147,7 @@
 }
 
 .bottom-foot .window-name h4{
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 400;
     color: var(--text-primary);
 }

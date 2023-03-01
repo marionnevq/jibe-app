@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Button, Divider, Grid, IconButton, Paper } from '@mui/material'
 import { Box } from '@mui/system'
 import alt from "../images/alternate.jpg"
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import "../style/LatchList.css";
+import { useNavigate } from 'react-router-dom';
+import * as userService from "../services/user";
 
 const FriendList = ({ theme }) => {
+
+
+  const [users, setUsers] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null)
+  const navigate = useNavigate();
+
+  //get follow list
+  async function getFollowingList() {
+    const currUser = await userService.getCurrentUser();
+    setCurrentUser(currUser.data);
+    // console.log(currUser.data);
+    const users = await userService.getFollowList(currUser.data.username);
+    setUsers(users.data);
+    console.log(users.data);
+  }
+  useEffect(() => {
+    getFollowingList();
+  }, []);
+
+
   return (
     <div data-theme={theme}>
     <div style={{ minWidth: "100%", minHeight:"100vh" }} >
@@ -31,7 +53,8 @@ const FriendList = ({ theme }) => {
           </Grid>
           <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             {/* <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
-          </Grid></div>
+          </Grid>
+          </div>
         </Grid>
         
         <div className='mobile' style={{display: "block"}}>
@@ -64,42 +87,25 @@ const FriendList = ({ theme }) => {
       </Grid>
       {/*LatchList*/}
       <Grid item xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
-        <Paper className='list' sx={{ height: "300px"  }}>
-            <Box className="latchBox" sx={{ margin:"8px", display: "flex", width: "100%", borderRadius:"0.3rem" }}>
-                
+        <Paper className='list' sx={{ height: "auto"  }}>
+            <Box className="latchBox" sx={{ margin:"8px", display: "flex", flexDirection: "column", width: "100%", borderRadius:"0.3rem", border: "1px dashed red" }}>
+            {users && users.map((user) => (
                 <Box className="nameList" sx={{ display:"flex", width:"50%", margin: "7px"  }} >
-                    <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
-                        <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
-                            <img src={alt} style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
-                        </Box>
-                        <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
-                            <span style={{ fontWeight:"700" }}>Nikki Fagara</span>
-                            <span style={{ fontSize: "13px" }}>@nikkifagara</span>
-                        </Box>
-                        <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
-                            <IconButton>
-                                <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
-                            </IconButton>
-                        </Box>
+                <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
+                    <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
+                        <img src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
+                    </Box>
+                    <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
+                        <span style={{ fontWeight:"700" }}>{`${user.followeeUsername}`}</span>
+                    </Box>
+                    <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
+                        <IconButton>
+                            <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
+                        </IconButton>
                     </Box>
                 </Box>
-           
-                <Box className="nameList" sx={{ display:"flex", width:"50%", margin: "7px"  }} >
-                    <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
-                        <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
-                            <img src={alt} style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
-                        </Box>
-                        <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
-                            <span style={{ fontWeight:"700" }}>Nikki Fagara</span>
-                            <span style={{ fontSize: "13px" }}>@nikkifagara</span>
-                        </Box>
-                        <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
-                            <IconButton>
-                                <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
-                            </IconButton>
-                        </Box>
-                    </Box>
-                </Box>
+            </Box>
+            ))}
             </Box>
         </Paper>
       </Grid>

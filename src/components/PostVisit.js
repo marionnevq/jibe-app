@@ -55,7 +55,7 @@ const PostVisit = ({ theme, user }) => {
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+      style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
     >
     {posts.map((post) => 
       <Paper
@@ -66,15 +66,16 @@ const PostVisit = ({ theme, user }) => {
         paddingBottom: "2px",
         borderRadius: "0.6rem",
         boxShadow: "3",
+        marginLeft: "20px",
         backgroundColor: () => (theme === "light" ? "white" : "#333333"),
       }}
     >
       <Box className="info" sx={{ p: 0.2 }}>
         <Box className="opImg" sx={{ p: 1 }}>
           <div className="opInfo">
-            <img
-              src={user === null ? "" : user.imageUrl}
-              alt=""
+            <Avatar
+              src={post === null? "" : post.userImageUrl}
+              alt="" sx={{width: "ph"}}
             />
           </div>
         </Box>
@@ -89,7 +90,7 @@ const PostVisit = ({ theme, user }) => {
           <span>
             {user === null
               ? ""
-              : `${user.firstname} ${user.lastname}`}
+              : `${post.userFirstname} ${post.userLastname}`}
           </span>
           <span>{convertTime(post.datePosted)}</span>
         </Box>
@@ -109,9 +110,12 @@ const PostVisit = ({ theme, user }) => {
             <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
             <Box
               className="imgContent"
-              sx={{ display: "flex", justifyContent: "center", width: "98%", border: (() => theme === 'light'? "0.1px solid lightgrey" : "0.1px solid Gray"), paddingTop: "10px", paddingBottom: "10px"}}
+              sx={{ display: "flex", justifyContent: "center", width: "98%", border: (() => post === null? "none" : "0.1px solid") , borderColor: (() => theme === 'light'? "lightgrey" : "Gray"), paddingTop: "10px", paddingBottom: "10px"}}
             >
-              <img src={`${post.imageUrl}`} style={{ width: "60%" }} />
+               <img
+              src={user === null ? alt : post.imageUrl}
+              alt="" style={{width: "60%"}}
+            />
             </Box>
             </div>
           )}
@@ -123,6 +127,7 @@ const PostVisit = ({ theme, user }) => {
         sx={{
           p: 0.2,
           color: () => (theme === "light" ? "#333333" : "white"),
+          borderTop: (() => theme === "dark" ? "1px solid #3F3F3F" : "1px solid lightgrey")
         }}
       >
         <Box className="like" sx={{ p: 0.2 }}>

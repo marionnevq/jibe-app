@@ -70,11 +70,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       
       <Grid container className='main-header'>
         <Grid  className='top-head' id='info-head' container item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
-        {
-         user === null ? <Avatar className='profile-img' src={alt} /> :
-          <Avatar className='profile-img' src={user.imageUrl} />
-        }
-        
+        <Avatar className='profile-img' src={user && user.imageUrl === null ? alt : user.imageUrl} ></Avatar>
         </Grid>
         
         <Grid className='bottom-head' id='info-head' container item xs={12} md={8.5} sx={{height: "auto"}}>
@@ -98,7 +94,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
         
         <div className='mobile' style={{display: "block"}}>
           <div className='name-info' >
-              <h1> {user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
+              <h1>{user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
               <h3>@{user === null ? "" : user.username}</h3>
           </div>
         <Grid  container sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "auto", marginTop: "30px"}}>
@@ -128,29 +124,20 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
         <Grid container className= 'foot' style= {{height: "auto"}}>
           <Grid className='left' item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "start", marginTop: "10px"}}>
             <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
-              <h1> {user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
-              <h3>@{user === null ? "" : user.username}</h3>
-              <Divider className='divider-info' />
-              <h4>{user === null ? "" : user.bio }</h4>
+                <h1>{user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
+                <h3>@{user === null ? "" : user.username}</h3>
+                <Divider className='divider-info' />
+                <h4>{user === null ? "" : user.bio }</h4>
             </Paper>
           </Grid>
-          <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              <PostVisit theme={theme} user={user} />
+          <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto", width: "auto"}}>
+              <PostVisit theme={theme} />
           </Grid>
         </Grid>
       </Paper>
-      {/* <Grid container sx={{height: "auto"}}>
-          <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-            Hello
-          </Grid>
-          <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-      </Grid> */}
-      </div>
+    </div>
     </div>
     </div>
   )
 }
-
 export default ProfileVisitPage

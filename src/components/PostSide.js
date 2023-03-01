@@ -32,7 +32,7 @@ const PostSide = ({ theme }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [postDate, setPostDate] = useState("");
+  // const [postDate, setPostDate] = useState("");
   const [image, setImage] = useState(null);
   const open = Boolean(anchorEl);
   const imageRef = useRef();
@@ -80,7 +80,6 @@ const PostSide = ({ theme }) => {
   const loadUser = async () => {
 
     await getWorldPost().then((response) => {
-
       console.log(response.data);
       setPosts(response.data);
     });
@@ -180,6 +179,7 @@ const PostSide = ({ theme }) => {
                   className="profile-img"
                   sx={{ width: "50px", height: "50px"}}
                   src={currentUser === null ? alt : currentUser.imageUrl}
+                  onClick={() => {navigate(`/profile/${currentUser.username}`)}}
                 ></Avatar>
                 </div>
               </Box>
@@ -291,13 +291,13 @@ const PostSide = ({ theme }) => {
 
                     <Avatar
                       src={post.userImageUrl === null ? alt : post.userImageUrl}
-
+                      onClick={() => {navigate(`/profile/visit/${post.userUsername}`)}}
                       alt=""
                     />
                   </div>
                 </Box>
                 <Box className="opName" sx={{ p: 1 }}>
-                  <span>
+                  <span onClick={() => {navigate(`/profile/visit/${post.userUsername}`)}}>
                     {post === null
                       ? ""
                       : `${post.userFirstname} ${post.userLastname}`}
@@ -384,7 +384,7 @@ const PostSide = ({ theme }) => {
                   orientation="vertical"
                 />
                 <Box className="comment" sx={{ p: 0.2 }}>
-                  <Button className="commentButton" onClick={() => {navigate(`/post/${post.postID}`)}}>
+                  <Button className="commentButton" onClick={() => {navigate(`/posts/${post.postID}`)}}>
                     <ModeCommentOutlinedIcon />
                     <span>Comment</span>
                   </Button>

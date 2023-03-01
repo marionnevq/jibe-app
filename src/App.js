@@ -25,10 +25,8 @@ import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 
-
-
 function App() {
-    const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("error");
@@ -36,7 +34,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [severity, setSeverity] = useState("error");
   const navigate = useNavigate();
-
 
   useEffect(() => {
     console.log(theme);
@@ -189,16 +186,20 @@ function App() {
         <Route
           path="/profile/visit/:username"
           element={
-            accessToken ? <ProfileVisitPage 
-            onLogout={handleLogout}
-            onSwitch={switchTheme}
-            theme={theme}/> : <Navigate to="/login" />
+            accessToken ? (
+              <ProfileVisitPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
         <Route
-
-          path="/post/:postId"
+          path="/posts/:postId"
           element={
             accessToken ? (
               <PostPage
@@ -216,13 +217,18 @@ function App() {
           }
         />
 
-<Route
+        <Route
           path="/profile/latch-list"
           element={
-            accessToken ? <LatchList 
-            onLogout={handleLogout}
-            onSwitch={switchTheme}
-            theme={theme}/> : <Navigate to="/login" />
+            accessToken ? (
+              <LatchList
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
@@ -245,6 +251,7 @@ function App() {
                 onLogout={handleLogout}
                 onSwitch={switchTheme}
                 theme={theme}
+                setLoading={setLoading}
               />
             ) : (
               <Navigate to="/login" />

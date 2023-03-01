@@ -14,6 +14,13 @@ export function getFollowingPost() {
 
 export function getUserPosts(username) {
   return http.get(`/profiles/${username}/posts`);
+
 }
 
+export function getUserPosts(username) {
+  return http.get(`/profiles/${username}/posts`);
+}
 
+export function createPost(post) {
+  return http.post("/posts", post);
+}

@@ -10,8 +10,7 @@ import PostVisit from '../components/PostVisit';
 import EditUser from '../components/EditUser';
 import { fetchUserByUsername } from '../services/auth';
 
-const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
-  
+const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
   const params = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
@@ -47,22 +46,22 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
     setOpen(false);
   };
 
-
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
   return (
-    <div style={{height: "auto"}}>
+    <div style={{ height: "auto" }}>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
-        sx={{overflow: "scroll"}}
+        sx={{ overflow: "scroll" }}
       >
-        <EditUser handleClose={handleClose}/>
+        <EditUser handleClose={handleClose} />
       </Modal>
+
     <div data-theme={theme}>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
     <div style={{minHeight: "100vh"}} >
@@ -147,6 +146,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
           <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
           <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
       </Grid> */}
+        </div>
       </div>
     </div>
     </div>
@@ -154,3 +154,4 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
 }
 
 export default ProfileVisitPage
+

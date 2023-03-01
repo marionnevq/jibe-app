@@ -22,17 +22,21 @@ import ProfileVisitPage from "./pages/ProfileVisitPage";
 import Loading from "./images/Loading.gif";
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
+import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 
+
+
 function App() {
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
-  const [posts, setPosts] = useState(POSTS_DATA);
+    const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("error");
   const [accessToken, setAccessToken] = useState(getAccessToken());
   const [loading, setLoading] = useState(false);
   const [severity, setSeverity] = useState("error");
   const navigate = useNavigate();
+
 
   useEffect(() => {
     console.log(theme);
@@ -185,11 +189,15 @@ function App() {
         <Route
           path="/profile/visit/:username"
           element={
-            accessToken ? <ProfileVisitPage /> : <Navigate to="/login" />
+            accessToken ? <ProfileVisitPage 
+            onLogout={handleLogout}
+            onSwitch={switchTheme}
+            theme={theme}/> : <Navigate to="/login" />
           }
         />
 
         <Route
+
           path="/post/:postId"
           element={
             accessToken ? (
@@ -205,6 +213,16 @@ function App() {
             ) : (
               <Navigate to="/login" />
             )
+          }
+        />
+
+<Route
+          path="/profile/latch-list"
+          element={
+            accessToken ? <LatchList 
+            onLogout={handleLogout}
+            onSwitch={switchTheme}
+            theme={theme}/> : <Navigate to="/login" />
           }
         />
 

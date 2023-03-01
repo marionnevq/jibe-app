@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -9,12 +8,18 @@ import PeopleIcon from '@mui/icons-material/People';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import HomeIcon from '@mui/icons-material/Home';
 import nav from "../images/nav.png"
 import nav1 from "../images/nav1.png"
 import nav2 from "../images/nav2.png"
 import nav3 from "../images/nav3.png"
 import "../style/NavBar.css";
-import { useNavigate } from 'react-router-dom';
+
+import { getUser } from "../services/auth";
+
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = ({onLogout, onSwitch, theme}) => {
   
@@ -33,6 +38,20 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     setAnchorEl(null);
   };
 
+  const GoToProfile = async (currentUser) => {
+    navigate(`/profile/${currentUser.username}`)
+  }
+
+  const [currentUser, setCurrentUser] = useState("");
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const current = await getUser();
+    setCurrentUser(current.data);    
+  };
 
   // const handleSearchProfiles = () => {
   //   employeeService
@@ -64,16 +83,16 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
       <Grid className= "logo" item xs={12} md={1}>
       {
           themeNow === "light" ? 
-          <img src={nav} style={{width: "80%"}} /> :
-          <img src={nav1} style={{width: "80%"}} />
+          <img src={nav} style={{width: "80%"}} onClick={() => navigate("/feed")}/> :
+          <img src={nav1} style={{width: "80%"}} onClick={() => navigate("/feed")}/>
       } 
       </Grid>
       <Grid container item xs={12} md={11} style={{height: "60px"}}>
         <div className='left'>
         {
           themeNow === "light" ? 
-          <img className='nav-two' src={nav3}  />:
-          <img className='nav-two' src={nav2}  />
+          <img className='nav-two' src={nav3}  onClick={() => navigate("/feed")}/>:
+          <img className='nav-two' src={nav2}  onClick={() => navigate("/feed")}/>
       } 
         
         <Paper
@@ -89,15 +108,13 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
       >
         <SearchIcon />
       </IconButton>
-      <Divider className='divider' x={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <Divider className='divider' orientation="vertical" />
       <input
       onChange={handleChange}
         name='username'
         autoComplete='off'
         value={search.username}
-        sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
-        IconButton = {<SearchIcon/>}
         className="click" id='search'
         type="search"
         style={{border: "none", outlineColor: (() => theme === "light" ? "#f2f2f2" : "#333333")}}
@@ -105,6 +122,9 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     </Paper>
         </div>
         <div className='right' >
+          {
+            theme === "light" ? <LightModeIcon className='mode' sx={{fontSize: "20px"}}/> : <DarkModeIcon className='mode' sx={{fontSize: "20px"}}/>
+          }
         <Switch 
             defaultChecked={
               theme === "light"? false : true
@@ -112,19 +132,21 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
             onChange={onSwitch}
             color="tertiary"
             className="switch"
-            sx={{marginRight: "40px"}}
+            sx={{marginRight: "30px"}}
           />
           <IconButton
             className='icon1'
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
+            sx={{borderRadius: 1}}
+            onClick={() => navigate("/feed")}
+          >
+            <HomeIcon />
+          </IconButton>
+          <IconButton
+            className='icon1'
             sx={{borderRadius: 1}}
           >
             <NotificationsIcon/>
           </IconButton>
-
           <IconButton
             className='icon2'
             id='menu'
@@ -145,10 +167,15 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
           sx={{width:"500px", paddingTop: "-30px"}}
         >
           <Paper className='menu-paper' sx={{backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#272727"),  height: "auto"}}>
-         <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}}>
+         <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}} onClick={() => (GoToProfile(currentUser))}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
-          <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px"}}>
+          <div className='home'>
+          <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px", borderBottom: "2px"}} onClick={() => navigate("/feed")}>
+            <HomeIcon />&nbsp;&nbsp;Home
+          </MenuItem>
+          </div>
+          <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: "1px", borderBottom: "2px"}}>
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
           <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: "-6px"}} onClick={onLogout}>

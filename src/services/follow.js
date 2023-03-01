@@ -1,5 +1,5 @@
 import http from "./http";
 
-export function followUser(followerID, followeeUsername) {
-  return http.post("/follow", { followerID, followeeUsername });
+export function followUser() {
+  return http.post("/follow");
 }

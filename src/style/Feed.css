@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
+
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
     --text-secondary: #424242; /*white*/
     --primary: #ff5d75; /*pink*/
     --secondary: #2C3568; /*dark blue*/
-    --icon: #1C2835; 
+    --icon: #EB4660; 
     --nav-shadow: rgb(185, 184, 184);
     --nav2-logo: #1C2835;
     --input-field: white;
     --paper: white;
     --textfield: #f2f2f2;
     --divider: #d2d2d2;
-
-    --dividerChip: #b8b8b8;
+    --dividerChip: #EEE8DB;
     --header: #16202A;
-
+    --icon2: #EB4660; 
   }
   
   [data-theme='dark'] {
@@ -36,6 +36,7 @@
     --divider: #636363;
     --dividerChip: #b8b8b8;
     --header: #EEE8DB;
+    --icon2: white; 
   }
 
   .MuiInputLabel-root {
@@ -46,13 +47,15 @@
         background-color: var( --background);
     }
 
-
     /*Light and Dark Mode*/
 
     .parent .profileSide{
         background-color: var( --background);
     }
 
+    .parent .divider{
+        border-color: var( --divider);
+    }
 
     .parent .postSide{
         background-color: var( --background);
@@ -62,10 +65,8 @@
         background-color: var( --background);
     }
 
-
     .parent .typePart{
         background-color: var( --background);
-
     }
 
     .parent .profile {
@@ -74,6 +75,21 @@
     }
 
     .parent .name{
+        color: var(--text-primary);
+    }
+
+    .parent .menu-paper{
+        background-color: var( --background);
+        color: var(--text-primary);
+    }
+
+    .parent .menuItem{
+        background-color: var( --background);
+        color: var(--text-primary);
+    }
+
+    .parent .menuBox{
+        background-color: var( --background);
         color: var(--text-primary);
     }
 
@@ -90,9 +106,7 @@
         color: var(--text-secondary);
     }
 
-
     .parent .world>span{
-
         color: var(--text-primary);
     }
 
@@ -104,16 +118,13 @@
         background-color: var(--textfield);
     }
 
-
     .parent .previewClose{
-
-        color: var(--text-primary);
+        color: var(--icon2);
     }
 
 
     .parent .opName{
         color: var(--text-primary);
-
     }
 
     .parent .opName>span:nth-of-type(2){
@@ -133,7 +144,7 @@
     }
 
     .parent .postPhoto{
-        color: var(--text-primary);
+        color: var(--icon2);
     }
 
     .parent .likeButton>span{
@@ -180,6 +191,22 @@
         color: var(--text-secondary);
     }
 
+    .parent .options{
+        color: var(--icon);
+    }
+
+    .parent .header{
+        background-color: var(--header);
+    }
+
+    .parent .dividerChip{
+        background-color: var(--dividerChip);
+        color: var(--text-primary);
+    }
+
+    .parent .latchBtn{
+        color: var(--icon2);
+    }
 
     /*end*/
 
@@ -199,9 +226,7 @@
     }
     
     .profile{
-
         border-radius: 10px;
-
         align-items: center;
         justify-content: center;
     }
@@ -209,8 +234,15 @@
     .profileDp>img{
         width: 6rem;
         border-radius: 50%;
-}
+        border: 3px solid var(--paper);
+    }
 
+
+    .profileDp>img:hover{
+        cursor: pointer;
+    }
+
+  
     .names{
         align-items: center;
         text-align: center;
@@ -220,7 +252,7 @@
     .name>span{
         font-family: 'Montserrat', sans-serif;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: bold;
     }
     
     .name>span:hover{
@@ -457,13 +489,11 @@
     }
     
     .previewImage>img{
-        height: 10%;
-        width: 600px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 5px;
         border-radius: 5px;
     }
-
 
     .previewClose{
         width: 100%;
@@ -672,6 +702,7 @@
         }
 
         .previewImage>img{
-            width: 100%;;
+            width: 100%;
         }
     }
+

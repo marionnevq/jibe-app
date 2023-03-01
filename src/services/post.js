@@ -1,7 +1,7 @@
 import http from "./http";
 
 export function getWorldPost() {
-  return http.post(`/posts`);
+  return http.get(`/posts`);
 }
 
 export function getFollowingPost() {

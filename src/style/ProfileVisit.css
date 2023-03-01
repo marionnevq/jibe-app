@@ -156,6 +156,19 @@
     
 }
 
+.post-paper{
+    background-color: transparent;
+    width: 95%;
+    height: auto;
+    padding-bottom: 2px;
+    border-radius: 0.6rem;
+    box-shadow: 3;
+}
+
+.post .info{
+    background-color: transparent;
+}
+
 .post-corner{
     padding-bottom: 20px;
 }

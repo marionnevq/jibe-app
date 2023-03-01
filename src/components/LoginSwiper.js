@@ -68,6 +68,7 @@ const LoginSwiper = ({ setLoading }) => {
       getDownloadURL(uRef).then((url) => {
         userService.updateCurrentUser({ imageUrl: url, bio });
         setLoading(false);
+        console.log(url);
         swiperRef.current.swiper.slideTo(2);
       });
     });

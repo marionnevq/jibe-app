@@ -27,9 +27,10 @@ import { getWorldPost, getFollowingPost } from "../services/post";
 import { useNavigate } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import PostForm from "./PostForm";
 
-const PostSide = ({ theme }) => {
+const PostSide = ({ theme, setLoading }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -153,102 +154,11 @@ const PostSide = ({ theme }) => {
             marginTop: "10px",
           }}
         >
-          <Paper
-            className="post"
-            sx={{
-              width: "95%",
-              minHeight: "120px",
-              maxHeight: "680px",
-              paddingBottom: "2px",
-              borderRadius: "0.6rem",
-              boxShadow: "1",
-            }}
-          >
-            <Box className="postInfo">
-              <Box className="postDp" sx={{ p: 1 }}>
-                <div className="postDp2">
-                  {/* <img
-                    src={currentUser === null ? " " : `${currentUser.imageUrl}`}
-                    alt=""
-                  /> */}
-                  <Avatar
-                    className="profile-img"
-                    sx={{ width: "50px", height: "50px" }}
-                    src={currentUser === null ? alt : currentUser.imageUrl}
-                    onClick={() => {
-                      navigate(`/profile/${currentUser.username}`);
-                    }}
-                  ></Avatar>
-                </div>
-              </Box>
-              <Box className="postText" sx={{ p: 1 }}>
-                <TextField
-                  className="shareText"
-                  placeholder="What's jibin'?"
-                  sx={{ width: "100%" }}
-                  InputProps={{
-                    className: "inputTextfield",
-                    sx: {
-                      height: "auto",
-                      fontFamily: "montserrat",
-                      color: () => (theme === "dark" ? "white" : "black"),
-                    },
-                  }}
-                  multiline
-                />
-              </Box>
-              <Box className="postPhoto" sx={{ p: 0.5 }}>
-                <PhotoIcon
-                  onClick={() => imageRef.current.click()}
-                  sx={{ cursor: "pointer", fontSize: "30px" }}
-                />
-              </Box>
-            </Box>
-            <div style={{ display: "none" }}>
-              <input
-                type="file"
-                name="myImage"
-                ref={imageRef}
-                onChange={onImageChange}
-              />
-            </div>
-            {image && (
-              <Box
-                className="previewBox"
-                sx={{
-                  p: 0.5,
-                  border: "1px solid #d3d3d3",
-                  borderRadius: "7px",
-                }}
-              >
-                <div className="previewImage">
-                  <Box className="previewClose" sx={{ marginBottom: "-10px" }}>
-                    <CancelRoundedIcon
-                      onClick={() => setImage(null)}
-                      sx={{ cursor: "pointer", justifyContent: "right" }}
-                    />
-                  </Box>
-                  <img src={image.image} />
-                </div>
-              </Box>
-            )}
-            <Divider className="divider" />
-            <Box className="sharebtn" justifyItems={"center"} sx={{ p: 0.5 }}>
-              <Button
-                className="shareButton"
-                variant="text"
-                style={{
-                  backgroundColor: "transparent",
-                  color: "#EB4660",
-                  fontFamily: "Montserrat",
-                  height: "30px",
-                  fontSize: "16px",
-                }}
-              >
-                Post
-              </Button>
-            </Box>
-          </Paper>
+          <PostForm
+            currentUser={currentUser}
+            theme={theme}
+            setLoading={setLoading}
+          />
         </Grid>
 
         <Divider className="divider">
@@ -368,11 +278,29 @@ const PostSide = ({ theme }) => {
                   )}
                   <Box className="txtContent" sx={{ p: 0.2 }}>
                     <span>
-                      {post.numLikes === 0 ? "" : <img src={liked} alt="" style={{width: "25px", height: "25px"}}/>}
+                      {post.numLikes === 0 ? (
+                        ""
+                      ) : (
+                        <img
+                          src={liked}
+                          alt=""
+                          style={{ width: "25px", height: "25px" }}
+                        />
+                      )}
                       {post.numLikes === 0 ? "" : `${post.numLikes}`}
                     </span>
                     <span>
-                      {post.numComments === 0 ? "" : <ModeCommentIcon sx={{ color: "#ff5d75", width: "15px", height: "15px"}} />}
+                      {post.numComments === 0 ? (
+                        ""
+                      ) : (
+                        <ModeCommentIcon
+                          sx={{
+                            color: "#ff5d75",
+                            width: "15px",
+                            height: "15px",
+                          }}
+                        />
+                      )}
                       {post.numComments === 0 ? "" : `${post.numComments}`}
                     </span>
                     {/* <span> <img src={liked} style={{width: "20px", height: "20px" }}/> {`${post.numLikes}`}</span> */}

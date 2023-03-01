@@ -9,7 +9,7 @@ const LatchSuggestion = ({ user }) => {
   const GoToProfile = async (user) => {
     console.log(user);
     const username = user.username;
-    navigate(`/profile/visit/${username}/temp`);
+    navigate(`/profile/visit/${username}`);
   };
 
   return (

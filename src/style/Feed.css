@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
@@ -119,6 +118,10 @@
     }
 
     .parent .previewClose{
+        color: var(--icon2);
+    }
+
+    .parent .buttonLatch{
         color: var(--icon2);
     }
 
@@ -370,12 +373,12 @@
 
     .latchName>span:nth-of-type(1){
         font-weight: 600;
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .latchName>span:nth-of-type(2){
         font-weight: 400;
-        font-size: 12px;
+        font-size: 11.5px;
     }
 
     .latchBtn{
@@ -389,17 +392,16 @@
     .latchList{
         border-radius: 5px;
     }
-
-    .latchDivider{
-        color: var(--text-primary);
-    }
-    
     
     /********************************************/
     /* End of Profile*/
 
     .parent .feedType{
         background-color: var(--paper);
+    }
+
+    .divider{
+        border: 6px solid var(--divider);
     }
     
     .post{

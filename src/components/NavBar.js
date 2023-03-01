@@ -56,6 +56,11 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
     console.log(input.value);
   }
 
+  const goToLatchlist = (event) => {
+    event.preventDefault();
+    navigate('/profile/latch-list');
+  };
+
 
   const themeNow = theme;
 
@@ -150,7 +155,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
          <MenuItem className='menuItem'  sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginTop: "-6px", marginBottom: ".5px", borderBottom: "2px"}}>
             <AccountCircleIcon />&nbsp;&nbsp;Profile
           </MenuItem>
-          <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px"}}>
+          <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: ".5px"}} onClick={goToLatchlist}>
             <PeopleIcon/>&nbsp; Latch list
           </MenuItem>
           <MenuItem className='menuItem' sx={{fontFamily: "montserrat", backgroundColor: (() => theme === "light" ? "#f2f2f2" : "#333333"), color: (() => theme === "light" ? "#333333" : "#f2f2f2"), marginBottom: "-6px"}} onClick={onLogout}>

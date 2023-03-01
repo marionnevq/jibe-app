@@ -86,14 +86,14 @@ const FriendList = ({ theme }) => {
         </Grid></div>
       </Grid>
       {/*LatchList*/}
-      <Grid item xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
-        <Paper className='list' sx={{ height: "auto"  }}>
-            <Box className="latchBox" sx={{ margin:"8px", display: "flex", flexDirection: "column", width: "100%", borderRadius:"0.3rem", border: "1px dashed red" }}>
+      <Grid xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
+        <Paper className='list' sx={{ minHeight: "10px",   }}>
+            <Box className="latchBox" sx={{ margin:"5px", display: "flex", flexDirection: "column", width: "100%", borderRadius:"0.3rem", justifyContent: "center" }}>
             {users && users.map((user) => (
-                <Box className="nameList" sx={{ display:"flex", width:"50%", margin: "7px"  }} >
-                <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
+                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} >
+                  <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
                     <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
-                        <img src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
+                        <img src={alt}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
                     </Box>
                     <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
                         <span style={{ fontWeight:"700" }}>{`${user.followeeUsername}`}</span>

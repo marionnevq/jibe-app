@@ -163,7 +163,7 @@ const handleWorldFollowing = async () => {
               <span>{post === null ? "" : `${post.userFirstname} ${post.userLastname}`}</span>
               <span>a few minutes ago</span>
             </Box>
-            <Box className="optionBox" sx={{ p: 1 }}>
+            {/* <Box className="optionBox" sx={{ p: 1 }}>
                 <IconButton className='options' onClick={handleOpenMenu}>
                     <MoreHorizIcon/>
                 </IconButton>
@@ -182,7 +182,7 @@ const handleWorldFollowing = async () => {
                     <DeleteRoundedIcon/>&nbsp; Move to trash
                   </MenuItem>
                 </Menu>
-            </Box>
+            </Box> */}
           </Box>
           <Box className='postContent'  sx={{ p: 0.2 }}>
             <div className='postContent2'>
@@ -218,65 +218,6 @@ const handleWorldFollowing = async () => {
           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
         </Paper>
         ))}
-          
-
-        {/* <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
-          <Box className="info" sx={{ p:0.2  }}>
-             <Box className='opImg' sx={{ p: 1 }}>
-               <div className="opInfo">
-                 <img src={mk} alt=""/>
-               </div>
-             </Box>
-             <Box className='opName' sx={{ p: 1 }}>
-               <span>Mark Lee</span>
-              <span>a few minutes ago</span>
-             </Box>
-             <Box sx={{ p: 1 }}>
-             <IconButton className='options' onClick={handleOpenMenu}>
-                    <MoreHorizIcon/>
-                </IconButton>
-
-                <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} className="menuBox" >
-                  <MenuItem className='menuItem'  sx={{ fontFamily: "montserrat" }}>
-                    <EditRoundedIcon />&nbsp;&nbsp;Edit
-                  </MenuItem>
-                  <MenuItem className='menuItem' sx={{ fontFamily: "montserrat" }}>
-                    <DeleteRoundedIcon/>&nbsp; Move to trash
-                  </MenuItem>
-                </Menu>
-             </Box>
-           </Box>
-           <Box className='postContent'  sx={{ p: 0.2 }}>
-             <div className='postContent2'>
-               <Box className='txtContent' sx={{ p: 0.2 }}>
-                 <span>a smile at the end of a long day is something that should be appreciated more #goodnight</span>
-               </Box>
-             </div>
-           </Box>
-           <Divider className='divider' />
-           <Box className='reactions' sx={{ p: 0.2 }}>
-             <Box className='like' sx={{ p: 0.2 }}> 
-              <div className='likebtn' onClick={handleChangeIcon}>
-                <Button className='likeButton'>
-                 {
-                   like? <img src={liked} /> :  <img src={unlike} />
-                 }
-                 {
-                   like? <span>Like</span> : <span>Liked</span>
-                 }
-                </Button>
-               </div>
-             </Box> 
-             <Box className='comment' sx={{ p: 0.2 }}>
-               <Button className='commentButton'>
-                 <ModeCommentOutlinedIcon />
-                 <span>Comment</span>
-               </Button>
-             </Box>
-           </Box>
-           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
-        </Paper> */}
-
       </Grid>
     </Grid>
     </div>

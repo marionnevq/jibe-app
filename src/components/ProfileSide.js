@@ -24,25 +24,12 @@ const ProfileSide = ({ theme }) => {
       console.log(user);
       const username = user.username;
       navigate(`/profile/visit/${username}`)
-
     }
 
     const loadUser = async() => {
         const current = await getCurrentUser();
         setCurrentUser(current.data);
     }
-
-    //get more people
-    async function getUsers() {
-      const currUser = await userService.getCurrentUser();
-      setCurrentUser(currUser.data);
-      const users = await userService.getRandomUsers(4, currUser.data.id);
-      setUsers(users.data);
-    }
-    useEffect(() => {
-      getUsers();
-    }, []);
-  
 
   return (
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }} data-theme={theme}>
@@ -73,41 +60,12 @@ const ProfileSide = ({ theme }) => {
              </Box>
              <Divider className='divider' orientation="vertical" variant="middle" flexItem />
              <Box className='following' sx={{ width: "100%", p: 0.5  }}>
-
                <span>521</span>
                <span>Following</span>
              </Box>
            </Grid>
-
         </Paper>
        </Grid>
-
-        <Grid item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop:"10px"}}>
-          <Grid container item className="latchBox" sx={{ width: "90%", height:"230px" }}>
-            <Box className="latchTitle" sx={{ width: "100%", height:"40px", display: "flex", justifyContent: "left", alignItems: "center" }}>
-              <span>Find more people</span>
-            </Box>
-            <Box className="latchList"  sx={{ width: "100%", height:"200px",  flexDirection:"column", p: 0.5,  borderRadius:"0.6rem" }}>
-              {users && users.map((user) => (
-              <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
-                <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={user.imageUrl}/>
-                </Box>
-                <Box className="latchName" sx={{ width: "60%", cursor: "pointer"  }} onClick={() => {GoToProfile (user)}}>
-                  <span>{`${user.firstname} ${user.lastname}`}</span>
-                  <span>@{user.username}</span>
-                </Box>
-                <Box className="latchBtn" sx={{ width: "20%"  }}>
-                  <IconButton className='buttonLatch'>
-                    <PersonAddIcon sx={{ color: "#EB4660" }}/>
-                  </IconButton>
-                </Box> 
-                <Divider className='divider'/>
-              </Box>
-              ))}
-            </Box>
-          </Grid>
-        </Grid>
     </Grid>
     </div>
   )

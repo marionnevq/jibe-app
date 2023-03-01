@@ -190,7 +190,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   className="latch-btn1"
                   onClick={handleOpen}
                 >
-                  <EditIcon sx={{ marginRight: "10px" }} /> Edit Profile
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit
                 </Button>
               </Grid>
             </div>

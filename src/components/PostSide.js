@@ -18,12 +18,6 @@ import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import alt from "../images/alternate.jpg";
-import unlikeDark from "../images/unlike-dark.png";
-import likedDark from "../images/liked-dark.png";
-import mk from "../images/mark.jpg";
-import test from "../images/test.jpg";
-import dp from "../images/nik.jpg";
-import Joi from "joi";
 import PhotoIcon from "@mui/icons-material/Photo";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -34,28 +28,14 @@ import { useNavigate } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 
-const PostSide = ({ theme, onPosting }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [image, setImage] = useState(null);
-
-
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { getWorldPost, getFollowingPost } from "../services/post";
-import { useNavigate } from "react-router-dom";
-import PostForm from "./PostForm";
-
-const PostSide = ({ theme, onPosting, setLoading }) => {
+const PostSide = ({ theme }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [postDate, setPostDate] = useState("");
-
+  const [image, setImage] = useState(null);
   const open = Boolean(anchorEl);
-
+  const imageRef = useRef();
   const navigate = useNavigate();
 
 
@@ -85,14 +65,6 @@ const PostSide = ({ theme, onPosting, setLoading }) => {
     setAnchorEl(null);
   };
 
-  //  for posting
-  //  const handlePost = (event) => {
-  //   event.preventDefault();
-  //   onPosting(post);
-  //   navigate('/feed');
-  // };
-
-
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
@@ -113,15 +85,11 @@ const PostSide = ({ theme, onPosting, setLoading }) => {
       setPosts(response.data);
     });
 
-
     await getCurrentUser().then((response) => {
 
       setCurrentUser(response.data);
     });
-    // await getWorldPost(world.data).then((userPosts) => {
 
-    //   console.log(userPosts.data);
-    // });
   };
 
   return (

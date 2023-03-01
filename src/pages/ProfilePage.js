@@ -34,6 +34,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
   const loadUser = async () => {
     const current = await getUser();
     setCurrentUser(current.data);
+    console.log(current.data);
   };
 
   const onImageChange = (event) => {
@@ -119,7 +120,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     fontWeight: "500",
                   }}
                 >
-                  1.2k
+                 {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
                 <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
                   Posts
@@ -143,7 +144,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     fontWeight: "500",
                   }}
                 >
-                  5.6m
+                  {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
                 <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
                   Followers
@@ -167,7 +168,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     fontWeight: "500",
                   }}
                 >
-                  3
+                  {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
                 <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter" }}>
                   Following
@@ -189,7 +190,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   className="latch-btn1"
                   onClick={handleOpen}
                 >
-                  <EditIcon sx={{ marginRight: "10px" }} /> Edit Profile
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit
                 </Button>
               </Grid>
             </div>
@@ -217,7 +218,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             >
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                  1298
+                {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Posts
@@ -225,7 +226,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                  5.6m
+                {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Followers
@@ -233,7 +234,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                  3
+                {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Following

@@ -4,8 +4,10 @@ import "../style/NotFound.css"
 import notfound from "../images/nfIcon.png"
 import bgnf from "../images/bgnff.jpg"
 import nff from "../images/nf.jpg"
+import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
+  const navigate = useNavigate();
   return (
     <Grid container className='notFound'>
       <Grid className="leftSide" item xs={12} sm={6} sx={{ justifyContent: "center", alignItems: "center", alignContent:"center" }}>
@@ -32,14 +34,14 @@ const NotFound = () => {
             <Box className="header" sx={{ width: "25%" }}>
             </Box>
             <Box className="subheader" sx={{ width: "75%" }}>
-              <Button className='backBtn' sx={{ backgroundColor:"white", color:"#2C3568", fontFamily: 'Montserrat', borderRadius:"30px", width:"150px", fontWeight:"800" }}>Go Back &#8594;</Button>
+              <Button className='backBtn' sx={{ backgroundColor:"white", color:"#2C3568", fontFamily: 'Montserrat', borderRadius:"30px", width:"150px", fontWeight:"800" }} onClick={() => {navigate(`/feed`)}}>Go Back &#8594;</Button>
             </Box>
           </Box>
 
         </Grid>
       </Grid>
       <Grid className="rightSide" item xs={12} sm={6}>
-        <Grid item className='nfPhoto' >
+        <Grid item className='nfPhoto'  >
           <img src={notfound}/>
         </Grid>
       </Grid>

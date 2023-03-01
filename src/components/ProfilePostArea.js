@@ -20,7 +20,7 @@ import { getUser } from "../services/auth";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import alt from "../images/alternate.jpg";
-
+import { useNavigate } from "react-router-dom";
 
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
@@ -28,6 +28,7 @@ const ProfilePostArea = ({ theme }) => {
   const open = Boolean(anchorEl);
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
@@ -148,7 +149,7 @@ const ProfilePostArea = ({ theme }) => {
               <Box className="txtContent" sx={{ p: 0.2 }}>
                 <span>{post.length === 0 ? "" : post.body}</span>
               </Box>
-              {post.length === 0 ? null : (
+              {post && post.imageUrl === null ? <Divider  className='divider'/> : (
                 <Box
                   className="imgContent"
                   sx={{
@@ -189,7 +190,7 @@ const ProfilePostArea = ({ theme }) => {
               orientation="vertical"
             />
             <Box className="comment" sx={{ p: 0.2 }}>
-              <Button className="commentButton">
+              <Button className="commentButton" onClick={() => {navigate(`/posts/${post.postID}`)}}>
                 <ModeCommentOutlinedIcon />
                 <span>Comment</span>
               </Button>

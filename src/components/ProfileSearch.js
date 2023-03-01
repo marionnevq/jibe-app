@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const ProfileSearch = ({handleClose, search, theme}) => {
     const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     useEffect(() => {
         loadPost();
@@ -22,12 +23,21 @@ const ProfileSearch = ({handleClose, search, theme}) => {
     }
 
     const handleGoToProfile = (username) => {
+        setLoading(true);
         const timer = setTimeout(() => {
             handleClose();
             navigate(`/profile/visit/${username}`);
+            setLoading(false);
             window.location.reload(false);
-          }, 1200);
+            
+          }, 3000);
        
+    }
+
+    if(loading){
+        return <div style={{width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <h1 style={{color: "#f2f2f2"}}>Loading...</h1>
+            </div>
     }
 
     console.log(users);

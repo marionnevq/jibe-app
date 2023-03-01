@@ -196,7 +196,10 @@
     }
 
     .parent .header{
-        background-color: var(--header);
+        background-image: var(--bg-image);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-attachment: scroll;
     }
 
     .parent .dividerChip{
@@ -231,14 +234,12 @@
         justify-content: center;
     }
     
-    .profileDp>img{
-        width: 6rem;
-        border-radius: 50%;
+    .profile-img{
         border: 3px solid var(--paper);
     }
 
 
-    .profileDp>img:hover{
+    .profile-img:hover{
         cursor: pointer;
     }
 

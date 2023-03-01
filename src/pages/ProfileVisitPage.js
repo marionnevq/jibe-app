@@ -149,9 +149,9 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
         </div>
       </div>
     </div>
-    </div>
-  )
+  </div>
+  );
 }
 
-export default ProfileVisitPage
+export default ProfileVisitPage;
 

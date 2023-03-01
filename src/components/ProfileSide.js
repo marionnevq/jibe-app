@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, IconButton, Paper } from '@mui/material'
+import { Avatar, Button, Divider, Grid, IconButton, Paper } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -6,7 +6,7 @@ import { getCurrentUser } from '../services/user'
 import dp from '../images/nik.jpg'
 import alternate from "../images/alternate.jpg";
 import * as userService from "../services/user";
-
+import alt from "../images/alternate.jpg";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const ProfileSide = ({ theme }) => {
@@ -22,11 +22,7 @@ const ProfileSide = ({ theme }) => {
 
 
     const GoToProfile = async (user) => {
-      console.log(user);
-      const username = user.username;
-      navigate(`/profile/visit/${username}`)
-
-
+      navigate(`/profile/${currentUser.username}`)
     }
 
     const loadUser = async() => {
@@ -53,11 +49,17 @@ const ProfileSide = ({ theme }) => {
     <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
         
        <Grid item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-       <Paper className='profile' sx={{width: "90%", height: "270px", borderRadius:"0.6rem", boxShadow:"1"}}>
+       <Paper className='profile' sx={{width: "90%", minHeight: "270px", borderRadius:"0.6rem", boxShadow:"1"}}>
            <Grid item className='header' 
               sx={{width: "100%", height: "90px", backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
-              <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt="" onClick={GoToProfile}/>
+           <Avatar
+                  className="profile-img"
+                  src={currentUser === null ? alt : currentUser.imageUrl}
+                  sx={{ width: "150px", height: "150px" }}
+                  onClick={() => (GoToProfile(currentUser))}
+                ></Avatar>
+              {/* <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt="" onClick={() => (GoToProfile(currentUser))}/> */}
           </Grid>
            <Box className="names" sx={{ marginTop:"10px" }}>
              <Box className="name">
@@ -95,7 +97,11 @@ const ProfileSide = ({ theme }) => {
               {users && users.map((user) => (
               <Box className="latchInfo" sx={{ width: "100%", height:"47px",  display: "flex" }}>
                 <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src={user.imageUrl}/>
+                <Avatar
+                  className="profile-img"
+                  src={user.imageUrl}
+                ></Avatar>
+                  {/* <img src={user.imageUrl}/> */}
                 </Box>
                 <Box className="latchName" sx={{ width: "60%", cursor: "pointer"  }} onClick={() => {GoToProfile (user)}}>
                   <span>{`${user.firstname} ${user.lastname}`}</span>

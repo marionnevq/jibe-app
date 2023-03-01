@@ -11,7 +11,7 @@ export function getWorldPost() {
 
 
 export function getFollowingPost() {
-    return http.post(`/posts/following`);
+    return http.get(`/posts/following`);
   }
 
   export function getUserPosts(username) {

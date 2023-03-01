@@ -24,6 +24,7 @@ import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
+import TempProfileVisitPage from "./pages/TempProfileVisitPage";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -188,6 +189,21 @@ function App() {
           element={
             accessToken ? (
               <ProfileVisitPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/profile/visit/:username/temp"
+          element={
+            accessToken ? (
+              <TempProfileVisitPage
                 onLogout={handleLogout}
                 onSwitch={switchTheme}
                 theme={theme}

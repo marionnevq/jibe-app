@@ -6,36 +6,34 @@ import NavBar from "../components/NavBar";
 import alt from "../images/alternate.jpg";
 import "../style/ProfileVisit.css";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PostVisit from "../components/PostVisit";
 import EditUser from "../components/EditUser";
 import { fetchUserByUsername } from "../services/auth";
+import { checkFollowing, followUser, unfollowUser } from "../services/follow";
+import { getCurrentUser } from "../services/user";
 
-const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
+const TempProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
   const params = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     setLoading(true);
+    getCurrentUser().then((response) => {
+      setCurrentUser(response.data);
+    });
     fetchUserByUsername(params.username).then((response) => {
       setUser(response.data);
+      checkFollowing(response.data.username).then((response) => {
+        setIsFollowing(response.data);
+      });
+
       setLoading(false);
     });
   }, []);
-
-  const handleSubmit = (form) => {
-    // employeeService
-    //   .updateEmployee(employee.id, form)
-    //   .then(() => {
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response && error.response.status === 400) {
-    //       alert(error.response.data.message[0]);
-    //     }
-    //   });
-  };
 
   const [open, setOpen] = React.useState(false);
 
@@ -50,6 +48,17 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
     return <h1>Loading...</h1>;
   }
 
+  const handleLatch = () => {
+    if (isFollowing) {
+      unfollowUser(currentUser.id, user.username).then(() => {
+        setIsFollowing(!isFollowing);
+      });
+    } else {
+      followUser(currentUser.id, user.username).then(() => {
+        setIsFollowing(!isFollowing);
+      });
+    }
+  };
   return (
     <div style={{ height: "auto" }}>
       <Modal
@@ -116,7 +125,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                       fontWeight: "500",
                     }}
                   >
-                    1298
+                    {user && user.postsCount}
                   </h3>
                   <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Posts
@@ -140,7 +149,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                       fontWeight: "500",
                     }}
                   >
-                    5.6m
+                    {user && user.followersCount}
                   </h3>
                   <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Followers
@@ -164,7 +173,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                       fontWeight: "500",
                     }}
                   >
-                    3
+                    {user && user.followingCount}
                   </h3>
                   <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Following
@@ -181,13 +190,29 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    className="latch-btn1"
-                    onClick={handleOpen}
-                  >
-                    <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
-                  </Button>
+                  {isFollowing ? (
+                    <Button
+                      variant="outlined"
+                      className="latch-btn1"
+                      onClick={
+                        // handleOpen
+                        handleLatch
+                      }
+                    >
+                      <BookmarkIcon sx={{ marginRight: "10px" }} /> Latched
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className="latch-btn1"
+                      onClick={
+                        // handleOpen
+                        handleLatch
+                      }
+                    >
+                      <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
+                    </Button>
+                  )}
                 </Grid>
               </div>
             </Grid>
@@ -213,7 +238,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
               >
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    1298
+                    {user && user.postsCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Posts
@@ -221,7 +246,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                 </div>
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    5.6m
+                    {user && user.followersCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Followers
@@ -229,7 +254,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                 </div>
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    3
+                    {user && user.followingCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Following
@@ -249,9 +274,29 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                     width: "100%",
                   }}
                 >
-                  <Button className="btn-latch" variant="contained">
-                    <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
-                  </Button>
+                  {isFollowing ? (
+                    <Button
+                      variant="outlined"
+                      className="latch-btn1"
+                      onClick={
+                        // handleOpen
+                        handleLatch
+                      }
+                    >
+                      <BookmarkIcon sx={{ marginRight: "10px" }} /> Latched
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className="latch-btn1"
+                      onClick={
+                        // handleOpen
+                        handleLatch
+                      }
+                    >
+                      <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </div>
@@ -298,7 +343,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
                 md={8.5}
                 sx={{ height: "auto" }}
               >
-                <PostVisit theme={theme} user={user} />
+                {/* <PostVisit theme={theme} user={user} /> */}
               </Grid>
             </Grid>
           </Paper>
@@ -316,4 +361,4 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
   );
 };
 
-export default ProfileVisitPage;
+export default TempProfileVisitPage;

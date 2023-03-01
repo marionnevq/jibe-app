@@ -37,6 +37,8 @@ const ProfileSide = ({ theme }) => {
       setCurrentUser(currUser.data);
       const users = await userService.getRandomUsers(4, currUser.data.id);
       setUsers(users.data);
+
+      console.log(users.data);
     }
     useEffect(() => {
       getUsers();
@@ -74,13 +76,13 @@ const ProfileSide = ({ theme }) => {
            <Divider className='divider'/>
            <Grid item className='followerPart'>
              <Box className='followers' sx={{ width: "100%", p: 0.5 }}>
-               <span>802</span>
+               <span>{currentUser === null ? 0 : currentUser.followersCount}</span>
                <span>Followers</span>
              </Box>
              <Divider className='divider' orientation="vertical" variant="middle" flexItem />
              <Box className='following' sx={{ width: "100%", p: 0.5  }}>
 
-               <span>521</span>
+               <span>{currentUser === null ? 0 : currentUser.followingCount}</span>
                <span>Following</span>
              </Box>
            </Grid>
@@ -99,11 +101,12 @@ const ProfileSide = ({ theme }) => {
                 <Box className="latchDp" sx={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Avatar
                   className="profile-img"
+                  onClick={() => {navigate(`/profile/visit/${user.username}`)}}
                   src={user.imageUrl}
                 ></Avatar>
                   {/* <img src={user.imageUrl}/> */}
                 </Box>
-                <Box className="latchName" sx={{ width: "60%", cursor: "pointer"  }} onClick={() => {GoToProfile (user)}}>
+                <Box className="latchName" sx={{ width: "60%", cursor: "pointer"  }} onClick={() => {navigate(`/profile/visit/${user.username}`)}}>
                   <span>{`${user.firstname} ${user.lastname}`}</span>
                   <span>@{user.username}</span>
                 </Box>

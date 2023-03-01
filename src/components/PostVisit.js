@@ -19,6 +19,7 @@ import { useParams } from "react-router";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { useNavigate } from "react-router-dom";
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 const PostVisit = ({ theme, user }) => {
   const [like, setLike] = useState(false);
@@ -133,6 +134,28 @@ const PostVisit = ({ theme, user }) => {
             </div>
           </Box>
           {/* <Divider /> */}
+          <Box
+            className="txtContent"
+            sx={{
+              p: 0.2,
+              color: () => (theme === "light" ? "#333333" : "white"),
+            }}
+          >
+            <span>
+              {post.numLikes === 0 ? "" : <img src={liked} alt="" />}
+              {post.numLikes === 0 ? "" : `${post.numLikes}`}
+            </span>
+            <span>
+              {post.numComments === 0 ? (
+                ""
+              ) : (
+                <ModeCommentIcon
+                  sx={{ color: "#ff5d75", width: "15px", height: "15px" }}
+                />
+              )}
+              {post.numComments === 0 ? "" : `${post.numComments}`}
+            </span>
+          </Box>
           <Box
             className="reactions"
             sx={{

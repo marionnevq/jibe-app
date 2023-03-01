@@ -157,9 +157,8 @@ input[type="search"]{
     }
 
     .click:focus{
-      width: 150px;
+      width: 120px;
       transition: width 0.4s;
-      padding-left: 5px;
     }
 
     .nav-two{

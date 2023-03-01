@@ -38,13 +38,26 @@ const PostSide = ({ theme, onPosting }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [image, setImage] = useState(null);
+
+
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import { getWorldPost, getFollowingPost } from "../services/post";
+import { useNavigate } from "react-router-dom";
+import PostForm from "./PostForm";
+
+const PostSide = ({ theme, onPosting, setLoading }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [postDate, setPostDate] = useState("");
 
   const open = Boolean(anchorEl);
-  const imageRef = useRef();
 
   const navigate = useNavigate();
+
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -79,24 +92,30 @@ const PostSide = ({ theme, onPosting }) => {
   //   navigate('/feed');
   // };
 
+
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
     const ago = timeAgo.format(new Date(postDate));
     return ago;
   };
+
   //get post
   useEffect(() => {
     loadUser();
   }, []);
 
   const loadUser = async () => {
+
     await getWorldPost().then((response) => {
+
       console.log(response.data);
       setPosts(response.data);
     });
 
+
     await getCurrentUser().then((response) => {
+
       setCurrentUser(response.data);
     });
     // await getWorldPost(world.data).then((userPosts) => {
@@ -158,6 +177,7 @@ const PostSide = ({ theme, onPosting }) => {
             </Box>
           </Paper>
         </Grid>
+
 
         <Grid
           container
@@ -289,17 +309,21 @@ const PostSide = ({ theme, onPosting }) => {
               className="post"
               sx={{
                 width: "95%",
+
                 height: "auto",
                 paddingBottom: "2px",
                 borderRadius: "0.6rem",
                 boxShadow: "3",
+
               }}
             >
               <Box className="info" sx={{ p: 0.2 }}>
                 <Box className="opImg" sx={{ p: 1 }}>
                   <div className="opInfo">
+
                     <Avatar
                       src={post.userImageUrl === null ? alt : post.userImageUrl}
+
                       alt=""
                     />
                   </div>
@@ -310,9 +334,11 @@ const PostSide = ({ theme, onPosting }) => {
                       ? ""
                       : `${post.userFirstname} ${post.userLastname}`}
                   </span>
+
                   <span>{convertTime(post.datePosted)}</span>
                 </Box>
                 {/* <Box className="optionBox" sx={{ p: 1 }}>
+
                   <IconButton className="options" onClick={handleOpenMenu}>
                     <MoreHorizIcon />
                   </IconButton>
@@ -339,6 +365,7 @@ const PostSide = ({ theme, onPosting }) => {
                       &nbsp; Move to trash
                     </MenuItem>
                   </Menu>
+
                 </Box> */}
               </Box>
               <Box className="postContent" sx={{ p: 0.2 }}>
@@ -396,6 +423,7 @@ const PostSide = ({ theme, onPosting }) => {
                 </Box>
               </Box>
               {/* <Divider className='divider' sx={{ marginBottom:"10px" }}/> */}
+
             </Paper>
           ))}
 

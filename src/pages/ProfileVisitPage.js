@@ -130,7 +130,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
             </Paper>
           </Grid>
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              <PostVisit />
+              <PostVisit theme={theme} />
           </Grid>
         </Grid>
       </Paper>

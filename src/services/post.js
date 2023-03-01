@@ -5,5 +5,10 @@ export function getWorldPost() {
 }
 
 export function getFollowingPost(followeeID, postID) {
-    return http.post("/posts/following", { followeeID, postID });
-  }
+  return http.post("/posts/following", { followeeID, postID });
+}
+
+export function getUserPosts(username) {
+  return http.get(`/profiles/${username}/posts`);
+}
+

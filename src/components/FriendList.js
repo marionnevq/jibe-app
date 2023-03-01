@@ -6,6 +6,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import "../style/LatchList.css";
 import { useNavigate } from 'react-router-dom';
 import * as userService from "../services/user";
+import { async } from 'q';
 
 const FriendList = ({ theme }) => {
 
@@ -16,12 +17,15 @@ const FriendList = ({ theme }) => {
 
   //get follow list
   async function getFollowingList() {
-    const currUser = await userService.getCurrentUser();
-    setCurrentUser(currUser.data);
-    // console.log(currUser.data);
-    const users = await userService.getFollowList(currUser.data.username);
-    setUsers(users.data);
-    console.log(users.data);
+    const currUser = await userService.getCurrentUser().then( async (response) => {
+      setCurrentUser(response.data);
+      console.log(response.data);
+      await userService.getFollowList(response.data.username).then((response) => {
+        setUsers(response.data);
+        console.log(response.data);
+      });
+    });
+
   }
   useEffect(() => {
     getFollowingList();
@@ -86,23 +90,27 @@ const FriendList = ({ theme }) => {
         </Grid></div>
       </Grid>
       {/*LatchList*/}
-      <Grid xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
-        <Paper className='list' sx={{ minHeight: "10px",   }}>
-            <Box className="latchBox" sx={{ margin:"5px", display: "flex", flexDirection: "column", width: "100%", borderRadius:"0.3rem", justifyContent: "center" }}>
+      <Grid item xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
+        <Paper className='list' sx={{ height: "auto", display: "flex", flexDirection:"column"  }}>
+          <Box className="title" sx={{ margin:"3px", display: "flex", flexDirection: "column", width: "90%", borderRadius:"0.3rem" }}>
+            <span><Divider className='dividerTitle'>Latch List</Divider></span>
+          </Box>
+            <Box className="latchBox" sx={{ margin:"5px", display: "flex", flexDirection: "column", width: "95%", borderRadius:"0.3rem"}}>
             {users && users.map((user) => (
                 <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} >
                   <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
-                    <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
-                        <img src={alt}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
-                    </Box>
-                    <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
-                        <span style={{ fontWeight:"700" }}>{`${user.followeeUsername}`}</span>
-                    </Box>
-                    <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
-                        <IconButton>
-                            <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
-                        </IconButton>
-                    </Box>
+                      <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
+                          <img src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
+                      </Box>
+                      <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
+                          <span style={{ fontWeight:"700" }}>{`${user.firstname} ${user.lastname}`}</span>
+                          <span style={{ fontWeight:"400", fontSize:"13.5px" }}>@{`${user.username}`}</span>
+                      </Box>
+                      <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
+                          <IconButton>
+                              <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
+                          </IconButton>
+                      </Box>
                 </Box>
             </Box>
             ))}

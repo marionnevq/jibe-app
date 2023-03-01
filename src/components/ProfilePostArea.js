@@ -183,7 +183,7 @@ const ProfilePostArea = ({ theme }) => {
             }}
           >
             <span>
-              {post.numLikes === 0 ? "" : <img src={liked} alt="" />}
+              {post.numLikes === 0 ? "" : <img src={liked} alt="" style={{width: "25px", height: "25px"}} />}
               {post.numLikes === 0 ? "" : `${post.numLikes}`}
             </span>
             <span>

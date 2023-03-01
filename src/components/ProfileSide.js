@@ -20,10 +20,12 @@ const ProfileSide = ({ theme }) => {
         loadUser();
     },[])
 
+
     const GoToProfile = async (user) => {
       console.log(user);
       const username = user.username;
       navigate(`/profile/visit/${username}`)
+
 
     }
 
@@ -31,6 +33,7 @@ const ProfileSide = ({ theme }) => {
         const current = await getCurrentUser();
         setCurrentUser(current.data);
     }
+
 
     //get more people
     async function getUsers() {
@@ -43,6 +46,7 @@ const ProfileSide = ({ theme }) => {
       getUsers();
     }, []);
   
+
 
   return (
     <div className='profileSide' style={{ minWidth: "100%", marginTop: "10px" }} data-theme={theme}>

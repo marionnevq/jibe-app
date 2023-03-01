@@ -12,6 +12,7 @@ import "swiper/css";
 
 const FollowSlide = ({ user, currentUser }) => {
   const [isFollowed, setIsFollowed] = useState(false);
+
   const handleFollow = async (followerID, followeeUsername) => {
     const response = await followService.followUser(
       followerID,
@@ -19,6 +20,7 @@ const FollowSlide = ({ user, currentUser }) => {
     );
     setIsFollowed(true);
   };
+  
   return (
     <div>
       <img id="image" src={user.imageUrl} />

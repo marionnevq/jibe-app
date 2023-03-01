@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Grid, Paper } from '@mui/material'
+import { Avatar, Button, Divider, Grid, Modal, Paper } from '@mui/material'
 import { Box, display } from '@mui/system';
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,13 +7,12 @@ import alt from "../images/alternate.jpg"
 import "../style/ProfileVisit.css"
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PostVisit from '../components/PostVisit';
+import EditUser from '../components/EditUser';
 
 const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
   
   const params = useParams();
-
   const navigate = useNavigate();
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -38,11 +37,31 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
     //   });
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
   return (
+    <div style={{height: "auto"}}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{overflow: "scroll"}}
+      >
+        <EditUser handleClose={handleClose}/>
+      </Modal>
     <div data-theme={theme}>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
     <div style={{minHeight: "100vh"}} >
@@ -57,18 +76,18 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
         <div className='web' >
           <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
             <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>1298</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Posts</h1>
+            <h1 style={{fontSize: "15px", fontFamily: "montserrat"}}>Posts</h1>
           </Grid>
           <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
             <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>5.6m</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Followers</h1>
+            <h1 style={{fontSize: "15px", fontFamily: "montserrat"}}>Followers</h1>
           </Grid>
           <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
             <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>3</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Following</h1>
+            <h1 style={{fontSize: "15px", fontFamily: "montserrat"}}>Following</h1>
           </Grid>
           <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button>
+            <Button variant='contained' className='latch-btn1' onClick={handleOpen}><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button>
           </Grid></div>
         </Grid>
         
@@ -106,11 +125,12 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
             <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
                 <h1>Jim Lloyd</h1>
                 <h3>@jimlloyddg</h3>
+                <Divider className='divider-info' />
                 <h4>No one can ever be word word word  word word word  word word word </h4>
             </Paper>
           </Grid>
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              <PostVisit />
+              <PostVisit theme={theme} />
           </Grid>
         </Grid>
       </Paper>
@@ -124,6 +144,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       </Grid> */}
       </div>
     </div>
+
   )
 }
 

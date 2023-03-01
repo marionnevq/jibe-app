@@ -16,6 +16,7 @@
   --paper: white;
   --textfield: #f2f2f2;
   --divider: #d2d2d2;
+  --divider2: #d2d2d2;
   --header: #16202A;
   --cover: #22294f;
   --bottom-paper: #a9a7a7;
@@ -40,6 +41,7 @@
   --paper: #343434;
   --textfield: #636363;
   --divider: #fefefe;
+  --divider2: #982d3d;
   --header: #EEE8DB;
   --cover: #333333;
   --bottom-paper: #636363;
@@ -129,19 +131,24 @@
     width: 100%;
     height: 100%;
     font-family: "montserrat";
+    background-color: var(--paper);
 }
 
 .bottom-foot .window-name h1{
     font-size: 21px;
+    color: var(--text-primary);
 }
 
 .bottom-foot .window-name h3{
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.bottom-foot .window-name h4{
     font-size: 15px;
     font-weight: 400;
-}
-
-.bottom-foot .window-name h3{
-    font-size: 15px;
+    color: var(--text-primary);
 }
 
 .bottom-foot{
@@ -149,8 +156,30 @@
     
 }
 
+.post-paper{
+    background-color: transparent;
+    width: 95%;
+    height: auto;
+    padding-bottom: 2px;
+    border-radius: 0.6rem;
+    box-shadow: 3;
+}
+
+.post .info{
+    background-color: transparent;
+}
+
 .post-corner{
     padding-bottom: 20px;
+}
+
+.window-name .divider-info{
+    border-color: var(--divider);
+    width: 100%;
+}
+
+.post {
+    background-color: var(--info);
 }
 
 @media only screen and (max-width: 600px) {

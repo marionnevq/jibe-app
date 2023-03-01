@@ -16,31 +16,22 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { getWorldPost } from '../services/post';
+import { getWorldPost, getFollowingPost } from '../services/post';
 import { useNavigate } from 'react-router-dom';
 
 
 const PostSide = ({ theme, onPosting }) => {
 
   const [currentUser, setCurrentUser] = useState(null);
-  const [posts, setPost] = useState([])
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    loadUser();
-},[])
-
-const loadUser = async() => {
-    const current = await getCurrentUser();
-    setCurrentUser(current.data);
-    const apiPost = await getWorldPost();
-    setPost(apiPost.data);
-}
+  const [posts, setPosts] = useState([])
   const [image, setImage] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [postDate, setPostDate] = useState("");
+ 
   const open = Boolean(anchorEl);
   const imageRef = useRef();
+
+  const navigate = useNavigate();
 
   const onImageChange = (event) => {
     if(event.target.files && event.target.files[0]) {
@@ -74,6 +65,28 @@ const loadUser = async() => {
 //   onPosting(post);
 //   navigate('/feed');
 // };
+
+//get post
+useEffect(() => {
+  loadUser();
+}, []);
+
+const loadUser = async () => {
+  const world = await getWorldPost().then((response) => {
+    console.log(response.data);
+    setPosts(response.data);
+  });
+
+  const user = await getCurrentUser().then((response) => {
+    setCurrentUser(response.data);
+  });
+  // await getWorldPost(world.data).then((userPosts) => {
+    
+  //   console.log(userPosts.data);
+  // });
+  
+};
+
 
   return (
     <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>
@@ -133,18 +146,20 @@ const loadUser = async() => {
       <Divider className='divider'><Chip className='dividerChip' label="WORLD" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-        <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+        {posts.map((post) => (
+          <Paper className='post' sx={{ width:"95%", minHeight: "160px", maxHeight:"690px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+            
           <Box className="info" sx={{ p:0.2  }}>
-             <Box className='opImg' sx={{ p: 1 }}>
-               <div className="opInfo">
-                 <img src={mk} alt=""/>
-               </div>
-             </Box>
-             <Box className='opName' sx={{ p: 1 }}>
-               <span>Mark Lee</span>
+            <Box className='opImg' sx={{ p: 1 }}>
+              <div className="opInfo">
+                <img src={post.userImageUrl === null ? "" : post.userImageUrl } alt=""/>
+              </div>
+            </Box>
+            <Box className='opName' sx={{ p: 1 }}>
+              <span>{post === null ? "" : `${post.userFirstname} ${post.userLastname}`}</span>
               <span>a few minutes ago</span>
-             </Box>
-             <Box className="optionBox" sx={{ p: 1 }}>
+            </Box>
+            <Box className="optionBox" sx={{ p: 1 }}>
                 <IconButton className='options' onClick={handleOpenMenu}>
                     <MoreHorizIcon/>
                 </IconButton>
@@ -163,43 +178,45 @@ const loadUser = async() => {
                     <DeleteRoundedIcon/>&nbsp; Move to trash
                   </MenuItem>
                 </Menu>
-             </Box>
-           </Box>
-           <Box className='postContent'  sx={{ p: 0.2 }}>
+            </Box>
+          </Box>
+          <Box className='postContent'  sx={{ p: 0.2 }}>
             <div className='postContent2'>
-             <Box className='txtContent' sx={{ p: 0.2 }}>
-                 <span>#NewHeader</span>
-               </Box>
-               <Box className='imgContent' sx={{ p: 1, display:"flex" }}>
-                 <img src={test} style={{ width:"100%" }}/>
-               </Box>
-             </div>
-           </Box>
-           <Divider className='divider'/>
-           <Box className='reactions' sx={{ p: 0.2 }}>
-             <Box className='like' sx={{ p: 0.2 }}> 
+            <Box className='txtContent' sx={{ p: 0.2 }}>
+                <span>{post.length === 0 ? "" : post.body}</span>
+              </Box>
+              <Box className='imgContent' sx={{ p: 1, display:"flex" }}>
+                <img src={`${post.imageUrl}`} style={{ width:"100%" }}/>
+              </Box>
+            </div>
+          </Box>
+          <Divider className='divider'/>
+          <Box className='reactions' sx={{ p: 0.2 }}>
+            <Box className='like' sx={{ p: 0.2 }}> 
               <div className='likebtn' onClick={handleChangeIcon}>
                 <Button className='likeButton'>
-                 {
-                   like? <img src={liked} /> :  <img src={unlike} />
-                 }
-                 {
-                   like? <span>Like</span> : <span>Liked</span>
-                 }
+                {
+                  like? <img src={liked} /> :  <img src={unlike} />
+                }
+                {
+                  like? <span>Like</span> : <span>Liked</span>
+                }
                 </Button>
-               </div>
-             </Box> 
-             <Box className='comment' sx={{ p: 0.2 }}>
-               <Button className='commentButton'>
-                 <ModeCommentOutlinedIcon />
-                 <span>Comment</span>
-               </Button>
-             </Box>
-           </Box>
-           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
+              </div>
+            </Box> 
+            <Box className='comment' sx={{ p: 0.2 }}>
+              <Button className='commentButton'>
+                <ModeCommentOutlinedIcon />
+                <span>Comment</span>
+              </Button>
+            </Box>
+          </Box>
+          <Divider className='divider' sx={{ marginBottom:"10px" }}/>
         </Paper>
+        ))}
+          
 
-        <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+        {/* <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
           <Box className="info" sx={{ p:0.2  }}>
              <Box className='opImg' sx={{ p: 1 }}>
                <div className="opInfo">
@@ -254,7 +271,7 @@ const loadUser = async() => {
              </Box>
            </Box>
            <Divider className='divider' sx={{ marginBottom:"10px" }}/>
-        </Paper>
+        </Paper> */}
 
       </Grid>
     </Grid>

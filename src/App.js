@@ -20,6 +20,7 @@ import ProfileVisitPage from "./pages/ProfileVisitPage";
 
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
+import LatchList from "./pages/LatchList";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -152,6 +153,17 @@ function App() {
             theme={theme}/> : <Navigate to="/login" />
           }
         />
+
+        <Route
+          path="/profile/latch-list"
+          element={
+            accessToken ? <LatchList 
+            onLogout={handleLogout}
+            onSwitch={switchTheme}
+            theme={theme}/> : <Navigate to="/login" />
+          }
+        />
+        
         <Route
           path="/register"
           element={

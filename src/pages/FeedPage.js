@@ -7,7 +7,7 @@ import ProfileSide from '../components/ProfileSide';
 import PostSide from '../components/PostSide';
 import TrendSide from '../components/TrendSide';
 
-const FeedPage = ({onLogout, onSwitch, theme, currentUser}) => {
+const FeedPage = ({onLogout, onSwitch, theme, currentUser }) => {
 
 
   return (
@@ -15,13 +15,13 @@ const FeedPage = ({onLogout, onSwitch, theme, currentUser}) => {
     <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
     <Grid container sx={{ minHeight: "100vh" }}>
       <Grid item xs={12} md={3}>
-        <ProfileSide theme={theme} user={currentUser}></ProfileSide>
+        <ProfileSide theme={theme} user={currentUser}/>
       </Grid>
       <Grid item xs={12} md={6}>
-        <PostSide></PostSide>
+        <PostSide />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TrendSide></TrendSide>
+        <TrendSide />
       </Grid>
     </Grid>
     </div>  

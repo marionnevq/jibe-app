@@ -76,6 +76,7 @@ const loadUser = async () => {
     console.log(response.data);
     setPosts(response.data);
   });
+
   const user = await getCurrentUser().then((response) => {
     setCurrentUser(response.data);
   });

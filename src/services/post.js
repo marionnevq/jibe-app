@@ -5,5 +5,5 @@ export function getWorldPost() {
 }
 
 export function getFollowingPost() {
-    return http.post("/posts/following");
+    return http.post(`/posts/following`);
   }

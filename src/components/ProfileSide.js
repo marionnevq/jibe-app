@@ -53,7 +53,7 @@ const ProfileSide = ({ theme }) => {
            <Grid item className='header' 
               sx={{width: "100%", height: "90px", backgroundSize: "26%", backgroundAttachment:"fixed", paddingBottom: "15px", borderRadius:"0.6rem"}}/>
            <Grid item className='profileDp' sx={{ width: "100%", marginTop:"-50px", justifyContent:"center", display: "flex" }}>
-              <img src={dp} alt="" onClick={GoToProfile}/>
+              <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt="" onClick={GoToProfile}/>
           </Grid>
            <Box className="names" sx={{ marginTop:"10px" }}>
              <Box className="name">

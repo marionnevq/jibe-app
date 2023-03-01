@@ -1,51 +1,13 @@
-import { Avatar, Button, Divider, Grid, Paper } from '@mui/material'
-import { Box, display } from '@mui/system';
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+import React from 'react'
+import { Avatar, Button, Divider, Grid, IconButton, Paper } from '@mui/material'
+import { Box } from '@mui/system'
 import alt from "../images/alternate.jpg"
-import "../style/ProfileVisit.css"
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PostVisit from '../components/PostVisit';
+import "../style/LatchList.css"
 
-const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
-  
-  const params = useParams();
-
-  const navigate = useNavigate();
-
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchUserByUsername(params.username).then((response) => {
-  //     setUser(response.data);
-  //     setLoading(false);
-  //   });
-  // }, [params.id]);
-
-  const handleSubmit = (form) => {
-    // employeeService
-    //   .updateEmployee(employee.id, form)
-    //   .then(() => {
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response && error.response.status === 400) {
-    //       alert(error.response.data.message[0]);
-    //     }
-    //   });
-  };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
+const FriendList = ({ theme }) => {
   return (
     <div data-theme={theme}>
-      <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
-    <div style={{minHeight: "100vh"}} >
+        <div style={{minHeight: "100vh"}} >
       <Box className="cover" id="header"/>
       
       <Grid container className='main-header'>
@@ -68,7 +30,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
             <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Following</h1>
           </Grid>
           <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button>
+            {/* <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
           </Grid></div>
         </Grid>
         
@@ -96,7 +58,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       <div className='button'>
       <Grid  container item >
           <Grid item sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-            <Button className='btn-latch' variant='contained'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button>
+            {/* <Button className='btn-latch' variant='contained'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
           </Grid>
         </Grid></div>
       </Grid>
@@ -110,7 +72,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
             </Paper>
           </Grid>
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              <PostVisit />
+              {/* <PostVisit /> */}
           </Grid>
         </Grid>
       </Paper>
@@ -127,4 +89,4 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
   )
 }
 
-export default ProfileVisitPage
+export default FriendList

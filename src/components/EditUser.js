@@ -20,6 +20,7 @@ const EditUser = ({handleClose}) => {
     const swiperRef = useRef(null);
     const [form, setForm] = useState({
     firstname: "",
+
     lastname: "",
     email: "",
     username: "",
@@ -92,8 +93,18 @@ const EditUser = ({handleClose}) => {
       };
 
       const handleSaveChanges = () => {
-        // if (imageUpload == null) return;
-        // setLoading(true);
+        if (imageUpload == null) {
+          updateCurrentUser({ 
+            firstname: form.firstname, 
+            lastname: form.lastname,
+            email: form.email,
+            username: form.username,
+            bio: form.bio }).then(() => {
+              window.location.reload(false);
+              handleClose();
+            });
+        } else {
+
         const imageRef = ref(
           storage,
           `images/profileImage_${getCurrentUser().id}`
@@ -111,10 +122,11 @@ const EditUser = ({handleClose}) => {
                 username: form.username,
                 bio: form.bio });
             // setLoading(false);
+            window.location.reload(false);
             handleClose();
           });
         });
-
+      }
         
       };
     

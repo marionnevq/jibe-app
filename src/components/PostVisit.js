@@ -56,6 +56,7 @@ const PostVisit = ({ theme, user }) => {
   return (
     <div
       style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
+      style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
     >
     {posts.map((post) => 
       <Paper
@@ -74,9 +75,8 @@ const PostVisit = ({ theme, user }) => {
         <Box className="opImg" sx={{ p: 1 }}>
           <div className="opInfo">
             <Avatar
-              src={post === null? "" : post.userImageUrl}
-              alt="" sx={{width: "ph"}}
-            />
+              src={user === null? "" : user.imageUrl}
+              alt="" />
           </div>
         </Box>
         <Box
@@ -113,8 +113,8 @@ const PostVisit = ({ theme, user }) => {
               sx={{ display: "flex", justifyContent: "center", width: "98%", border: (() => post === null? "none" : "0.1px solid") , borderColor: (() => theme === 'light'? "lightgrey" : "Gray"), paddingTop: "10px", paddingBottom: "10px"}}
             >
                <img
-              src={user === null ? alt : post.imageUrl}
-              alt="" style={{width: "60%"}}
+              src={user === null ? "" : post.imageUrl}
+              alt=""
             />
             </Box>
             </div>

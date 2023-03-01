@@ -1,14 +1,14 @@
-import { Avatar, Button, Divider, Grid, Modal, Paper } from '@mui/material'
-import { Box, display } from '@mui/system';
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import NavBar from '../components/NavBar';
-import alt from "../images/alternate.jpg"
-import "../style/ProfileVisit.css"
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PostVisit from '../components/PostVisit';
-import EditUser from '../components/EditUser';
-import { fetchUserByUsername } from '../services/auth';
+import { Avatar, Button, Divider, Grid, Modal, Paper } from "@mui/material";
+import { Box, display } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import alt from "../images/alternate.jpg";
+import "../style/ProfileVisit.css";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PostVisit from "../components/PostVisit";
+import EditUser from "../components/EditUser";
+import { fetchUserByUsername } from "../services/auth";
 
 const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
   const params = useParams();
@@ -61,6 +61,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
       >
         <EditUser handleClose={handleClose} />
       </Modal>
+
 
     <div data-theme={theme}>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
@@ -136,9 +137,53 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
               <PostVisit theme={theme} user={user} />
           </Grid>
-        </Grid>
-      </Paper>
-      {/* <Grid container sx={{height: "auto"}}>
+          <Paper className="bottom-foot">
+            <Grid container className="foot" style={{ height: "auto" }}>
+              <Grid
+                className="left"
+                item
+                xs={12}
+                md={3.5}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "start",
+                  marginTop: "10px",
+                }}
+              >
+                <Paper
+                  className="window-name"
+                  style={{
+                    width: "95%",
+                    borderRadius: "0.6rem",
+                    boxShadow: "none",
+                    height: "auto",
+                    paddingRight: "10px",
+                    paddingLeft: "10px",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  <h1>
+                    {" "}
+                    {user === null ? "" : `${user.firstname} ${user.lastname}`}
+                  </h1>
+                  <h3>@{user === null ? "" : user.username}</h3>
+                  <Divider className="divider-info" />
+                  <h4>{user === null ? "" : user.bio}</h4>
+                </Paper>
+              </Grid>
+              <Grid
+                className="post-corner"
+                item
+                xs={12}
+                md={8.5}
+                sx={{ height: "auto" }}
+              >
+                <PostVisit theme={theme} user={user} />
+              </Grid>
+            </Grid>
+          </Paper>
+          {/* <Grid container sx={{height: "auto"}}>
           <Grid container item xs={12} md={12} sx={{height: "100px"}}>
             Hello
           </Grid>
@@ -150,8 +195,10 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme, currentUser }) => {
       </div>
     </div>
 
+
   );
 }
 
-export default ProfileVisitPage;
 
+
+export default ProfileVisitPage;

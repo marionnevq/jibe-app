@@ -1,6 +1,6 @@
 import { Avatar, Button, Divider, Grid, Modal, Paper } from '@mui/material'
 import { Box, display } from '@mui/system';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import alt from "../images/alternate.jpg"
@@ -8,21 +8,22 @@ import "../style/ProfileVisit.css"
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PostVisit from '../components/PostVisit';
 import EditUser from '../components/EditUser';
+import { fetchUserByUsername } from '../services/auth';
 
 const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
   
   const params = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchUserByUsername(params.username).then((response) => {
-  //     setUser(response.data);
-  //     setLoading(false);
-  //   });
-  // }, [params.id]);
+  useEffect(() => {
+    setLoading(true);
+    fetchUserByUsername(params.username).then((response) => {
+      setUser(response.data);
+      setLoading(false);
+    });
+  }, []);
 
   const handleSubmit = (form) => {
     // employeeService
@@ -69,7 +70,11 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       
       <Grid container className='main-header'>
         <Grid  className='top-head' id='info-head' container item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
-        <Avatar className='profile-img' src={alt} ></Avatar>
+        {
+         user === null ? <Avatar className='profile-img' src={alt} /> :
+          <Avatar className='profile-img' src={user.imageUrl} />
+        }
+        
         </Grid>
         
         <Grid className='bottom-head' id='info-head' container item xs={12} md={8.5} sx={{height: "auto"}}>
@@ -93,8 +98,8 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
         
         <div className='mobile' style={{display: "block"}}>
           <div className='name-info' >
-              <h1>Jim Lloyd</h1>
-              <h3>@jimlloyddg</h3>
+              <h1> {user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
+              <h3>@{user === null ? "" : user.username}</h3>
           </div>
         <Grid  container sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "auto", marginTop: "30px"}}>
           <div className='mobile-items'>
@@ -123,14 +128,14 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
         <Grid container className= 'foot' style= {{height: "auto"}}>
           <Grid className='left' item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "start", marginTop: "10px"}}>
             <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
-                <h1>Jim Lloyd</h1>
-                <h3>@jimlloyddg</h3>
-                <Divider className='divider-info' />
-                <h4>No one can ever be word word word  word word word  word word word </h4>
+              <h1> {user === null ? "" : `${user.firstname} ${user.lastname}`}</h1>
+              <h3>@{user === null ? "" : user.username}</h3>
+              <Divider className='divider-info' />
+              <h4>{user === null ? "" : user.bio }</h4>
             </Paper>
           </Grid>
           <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              <PostVisit theme={theme} />
+              <PostVisit theme={theme} user={user} />
           </Grid>
         </Grid>
       </Paper>
@@ -144,7 +149,7 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       </Grid> */}
       </div>
     </div>
-
+    </div>
   )
 }
 

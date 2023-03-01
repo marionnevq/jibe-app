@@ -21,6 +21,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import alt from "../images/alternate.jpg";
 import { useNavigate } from "react-router-dom";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
 
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
@@ -149,7 +150,9 @@ const ProfilePostArea = ({ theme }) => {
               <Box className="txtContent" sx={{ p: 0.2 }}>
                 <span>{post.length === 0 ? "" : post.body}</span>
               </Box>
-              {post && post.imageUrl === null ? <Divider  className='divider'/> : (
+              {post && post.imageUrl === null ? (
+                <Divider className="divider" />
+              ) : (
                 <Box
                   className="imgContent"
                   sx={{
@@ -163,12 +166,37 @@ const ProfilePostArea = ({ theme }) => {
                     paddingBottom: "10px",
                   }}
                 >
-                  <img src={`${post.imageUrl}`} style={{ width: "80%", height:"80%" }} />
+                  <img
+                    src={`${post.imageUrl}`}
+                    style={{ width: "80%", height: "80%" }}
+                  />
                 </Box>
               )}
             </div>
           </Box>
           {/* <Divider /> */}
+          <Box
+            className="txtContent"
+            sx={{
+              p: 0.2,
+              color: () => (theme === "light" ? "#333333" : "white"),
+            }}
+          >
+            <span>
+              {post.numLikes === 0 ? "" : <img src={liked} alt="" style={{width: "25px", height: "25px"}} />}
+              {post.numLikes === 0 ? "" : `${post.numLikes}`}
+            </span>
+            <span>
+              {post.numComments === 0 ? (
+                ""
+              ) : (
+                <ModeCommentIcon
+                  sx={{ color: "#ff5d75", width: "15px", height: "15px" }}
+                />
+              )}
+              {post.numComments === 0 ? "" : `${post.numComments}`}
+            </span>
+          </Box>
           <Box
             className="reactions"
             sx={{
@@ -177,7 +205,11 @@ const ProfilePostArea = ({ theme }) => {
             }}
           >
             <Box className="like" sx={{ p: 0.2 }}>
-              <div className="likebtn" onClick={handleChangeIcon}>
+              <div
+                className="likebtn"
+                onClick={handleChangeIcon}
+                sx={{ color: () => (theme === "light" ? "#333333" : "white") }}
+              >
                 <Button className="likeButton">
                   {like ? <img src={liked} /> : <img src={unlike} />}
                   {like ? <span>Liked</span> : <span>Like</span>}
@@ -190,7 +222,12 @@ const ProfilePostArea = ({ theme }) => {
               orientation="vertical"
             />
             <Box className="comment" sx={{ p: 0.2 }}>
-              <Button className="commentButton" onClick={() => {navigate(`/posts/${post.postID}`)}}>
+              <Button
+                className="commentButton"
+                onClick={() => {
+                  navigate(`/posts/${post.postID}`);
+                }}
+              >
                 <ModeCommentOutlinedIcon />
                 <span>Comment</span>
               </Button>

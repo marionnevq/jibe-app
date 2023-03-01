@@ -270,6 +270,7 @@ const PostPage = ({
                     <ListItemText
                       sx={{ fontFamily: "Montserrat" }}
                       className="name"
+                      onClick={() => {navigate(`/profile/visit/${comment.userUsername}`)}}
                       primary={
                         <>
                           {comment.userUsername}

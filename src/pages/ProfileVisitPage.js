@@ -144,8 +144,8 @@ const ProfileVisitPage = ({onLogout, onSwitch, theme, currentUser}) => {
       </Grid> */}
       </div>
     </div>
-
-  )
+  </div>
+  );
 }
 
-export default ProfileVisitPage
+export default ProfileVisitPage;

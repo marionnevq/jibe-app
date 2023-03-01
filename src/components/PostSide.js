@@ -59,12 +59,6 @@ const PostSide = ({ theme, onPosting }) => {
     setAnchorEl(null);
   };
 
-//  for posting
-//  const handlePost = (event) => {
-//   event.preventDefault();
-//   onPosting(post);
-//   navigate('/feed');
-// };
 
 //get post
 useEffect(() => {
@@ -79,13 +73,23 @@ const loadUser = async () => {
 
   const user = await getCurrentUser().then((response) => {
     setCurrentUser(response.data);
-  });
-  // await getWorldPost(world.data).then((userPosts) => {
-    
-  //   console.log(userPosts.data);
-  // });
-  
+  }); 
 };
+
+const handleShowFollowing = async () => {
+  await getFollowingPost().then((response) => {
+    console.log(response.data);
+    setPosts(response.data);
+  });
+};
+
+const handleWorldFollowing = async () => {
+  await getWorldPost().then((response) => {
+    console.log(response.data);
+    setPosts(response.data);
+  });
+};
+
 
 
   return (
@@ -94,11 +98,11 @@ const loadUser = async () => {
       
       <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         <Paper className='feedType' sx={{ width:"95%", height:"45px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
-            <Box className='fyp' sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
+            <Box className='fyp' onClick={handleWorldFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
               <span style={{ cursor: "pointer"}}>World</span>
             </Box>
             {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
-            <Box className='fyp' sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
+            <Box className='fyp' onClick={handleShowFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
               <span style={{ cursor: "pointer"}}>For You</span>
             </Box>
           </Paper>

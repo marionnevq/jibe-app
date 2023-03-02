@@ -9,19 +9,21 @@ export function getWorldPost() {
 }
 
 export function getFollowingPost() {
-    return http.get(`/posts/following`);
-  }
+  return http.get(`/posts/following`);
+}
 
 export function createPost(post) {
   return http.post("/posts", post);
-
 }
 
 export function updatePost(postID, post) {
-  return http.put(`/posts/update/${postID}`, {...post});
+  return http.put(`/posts/update/${postID}`, { ...post });
 }
 
 export function getUserPosts(username) {
   return http.get(`/profiles/${username}/posts`);
 }
 
+export function deletePost(postID) {
+  return http.delete(`/posts/${postID}`);
+}

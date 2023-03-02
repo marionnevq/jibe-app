@@ -19,9 +19,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import ProfilePostArea from "../components/ProfilePostArea";
 import alt from "../images/alternate.jpg";
 
-const ProfilePage = ({ onLogout, onSwitch, theme }) => {
-  const [loading, setLoading] = useState(false);
+import PostForm from "../components/PostForm";
 
+const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
   const [image, setImage] = useState(null);
   const imageRef = useRef();
   const [open, setOpen] = React.useState(false);
@@ -52,10 +52,6 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <div data-theme={theme}>
@@ -120,9 +116,15 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     fontWeight: "500",
                   }}
                 >
-                 {currentUser === null ? 0 : currentUser.postsCount}
+                  {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                <h1
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "poppins",
+                    fontWeight: "lighter",
+                  }}
+                >
                   Posts
                 </h1>
               </Grid>
@@ -146,7 +148,13 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 >
                   {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                <h1
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "poppins",
+                    fontWeight: "lighter",
+                  }}
+                >
                   Followers
                 </h1>
               </Grid>
@@ -170,7 +178,13 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 >
                   {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter" }}>
+                <h1
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "poppins",
+                    fontWeight: "lighter",
+                  }}
+                >
                   Following
                 </h1>
               </Grid>
@@ -197,7 +211,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
           </Grid>
 
           <div className="mobile" style={{ display: "block" }}>
-            <div className="name-info" >
+            <div className="name-info">
               <h1 className="name-details">
                 {currentUser === null
                   ? ""
@@ -218,7 +232,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             >
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.postsCount}
+                  {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Posts
@@ -226,7 +240,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.followersCount}
+                  {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Followers
@@ -234,7 +248,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.followingCount}
+                  {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Following
@@ -260,6 +274,12 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </Grid>
             </Grid>
           </div>
+          {/* {ADD ITO} */}
+          <PostForm
+            currentUser={currentUser}
+            setLoading={setLoading}
+            theme={theme}
+          />
         </Grid>
         <Paper className="bottom-foot">
           <Grid container className="foot" style={{ height: "auto" }}>
@@ -286,12 +306,12 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   wordBreak: "break-word",
                 }}
               >
-                <h1 style={{ fontSize: "40px"}}>
+                <h1 style={{ fontSize: "40px" }}>
                   {currentUser === null
                     ? ""
                     : `${currentUser.firstname} ${currentUser.lastname}`}
                 </h1>
-                <h3 style={{ fontSize: "30px"}}>
+                <h3 style={{ fontSize: "30px" }}>
                   @{currentUser === null ? "" : `${currentUser.username}`}
                 </h3>
                 <Divider className="divider-info" />
@@ -316,8 +336,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   wordBreak: "break-word",
                 }}
               >
+                {/* {ADD ITO} */}
                 <Box className="postInfo">
-                  <Box className="postText" sx={{ p: 1 }}>
+                  <PostForm
+                    currentUser={currentUser}
+                    setLoading={setLoading}
+                    theme={theme}
+                  />
+                  {/* <Box className="postText" sx={{ p: 1 }}>
                     <TextField
                       className="shareText"
                       placeholder="What's jibin'?"
@@ -382,7 +408,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     }}
                   >
                     Post
-                  </Button>
+                  </Button> */}
                 </Box>
               </Paper>
             </Grid>

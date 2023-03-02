@@ -26,7 +26,6 @@ import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 import ForgotPass from "./pages/ForgotPass";
 
-
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [posts, setPosts] = useState([]);
@@ -187,8 +186,7 @@ function App() {
         />
         <Route
           path="/forgot"
-          element={
-              <ForgotPass setLoading={setLoading} />}
+          element={<ForgotPass setLoading={setLoading} />}
         />
         <Route
           path="/profile/visit/:username"
@@ -204,7 +202,7 @@ function App() {
             )
           }
         />
-        
+
         <Route
           path="/posts/:postId"
           element={
@@ -274,6 +272,7 @@ function App() {
                 onSwitch={switchTheme}
                 posts={posts}
                 theme={theme}
+                setLoading={setLoading}
               />
             ) : (
               <Navigate to="/login" />

@@ -40,7 +40,7 @@ const PostSide = ({ theme, setLoading }) => {
   const [postDate, setPostDate] = useState("");
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const [choice, setChoice]=useState(true)
+  const [choice, setChoice] = useState(true);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
 
@@ -70,10 +70,10 @@ const PostSide = ({ theme, setLoading }) => {
     setAnchorEl(null);
   };
 
-//get post
-useEffect(() => {
-  loadUser();
-}, []);
+  //get post
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
@@ -92,24 +92,22 @@ useEffect(() => {
       setPosts(response.data);
     });
 
-  const user = await getCurrentUser().then((response) => {
-    setCurrentUser(response.data);
-  }); 
-};
+    const user = await getCurrentUser().then((response) => {
+      setCurrentUser(response.data);
+    });
+  };
 
-const handleWorldFollowing = async () => {
-  await getWorldPost().then(async(response) => {
-    console.log(response.data);
-    setPosts(response.data);
-  });
-
+  const handleWorldFollowing = async () => {
+    await getWorldPost().then(async (response) => {
+      console.log(response.data);
+      setPosts(response.data);
+    });
 
     await getCurrentUser().then((response) => {
-    
       setCurrentUser(response.data);
-    }); 
-};
-  
+    });
+  };
+
   const handleShowFollowing = async () => {
     await getFollowingPost().then((response) => {
       console.log(response.data);
@@ -118,7 +116,6 @@ const handleWorldFollowing = async () => {
   };
 
   return (
-
     <div className="postSide" style={{ minWidth: "100%", marginTop: "12px" }}>
       <Grid
         container
@@ -154,7 +151,6 @@ const handleWorldFollowing = async () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              
             >
               <span style={{ cursor: "pointer" }}>World</span>
             </Box>
@@ -171,12 +167,15 @@ const handleWorldFollowing = async () => {
               }}
             >
               <span style={{ cursor: "pointer" }}>For You</span>
-
             </Box>
           </Paper>
         </Grid>
-
-      <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+        <PostForm
+          currentUser={currentUser}
+          theme={theme}
+          setLoading={setLoading}
+        />
+        {/* <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
      
           <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
            <Box className="postInfo">
@@ -213,9 +212,15 @@ const handleWorldFollowing = async () => {
                   Post</Button>
             </Box>
           </Paper>
-      </Grid>
+      </Grid> */}
 
-      <Divider className='divider' sx={{ borderBottomWidth: 3 }}><Chip className='dividerChip' label="World" sx={{ fontFamily: 'Montserrat'}} /></Divider>
+        <Divider className="divider" sx={{ borderBottomWidth: 3 }}>
+          <Chip
+            className="dividerChip"
+            label="World"
+            sx={{ fontFamily: "Montserrat" }}
+          />
+        </Divider>
 
         <Grid
           container
@@ -228,8 +233,9 @@ const handleWorldFollowing = async () => {
             marginTop: "10px",
           }}
         >
-        {posts.map((post) => (
-         <PostComponent post={post} currentUser={currentUser} />))}
+          {posts.map((post) => (
+            <PostComponent post={post} currentUser={currentUser} />
+          ))}
         </Grid>
       </Grid>
     </div>

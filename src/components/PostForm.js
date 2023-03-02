@@ -11,14 +11,6 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   const [image, setImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const imageRef = useRef();
-  //   const onImageChange = (event) => {
-  //     if (event.target.files && event.target.files[0]) {
-  //       let img = event.target.files[0];
-  //       setImage({
-  //         image: URL.createObjectURL(img),
-  //       });
-  //     }
-  //   };
 
   const handleImage = (event) => {
     const img = event.target.files[0];
@@ -42,6 +34,7 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
         setPostBody("");
         setImage(null);
         setImageUpload(null);
+        window.location.reload();
       });
     } else {
       setLoading(true);

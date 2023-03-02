@@ -256,6 +256,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
               </div>
             </Grid>
           </div>
+
           <Divider className="divider-mobile" />
           <div className="button">
             <Grid container item>
@@ -274,12 +275,26 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
               </Grid>
             </Grid>
           </div>
-          {/* {ADD ITO} */}
-          <PostForm
-            currentUser={currentUser}
-            setLoading={setLoading}
-            theme={theme}
-          />
+          {/* ADD HERE */}
+          <div className="button">
+            <Grid container item>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <PostForm
+                  currentUser={currentUser}
+                  setLoading={setLoading}
+                  theme={theme}
+                />
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
         <Paper className="bottom-foot">
           <Grid container className="foot" style={{ height: "auto" }}>
@@ -323,6 +338,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   </em>
                 </h4>
               </Paper>
+              {/* ADD HERE */}
               <Paper
                 className="window-name"
                 style={{
@@ -336,80 +352,11 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   wordBreak: "break-word",
                 }}
               >
-                {/* {ADD ITO} */}
-                <Box className="postInfo">
-                  <PostForm
-                    currentUser={currentUser}
-                    setLoading={setLoading}
-                    theme={theme}
-                  />
-                  {/* <Box className="postText" sx={{ p: 1 }}>
-                    <TextField
-                      className="shareText"
-                      placeholder="What's jibin'?"
-                      sx={{ width: "100%" }}
-                      InputProps={{ sx: { height: "auto" } }}
-                      multiline
-                    />
-                  </Box>
-                  <Box className="postPhoto" sx={{ p: 0.5 }}>
-                    <PhotoIcon
-                      onClick={() => imageRef.current.click()}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Box>
-                </Box>
-                <div style={{ display: "none" }}>
-                  <input
-                    type="file"
-                    name="myImage"
-                    ref={imageRef}
-                    onChange={onImageChange}
-                  />
-                </div>
-                {image && (
-                  <Box
-                    className="previewBox"
-                    sx={{
-                      p: 0.5,
-                      border: "1px solid #d3d3d3",
-                      borderRadius: "7px",
-                    }}
-                  >
-                    <div className="previewImage">
-                      <Box className="previewClose" sx={{ p: 0.5 }}>
-                        <CancelRoundedIcon
-                          onClick={() => setImage(null)}
-                          sx={{
-                            cursor: "pointer",
-                            justifyContent: "right",
-                          }}
-                        />
-                      </Box>
-                      <img src={image.image} />
-                    </div>
-                  </Box>
-                )}
-                <Divider />
-                <Box
-                  className="sharebtn"
-                  justifyItems={"center"}
-                  sx={{ p: 0.5 }}
-                >
-                  <Button
-                    className="shareButton"
-                    variant="text"
-                    style={{
-                      backgroundColor: "transparent",
-                      color: "#EB4660",
-                      fontFamily: "Montserrat",
-                      height: "30px",
-                      fontSize: "16px",
-                    }}
-                  >
-                    Post
-                  </Button> */}
-                </Box>
+                <PostForm
+                  currentUser={currentUser}
+                  setLoading={setLoading}
+                  theme={theme}
+                />
               </Paper>
             </Grid>
 
@@ -424,15 +371,6 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
             </Grid>
           </Grid>
         </Paper>
-
-        {/* <Grid container sx={{height: "auto"}}>
-        <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-          Hello
-        </Grid>
-        <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-        <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-        <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-    </Grid> */}
       </div>
     </div>
   );

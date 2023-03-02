@@ -25,6 +25,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 import ForgotPass from "./pages/ForgotPass";
+import EmailConfirmation from "./pages/EmailConfirmation";
 
 
 function App() {
@@ -186,9 +187,14 @@ function App() {
           }
         />
         <Route
-          path="/forgot"
+          path="/change/password"
           element={
               <ForgotPass setLoading={setLoading} />}
+        />
+        <Route
+          path="/forgot/password"
+          element={
+              <EmailConfirmation setLoading={setLoading} />}
         />
         <Route
           path="/profile/visit/:username"

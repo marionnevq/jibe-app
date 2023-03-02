@@ -113,7 +113,7 @@ const PostVisit = ({ theme, user }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Box
+                  {post.imageUrl && (<Box
                     className="imgContent"
                     sx={{
                       display: "flex",
@@ -128,7 +128,8 @@ const PostVisit = ({ theme, user }) => {
                     }}
                   >
                     <img src={`${post.imageUrl}`} style={{ width: "60%" }} />
-                  </Box>
+                  </Box>)}
+                  
                 </div>
               )}
             </div>

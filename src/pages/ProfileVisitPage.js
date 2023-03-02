@@ -365,7 +365,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                     @{user === null ? "" : user.username}
                   </h3>
                   <Divider className="divider-info" />
-                  <h4>{user === null ? "" : user.bio}</h4>
+                  <h4><em>{user === null ? "" : user.bio}</em></h4>
                 </Paper>
               </Grid>
               <Grid
@@ -391,7 +391,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                       marginTop: "10px",
                     }}
                   >
-                    <Paper
+                    {/* <Paper
                       className="window-name"
                       style={{
                         width: "95%",
@@ -412,9 +412,9 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                       <h3>@{user === null ? "" : user.username}</h3>
                       <Divider className="divider-info" />
                       <h4>{user === null ? "" : user.bio}</h4>
-                    </Paper>
+                    </Paper> */}
                   </Grid>
-                  <Grid
+                  {/* <Grid
                     className="post-corner"
                     item
                     xs={12}
@@ -422,7 +422,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                     sx={{ height: "auto" }}
                   >
                     <PostVisit theme={theme} user={user} />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Paper>
               {/* <Grid container sx={{height: "auto"}}>

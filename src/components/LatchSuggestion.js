@@ -1,7 +1,15 @@
-import { Button, Divider, Grid, IconButton, Paper } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router";
+import alt from "../images/alternate.jpg";
 
 const LatchSuggestion = ({ user }) => {
   const navigate = useNavigate();
@@ -17,7 +25,7 @@ const LatchSuggestion = ({ user }) => {
       className="latchInfo"
       sx={{ width: "100%", height: "100%", display: "flex" }}
     >
-      <Box
+      {/* <Box
         className="latchDp"
         sx={{
           width: "20%",
@@ -27,7 +35,20 @@ const LatchSuggestion = ({ user }) => {
         }}
       >
         <img src={user.imageUrl} />
-      </Box>
+      </Box> */}
+
+      <Avatar
+        className="profile-img"
+        src={user === null ? alt : user.imageUrl}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onClick={() => {
+          navigate(`/profile/${user.username}`);
+        }}
+      ></Avatar>
       <Box
         className="latchName"
         sx={{ width: "60%", cursor: "pointer" }}

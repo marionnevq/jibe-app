@@ -1,25 +1,17 @@
-import { Box, Button, Divider, Grid, Paper, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
-import PhotoIcon from "@mui/icons-material/Photo";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import PhotoIcon from "@mui/icons-material/Photo";
+import { Box, Button, Divider, Grid, Paper, TextField } from "@mui/material";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
-import { createPost } from "../services/post";
 import { storage } from "../services/firebase";
+import { createPost } from "../services/post";
 const PostForm = ({ currentUser, theme, setLoading }) => {
   const [postBody, setPostBody] = useState("");
   const [image, setImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const imageRef = useRef();
-  //   const onImageChange = (event) => {
-  //     if (event.target.files && event.target.files[0]) {
-  //       let img = event.target.files[0];
-  //       setImage({
-  //         image: URL.createObjectURL(img),
-  //       });
-  //     }
-  //   };
-
+  const [postDisabled, setPostDisabled] = useState(true);
   const handleImage = (event) => {
     const img = event.target.files[0];
     setImage({
@@ -31,6 +23,8 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   };
 
   const handleSavePost = () => {
+    let isInvalid = isFormInvalid();
+    if (isInvalid) return;
     if (imageUpload == null) {
       setLoading(true);
       createPost({
@@ -42,6 +36,7 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
         setPostBody("");
         setImage(null);
         setImageUpload(null);
+        window.location.reload();
       });
     } else {
       setLoading(true);
@@ -71,6 +66,19 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   const handleChange = ({ currentTarget: input }) => {
     setPostBody(input.value);
   };
+
+  const isFormInvalid = () => {
+    if (postBody.replaceAll(/\s/g, "").length == 0) {
+      if (imageUpload == null) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Grid
       container

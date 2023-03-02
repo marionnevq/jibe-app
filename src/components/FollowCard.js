@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+
+
 import { Button, Paper, Typography } from "@mui/material";
 import { Navigation, Keyboard, Pagination, EffectCoverflow } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,7 +11,9 @@ import "swiper/css/pagination";
 import "../style/swiper.css";
 import "swiper/css";
 import "../style/swiper.css";
+
 import * as userService from "../services/user";
+import "../style/swiper.css";
 import FollowSlide from "./FollowSlide";
 
 const FollowCard = () => {

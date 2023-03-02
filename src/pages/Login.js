@@ -1,3 +1,5 @@
+import "@fontsource/poppins";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Grid,
@@ -5,18 +7,11 @@ import {
   InputAdornment,
   Paper,
   TextField,
-  Alert,
-  Snackbar,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Logo2 from "../images/logo-noblack-label.png";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "@fontsource/poppins";
+import Logo2 from "../images/logo-noblack-label.png";
 import "../style/Login.css";
-import Joi from "joi";
-import { getAccessToken, login } from "../services/auth";
-import { UserContext } from "../context/UserContext";
 
 const Login = ({ onLogin, setLoading }) => {
   const handleClickShowPassword = () => setShowPassword(!showPassword);

@@ -1,27 +1,17 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  Grid,
-  Paper,
-  TextField,
-  Modal,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState, useEffect, useRef } from "react";
-import NavBar from "../components/NavBar";
-import "../style/Profile.css";
-import PhotoIcon from "@mui/icons-material/Photo";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { getUser } from "../services/auth";
-import EditUser from "../components/EditUser";
 import EditIcon from "@mui/icons-material/Edit";
+import { Avatar, Button, Divider, Grid, Modal, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useRef, useState } from "react";
+import EditUser from "../components/EditUser";
+import NavBar from "../components/NavBar";
 import ProfilePostArea from "../components/ProfilePostArea";
 import alt from "../images/alternate.jpg";
+import { getUser } from "../services/auth";
+import "../style/Profile.css";
 
-const ProfilePage = ({ onLogout, onSwitch, theme }) => {
-  const [loading, setLoading] = useState(false);
+import PostForm from "../components/PostForm";
 
+const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
   const [image, setImage] = useState(null);
   const imageRef = useRef();
   const [open, setOpen] = React.useState(false);
@@ -52,10 +42,6 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <div data-theme={theme}>
@@ -120,9 +106,11 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     fontWeight: "700",
                   }}
                 >
-                 {currentUser === null ? 0 : currentUser.postsCount}
+                  {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
+
                 <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+
                   Posts
                 </h1>
               </Grid>
@@ -146,7 +134,9 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 >
                   {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
+
                 <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+
                   Followers
                 </h1>
               </Grid>
@@ -170,7 +160,9 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 >
                   {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
+
                 <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500 }}>
+
                   Following
                 </h1>
               </Grid>
@@ -197,7 +189,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
           </Grid>
 
           <div className="mobile" style={{ display: "block" }}>
-            <div className="name-info" >
+            <div className="name-info">
               <h1 className="name-details">
                 {currentUser === null
                   ? ""
@@ -218,7 +210,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             >
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.postsCount}
+                  {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Posts
@@ -226,7 +218,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.followersCount}
+                  {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Followers
@@ -234,7 +226,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
               <div className="mobile-items">
                 <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                {currentUser === null ? 0 : currentUser.followingCount}
+                  {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
                 <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                   Following
@@ -242,6 +234,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               </div>
             </Grid>
           </div>
+
           <Divider className="divider-mobile" />
           <div className="button">
             <Grid container item>
@@ -257,6 +250,26 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 <Button className="btn-latch" variant="outlined">
                   <EditIcon sx={{ marginRight: "10px" }} /> Edit Profile
                 </Button>
+              </Grid>
+            </Grid>
+          </div>
+          {/* ADD HERE */}
+          <div className="button">
+            <Grid container item>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <PostForm
+                  currentUser={currentUser}
+                  setLoading={setLoading}
+                  theme={theme}
+                />
               </Grid>
             </Grid>
           </div>
@@ -286,12 +299,16 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   wordBreak: "break-word",
                 }}
               >
+
                 <h1 style={{ fontSize: "20px"}}>
+
                   {currentUser === null
                     ? ""
                     : `${currentUser.firstname} ${currentUser.lastname}`}
                 </h1>
+
                 <h3 style={{ fontSize: "15px"}}>
+
                   @{currentUser === null ? "" : `${currentUser.username}`}
                 </h3>
                 <Divider className="divider-info" />
@@ -303,6 +320,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   </em>
                 </h4>
               </Paper>
+              {/* ADD HERE */}
               <Paper
                 className="window-name"
                 style={{
@@ -316,73 +334,13 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   wordBreak: "break-word",
                 }}
               >
-                <Box className="postInfo">
-                  <Box className="postText" sx={{ width: "90%", marginTop: "5px", marginBottom: "5px" }} >
-                    <TextField
-                      className="shareText"
-                      placeholder="What's jibin'?"
-                      sx={{ width: "100%" }}
-                      InputProps={{ className: "inputTextfield2", sx: { height: "auto", fontFamily: "montserrat", color: (() => theme === "dark"? "white" : "black") } }} multiline
-                    />
-                  </Box>
-                  <Box className="postPhoto" sx={{ p: 0.5, width: "10%"  }}>
-                    <PhotoIcon
-                      onClick={() => imageRef.current.click()}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Box>
-                </Box>
-                <div style={{ display: "none" }}>
-                  <input
-                    type="file"
-                    name="myImage"
-                    ref={imageRef}
-                    onChange={onImageChange}
-                  />
-                </div>
-                {image && (
-                  <Box
-                    className="previewBox"
-                    sx={{
-                      p: 0.5,
-                      border: "1px solid #d3d3d3",
-                      borderRadius: "7px",
-                    }}
-                  >
-                    <div className="previewImage">
-                      <Box className="previewClose" sx={{ p: 0.5 }}>
-                        <CancelRoundedIcon
-                          onClick={() => setImage(null)}
-                          sx={{
-                            cursor: "pointer",
-                            justifyContent: "right",
-                          }}
-                        />
-                      </Box>
-                      <img src={image.image} />
-                    </div>
-                  </Box>
-                )}
-                <Divider className="divider"/>
-                <Box
-                  className="sharebtn"
-                  justifyItems={"center"}
-                  sx={{ p: 0.5 }}
-                >
-                  <Button
-                    className="shareButton"
-                    variant="text"
-                    style={{
-                      backgroundColor: "transparent",
-                      color: "#EB4660",
-                      fontFamily: "Montserrat",
-                      height: "30px",
-                      fontSize: "16px",
-                    }}
-                  >
-                    Post
-                  </Button>
-                </Box>
+
+                <PostForm
+                  currentUser={currentUser}
+                  setLoading={setLoading}
+                  theme={theme}
+                />
+
               </Paper>
             </Grid>
 

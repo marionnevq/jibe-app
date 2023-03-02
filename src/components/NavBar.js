@@ -1,4 +1,15 @@
-import React, { useEffect } from "react";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CloseIcon from "@mui/icons-material/Close";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import HomeIcon from "@mui/icons-material/Home";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PeopleIcon from "@mui/icons-material/People";
+import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Badge,
   Grid,
@@ -10,33 +21,24 @@ import {
   Modal,
   Paper,
   Switch,
-  Typography,
+  Typography
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PeopleIcon from "@mui/icons-material/People";
-import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import SearchIcon from "@mui/icons-material/Search";
-import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
-import CloseIcon from "@mui/icons-material/Close";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
 import Divider from "@mui/material/Divider";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import HomeIcon from "@mui/icons-material/Home";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import nav from "../images/nav.png";
 import nav1 from "../images/nav1.png";
 import nav2 from "../images/nav2.png";
 import nav3 from "../images/nav3.png";
-import "../style/NavBar.css";
 import { getUser } from "../services/auth";
-import { Link, useNavigate } from 'react-router-dom';
-import ProfileSearch from './ProfileSearch';
 import { deleteNotification, getNotifications } from "../services/notification";
+
 import { useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from "@mui/system";
 import Joi from "joi";
+
 
 const NavBar = ({ onLogout, onSwitch, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);

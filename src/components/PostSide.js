@@ -1,36 +1,13 @@
-import {
-  Avatar,
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  InputBase,
-  Menu,
-  MenuItem,
-  Paper,
-  TextField,
-} from "@mui/material";
-import { Box, color } from "@mui/system";
-import React, { useEffect, useRef, useState } from "react";
-import { getCurrentUser } from "../services/user";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import alt from "../images/alternate.jpg";
-import PhotoIcon from "@mui/icons-material/Photo";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { getWorldPost, getFollowingPost } from "../services/post";
-import { useNavigate } from "react-router-dom";
+import { Chip, Divider, Grid, Paper } from "@mui/material";
+import { Box } from "@mui/system";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import PostForm from "./PostForm";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getFollowingPost, getWorldPost } from "../services/post";
+import { getCurrentUser } from "../services/user";
 import PostComponent from "./PostComponent";
-import { async } from "q";
+import PostForm from "./PostForm";
 
 const PostSide = ({ theme, setLoading }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,7 +17,7 @@ const PostSide = ({ theme, setLoading }) => {
   const [postDate, setPostDate] = useState("");
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const [choice, setChoice]=useState(true)
+  const [choice, setChoice] = useState(true);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
 
@@ -70,10 +47,10 @@ const PostSide = ({ theme, setLoading }) => {
     setAnchorEl(null);
   };
 
-//get post
-useEffect(() => {
-  loadUser();
-}, []);
+  //get post
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
@@ -92,24 +69,22 @@ useEffect(() => {
       setPosts(response.data);
     });
 
-  const user = await getCurrentUser().then((response) => {
-    setCurrentUser(response.data);
-  }); 
-};
+    const user = await getCurrentUser().then((response) => {
+      setCurrentUser(response.data);
+    });
+  };
 
-const handleWorldFollowing = async () => {
-  await getWorldPost().then(async(response) => {
-    console.log(response.data);
-    setPosts(response.data);
-  });
-
+  const handleWorldFollowing = async () => {
+    await getWorldPost().then(async (response) => {
+      console.log(response.data);
+      setPosts(response.data);
+    });
 
     await getCurrentUser().then((response) => {
-    
       setCurrentUser(response.data);
-    }); 
-};
-  
+    });
+  };
+
   const handleShowFollowing = async () => {
     await getFollowingPost().then((response) => {
       console.log(response.data);
@@ -117,9 +92,19 @@ const handleWorldFollowing = async () => {
     });
   };
 
+/*
+ <PostForm
+          currentUser={currentUser}
+          theme={theme}
+          setLoading={setLoading}
+        />
+        
+        */
   return (
 
+
     <div className="postSide" style={{ minWidth: "100%", marginTop: "10px" }}>
+
       <Grid
         container
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -153,7 +138,6 @@ const handleWorldFollowing = async () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              
             >
               <span style={{ cursor: "pointer" }}>World</span>
             </Box>
@@ -170,10 +154,10 @@ const handleWorldFollowing = async () => {
               }}
             >
               <span style={{ cursor: "pointer" }}>For You</span>
-
             </Box>
           </Paper>
         </Grid>
+
 
       <Grid container item xs={12} sx={{display: "flex", marginTop: "10px" }}>
      
@@ -220,7 +204,6 @@ const handleWorldFollowing = async () => {
             </Box>
           </Paper>
       </Grid>
-      
         <Grid
           container
           item
@@ -230,8 +213,9 @@ const handleWorldFollowing = async () => {
             marginTop: "10px",
           }}
         >
-        {posts.map((post) => (
-         <PostComponent post={post} currentUser={currentUser} />))}
+          {posts.map((post) => (
+            <PostComponent post={post} currentUser={currentUser} />
+          ))}
         </Grid>
       </Grid>
     </div>

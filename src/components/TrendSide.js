@@ -1,3 +1,4 @@
+
 import { Box, Grid,} from '@mui/material'
 import React from 'react'
 
@@ -23,8 +24,9 @@ const TrendSide = ({ theme }) => {
         </Box>
       </Box>
     </Grid>
-    </div>
-  )
-}
 
-export default TrendSide
+    </div>
+  );
+};
+
+export default TrendSide;

@@ -1,76 +1,108 @@
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
-    Avatar,
-    Button,
-    Chip,
-    Divider,
-    Grid,
-    IconButton,
-    InputBase,
-    Menu,
-    MenuItem,
-    Paper,
-    TextField,
+  Avatar,
+  Button, Divider, IconButton, Menu,
+  MenuItem,
+  Modal,
+  Paper
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import { getCurrentUser } from "../services/user";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import alt from "../images/alternate.jpg";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import { checkLiked, createLike, getLike, removeLike } from "../services/like";
-import "../style/Feed.css"
-import { useNavigate } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import alt from "../images/alternate.jpg";
+import liked from "../images/liked.png";
+import unlike from "../images/unlike.png";
+import { checkLiked, createLike, getLike, removeLike } from "../services/like";
+import { deletePost } from "../services/post";
+import { getCurrentUser } from "../services/user";
+import "../style/Feed.css";
+import EditPost from "./EditPost";
 
-const PostComponent = ({post, theme}) => {
+const PostComponent = ({ post, theme }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const opening = Boolean(anchorEl);
+  const [open, setOpen] = React.useState(false);
+  const opened = Boolean(open);
+  const [like, setLike] = useState(false);
+  const [currentUser, setCurrentUser] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(currentUser);
+    loadPost();
+  }, []);
 
-    const[like, setLike] = useState(false);
-    const[currentUser, setCurrentUser] = useState(false);
-    const navigate = useNavigate();
-    useEffect(() => {
-        console.log(currentUser);
-        loadPost();
-    }, [])
+  const convertTime = (postDate) => {
+    TimeAgo.addLocale(en);
+    const timeAgo = new TimeAgo("en-US");
+    const ago = timeAgo.format(new Date(postDate));
+    return ago;
+  };
 
-    const convertTime = (postDate) => {
-        TimeAgo.addLocale(en);
-        const timeAgo = new TimeAgo("en-US");
-        const ago = timeAgo.format(new Date(postDate));
-        return ago;
-    };
+  const loadPost = async () => {
+    await getCurrentUser().then(async (response) => {
+      setCurrentUser(response.data);
+      await checkLiked(post.postID, response.data.id).then((response) => {
+        console.log(response.data);
+        setLike(response.data);
+      });
+    });
+  };
 
-    const loadPost = async() => {
-        await getCurrentUser().then(async(response)=> {
-            setCurrentUser(response.data);
-            await checkLiked(post.postID, response.data.id).then((response)=>{
-                console.log(response.data);
-                setLike(response.data);
-            })
-        })
-    }
+  const handleChangeIcon = async () => {
+    await checkLiked(post.postID, currentUser.id).then(async (response) => {
+      let isLiked = response.data;
+      if (!isLiked) {
+        await createLike(post.postID, currentUser.id).then(async (response) => {
+          setLike(true);
+        });
+      } else {
+        await getLike(post.postID, currentUser.id).then(async (response) => {
+          let reactionID = response.data.reactionID;
 
-    const handleChangeIcon = async() => {
-        await checkLiked(post.postID, currentUser.id).then(async(response)=>{
-            let isLiked = response.data;
-            if(!isLiked){
-                await createLike(post.postID, currentUser.id).then(async (response) => {
-                    setLike(true);
-                  });
-            }else{
-                await getLike(post.postID, currentUser.id).then(async (response) => {
-                    let reactionID = response.data.reactionID;
-          
-                    await removeLike(reactionID).then((response) => {
-                      setLike(false);
-                    });
-                });
-            }
-        })
-    };
+          await removeLike(reactionID).then((response) => {
+            setLike(false);
+          });
+        });
+      }
+    });
+  };
 
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDeletePost = () => {
+    deletePost(post.postID);
+    window.location.reload();
+  };
+  /*
+  <Modal
+        open={opened}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
+      >
+        <EditPost handleClose={handleClose} post={post} />
+      </Modal>
+      */
   return (
     <Paper
     data-theme={theme}
@@ -84,6 +116,7 @@ const PostComponent = ({post, theme}) => {
               }}
               
             >
+
               <Box className="info" sx={{ p: 0.2 }}>
                 <Box className="opImg" sx={{ p: 1 }}>
                   <div className="opInfo">
@@ -211,4 +244,4 @@ const PostComponent = ({post, theme}) => {
   )
 }
 
-export default PostComponent
+export default PostComponent;

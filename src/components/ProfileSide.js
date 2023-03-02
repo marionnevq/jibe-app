@@ -1,4 +1,5 @@
 import LatchSuggestion from "./LatchSuggestion";
+
 import {
   Avatar,
   Button,
@@ -13,6 +14,7 @@ import { useNavigate } from "react-router";
 import { getCurrentUser } from "../services/user";
 import * as userService from "../services/user";
 import alt from "../images/alternate.jpg";
+
 
 
 const ProfileSide = ({ theme }) => {

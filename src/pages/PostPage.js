@@ -1,3 +1,6 @@
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Avatar,
   Box,
@@ -6,29 +9,29 @@ import {
   Collapse,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Modal,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import * as postService from "../services/post";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import * as commentService from "../services/comment";
-import * as userService from "../services/user";
-import "../style/Feed.css";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import { checkLiked, createLike, getLike, removeLike } from "../services/like";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import EditComment from "../components/EditComment";
+import NavBar from "../components/NavBar";
+import liked from "../images/liked.png";
+import unlike from "../images/unlike.png";
+import * as commentService from "../services/comment";
+import { checkLiked, createLike, getLike, removeLike } from "../services/like";
+import * as postService from "../services/post";
+import * as userService from "../services/user";
+import "../style/Feed.css";
 
 const PostPage = ({
   postId,
@@ -48,7 +51,7 @@ const PostPage = ({
   const [user, setUser] = useState(null);
   const [like, setLike] = useState(false);
   const navigate = useNavigate();
-  
+
   async function selectPost() {
     const post = await postService.getPost(params.postId);
     const comment = await commentService.getComments(params.postId);
@@ -123,8 +126,31 @@ const PostPage = ({
     });
   };
 
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const opened = Boolean(openEdit);
+  const [editComment, setEditComment] = useState(null);
+  const handleOpenEditComment = (comment) => {
+    setEditComment(comment);
+    setOpenEdit(true);
+  };
+  const handleCloseEditComment = () => {
+    setEditComment(null);
+    setOpenEdit(false);
+  };
   return (
     <div data-theme={theme} className="parent">
+      <Modal
+        open={opened}
+        onClose={handleCloseEditComment}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
+      >
+        <EditComment
+          handleCloseEditComment={handleCloseEditComment}
+          comment={editComment}
+        />
+      </Modal>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
       <Grid
         container
@@ -263,11 +289,31 @@ const PostPage = ({
             >
               {comments.map((comment) => (
                 <>
-                  <ListItem alignItems="flex-start" key={comment.commentID}>
-                    <ListItemAvatar >
+                  <ListItem
+                    alignItems="flex-start"
+                    key={comment.commentID}
+                    secondaryAction={
+                      comment.userID !== user.id ? (
+                        ""
+                      ) : (
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => {
+                            handleOpenEditComment(comment);
+                          }}
+                        >
+                          <MoreHorizIcon />
+                        </IconButton>
+                      )
+                    }
+                  >
+                    <ListItemAvatar>
                       <Avatar
                         alt={comment.userUsername}
-                        onClick={() => {navigate(`/profile/visit/${comment.userUsername}`)}}
+                        onClick={() => {
+                          navigate(`/profile/visit/${comment.userUsername}`);
+                        }}
                         src={
                           comment.userImageUrl == null
                             ? comment.userUsername
@@ -278,7 +324,9 @@ const PostPage = ({
                     <ListItemText
                       sx={{ fontFamily: "Montserrat", }}
                       className="name"
-                      onClick={() => {navigate(`/profile/visit/${comment.userUsername}`)}}
+                      onClick={() => {
+                        navigate(`/profile/visit/${comment.userUsername}`);
+                      }}
                       primary={
                         <Box className="commentsInfo" sx={{ fontSize: "14px" }}>
                           {comment.userUsername}

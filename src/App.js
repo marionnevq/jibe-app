@@ -4,28 +4,34 @@ import {
   createTheme,
   CssBaseline,
   Modal,
-  Paper,
   Snackbar,
   ThemeProvider,
 } from "@mui/material";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
-import FeedPage from "./pages/FeedPage";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
-import Register from "./pages/Register";
-import Onboarding from "./pages/Onboarding";
 import { useEffect, useState } from "react";
-import { getAccessToken, login, register } from "./services/auth";
 import useLocalStorage from "use-local-storage";
+
+
+import EmailConfirmation from "./pages/EmailConfirmation";
+import FeedPage from "./pages/FeedPage";
+import ForgotPass from "./pages/ForgotPass";
+
 import ProfileVisitPage from "./pages/ProfileVisitPage";
 import Loading from "./images/loading1.gif"
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
+
 import LatchList from "./pages/LatchList";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import Onboarding from "./pages/Onboarding";
 import PostPage from "./pages/PostPage";
-import ForgotPass from "./pages/ForgotPass";
-import EmailConfirmation from "./pages/EmailConfirmation";
+
+
+
+import Register from "./pages/Register";
+import { getAccessToken, login, register } from "./services/auth";
 
 
 function App() {
@@ -189,20 +195,28 @@ function App() {
           }
         />
         <Route
-          path="/change/password"
-          element={ accessToken ? (
-            <Navigate to="/login" />
-              ) : (
-                <ForgotPass setLoading={setLoading} />
-              )}
+
+          path="/password/reset/:token"
+          element={
+            <ForgotPass
+              setLoading={setLoading}
+              setSnackbarMessage={setSnackbarMessage}
+              setSeverity={setSeverity}
+              setOpen={setOpen}
+            />
+          }
         />
+
         <Route
-          path="/forgot/password"
-          element={ accessToken ? (
-                <Navigate to="/login" />
-              ) : (
-                <EmailConfirmation setLoading={setLoading} />
-              )}
+          path="/forgot"
+          element={
+            <EmailConfirmation
+              setLoading={setLoading}
+              setSnackbarMessage={setSnackbarMessage}
+              setSeverity={setSeverity}
+              setOpen={setOpen}
+            />
+          }
         />
         <Route
           path="/profile/visit/:username"
@@ -218,7 +232,7 @@ function App() {
             )
           }
         />
-        
+
         <Route
           path="/posts/:postId"
           element={
@@ -288,6 +302,7 @@ function App() {
                 onSwitch={switchTheme}
                 posts={posts}
                 theme={theme}
+                setLoading={setLoading}
               />
             ) : (
               <Navigate to="/login" />

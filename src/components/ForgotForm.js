@@ -1,70 +1,110 @@
-import { Button, IconButton, InputAdornment, Paper, TextField } from '@mui/material'
-import React, { useState } from 'react'
-import logo from "../images/likewo.png"
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField
+} from "@mui/material";
+import Joi from "joi";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../images/likewo.png";
+import { authPasswordChangeForm, saveNewPassword } from "../services/password";
+
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import Joi from 'joi';
-import { useNavigate } from 'react-router-dom';
 
-const ForgotForm = () => {
 
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword(!showPassword);
-    const [errors, setErrors] = useState({});
-    const [form, setForm] = useState({
-        password: "",
-        confirmPwd: "",
+const ForgotForm = ({
+  token,
+  setLoading,
+  setSnackbarMessage,
+  setSeverity,
+  setOpen,
+}) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    authPasswordChangeForm(token).catch(() => {
+      navigate("/login");
+    });
+  }, []);
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const [errors, setErrors] = useState({});
+  const [form, setForm] = useState({
+    password: "",
+    confirmPwd: "",
+  });
+
+  const schema = Joi.object({
+    password: Joi.string()
+      .pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+      )
+      .min(8)
+      .required(),
+    confirmPwd: Joi.valid(form.password).messages({
+      "any.only": "The two passwords do not match",
+      "any.required": "Please re-enter the password",
+    }),
+  });
+
+  const handleChange = ({ currentTarget: input }) => {
+    console.log(input.value);
+    setForm({
+      ...form,
+      [input.name]: input.value,
     });
 
-    const navigate = useNavigate();
+    const { error } = schema
+      .extract(input.name)
+      .label(input.name)
+      .validate(input.value);
 
-    const schema = Joi.object({
-      password: Joi.string()
-        .pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
-        )
-        .min(8)
-        .required(),
-        confirmPwd: Joi.valid(form.password).messages({
-          "any.only": "The two passwords do not match",
-          "any.required": "Please re-enter the password",
-        }),
-    });
+    if (error && input.name === "confirmPwd") {
+      setErrors({ ...errors, [input.name]: "Password did not match" });
+    } else if (error && input.name === "password") {
+      setErrors({
+        ...errors,
+        [input.name]:
+          "Use at least one uppercase, lowercase, special character and number",
+      });
+    } else if (error) {
+      setErrors({ ...errors, [input.name]: error.details[0].message });
+    } else {
+      delete errors[input.name];
+      setErrors(errors);
+    }
+  };
 
-    const handleChange = ({ currentTarget: input }) => {
-      console.log(input.value);
-        setForm({
-          ...form,
-          [input.name]: input.value,
-        });
-    
-        const { error } = schema
-          .extract(input.name)
-          .label(input.name)
-          .validate(input.value);
-    
-        if (error && input.name === "confirmPwd") {
-          setErrors({ ...errors, [input.name]: "Password did not match" });
-        } else if (error && input.name === "password") {
-          setErrors({
-            ...errors,
-            [input.name]:
-              "Use at least one uppercase, lowercase, special character and number",
-          });
-        } else if (error) {
-          setErrors({ ...errors, [input.name]: error.details[0].message });
-        }  else {
-          delete errors[input.name];
-          setErrors(errors);
-        }
-      };
-    
-      const isFormInvalid = () => {
-        const result = schema.validate(form);
-    
-        return !!result.error;
-      };
+  const isFormInvalid = () => {
+    const result = schema.validate(form);
 
+    return !!result.error;
+  };
+
+
+  const handleSubmit = () => {
+    setLoading(true);
+    saveNewPassword(token, form.password)
+      .then(() => {
+        setLoading(false);
+        setSnackbarMessage("password updated successfully");
+        setSeverity("success");
+        navigate("/login");
+        setOpen(true);
+      })
+      .catch(() => {
+        setLoading(false);
+        setSnackbarMessage("an error occurred, please try again");
+        setSeverity("error");
+        navigate("/login");
+        setOpen(true);
+      });
+  };
   return (
     <Paper sx={{width: "auto", maxWidth: "80%", minHeight: "400px", height: "auto", lineHeight: "1px", borderRadius: "15px", textAlign: "center"}}>
         <div style={{marginLeft: "20px", marginTop: "20px", fontSize: "70px", textAlign: "left"}}>
@@ -135,10 +175,11 @@ const ForgotForm = () => {
           />
         </div>
         <div style={{display: "flex", justifyContent: "center"}}>
-      <Button variant='contained' disabled={isFormInvalid()} sx={{width: "50%", marginTop: "30px", marginBottom: "60px", borderRadius: "35px"}}>Submit</Button>
+      <Button variant='contained' disabled={isFormInvalid()} sx={{width: "50%", marginTop: "30px", marginBottom: "60px", borderRadius: "35px"}} onClick={handleSubmit}>Submit</Button>
+
       </div>
     </Paper>
-  )
-}
+  );
+};
 
-export default ForgotForm
+export default ForgotForm;

@@ -1,23 +1,26 @@
+import "@fontsource/poppins";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Grid,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Joi from "joi";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import Logo2 from "../images/logo-noblack-label.png";
-import { Link, useNavigate } from "react-router-dom";
-import "@fontsource/poppins";
 import reg from "../images/reg.png";
 import "../style/Register.css";
+
 import Joi from "joi";
 import LoginSwiper from "../components/LoginSwiper";
 import { UserContext } from "../context/UserContext";
 import { register } from "../services/auth";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+
 
 const Register = ({ handleSubmit }) => {
   const { onRegister } = useContext(UserContext);
@@ -34,6 +37,7 @@ const Register = ({ handleSubmit }) => {
     confirmPwd: "",
     imageUrl: "",
     bio: "",
+    birthday: "",
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -58,6 +62,7 @@ const Register = ({ handleSubmit }) => {
     }),
     imageUrl: Joi.optional(),
     bio: Joi.optional(),
+    birthday: Joi.required(),
   });
 
   const handleChange = ({ currentTarget: input }) => {
@@ -81,18 +86,36 @@ const Register = ({ handleSubmit }) => {
       });
     } else if (error) {
       setErrors({ ...errors, [input.name]: error.details[0].message });
+    } else if (calculate_age(form.birthday) < 18 && input.name === "birthday") {
+      setErrors({ ...errors, [input.name]: "you must be 18 to register" });
     } else {
       delete errors[input.name];
       setErrors(errors);
     }
+    console.log(form);
   };
 
   const isFormInvalid = () => {
     const result = schema.validate(form);
 
+    if (calculate_age(form.birthday) < 18) {
+      return true;
+    }
     return !!result.error;
   };
   
+
+  const calculate_age = (dob1) => {
+    var today = new Date();
+    var birthDate = new Date(dob1); // create a date object directly from `dob1` argument
+    var age_now = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age_now--;
+    }
+    console.log(age_now);
+    return age_now;
+  };
 
   return (
     <Grid container style={{ minHeight: "100vh" }}>
@@ -228,16 +251,21 @@ const Register = ({ handleSubmit }) => {
         </div>
         <div>
           <TextField
-          id="date"
-          label="Birthday"
-          type="date"
-          variant="filled"
-          className="field-two"
-          defaultValue="2017-05-24"
-          sx={{ width: 220 }}
-          InputLabelProps={{
-            shrink: true,
-          }}/>
+            name="birthday"
+            error={!!errors.birthday}
+            helperText={errors.birthday}
+            onChange={handleChange}
+            value={form.birthday}
+            label="Birthday"
+            type="date"
+            variant="filled"
+            className="field-two"
+            defaultValue="2017-05-24"
+            sx={{ width: 220 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </div>
         <div className="btn">
           <Button

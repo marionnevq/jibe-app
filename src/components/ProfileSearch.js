@@ -1,3 +1,4 @@
+
 import { Avatar, Box, Grid, IconButton, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { searchUsers } from '../services/auth';
@@ -7,21 +8,23 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import spinner from "../images/loading1.gif"
 
-const ProfileSearch = ({handleClose, search, theme}) => {
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
-    useEffect(() => {
-        loadPost();
-    }, [])
 
-    const loadPost = async() => {
-        console.log(search);
-        await searchUsers(search).then((response) => {
-            console.log(response.data);
-            setUsers(response.data);
-        })
-    }
+const ProfileSearch = ({ handleClose, search, theme }) => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    loadPost();
+  }, []);
+
+  const loadPost = async () => {
+    console.log(search);
+    await searchUsers(search).then((response) => {
+      console.log(response.data);
+      setUsers(response.data);
+    });
+  };
+
 
     const handleGoToProfile = (username) => {
         setLoading(true);
@@ -46,7 +49,9 @@ const ProfileSearch = ({handleClose, search, theme}) => {
                 </div>
     }
 
-    console.log(users);
+
+  console.log(users);
+
 
   return (
   <Paper
@@ -103,3 +108,4 @@ const ProfileSearch = ({handleClose, search, theme}) => {
 }
 
 export default ProfileSearch
+

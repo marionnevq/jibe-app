@@ -244,7 +244,7 @@ const PostSide = ({ theme, setLoading }) => {
           }}
         >
           {posts.map((post) => (
-            <PostComponent post={post} currentUser={currentUser} />
+            <PostComponent post={post} theme={theme} currentUser={currentUser} />
           ))}
         </Grid>
       </Grid>

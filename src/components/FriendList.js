@@ -326,7 +326,7 @@ const FriendList = ({ theme }) => {
           </Box>
             <Box className="latchBoxx" sx={{ marginBottom:"15px", display: "flex", flexDirection: "column", width: "95%", borderRadius:"0.3rem", height: "auto" }}>
             {users && users.map((user) => (
-                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} onClick={GoToProfile}>
+                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} onClick={() => {GoToProfile(user)}}>
                   <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
                       <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
                           <Avatar src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>

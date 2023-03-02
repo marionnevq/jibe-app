@@ -143,7 +143,7 @@ const PostComponent = ({ post, theme }) => {
         </Box>
         <Box className="opName" sx={{ p: 1, width: "85%"   }}>
           <span
-            style={{ color: theme === "light" ? "black" : "white"}}
+            style={{ color: theme === "light" ? "black" : "white" }}
             onClick={() => {
               navigate(`/profile/visit/${post.userUsername}`);
             }}
@@ -155,7 +155,7 @@ const PostComponent = ({ post, theme }) => {
         </Box>
         {currentUser && currentUser.id === post.userID ? (
           <Box className="options" sx={{ p: 1, float: "right"  }}>
-            <IconButton onClick={handleOpenMenu} sx={{ color: theme === "light" ? "black" : "white" }}>
+            <IconButton onClick={handleOpenMenu} sx={{ color: "grey"}}>
               <MoreHorizIcon />
             </IconButton>
             <Menu
@@ -215,7 +215,7 @@ const PostComponent = ({ post, theme }) => {
           )}
           <Box className="txtContent" sx={{ p: 0.2 }}>
             <Box sx={{ width: "50%", paddingLeft: "50px" }}>
-              <span style={{ color: theme === "light" ? "#333333" : "white" }}>
+              <span style={{ color: theme === "light" ? "#333333" : "white"}}>
                 {post.numLikes === 0 ? (
                   ""
                 ) : (
@@ -238,7 +238,7 @@ const PostComponent = ({ post, theme }) => {
                 paddingRight: "50px",
               }}
             >
-              <span style={{ color: theme === "light" ? "#333333" : "white" }}>
+              <span style={{ color: theme === "light" ? "#333333" : "white"}}>
                 {post.numComments === 0 ? (
                   ""
                 ) : (
@@ -269,13 +269,13 @@ const PostComponent = ({ post, theme }) => {
           <div className="likebtn" onClick={handleChangeIcon}>
             <Button className="likeButton" sx={{ width: "280px" }}>
               {like ? <img src={liked} /> : <img src={unlike} />}
-              {like ? <span style={{ color: theme === "light" ? "#333333" : "white" }}>Liked</span> : <span style={{ color: theme === "light" ? "#333333" : "white" }}>Like</span>}
+              {like ? <span style={{ color: theme === "light" ? "#333333" : "white"}}>Liked</span> : <span style={{ color: theme === "light" ? "#333333" : "white" }}>Like</span>}
             </Button>
           </div>
         </Box>
         <Divider
           className="divider2"
-          sx={{ height: 28, m: 0.5, color: theme === "light" ? "#333333" : "white" }}
+          sx={{ height: 28, m: 0.5, color:theme === "light" ? "#333333" : "white"}}
           orientation="vertical"
         />
         <Box className="comment" sx={{ p: 0.2 }}>
@@ -287,7 +287,7 @@ const PostComponent = ({ post, theme }) => {
             }}
           >
             <ModeCommentOutlinedIcon />
-            <span style={{ color: theme === "light" ? "#333333" : "white" }}>Comment</span>
+            <span style={{ color:theme === "light" ? "#333333" : "white"}}>Comment</span>
           </Button>
         </Box>
       </Box>

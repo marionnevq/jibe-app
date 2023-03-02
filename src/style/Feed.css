@@ -23,6 +23,7 @@
     --info: white;
     --foot: #f2f2f2;
     --mode: #2C3568;
+    --bottomborder: #cfcdcd;
   }
   
   [data-theme='dark'] {
@@ -48,6 +49,7 @@
     --info: #333333;
     --foot: #1b1b1b;
     --mode: #fec6ce;
+    --bottomborder: #636363;
   }
 
   .MuiInputLabel-root {
@@ -62,11 +64,6 @@
 
     .parent .profileSide{
         background-color: var( --background);
-    }
-
-    .latchName .divider-feed{
-        border-color: var( --divider-chip);
-        height: 1px;
     }
 
     .parent .postSide{
@@ -164,6 +161,14 @@
         color: var(--text-primary);
     }
 
+    .latch-info{
+        width: 100%;
+        height: auto;
+        display: flex;
+        margin-top: 10px;
+        border-bottom: 1px solid var(--bottomborder);
+        padding-bottom: 10px;
+    }
 
     .parent .latchList{
         background-color: var(--paper);
@@ -407,6 +412,10 @@
     .latchName>span:nth-of-type(1){
         font-weight: 600;
         font-size: 15px;
+    }
+
+    .latchName>span:nth-of-type(1):hover{
+        color: #ff5d75;
     }
 
     .latchName>span:nth-of-type(2){

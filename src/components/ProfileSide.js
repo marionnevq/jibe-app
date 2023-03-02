@@ -187,7 +187,7 @@ const ProfileSide = ({ theme }) => {
                 paddingTop: "5px"
               }}
             >
-              {users && users.map((user) => <LatchSuggestion user={user} />)}
+              {users && users.map((user) => <LatchSuggestion user={user} theme={theme} />)}
             </Box>
           </Grid>
         </Grid>

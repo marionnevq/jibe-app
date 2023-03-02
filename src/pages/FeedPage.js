@@ -16,10 +16,10 @@ const FeedPage = ({ onLogout, onSwitch, theme, currentUser, setLoading }) => {
           <ProfileSide theme={theme} user={currentUser} />
         </Grid>
         <Grid item xs={12} md={6} sx={{overflow: "auto"}}>
-          <PostSide setLoading={setLoading} />
+          <PostSide theme={theme} setLoading={setLoading} />
         </Grid>
         <Grid item xs={12} md={3} sx={{position: "sticky"}}>
-          <TrendSide />
+          <TrendSide theme={theme}/>
         </Grid>
       </Grid>
     </div>

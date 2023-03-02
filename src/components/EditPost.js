@@ -1,14 +1,19 @@
-import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close';
-import { updatePost } from '../services/post.js'
-import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
-import { storage } from '../services/firebase';
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import { updatePost } from "../services/post.js";
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
+import { storage } from "../services/firebase";
 
-
-
-const EditPost = ({ handleClose, post }) => {
+const EditPost = ({
+  handleClose,
+  post,
+  setLoading,
+  setSnackbarMessage,
+  setOpen,
+  setSeverity,
+}) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [body, setBody] = useState({
@@ -43,14 +48,26 @@ const EditPost = ({ handleClose, post }) => {
   };
 
   const handleSaveChanges = () => {
+    setLoading(true);
     if (imageUpload == null) {
-      updatePost({
+      updatePost(post.postID, {
         postID: post.postID,
         body: body.body,
-      }).then(() => {
-        window.location.reload(false);
-        handleClose();
-      });
+      })
+        .then(() => {
+          setLoading(false);
+          handleClose();
+          setSnackbarMessage("saved changes");
+          setSeverity("success");
+          window.location.reload();
+          setOpen(true);
+        })
+        .catch(() => {
+          setLoading(false);
+          setSnackbarMessage("An error occurred");
+          setSeverity("error");
+          setOpen(true);
+        });
     } else {
       const imageRef = ref(storage, post.imageUrl);
 
@@ -61,10 +78,21 @@ const EditPost = ({ handleClose, post }) => {
           updatePost(post.postID, {
             imageUrl: url,
             body: body.body,
-          }).then((response) => {
-            window.location.reload(false);
-            handleClose();
-          });
+          })
+            .then(() => {
+              setLoading(false);
+              handleClose();
+              setSnackbarMessage("saved changes");
+              setSeverity("success");
+              window.location.reload();
+              setOpen(true);
+            })
+            .catch(() => {
+              setLoading(false);
+              setSnackbarMessage("An error occurred");
+              setSeverity("error");
+              setOpen(true);
+            });
           // setLoading(false);
         });
       });

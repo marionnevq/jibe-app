@@ -100,10 +100,10 @@ const PostForm = ({ currentUser, theme, setLoading, postFormSX }) => {
         //   borderRadius: "5px",
         //   boxShadow: "1",
         //   backgroundColor: () => (theme === "light" ? "white" : "#343434"),
-          
+
         //   marginRight: "19px"
         // }}
-        sx={ postFormSX }
+        sx={postFormSX}
       >
         <Box className="postInfo">
           <Box className="postDp" sx={{ p: 1 }}>

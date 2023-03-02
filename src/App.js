@@ -12,13 +12,12 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
 
-
 import EmailConfirmation from "./pages/EmailConfirmation";
 import FeedPage from "./pages/FeedPage";
 import ForgotPass from "./pages/ForgotPass";
 
 import ProfileVisitPage from "./pages/ProfileVisitPage";
-import Loading from "./images/loading1.gif"
+import Loading from "./images/loading1.gif";
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
 
@@ -28,11 +27,8 @@ import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import PostPage from "./pages/PostPage";
 
-
-
 import Register from "./pages/Register";
 import { getAccessToken, login, register } from "./services/auth";
-
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "light");
@@ -169,7 +165,7 @@ function App() {
       <CssBaseline />
       <Modal open={loading}>
         <Box sx={style}>
-          <img src={Loading} alt="Loading..." style={{width: "30%"}} />
+          <img src={Loading} alt="Loading..." style={{ width: "30%" }} />
         </Box>
       </Modal>
       <Routes>
@@ -195,7 +191,6 @@ function App() {
           }
         />
         <Route
-
           path="/password/reset/:token"
           element={
             <ForgotPass
@@ -287,6 +282,9 @@ function App() {
                 onSwitch={switchTheme}
                 theme={theme}
                 setLoading={setLoading}
+                setSnackbarMessage={setSnackbarMessage}
+                setSeverity={setSeverity}
+                setOpen={setOpen}
               />
             ) : (
               <Navigate to="/login" />

@@ -149,6 +149,10 @@ const PostPage = ({
         <EditComment
           handleCloseEditComment={handleCloseEditComment}
           comment={editComment}
+          setLoading={setLoading}
+          setOpen={setOpen}
+          setSeverity={setSeverity}
+          setSnackbarMessage={setSnackbarMessage}
         />
       </Modal>
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
@@ -161,7 +165,7 @@ const PostPage = ({
           justifyContent: "center",
           alignItems: "flex-start",
           marginTop: "20px",
-          minHeight: "100vh"
+          minHeight: "100vh",
         }}
       >
         <Grid item xs={12} md={5}>
@@ -202,7 +206,14 @@ const PostPage = ({
                   <span>{post == null ? "" : post.body}</span>
                 </Box>
                 {post && post.imageUrl && (
-                  <Box className="imgBoxx" sx={{ display: "flex", border:"none", marginBottom:"10px" }}>
+                  <Box
+                    className="imgBoxx"
+                    sx={{
+                      display: "flex",
+                      border: "none",
+                      marginBottom: "10px",
+                    }}
+                  >
                     <img
                       src={post.imageUrl}
                       style={{
@@ -215,7 +226,7 @@ const PostPage = ({
               </div>
             </Box>
             <Divider className="div2" />
-            <Box className="reactions" sx={{ p: 0.2, marginBottom:"5px" }}>
+            <Box className="reactions" sx={{ p: 0.2, marginBottom: "5px" }}>
               <Box className="like" sx={{ p: 0.2 }}>
                 <div className="likebtn" onClick={handleChangeIcon}>
                   <Button className="likeButton">
@@ -225,10 +236,10 @@ const PostPage = ({
                 </div>
               </Box>
               <Divider
-                  className="divider"
-                  sx={{ height: 28, m: 0.5 }}
-                  orientation="vertical"
-                />
+                className="divider"
+                sx={{ height: 28, m: 0.5 }}
+                orientation="vertical"
+              />
               <Box className="comment" sx={{ p: 0.2 }}>
                 <Button className="commentButton" onClick={handleExpandClick}>
                   <ModeCommentOutlinedIcon />
@@ -237,7 +248,12 @@ const PostPage = ({
               </Box>
             </Box>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <Box className="commentComponent" px={2} pb={1} textAlign="center">
+              <Box
+                className="commentComponent"
+                px={2}
+                pb={1}
+                textAlign="center"
+              >
                 <TextField
                   id="filled-multiline-static"
                   label="Comment"
@@ -250,12 +266,15 @@ const PostPage = ({
                   onChange={handleChange}
                   value={commentForm}
                   className="shareText"
-                  InputProps={{ className: "inputTextfield", sx: { height: "auto", fontFamily: "montserrat" } }}
+                  InputProps={{
+                    className: "inputTextfield",
+                    sx: { height: "auto", fontFamily: "montserrat" },
+                  }}
                 />
 
-                  <Box className="commentBtn">
-                    <SendIcon onClick={handleAddComment}/>
-                  </Box>
+                <Box className="commentBtn">
+                  <SendIcon onClick={handleAddComment} />
+                </Box>
                 {/* <Button
                   variant="contained"
                   size="small"
@@ -268,7 +287,11 @@ const PostPage = ({
             </Collapse>
           </Paper>
           <Divider sx={{ marginBottom: 1, borderColor: "pink" }}>
-            <Chip className="dividerChip" label="COMMENTS" sx={{ fontFamily: "Montserrat" }} />
+            <Chip
+              className="dividerChip"
+              label="COMMENTS"
+              sx={{ fontFamily: "Montserrat" }}
+            />
           </Divider>
           <Paper
             className="post"
@@ -322,7 +345,7 @@ const PostPage = ({
                       />
                     </ListItemAvatar>
                     <ListItemText
-                      sx={{ fontFamily: "Montserrat", }}
+                      sx={{ fontFamily: "Montserrat" }}
                       className="name"
                       onClick={() => {
                         navigate(`/profile/visit/${comment.userUsername}`);
@@ -344,7 +367,11 @@ const PostPage = ({
                       secondary={
                         <Box className="commentValue">
                           <Typography
-                            sx={{ display: "inline", fontFamily: "Montserrat", fontWeight:"400" }}
+                            sx={{
+                              display: "inline",
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                            }}
                             className="username"
                             component="span"
                             variant="body2"
@@ -356,7 +383,11 @@ const PostPage = ({
                       }
                     />
                   </ListItem>
-                  <Divider className="dividerComment" variant="inset" component="li" />
+                  <Divider
+                    className="dividerComment"
+                    variant="inset"
+                    component="li"
+                  />
                 </>
               ))}
             </List>

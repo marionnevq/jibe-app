@@ -27,11 +27,18 @@ import { getCurrentUser } from "../services/user";
 import "../style/Feed.css";
 import EditPost from "./EditPost";
 
-const PostComponent = ({ post, theme }) => {
+const PostComponent = ({
+  post,
+  theme,
+  setLoading,
+  setSnackbarMessage,
+  setOpen,
+  setSeverity,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const opening = Boolean(anchorEl);
-  const [open, setOpen] = React.useState(false);
-  const opened = Boolean(open);
+  const [openModal, setOpenModal] = React.useState(false);
+  const opened = Boolean(openModal);
   const [like, setLike] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
   const navigate = useNavigate();
@@ -85,27 +92,30 @@ const PostComponent = ({ post, theme }) => {
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
 
   const handleDeletePost = () => {
-    deletePost(post.postID);
-    window.location.reload();
+    setLoading(true);
+    deletePost(post.postID)
+      .then(() => {
+        setLoading(false);
+        setSnackbarMessage("Deleted post");
+        setSeverity("success");
+        window.location.reload();
+        setOpen(true);
+      })
+      .catch(() => {
+        setLoading(false);
+        setSnackbarMessage("An error occurred");
+        setSeverity("error");
+        setOpen(true);
+      });
   };
-  /*
-  <Modal
-        open={opened}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-        sx={{ overflow: "scroll" }}
-      >
-        <EditPost handleClose={handleClose} post={post} />
-      </Modal>
-      */
+
   return (
     <Paper
       data-theme={theme}
@@ -117,7 +127,7 @@ const PostComponent = ({ post, theme }) => {
         borderRadius: "5px",
         boxShadow: "3",
         backgroundColor: () => (theme === "light" ? "white" : "#343434"),
-        marginBottom: "10px"
+        marginBottom: "10px",
       }}
     >
       <Modal
@@ -127,10 +137,20 @@ const PostComponent = ({ post, theme }) => {
         aria-describedby="child-modal-description"
         sx={{ overflow: "scroll" }}
       >
-        <EditPost handleClose={handleClose} post={post} />
+        <EditPost
+          handleClose={handleClose}
+          post={post}
+          setLoading={setLoading}
+          setSnackbarMessage={setSnackbarMessage}
+          setSeverity={setSeverity}
+          setOpen={setOpen}
+        />
       </Modal>
-      <Box className="info" sx={{  }}>
-        <Box className="opImg" sx={{ p: 1,  float: "left", justifyContent: "center" }}>
+      <Box className="info" sx={{}}>
+        <Box
+          className="opImg"
+          sx={{ p: 1, float: "left", justifyContent: "center" }}
+        >
           <div className="opInfo">
             <Avatar
               src={post.userImageUrl === null ? alt : post.userImageUrl}
@@ -141,7 +161,7 @@ const PostComponent = ({ post, theme }) => {
             />
           </div>
         </Box>
-        <Box className="opName" sx={{ p: 1, width: "85%"   }}>
+        <Box className="opName" sx={{ p: 1, width: "85%" }}>
           <span
             style={{ color: theme === "light" ? "black" : "white" }}
             onClick={() => {
@@ -151,11 +171,13 @@ const PostComponent = ({ post, theme }) => {
             {post === null ? "" : `${post.userFirstname} ${post.userLastname}`}
           </span>
 
-          <span style={{ color: theme === "light" ? "#424242" : "#9b9b9b"}}>{convertTime(post.datePosted)}</span>
+          <span style={{ color: theme === "light" ? "#424242" : "#9b9b9b" }}>
+            {convertTime(post.datePosted)}
+          </span>
         </Box>
         {currentUser && currentUser.id === post.userID ? (
-          <Box className="options" sx={{ p: 1, float: "right"  }}>
-            <IconButton onClick={handleOpenMenu} sx={{ color: "grey"}}>
+          <Box className="options" sx={{ p: 1, float: "right" }}>
+            <IconButton onClick={handleOpenMenu} sx={{ color: "grey" }}>
               <MoreHorizIcon />
             </IconButton>
             <Menu
@@ -190,7 +212,9 @@ const PostComponent = ({ post, theme }) => {
       <Box className="postContent" sx={{ p: 0.2 }}>
         <div className="postContent2">
           <Box className="txtContent" sx={{ p: 0.2 }}>
-            <span style={{color: theme === "light" ? "black" : "white"}}>{post.length === 0 ? "" : post.body}</span>
+            <span style={{ color: theme === "light" ? "black" : "white" }}>
+              {post.length === 0 ? "" : post.body}
+            </span>
           </Box>
           {post && post.imageUrl === null ? (
             ""
@@ -215,7 +239,7 @@ const PostComponent = ({ post, theme }) => {
           )}
           <Box className="txtContent" sx={{ p: 0.2 }}>
             <Box sx={{ width: "50%", paddingLeft: "50px" }}>
-              <span style={{ color: theme === "light" ? "#333333" : "white"}}>
+              <span style={{ color: theme === "light" ? "#333333" : "white" }}>
                 {post.numLikes === 0 ? (
                   ""
                 ) : (
@@ -238,7 +262,7 @@ const PostComponent = ({ post, theme }) => {
                 paddingRight: "50px",
               }}
             >
-              <span style={{ color: theme === "light" ? "#333333" : "white"}}>
+              <span style={{ color: theme === "light" ? "#333333" : "white" }}>
                 {post.numComments === 0 ? (
                   ""
                 ) : (
@@ -257,7 +281,10 @@ const PostComponent = ({ post, theme }) => {
           </Box>
         </div>
       </Box>
-      <Divider className="divider" sx={{ color: theme === "light" ? "#333333" : "white" }} />
+      <Divider
+        className="divider"
+        sx={{ color: theme === "light" ? "#333333" : "white" }}
+      />
       <Box
         className="reactions"
         sx={{
@@ -269,13 +296,29 @@ const PostComponent = ({ post, theme }) => {
           <div className="likebtn" onClick={handleChangeIcon}>
             <Button className="likeButton" sx={{ width: "280px" }}>
               {like ? <img src={liked} /> : <img src={unlike} />}
-              {like ? <span style={{ color: theme === "light" ? "#333333" : "white"}}>Liked</span> : <span style={{ color: theme === "light" ? "#333333" : "white" }}>Like</span>}
+              {like ? (
+                <span
+                  style={{ color: theme === "light" ? "#333333" : "white" }}
+                >
+                  Liked
+                </span>
+              ) : (
+                <span
+                  style={{ color: theme === "light" ? "#333333" : "white" }}
+                >
+                  Like
+                </span>
+              )}
             </Button>
           </div>
         </Box>
         <Divider
           className="divider2"
-          sx={{ height: 28, m: 0.5, color:theme === "light" ? "#333333" : "white"}}
+          sx={{
+            height: 28,
+            m: 0.5,
+            color: theme === "light" ? "#333333" : "white",
+          }}
           orientation="vertical"
         />
         <Box className="comment" sx={{ p: 0.2 }}>
@@ -287,7 +330,9 @@ const PostComponent = ({ post, theme }) => {
             }}
           >
             <ModeCommentOutlinedIcon />
-            <span style={{ color:theme === "light" ? "#333333" : "white"}}>Comment</span>
+            <span style={{ color: theme === "light" ? "#333333" : "white" }}>
+              Comment
+            </span>
           </Button>
         </Box>
       </Box>

@@ -1,10 +1,17 @@
-import { Button, Grid, TextField,  } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 
 import { deleteComment, updateComment } from "../services/comment";
 
-const EditComment = ({ handleCloseEditComment, comment }) => {
+const EditComment = ({
+  handleCloseEditComment,
+  comment,
+  setLoading,
+  setSnackbarMessage,
+  setOpen,
+  setSeverity,
+}) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -20,20 +27,43 @@ const EditComment = ({ handleCloseEditComment, comment }) => {
   };
 
   const handleSaveChanges = () => {
+    setLoading(true);
     console.log(comment);
-    updateComment(comment.commentID, value).then((response) => {
-      console.log(response);
-      handleCloseEditComment();
-      window.location.reload();
-    });
+    updateComment(comment.commentID, value)
+      .then((response) => {
+        setLoading(false);
+        handleCloseEditComment();
+        setSnackbarMessage("saved changes");
+        setSeverity("success");
+        window.location.reload();
+        setOpen(true);
+      })
+      .catch(() => {
+        setLoading(false);
+        setSnackbarMessage("An error occurred");
+        setSeverity("error");
+        handleCloseEditComment();
+        setOpen(true);
+      });
   };
 
   const handleDeleteComment = () => {
-    deleteComment(comment.commentID).then((response) => {
-      console.log(response);
-      handleCloseEditComment();
-      window.location.reload();
-    });
+    deleteComment(comment.commentID)
+      .then((response) => {
+        setLoading(false);
+        handleCloseEditComment();
+        setSnackbarMessage("deleted comment");
+        setSeverity("success");
+        window.location.reload();
+        setOpen(true);
+      })
+      .catch(() => {
+        setLoading(false);
+        setSnackbarMessage("An error occurred");
+        setSeverity("error");
+        handleCloseEditComment();
+        setOpen(true);
+      });
   };
 
   const style = {

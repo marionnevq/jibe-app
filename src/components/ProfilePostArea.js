@@ -6,32 +6,37 @@ import { useNavigate } from "react-router-dom";
 import { getUser } from "../services/auth";
 import { getUserPosts } from "../services/post";
 
-
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import "../style/Profile.css";
 import PostComponent from "./PostComponent";
 
-const ProfilePostArea = ({ theme }) => {
+const ProfilePostArea = ({
+  theme,
+  setLoading,
+  setOpen,
+  setSnackbarMessage,
+  setSeverity,
+}) => {
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const opening = Boolean(anchorEl);
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const opened = Boolean(open);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const convertTime = (postDate) => {
-    TimeAgo.addLocale(en);
-    const timeAgo = new TimeAgo("en-US");
-    const ago = timeAgo.format(new Date(postDate));
-    return ago;
-  };
+  // const [open, setOpen] = useState(false);
+  // const opened = Boolean(open);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  // const convertTime = (postDate) => {
+  //   TimeAgo.addLocale(en);
+  //   const timeAgo = new TimeAgo("en-US");
+  //   const ago = timeAgo.format(new Date(postDate));
+  //   return ago;
+  // };
 
   useEffect(() => {
     loadUser();
@@ -45,25 +50,25 @@ const ProfilePostArea = ({ theme }) => {
       console.log(userPosts.data);
     });
   };
-  const handleChangeIcon = () => {
-    if (like === false) {
-      setLike(true);
-    } else {
-      setLike(false);
-    }
-  };
+  // const handleChangeIcon = () => {
+  //   if (like === false) {
+  //     setLike(true);
+  //   } else {
+  //     setLike(false);
+  //   }
+  // };
 
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleOpenMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
+  // const handleCloseMenu = () => {
+  //   setAnchorEl(null);
+  // };
 
   return (
     <div
-    data-theme={theme}
+      data-theme={theme}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -73,7 +78,14 @@ const ProfilePostArea = ({ theme }) => {
       }}
     >
       {posts.map((post) => (
-        <PostComponent post={post} theme={theme}></PostComponent>
+        <PostComponent
+          post={post}
+          theme={theme}
+          setLoading={setLoading}
+          setSnackbarMessage={setSnackbarMessage}
+          setSeverity={setSeverity}
+          setOpen={setOpen}
+        ></PostComponent>
       ))}
     </div>
   );

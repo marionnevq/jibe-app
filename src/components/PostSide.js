@@ -11,7 +11,13 @@ import { getCurrentUser } from "../services/user";
 import PostComponent from "./PostComponent";
 import PostForm from "./PostForm";
 
-const PostSide = ({ theme, setLoading }) => {
+const PostSide = ({
+  theme,
+  setLoading,
+  setSeverity,
+  setOpen,
+  setSnackbarMessage,
+}) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,8 +35,8 @@ const PostSide = ({ theme, setLoading }) => {
     borderRadius: "5px",
     boxShadow: "1",
     backgroundColor: () => (theme === "light" ? "white" : "#343434"),
-    
-    marginRight: "19px"
+
+    marginRight: "19px",
   };
 
   const onImageChange = (event) => {
@@ -244,7 +250,15 @@ const PostSide = ({ theme, setLoading }) => {
           }}
         >
           {posts.map((post) => (
-            <PostComponent post={post} theme={theme} currentUser={currentUser} />
+            <PostComponent
+              post={post}
+              theme={theme}
+              currentUser={currentUser}
+              setLoading={setLoading}
+              setSnackbarMessage={setSnackbarMessage}
+              setSeverity={setSeverity}
+              setOpen={setOpen}
+            />
           ))}
         </Grid>
       </Grid>

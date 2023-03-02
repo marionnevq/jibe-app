@@ -33,7 +33,7 @@
     --input-field: #333333;
     --paper: #343434;
     --textfield: #636363;
-    --divider: #636363;
+    --divider: grey;
     --dividerChip: #b8b8b8;
     --header: #EEE8DB;
     --icon2: white; 
@@ -211,6 +211,9 @@
         color: var(--icon2);
     }
 
+    /* .parent .imgContent{
+        border: 1px solid var(--divider);
+    } */
     /*end*/
 
     .Feed{

@@ -185,7 +185,6 @@ const PostSide = ({ theme, setLoading }) => {
               className="post"
               sx={{
                 width: "95%",
-
                 height: "auto",
                 paddingBottom: "2px",
                 borderRadius: "0.6rem",
@@ -264,10 +263,10 @@ const PostSide = ({ theme, setLoading }) => {
                         justifyContent: "center",
                         width: "95%",
                         marginLeft: "23px",
-
                         borderRadius: "0.6rem",
                         paddingTop: "10px",
                         paddingBottom: "10px",
+                        border: (() => theme === "light" ? "1px solid green" : "1px solid grey" ),
                       }}
                     >
                       <img

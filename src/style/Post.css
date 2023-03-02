@@ -38,4 +38,5 @@
 }
 .parent {
   background-color: var(--background);
+  /* height: auto; */
 }

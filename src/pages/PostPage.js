@@ -135,7 +135,7 @@ const PostPage = ({
           justifyContent: "center",
           alignItems: "flex-start",
           marginTop: "20px",
-          height: "100vh",
+          height: "auto",
         }}
       >
         <Grid item xs={12} md={5}>
@@ -144,7 +144,7 @@ const PostPage = ({
             sx={{
               width: "95%",
               minHeight: "160px",
-              maxHeight: "100vh",
+              height: "auto",
               paddingBottom: "2px",
               borderRadius: "0.6rem",
               boxShadow: "3",

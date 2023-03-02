@@ -48,21 +48,10 @@ const ProfileSearch = ({handleClose, search, theme}) => {
 
     console.log(users);
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-    };
-
   return (
     <Paper
     className='search-paper'
-    style={{ ...style, backgroundColor: () => (theme === "light" ? "white" : "#333333")}}
+    style={{ backgroundColor: () => (theme === "light" ? "white" : "#333333") }}
   >
     <Grid className='search-head' container sx={{display: "flex", justifyContent: "end", backgroundColor: (() => theme === "light" ? "white" : "#333333")}}>
             <IconButton onClick={handleClose}>

@@ -35,6 +35,7 @@ import { deleteNotification, getNotifications } from "../services/notification";
 import { useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box } from "@mui/system";
 
 const NavBar = ({ onLogout, onSwitch, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -100,6 +101,16 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   };
 
   const themeNow = theme;
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    marginLeft: "35px",
+    pt: 1,
+    pl: 1,
+    pr: 1,
+  };
 
   return (
     <div style={{position: "sticky" }}>
@@ -108,9 +119,10 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
-        sx={{ overflow: "scroll"  }}
       >
+        <div style={{width: "100%", height: "400px", display:"flex", justifyContent: "center", alignItems: "center", marginBottom: "60px", overflowY: "scroll"}}>
         <ProfileSearch handleClose={handleClose} search={search.username} theme={theme}/>
+        </div>
       </Modal>
     
     <Grid className="nav-bar" container style={{ minHeight: "auto" }}>

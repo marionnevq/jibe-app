@@ -44,7 +44,7 @@ const ProfileSide = ({ theme }) => {
   const GoToProfile = async (user) => {
     console.log(user);
     const username = user.username;
-    navigate(`/profile/visit/${username}/temp`);
+    navigate(`/profile/${username}`);
   };
 
   return (
@@ -71,7 +71,7 @@ const ProfileSide = ({ theme }) => {
             sx={{
               width: "90%",
               minHeight: "270px",
-              borderRadius: "0.6rem",
+              borderRadius: "5px",
               boxShadow: "1",
             }}
           >
@@ -84,7 +84,7 @@ const ProfileSide = ({ theme }) => {
                 backgroundSize: "26%",
                 backgroundAttachment: "fixed",
                 paddingBottom: "15px",
-                borderRadius: "0.6rem",
+                borderRadius: "5px",
               }}
             />
             <Grid
@@ -100,7 +100,7 @@ const ProfileSide = ({ theme }) => {
               <Avatar
                 className="profile-feed"
                 src={currentUser === null ? alt : currentUser.imageUrl}
-                sx={{ width: "150px", height: "150px" }}
+                sx={{ width: "100px", height: "100px" }}
                 onClick={() => {
                   navigate(`/profile/${currentUser.username}`);
                 }}
@@ -177,6 +177,7 @@ const ProfileSide = ({ theme }) => {
               sx={{
                 width: "100%",
                 height: "auto",
+                // height: "200px",
                 flexDirection: "column",
                 p: 0.5,
                 borderRadius: "0.6rem",

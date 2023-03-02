@@ -119,7 +119,7 @@ const handleWorldFollowing = async () => {
 
   return (
 
-    <div className="postSide" style={{ minWidth: "100%", marginTop: "12px" }}>
+    <div className="postSide" style={{ minWidth: "100%", marginTop: "10px" }}>
       <Grid
         container
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -137,15 +137,14 @@ const handleWorldFollowing = async () => {
           <Paper
             className="feedType"
             sx={{
-              width: "95%",
+              width: "94%",
               height: "45px",
-              paddingBottom: "2px",
-              borderRadius: "0.6rem",
+              borderRadius: "5px",
               boxShadow: "1",
             }}
           >
             <Box
-              className="fyp"
+              className="world"
               onClick={handleWorldFollowing}
               sx={{
                 width: "25%",
@@ -176,9 +175,9 @@ const handleWorldFollowing = async () => {
           </Paper>
         </Grid>
 
-      <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+      <Grid container item xs={12} sx={{display: "flex", marginTop: "10px" }}>
      
-          <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+          <Paper className='post' sx={{ width:"94%", minHeight: "115px", maxHeight:"750px", borderRadius:"5px", boxShadow:"1" }}>
            <Box className="postInfo">
             <Box className='postDp' sx={{ p: 1 }}>
                 <div className="postDp2">
@@ -204,7 +203,7 @@ const handleWorldFollowing = async () => {
               <input type='file' name='myImage' ref={imageRef} onChange={onImageChange} />
             </div>
               { image && (
-                  <Box className="previewBox" sx={{ p: 0.5, border: '1px solid #d3d3d3', borderRadius:"7px" }}>
+                  <Box className="previewBox" sx={{ p: 0.5, border: '1px solid #d3d3d3', borderRadius:"5px" }}>
                     <div className='previewImage'>
                       <Box className="previewClose" sx={{ marginBottom:"-10px" }}>
                         <CancelRoundedIcon onClick={() => setImage(null)}  sx={{cursor: "pointer", justifyContent:"right"}}/>
@@ -221,17 +220,13 @@ const handleWorldFollowing = async () => {
             </Box>
           </Paper>
       </Grid>
-
-      <Divider className='divider' sx={{ borderBottomWidth: 3 }}><Chip className='dividerChip' label="World" sx={{ fontFamily: 'Montserrat'}} /></Divider>
-
+      
         <Grid
           container
           item
           xs={12}
           sx={{
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
             marginTop: "10px",
           }}
         >

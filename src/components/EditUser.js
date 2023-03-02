@@ -139,7 +139,7 @@ const EditUser = ({handleClose}) => {
       };
     
   return (
-    <Box className='edit-form' sx={{ ...style, width: "80%",height: "auto", borderRadius: "15px"}}>
+    <Box className='edit-form' sx={{ ...style, width: "80%",height: "auto", borderRadius: "15px", marginBottom: "10px"}}>
           <Grid container sx={{display: "flex", justifyContent: "end", alignItems: "center"}}>
             <IconButton onClick={handleClose}>
                 <CloseIcon />
@@ -165,7 +165,7 @@ const EditUser = ({handleClose}) => {
                 className="img-btn"
                 sx={{ backgroundColor: "#2C3568", textAlign: "center", marginBottom: "5px" }}
             >
-                <Typography id="save">
+                <Typography id="save" sx={{ fontFamily: "Montserrat" }}>
                 Change Profile Picture
                 </Typography>
                 <input
@@ -243,9 +243,10 @@ const EditUser = ({handleClose}) => {
               multiline
             />
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-            <Button variant='contained' onClick={handleSaveChanges} sx={{borderRadius: "35px", marginBottom: "10px"}}>Save Changes</Button>
+            <Button variant='contained' onClick={handleSaveChanges} sx={{borderRadius: "35px", marginBottom: "10px", fontFamily: "Montserrat" }}>Save Changes</Button>
           
-          </div></Box>
+            </div>
+          </Box>
             </Grid>
           </Grid>
           

@@ -66,6 +66,11 @@
     border-radius: 0;
 }
 
+.widgetInfo>h3{
+    font-weight: 900;
+}
+
+
 .web{
     display: flex; 
     justify-content: start;
@@ -115,8 +120,7 @@
     width: 95%;
     height: auto;
     padding-bottom: 2px;
-    border-radius: 0.6rem;
-    box-shadow: 3;
+    box-shadow: 1;
     margin-left: 20px;
     background-color: var(--info),
 }
@@ -167,12 +171,17 @@
     
 }
 
+.post{
+    width: 95%;
+    border-radius: 5px;
+}
+
 .post-paper{
     background-color: transparent;
     width: 95%;
     height: auto;
     padding-bottom: 2px;
-    border-radius: 0.6rem;
+    border-radius: 5px;
     box-shadow: 3;
 }
 
@@ -191,7 +200,7 @@
 
 .post {
     background-color: var(--info);
-    border-radius: 35px;
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {

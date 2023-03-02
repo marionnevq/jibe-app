@@ -108,6 +108,10 @@
     border: 7px solid var(--info);
 }
 
+.profile-imgg{
+    border: 7px solid var(--info);
+}
+
 .web .latch-btn1{
     width: 70%;
     border-radius: 25px; 
@@ -131,12 +135,12 @@
     font-family: "montserrat";
 }
 
-.bottom-foot .list{
+.bottom-foot .list2{
     background-color: var(--paper);
     border-radius: 6px ;
     display: flex;
-    width: 50%;
-    height: 500px;
+    width: 90%;
+    height: auto;
     margin-top: 10px ;
     margin-bottom: 10px;
     justify-content: center;
@@ -149,11 +153,11 @@
     border-radius: 1rem;
 }
 
-.list .latchInfo{
-    background-color: #16202A;
+.list .latchInfo>span{
+    color: var(--text-primary);
 } 
 
-.bottom-foot .latchInfo{
+.bottom-foot .latchBoxx{
     color: var(--text-primary);
 }
 
@@ -211,8 +215,8 @@
     }
 
     .top-head .profile-img{
-        width: 150px;
-        height: auto;
+        width: 200px;
+        height: 200px;
         margin-top: -75px;
         border: 7px solid var(--info);
     }

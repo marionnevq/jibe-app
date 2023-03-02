@@ -98,6 +98,11 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
     setNotifications(notifs.data);
   };
 
+
+  const goToLatchlist = (event) => {
+    event.preventDefault();
+    navigate('/profile/latch-list');
+  };
   const handleChange = ({ currentTarget: input }) => {
     setSearch({
       ...search,
@@ -156,13 +161,13 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
         {themeNow === "light" ? (
           <img
             src={nav}
-            style={{ width: "80%" }}
+            style={{ width: "80%", cursor: "pointer"  }}
             onClick={() => navigate("/feed")}
           />
         ) : (
           <img
             src={nav1}
-            style={{ width: "80%" }}
+            style={{ width: "80%", cursor: "pointer"  }}
             onClick={() => navigate("/feed")}
           />
         )}
@@ -324,6 +329,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
                   marginBottom: "1px",
                   borderBottom: "2px",
                 }}
+                onClick={goToLatchlist}
               >
                 <PeopleIcon />
                 &nbsp; Latch list

@@ -87,7 +87,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             }}
           >
             <Avatar
-              className="profile-img"
+              className="profile-image"
               src={currentUser === null ? alt : currentUser.imageUrl}
             ></Avatar>
           </Grid>
@@ -115,14 +115,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                  {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
                   Posts
                 </h1>
               </Grid>
@@ -139,14 +139,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                   {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
                   Followers
                 </h1>
               </Grid>
@@ -163,14 +163,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                   {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
-                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter" }}>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500 }}>
                   Following
                 </h1>
               </Grid>
@@ -286,12 +286,12 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   wordBreak: "break-word",
                 }}
               >
-                <h1 style={{ fontSize: "40px"}}>
+                <h1 style={{ fontSize: "20px"}}>
                   {currentUser === null
                     ? ""
                     : `${currentUser.firstname} ${currentUser.lastname}`}
                 </h1>
-                <h3 style={{ fontSize: "30px"}}>
+                <h3 style={{ fontSize: "15px"}}>
                   @{currentUser === null ? "" : `${currentUser.username}`}
                 </h3>
                 <Divider className="divider-info" />
@@ -317,16 +317,15 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                 }}
               >
                 <Box className="postInfo">
-                  <Box className="postText" sx={{ p: 1 }}>
+                  <Box className="postText" sx={{ width: "90%", marginTop: "5px", marginBottom: "5px" }} >
                     <TextField
                       className="shareText"
                       placeholder="What's jibin'?"
                       sx={{ width: "100%" }}
-                      InputProps={{ sx: { height: "auto" } }}
-                      multiline
+                      InputProps={{ className: "inputTextfield2", sx: { height: "auto", fontFamily: "montserrat", color: (() => theme === "dark"? "white" : "black") } }} multiline
                     />
                   </Box>
-                  <Box className="postPhoto" sx={{ p: 0.5 }}>
+                  <Box className="postPhoto" sx={{ p: 0.5, width: "10%"  }}>
                     <PhotoIcon
                       onClick={() => imageRef.current.click()}
                       sx={{ cursor: "pointer", fontSize: "30px" }}
@@ -364,7 +363,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                     </div>
                   </Box>
                 )}
-                <Divider />
+                <Divider className="divider"/>
                 <Box
                   className="sharebtn"
                   justifyItems={"center"}
@@ -398,15 +397,6 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             </Grid>
           </Grid>
         </Paper>
-
-        {/* <Grid container sx={{height: "auto"}}>
-        <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-          Hello
-        </Grid>
-        <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-        <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-        <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-    </Grid> */}
       </div>
     </div>
   );

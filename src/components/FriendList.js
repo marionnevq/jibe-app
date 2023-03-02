@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Avatar, Button, Divider, Grid, IconButton, Paper } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
+import { Avatar, Button, Divider, Grid, IconButton, Paper, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import alt from "../images/alternate.jpg"
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -7,17 +7,22 @@ import "../style/LatchList.css";
 import { useNavigate } from 'react-router-dom';
 import * as userService from "../services/user";
 import { async } from 'q';
+import EditIcon from "@mui/icons-material/Edit";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import PhotoIcon from "@mui/icons-material/Photo";
 
 const FriendList = ({ theme }) => {
 
 
   const [users, setUsers] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null)
-  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [currentUser, setCurrentUser] = useState("");
 
   //get follow list
   async function getFollowingList() {
-    const currUser = await userService.getCurrentUser().then( async (response) => {
+    await userService.getCurrentUser().then( async (response) => {
       setCurrentUser(response.data);
       console.log(response.data);
       await userService.getFollowList(response.data.username).then((response) => {
@@ -27,96 +32,319 @@ const FriendList = ({ theme }) => {
     });
 
   }
+
+  const navigate = useNavigate();
+
+  const GoToProfile = async (user) => {
+    console.log(user);
+    const username = user.username;
+    navigate(`/profile/visit/${username}`);
+  };
+
   useEffect(() => {
     getFollowingList();
   }, []);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
 
   return (
     <div data-theme={theme}>
-    <div style={{ minWidth: "100%", minHeight:"100vh" }} >
-      <Box className="cover" id="header"/>
-      <Grid container className='main-header'>
-        <Grid  className='top-head' id='info-head' container item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
-        <Avatar className='profile-img' src={alt} ></Avatar>
-        </Grid>
-        
-        <Grid className='bottom-head' id='info-head' container item xs={12} md={8.5} sx={{height: "auto"}}>
-        <div className='web' >
-          <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>1298</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Posts</h1>
+    <div style={{ minHeight: "100vh" }}>
+        <Box className="cover" id="header" />
+
+        <Grid container className="main-header">
+          <Grid
+            className="top-head"
+            id="info-head"
+            container
+            item
+            xs={12}
+            md={3.5}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              className="profile-imgg"
+              sx={{ width: "200px", height: "200px", marginTop: "-75px" }}
+              src={currentUser === null ? alt : currentUser.imageUrl}
+            ></Avatar>
           </Grid>
-          <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>5.6m</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Followers</h1>
+
+          <Grid
+            className="bottom-head"
+            id="info-head"
+            container
+            item
+            xs={12}
+            md={8.5}
+            sx={{ height: "auto" }}
+          >
+            <div className="web">
+              <Grid
+                id="details"
+                item
+                xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "montserrat",
+                    fontWeight: "700",
+                  }}
+                >
+                 {currentUser === null ? 0 : currentUser.postsCount}
+                </h3>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+                  Posts
+                </h1>
+              </Grid>
+              <Grid
+                id="details"
+                item
+                xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "montserrat",
+                    fontWeight: "700",
+                  }}
+                >
+                  {currentUser === null ? 0 : currentUser.followersCount}
+                </h3>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+                  Followers
+                </h1>
+              </Grid>
+              <Grid
+                id="details"
+                item
+                xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "montserrat",
+                    fontWeight: "700",
+                  }}
+                >
+                  {currentUser === null ? 0 : currentUser.followingCount}
+                </h3>
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500 }}>
+                  Following
+                </h1>
+              </Grid>
+              <Grid
+                id="button-follow"
+                item
+                xs={12}
+                md={3}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  className="latch-btn1"
+                  onClick={handleOpen}
+                >
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit
+                </Button>
+              </Grid>
+            </div>
           </Grid>
-          <Grid id='details' item xs={12} md={2.5} sx={{display: "block", textAlign: "center", lineHeight: "10px"}}>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat", fontWeight: "500"}}>3</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Following</h1>
-          </Grid>
-          <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            {/* <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
-          </Grid>
+
+          <div className="mobile" style={{ display: "block" }}>
+            <div className="name-info" >
+              <h1 className="name-details">
+                {currentUser === null
+                  ? ""
+                  : `${currentUser.firstname} ${currentUser.lastname}`}
+              </h1>
+              <h3>@{currentUser === null ? "" : `${currentUser.username}`}</h3>
+            </div>
+            <Grid
+              container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "auto",
+                marginTop: "30px",
+              }}
+            >
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.postsCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Posts
+                </h1>
+              </div>
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.followersCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Followers
+                </h1>
+              </div>
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.followingCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Following
+                </h1>
+              </div>
+            </Grid>
+          </div>
+          <Divider className="divider-mobile" />
+          <div className="button">
+            <Grid container item>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Button className="btn-latch" variant="outlined">
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit Profile
+                </Button>
+              </Grid>
+            </Grid>
           </div>
         </Grid>
-        
-        <div className='mobile' style={{display: "block"}}>
-          <div className='name-info' >
-              <h1>Jim Lloyd</h1>
-              <h3>@jimlloyddg</h3>
-          </div>
-        <Grid  container sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "auto", marginTop: "30px"}}>
-          <div className='mobile-items'>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat"}}>1298</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Posts</h1>
-          </div>
-          <div className='mobile-items'>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat"}}>5.6m</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Followers</h1>
-          </div>
-          <div className='mobile-items'>
-            <h3 style={{fontSize: "21px", fontFamily: "montserrat"}}>3</h3>
-            <h1 style={{fontSize: "18px", fontFamily: "montserrat"}}>Following</h1>
-          </div>
-        </Grid>
-      </div>
-      <Divider className='divider-mobile'/>
-      <div className='button'>
-      <Grid  container item >
-          <Grid item sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-            {/* <Button className='btn-latch' variant='contained'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
-          </Grid>
-        </Grid></div>
-      </Grid>
-      {/*LatchList*/}
-      <Grid item xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
-        <Paper className='list' sx={{ height: "auto", display: "flex", flexDirection:"column"  }}>
-          <Box className="title" sx={{ margin:"3px", display: "flex", flexDirection: "column", width: "90%", borderRadius:"0.3rem" }}>
-            <span><Divider className='dividerTitle'>Latch List</Divider></span>
+        <Paper className="bottom-foot">
+          <Grid container className="foot" style={{ height: "auto" }}>
+            <Grid
+              className="left"
+              item
+              xs={12}
+              md={3.5}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
+              <Paper
+                className="window-name"
+                style={{
+                  width: "95%",
+                  borderRadius: "0.6rem",
+                  boxShadow: "none",
+                  height: "auto",
+                  paddingRight: "10px",
+                  paddingLeft: "10px",
+                  wordBreak: "break-word",
+                }}
+              >
+                <h1 style={{ fontSize: "20px"}}>
+                  {currentUser === null
+                    ? ""
+                    : `${currentUser.firstname} ${currentUser.lastname}`}
+                </h1>
+                <h3 style={{ fontSize: "15px"}}>
+                  @{currentUser === null ? "" : `${currentUser.username}`}
+                </h3>
+                <Divider className="divider-info" />
+                <h4>
+                  <em>
+                    {`${currentUser.bio}` === ""
+                      ? "No Bio"
+                      : `${currentUser.bio}`}
+                  </em>
+                </h4>
+              </Paper>
+              <Paper
+                className="window-name"
+                style={{
+                  marginTop: "10px",
+                  width: "95%",
+                  borderRadius: "0.6rem",
+                  boxShadow: "none",
+                  height: "auto",
+                  paddingRight: "10px",
+                  paddingLeft: "10px",
+                  wordBreak: "break-word",
+                }}
+              >
+              </Paper>
+            </Grid>
+
+            <Grid
+              className="left"
+              item
+              xs={12}
+              md={8.5}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "3px",
+              }}
+            >
+              <Paper className='list2' sx={{ height: "auto", display: "flex", flexDirection:"column"  }}>
+          <Box className="title" sx={{ margin:"10px", display: "flex", flexDirection: "column", width: "90%", borderRadius:"0.3rem"}}>
+            <span style={{ fontWeight: "600" }}><Divider className='dividerTitle'>Latch List</Divider></span>
           </Box>
-            <Box className="latchBox" sx={{ margin:"5px", display: "flex", flexDirection: "column", width: "95%", borderRadius:"0.3rem"}}>
+            <Box className="latchBoxx" sx={{ marginBottom:"15px", display: "flex", flexDirection: "column", width: "95%", borderRadius:"0.3rem", height: "auto" }}>
             {users && users.map((user) => (
-                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} >
+                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} onClick={GoToProfile}>
                   <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
                       <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
-                          <img src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
+                          <Avatar src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
                       </Box>
-                      <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
-                          <span style={{ fontWeight:"700" }}>{`${user.firstname} ${user.lastname}`}</span>
-                          <span style={{ fontWeight:"400", fontSize:"13.5px" }}>@{`${user.username}`}</span>
-                      </Box>
-                      <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
-                          <IconButton>
-                              <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
-                          </IconButton>
+                      <Box classname="latchInfos" sx={{ display:"flex", width:"60%", height:"100px", lineHeight:"0px",  flexDirection:"column" , justifyContent:"center"}}>
+                          <h1 style={{ fontSize:"15px", fontWeight:"700", color: (() => theme === "dark" ? "white" : "black") }}>{`${user.firstname} ${user.lastname}`}</h1>
+                          <h3 style={{ fontSize:"12px", fontWeight:"300", color: (() => theme === "dark" ? "#9b9b9b" : "#424242") }}>@{`${user.username}`}</h3>
                       </Box>
                 </Box>
             </Box>
             ))}
             </Box>
         </Paper>
-      </Grid>
+
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     </div>
   )

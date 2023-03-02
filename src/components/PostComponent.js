@@ -72,74 +72,17 @@ const PostComponent = ({post, theme}) => {
     };
 
   return (
-    // <Paper 
-    //     className="post"
-    //     sx={{
-    //     width: "95%",
-    //     minHeight: "160px",
-    //     maxHeight: "690px",
-    //     paddingBottom: "2px",
-    //     borderRadius: "0.6rem",
-    //     boxShadow: "1",
-    //     }}
-    // >
-    //     <Box className="info" sx={{ p: 0.2 }}>
-    //     <Box className="opImg" sx={{ p: 1 }}>
-    //         <div className="opInfo">
-    //         <img
-    //             src={post.userImageUrl === null ? "" : post.userImageUrl}
-    //             alt=""
-    //         />
-    //         </div>
-    //     </Box>
-    //     <Box className="opName" sx={{ p: 1 }}>
-    //         <span>
-    //         {post === null
-    //             ? ""
-    //             : `${post.userFirstname} ${post.userLastname}`}
-    //         </span>
-    //         <span>a few minutes ago</span>
-    //     </Box>
-    //     </Box>
-    //     <Box className="postContent" sx={{ p: 0.2 }}>
-    //     <div className="postContent2">
-    //         <Box className="txtContent" sx={{ p: 0.2 }}>
-    //         <span>{post.length === 0 ? "" : post.body}</span>
-    //         </Box>
-    //         <Box className="imgContent" sx={{ p: 1, display: "flex" }}>
-    //         <img src={`${post.imageUrl}`} style={{ width: "100%" }} />
-    //         </Box>
-    //     </div>
-    //     </Box>
-    //     <Divider className="divider" />
-    //     <Box className="reactions" sx={{ p: 0.2 }}>
-    //     <Box className="like" sx={{ p: 0.2 }}>
-    //         <div className="likebtn" onClick={handleChangeIcon}>
-    //         <Button className="likeButton">
-    //             {like ? <img src={liked} /> : <img src={unlike} />}
-    //             {like ? <span>Liked</span> : <span>Like</span>}
-    //         </Button>
-    //         </div>
-    //     </Box>
-    //     <Box className="comment" sx={{ p: 0.2 }}>
-    //         <Button className="commentButton">
-    //         <ModeCommentOutlinedIcon />
-    //         <span>Comment</span>
-    //         </Button>
-    //     </Box>
-    //     </Box>
-    //     <Divider className="divider" sx={{ marginBottom: "10px" }} />
-    // </Paper>
     <Paper
+    data-theme={theme}
               className="post"
               sx={{
-                width: "95%",
-
+                width: "94%",
                 height: "auto",
                 paddingBottom: "2px",
-                borderRadius: "0.6rem",
+                borderRadius: "5px",
                 boxShadow: "3",
               }}
+              
             >
               <Box className="info" sx={{ p: 0.2 }}>
                 <Box className="opImg" sx={{ p: 1 }}>
@@ -173,60 +116,63 @@ const PostComponent = ({post, theme}) => {
                     <span>{post.length === 0 ? "" : post.body}</span>
                   </Box>
                   {post && post.imageUrl === null ? (
-                    <Divider className="divider" />
+                    ""
                   ) : (
                     <Box
-                      className="imgContent"
+                      className="imgBox"
                       sx={{
-                        p: 1,
+                        // p: 1,
                         display: "flex",
                         justifyContent: "center",
-                        width: "95%",
-                        marginLeft: "23px",
-
-                        borderRadius: "0.6rem",
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
+                        width: "100%",
+                        paddingTop: "5px",
+                        paddingBottom: "5px",
+                        border: "none"
                       }}
                     >
                       <img
                         src={`${post.imageUrl}`}
-                        style={{ width: "80%", height: "80%" }}
+                        style={{ width: "100%", height: "70%", border: "none" }}
                       />
                     </Box>
                   )}
                   <Box className="txtContent" sx={{ p: 0.2 }}>
-                    <span>
-                      {post.numLikes === 0 ? (
-                        ""
-                      ) : (
-                        <img
-                          src={liked}
-                          alt=""
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                      )}
-                      {post.numLikes === 0 ? "" : `${post.numLikes}`}
-                    </span>
-                    <span>
-                      {post.numComments === 0 ? (
-                        ""
-                      ) : (
-                        <ModeCommentIcon
-                          sx={{
-                            color: "#ff5d75",
-                            width: "15px",
-                            height: "15px",
-                          }}
-                        />
-                      )}
-                      {post.numComments === 0 ? "" : `${post.numComments}`}
-                    </span>
+                    <Box sx={{  width: "50%", paddingLeft: "50px" }}>
+                      <span>
+                        {post.numLikes === 0 ? (
+                          ""
+                        ) : (
+                          <img
+                            src={liked}
+                            alt=""
+                            style={{ width: "25px", height: "25px" }}
+                          />
+                        )}
+                        &nbsp;{post.numLikes === 0 ? "" : `${post.numLikes}`}
+                      </span>
+                      </Box>
+
+                    <Box className="commentBox" sx={{ width: "50%", display: "flex", justifyContent: "flex-end", paddingRight: "50px" }}>      
+                      <span>
+                        {post.numComments === 0 ? (
+                          ""
+                        ) : (
+                          <ModeCommentIcon
+                            sx={{
+                              color: "#ff5d75",
+                              width: "15px",
+                              height: "15px",
+                            }}
+                          />
+                        )}
+                        &nbsp;{post.numComments === 0 ? "" : `${post.numComments}`}
+                      </span>
+                    </Box>  
                     {/* <span> <img src={liked} style={{width: "20px", height: "20px" }}/> {`${post.numLikes}`}</span> */}
                   </Box>
                 </div>
               </Box>
-              {/* <Divider className='divider'/> */}
+              <Divider className='divider'/>
               <Box
                 className="reactions"
                 sx={{
@@ -236,7 +182,7 @@ const PostComponent = ({post, theme}) => {
               >
                 <Box className="like" sx={{ p: 0.2 }}>
                   <div className="likebtn" onClick={handleChangeIcon}>
-                    <Button className="likeButton">
+                    <Button className="likeButton" sx={{ width: "280px" }}>
                       {like ? <img src={liked} /> : <img src={unlike} />}
                       {like ? <span>Liked</span> : <span>Like</span>}
                     </Button>
@@ -249,7 +195,7 @@ const PostComponent = ({post, theme}) => {
                 />
                 <Box className="comment" sx={{ p: 0.2 }}>
                   <Button
-                    className="commentButton"
+                    className="commentButton" sx={{ width: "280px" }}
                     onClick={() => {
                       navigate(`/posts/${post.postID}`);
                     }}

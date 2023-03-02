@@ -63,7 +63,7 @@ const PostVisit = ({ theme, user }) => {
     {posts.map((post) => 
       <Paper
       className="post"
-      sx={{
+      sx={{ 
         backgroundColor: () => (theme === "light" ? "white" : "#333333")
       }}
       
@@ -107,11 +107,11 @@ const PostVisit = ({ theme, user }) => {
             <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
             <Box
               className="imgContent"
-              sx={{ display: "flex", justifyContent: "center", width: "100%", borderTop: () => theme === "dark" ? "1px solid #3F3F3F" : "1px solid lightgrey", paddingTop: "10px", paddingBottom: "10px", marginBottom: "5px"}}
+              sx={{ display: "flex", justifyContent: "center", width: "100%", border:"none", paddingTop: "10px", paddingBottom: "10px", marginBottom: "5px"}}
             >
                <img
               src={user === null ? "" : post.imageUrl}
-              alt="" style={{width: "65%"}}
+              alt="" style={{width: "100%"}}
             />
             </Box>
             </div>

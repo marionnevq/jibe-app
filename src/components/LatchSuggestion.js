@@ -16,8 +16,10 @@ const LatchSuggestion = ({ user, theme }) => {
 
   return (
     <Box
-      className="latch-info"
-      data-theme={theme}
+      className="latchInfo"
+      sx={{ width: "100%", height: "100%", display: "flex", borderRadius: "10px" }}
+      // className="latch-info"
+      // data-theme={theme}
     >
       <Box
         className="latchDp"

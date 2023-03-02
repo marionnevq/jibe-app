@@ -1,61 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg-image: url(https://4kwallpapers.com/images/walls/thumbs_3t/8624.jpeg);
-  --nav-background: #EEE8DB;
-  --background: #f2f2f2; /*white*/
-  --background-two: #f2f2f2; /*cream*/
-  --text-primary: #000; /*black*/
-  --text-secondary: #424242; /*white*/
-  --primary: #ff5d75; /*pink*/
-  --secondary: #2C3568; /*dark blue*/
-  --icon: #1C2835; 
-  --nav-shadow: rgb(185, 184, 184);
-  --nav2-logo: #1C2835;
-  --input-field: white;
-  --paper: white;
-  --textfield: #f2f2f2;
-  --divider: #d2d2d2;
-  --divider2: #d2d2d2;
-  --header: #16202A;
-  --cover: #22294f;
-  --bottom-paper: #a9a7a7;
-  --info: white;
-  --foot: #f2f2f2;
-  --mode: #2C3568;
-}
-
-[data-theme='dark'] {
- --bg-image: url(https://img.freepik.com/free-vector/dark-wavy-background_23-2148399820.jpg?w=900&t=st=1677510491~exp=1677511091~hmac=514029579bfa92e73d2c93210cf2ce9d4734fa4fd66d2dd8b647e7e09a15ead2);
-  --nav-background: #1b1b1b;
-  --background: #1b1b1b; /*dark blue*/
-  --background-two: #3f3f3f; /*darker blue*/
-  --text-primary: white; /*white*/
-  --text-secondary: #9b9b9b; /*white*/
-  --primary: #1C2835; /*dark blue*/
-  --secondary: #16202A; /*darker blue*/
-  --icon: #f2f2f2; 
-  --nav-shadow: #7b7b7b; /*white*/
-  --nav2-logo: #ff5d75;
-  --input-field: #333333;
-  --paper: #343434;
-  --textfield: #636363;
-  --divider: #fefefe;
-  --divider2: #982d3d;
-  --header: #EEE8DB;
-  --cover: #333333;
-  --bottom-paper: #636363;
-  --info: #333333;
-  --foot: #1b1b1b;
-  --mode: #fec6ce;
-}
-
+    --bg-image: url(https://4kwallpapers.com/images/walls/thumbs_3t/8624.jpeg);
+    --nav-background: #EEE8DB;
+    --background: #f2f2f2; /*white*/
+    --background-two: #f2f2f2; /*cream*/
+    --text-primary: #000; /*black*/
+    --text-secondary: #424242; /*white*/
+    --primary: #ff5d75; /*pink*/
+    --secondary: #2C3568; /*dark blue*/
+    --icon: #1C2835; 
+    --nav-shadow: rgb(185, 184, 184);
+    --nav2-logo: #1C2835;
+    --input-field: white;
+    --paper: white;
+    --textfield: #f2f2f2;
+    --divider: #f2f2f2;
+    --divider-chip: #d4d4d4;
+    --header: #16202A;
+    --cover: #22294f;
+    --bottom-paper: #a9a7a7;
+    --info: white;
+    --foot: #f2f2f2;
+    --mode: #2C3568;
+  }
+  
+  [data-theme='dark'] {
+   --bg-image: url(https://img.freepik.com/free-vector/dark-wavy-background_23-2148399820.jpg?w=900&t=st=1677510491~exp=1677511091~hmac=514029579bfa92e73d2c93210cf2ce9d4734fa4fd66d2dd8b647e7e09a15ead2);
+    --nav-background: #1b1b1b;
+    --background: #1b1b1b; /*dark blue*/
+    --background-two: #3f3f3f; /*darker blue*/
+    --text-primary: white; /*white*/
+    --text-secondary: #9b9b9b; /*white*/
+    --primary: #1C2835; /*dark blue*/
+    --secondary: #16202A; /*darker blue*/
+    --icon: #f2f2f2; 
+    --nav-shadow: #7b7b7b; /*white*/
+    --nav2-logo: #ff5d75;
+    --input-field: #333333;
+    --paper: #343434;
+    --textfield: #636363;
+    --divider: #fefefe;
+    --divider-chip: #7f7f7f;
+    --header: #EEE8DB;
+    --cover: #333333;
+    --bottom-paper: #636363;
+    --info: #333333;
+    --foot: #1b1b1b;
+    --mode: #fec6ce;
+  }
+  
 .main{
     background-image: var(--bg-image);
     background-repeat: no-repeat;
     background-size: 100%;
     background-attachment: scroll;
 }
+
+.shareText{
+    background-color: var(--textfield);
+    color: var(--text-primary);
+    border-radius: 10px;
+}
+
 
 .cover{
     background-image: var(--bg-image);
@@ -64,6 +71,19 @@
     background-attachment: scroll;
     height: 300px;
     border-radius: 0;
+}
+
+.postPhoto{
+    color: var(--icon);
+}
+
+.previewClose{
+    color: var(--icon);
+}
+
+.inputTextfield{
+    background-color: var(--background-two);
+    font-size: 14px;
 }
 
 .web{
@@ -78,6 +98,14 @@
     display: flex; 
     justify-content: end;
     align-items: center;
+}
+
+.divider2{
+    color: var(--divider);
+}
+
+.optionBtn{
+    color: var(--icon);
 }
 
 .mobile, .button{
@@ -103,9 +131,9 @@
     display: none;
 }
 
-.top-head .profile-img{
+.top-head .profile-image{
     width: 200px;
-    height: auto;
+    height: 200px;
     margin-top: -75px;
     border: 7px solid var(--info);
 }

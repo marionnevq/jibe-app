@@ -16,7 +16,26 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
   const imageRef = useRef();
   const [open, setOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = useState("");
-
+  const postFormSX = {
+    width: "53%",
+    minHeight: "120px",
+    maxHeight: "100%",
+    borderRadius: "5px",
+    boxShadow: "1",
+    backgroundColor: () => (theme === "light" ? "white" : "#343434"),
+    
+    marginRight: "19px"
+  };
+  const postFormSXMobile = {
+    width: "95%",
+    minHeight: "120px",
+    maxHeight: "100%",
+    borderRadius: "5px",
+    boxShadow: "1",
+    backgroundColor: () => (theme === "light" ? "white" : "#343434"),
+    
+    marginRight: "19px"
+  };
   useEffect(() => {
     loadUser();
   }, []);
@@ -109,8 +128,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
 
-                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
-
+                <h1
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "montserrat",
+                    fontWeight: "lighter",
+                    fontWeight: 500,
+                  }}
+                >
                   Posts
                 </h1>
               </Grid>
@@ -135,8 +160,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
 
-                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
-
+                <h1
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "montserrat",
+                    fontWeight: "lighter",
+                    fontWeight: 500,
+                  }}
+                >
                   Followers
                 </h1>
               </Grid>
@@ -161,8 +192,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
 
-                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500 }}>
-
+                <h1
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "montserrat",
+                    fontWeight: "lighter",
+                    fontWeight: 500,
+                  }}
+                >
                   Following
                 </h1>
               </Grid>
@@ -269,6 +306,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   currentUser={currentUser}
                   setLoading={setLoading}
                   theme={theme}
+                  postFormSX={postFormSXMobile}
                 />
               </Grid>
             </Grid>
@@ -299,16 +337,13 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   wordBreak: "break-word",
                 }}
               >
-
-                <h1 style={{ fontSize: "20px"}}>
-
+                <h1 style={{ fontSize: "20px" }}>
                   {currentUser === null
                     ? ""
                     : `${currentUser.firstname} ${currentUser.lastname}`}
                 </h1>
 
-                <h3 style={{ fontSize: "15px"}}>
-
+                <h3 style={{ fontSize: "15px" }}>
                   @{currentUser === null ? "" : `${currentUser.username}`}
                 </h3>
                 <Divider className="divider-info" />
@@ -321,27 +356,14 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                 </h4>
               </Paper>
               {/* ADD HERE */}
-              <Paper
-                className="window-name"
-                style={{
-                  marginTop: "10px",
-                  width: "95%",
-                  borderRadius: "0.6rem",
-                  boxShadow: "none",
-                  height: "auto",
-                  paddingRight: "10px",
-                  paddingLeft: "10px",
-                  wordBreak: "break-word",
-                }}
-              >
-
+              <Grid>
                 <PostForm
                   currentUser={currentUser}
+                  postFormSX = {postFormSX}
                   setLoading={setLoading}
                   theme={theme}
                 />
-
-              </Paper>
+              </Grid>
             </Grid>
 
             <Grid

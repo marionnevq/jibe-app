@@ -6,7 +6,7 @@ import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
 import { storage } from "../services/firebase";
 import { createPost } from "../services/post";
-const PostForm = ({ currentUser, theme, setLoading }) => {
+const PostForm = ({ currentUser, theme, setLoading, postFormSX }) => {
   const [postBody, setPostBody] = useState("");
   const [image, setImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
@@ -93,13 +93,17 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
     >
       <Paper
         className="post"
-        sx={{
-          width: "94%",
-          minHeight: "120px",
-          maxHeight: "100%",
-          borderRadius: "5px",
-          boxShadow: "1",
-        }}
+        // sx={{
+        //   width: "53%",
+        //   minHeight: "120px",
+        //   maxHeight: "100%",
+        //   borderRadius: "5px",
+        //   boxShadow: "1",
+        //   backgroundColor: () => (theme === "light" ? "white" : "#343434"),
+          
+        //   marginRight: "19px"
+        // }}
+        sx={ postFormSX }
       >
         <Box className="postInfo">
           <Box className="postDp" sx={{ p: 1 }}>

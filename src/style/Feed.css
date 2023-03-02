@@ -136,6 +136,10 @@
         color: var(--divider);
     }
 
+    .parent .divider2{
+        color: var(--divider);
+    }
+
     .parent .opName{
         color: var(--text-primary);
     }
@@ -456,7 +460,7 @@
     .post{
         align-items: center;
         align-content: center;
-        margin-bottom: 10px;
+        /* margin-bottom: 10px; */
     }
 
     .commentBtn{

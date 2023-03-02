@@ -22,6 +22,16 @@ const PostSide = ({ theme, setLoading }) => {
   const [choice, setChoice] = useState(true);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
+  const postFormSX = {
+    width: "94%",
+    minHeight: "120px",
+    maxHeight: "100%",
+    borderRadius: "5px",
+    boxShadow: "1",
+    backgroundColor: () => (theme === "light" ? "white" : "#343434"),
+    
+    marginRight: "19px"
+  };
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -167,6 +177,7 @@ const PostSide = ({ theme, setLoading }) => {
             currentUser={currentUser}
             theme={theme}
             setLoading={setLoading}
+            postFormSX={postFormSX}
           />
           {/* <Paper
             className="post"

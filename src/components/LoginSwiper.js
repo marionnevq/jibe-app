@@ -6,18 +6,18 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { storage } from "../services/firebase";
-import * as userService from "../services/user";
-import "../style/swiper.css";
 
+import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Grid, Paper,
+  Grid,
+  Paper,
   TextField,
   Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Keyboard, Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Navigation, Keyboard, Pagination } from "swiper";
+
 import alternate from "../images/alternate.jpg";
 import txtlogo from "../images/nav1.png";
 import Like2 from "../images/onboard.png";

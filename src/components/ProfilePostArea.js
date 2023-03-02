@@ -2,9 +2,15 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { getUser } from "../services/auth";
 import { getUserPosts } from "../services/post";
+
+
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import "../style/Profile.css";
 import PostComponent from "./PostComponent";
+
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -57,12 +63,13 @@ const ProfilePostArea = ({ theme }) => {
 
   return (
     <div
+    data-theme={theme}
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         marginTop: "10px",
-        marginLeft: "1.3rem",
+        // marginLeft: "1.3rem",
       }}
     >
       {posts.map((post) => (

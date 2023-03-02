@@ -48,11 +48,14 @@ const PostVisit = ({ theme, user }) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        marginTop: "10px",
+
+      style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
+    >
+    {posts.map((post) => 
+      <Paper
+      className="post"
+      sx={{ 
+        backgroundColor: () => (theme === "light" ? "white" : "#333333")
       }}
     >
       {posts.map((post) => (
@@ -69,18 +72,14 @@ const PostVisit = ({ theme, user }) => {
               </div>
             </Box>
             <Box
-              className="opName"
-              sx={{
-                p: 1,
-                color: () => (theme === "light" ? "#333333" : "white"),
-              }}
+
+              className="imgContent"
+              sx={{ display: "flex", justifyContent: "center", width: "100%", border:"none", paddingTop: "10px", paddingBottom: "10px", marginBottom: "5px"}}
             >
-              <span>
-                {user === null
-                  ? ""
-                  : `${post.userFirstname} ${post.userLastname}`}
-              </span>
-              <span>{convertTime(post.datePosted)}</span>
+               <img
+              src={user === null ? "" : post.imageUrl}
+              alt="" style={{width: "100%"}}
+            />
             </Box>
           </Box>
           <Box

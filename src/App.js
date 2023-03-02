@@ -11,22 +11,31 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
-import Loading from "./images/Loading.gif";
+
+
 import EmailConfirmation from "./pages/EmailConfirmation";
 import FeedPage from "./pages/FeedPage";
 import ForgotPass from "./pages/ForgotPass";
+
+import ProfileVisitPage from "./pages/ProfileVisitPage";
+import Loading from "./images/loading1.gif"
+import { POSTS_DATA } from "./Data/posts";
+import ProfilePage from "./pages/ProfilePage";
+
 import LatchList from "./pages/LatchList";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import PostPage from "./pages/PostPage";
-import ProfilePage from "./pages/ProfilePage";
-import ProfileVisitPage from "./pages/ProfileVisitPage";
+
+
+
 import Register from "./pages/Register";
 import { getAccessToken, login, register } from "./services/auth";
 
+
 function App() {
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [theme, setTheme] = useLocalStorage("theme", "light");
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("error");
@@ -65,11 +74,13 @@ function App() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    bgcolor: "#fff",
+    display: "flex",
+    justofyContent: "center",
+    alignItems: "center",
+    marginLeft: "35px",
     pt: 1,
     pl: 1,
     pr: 1,
-    borderRadius: 25,
   };
 
   const handleRegister = async (event, form) => {
@@ -158,7 +169,7 @@ function App() {
       <CssBaseline />
       <Modal open={loading}>
         <Box sx={style}>
-          <img src={Loading} alt="Loading..." />
+          <img src={Loading} alt="Loading..." style={{width: "30%"}} />
         </Box>
       </Modal>
       <Routes>
@@ -184,6 +195,7 @@ function App() {
           }
         />
         <Route
+
           path="/password/reset/:token"
           element={
             <ForgotPass

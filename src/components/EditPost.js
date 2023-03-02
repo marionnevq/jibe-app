@@ -1,10 +1,11 @@
-import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import {  updatePost } from "../services/post.js";
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
-import { storage } from "../services/firebase";
+import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useEffect, useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close';
+import { updatePost } from '../services/post.js'
+import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
+import { storage } from '../services/firebase';
+
 
 
 const EditPost = ({ handleClose, post }) => {

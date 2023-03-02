@@ -32,8 +32,13 @@ import nav2 from "../images/nav2.png";
 import nav3 from "../images/nav3.png";
 import { getUser } from "../services/auth";
 import { deleteNotification, getNotifications } from "../services/notification";
-import "../style/NavBar.css";
-import ProfileSearch from './ProfileSearch';
+
+import { useState } from "react";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Box } from "@mui/system";
+import Joi from "joi";
+
 
 const NavBar = ({ onLogout, onSwitch, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,11 +49,22 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   });
   const [click, setClick] = useState("unclicked");
   const open = Boolean(anchorEl);
-  
+  const [errors, setErrors] = useState({});
   const openNotif = Boolean(anchorElNotif);
   const navigate = useNavigate();
   const [opened, setOpen] = React.useState(false);
   const show = Boolean(opened);
+  const schema = Joi.object({
+    username: Joi.string()
+    .min(1)
+    .required()
+});
+
+  const isFormInvalid = () => {
+    const result = schema.validate(search);
+    return !!result.error;
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -84,25 +100,31 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
     setNotifications(notifs.data);
   };
 
-  // const handleSearchProfiles = () => {
-  //   employeeService
-  //     .updateEmployee(employee.id, form)
-  //     .then(() => {
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       if (error.response && error.response.status === 400) {
-  //         alert(error.response.data.message[0]);
-  //       }
-  //     });
-  // }
 
+  const goToLatchlist = (event) => {
+    event.preventDefault();
+    navigate('/profile/latch-list');
+  };
   const handleChange = ({ currentTarget: input }) => {
     setSearch({
       ...search,
       [input.name]: input.value,
     });
     console.log(input.value);
+
+    const { error } = schema
+      .extract(input.name)
+      .label(input.name)
+      .validate(input.value);
+
+    if (error) {
+      setErrors({ ...errors, [input.name]: "Field required" });
+    } else if (error) {
+        setErrors({ ...errors, [input.name]: error.details[0].message });
+    }else {
+        delete errors[input.name];
+        setErrors(errors);
+    }
   };
 
   const handleClearNotifications = async() => {
@@ -112,17 +134,28 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   };
 
   const themeNow = theme;
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    marginLeft: "35px",
+    pt: 1,
+    pl: 1,
+    pr: 1,
+  };
 
   return (
-    <div>
+    <div style={{position: "sticky"}}>
        <Modal
         open={show}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
-        sx={{ overflow: "scroll"  }}
       >
+        <div style={{height: "100vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
         <ProfileSearch handleClose={handleClose} search={search.username} theme={theme}/>
+        </div>
       </Modal>
     
     <Grid className="nav-bar" container style={{ minHeight: "auto" }}>
@@ -130,13 +163,13 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
         {themeNow === "light" ? (
           <img
             src={nav}
-            style={{ width: "80%" }}
+            style={{ width: "80%", cursor: "pointer"  }}
             onClick={() => navigate("/feed")}
           />
         ) : (
           <img
             src={nav1}
-            style={{ width: "80%" }}
+            style={{ width: "80%", cursor: "pointer"  }}
             onClick={() => navigate("/feed")}
           />
         )}
@@ -172,6 +205,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
               }}
               aria-label="search"
               onClick={handleOpen}
+              disabled={isFormInvalid()}
             >
               <SearchIcon />
             </IconButton>
@@ -297,6 +331,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
                   marginBottom: "1px",
                   borderBottom: "2px",
                 }}
+                onClick={goToLatchlist}
               >
                 <PeopleIcon />
                 &nbsp; Latch list

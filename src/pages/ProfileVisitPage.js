@@ -88,7 +88,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
         aria-describedby="child-modal-description"
         sx={{ overflow: "scroll" }}
       >
-        <EditUser handleClose={handleClose} />
+        <EditUser handleClose={handleClose} theme={theme}/>
       </Modal>
 
       <div data-theme={theme}>
@@ -110,11 +110,12 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 alignItems: "center",
               }}
             >
-              {user === null ? (
-                <Avatar className="profile-img" src={alt} />
-              ) : (
-                <Avatar className="profile-img" src={user.imageUrl} />
-              )}
+              {user === null ? 
+                <Avatar className="profile-image" src={alt} />
+               : 
+                <Avatar className="profile-image" src={user.imageUrl} />
+              }
+
             </Grid>
 
             <Grid
@@ -128,6 +129,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
             >
               <div className="web">
                 <Grid
+                  className="widgetInfo"
                   id="details"
                   item
                   xs={12}
@@ -140,14 +142,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "20px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
                     {user === null ? 0 : user.postsCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Posts
                   </h1>
                 </Grid>
@@ -164,14 +166,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "20px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
                     {user === null ? 0 : user.followersCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Followers
                   </h1>
                 </Grid>
@@ -188,14 +190,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "20px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
                     {user === null ? 0 : user.followingCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Following
                   </h1>
                 </Grid>
@@ -331,52 +333,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
               </Grid>
             </div>
           </Grid>
-          <Paper className="bottom-foot">
-            <Grid container className="foot" style={{ height: "auto" }}>
-              <Grid
-                className="left"
-                item
-                xs={12}
-                md={3.5}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "start",
-                  marginTop: "10px",
-                }}
-              >
-                <Paper
-                  className="window-name"
-                  style={{
-                    width: "95%",
-                    borderRadius: "0.6rem",
-                    boxShadow: "none",
-                    height: "auto",
-                    paddingRight: "10px",
-                    paddingLeft: "10px",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  <h1 style={{ fontSize: "40px" }}>
-                    {" "}
-                    {user === null ? "" : `${user.firstname} ${user.lastname}`}
-                  </h1>
-                  <h3 style={{ fontSize: "30px" }}>
-                    @{user === null ? "" : user.username}
-                  </h3>
-                  <Divider className="divider-info" />
-                  <h4>{user === null ? "" : user.bio}</h4>
-                </Paper>
-              </Grid>
-              <Grid
-                className="post-corner"
-                item
-                xs={12}
-                md={8.5}
-                sx={{ height: "auto" }}
-              >
-                {user && <PostVisit theme={theme} user={user} />}
-              </Grid>
+
               <Paper className="bottom-foot">
                 <Grid container className="foot" style={{ height: "auto" }}>
                   <Grid
@@ -395,7 +352,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                       className="window-name"
                       style={{
                         width: "95%",
-                        borderRadius: "0.6rem",
+                        borderRadius: "5px",
                         boxShadow: "none",
                         height: "auto",
                         paddingRight: "10px",
@@ -425,16 +382,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                   </Grid>
                 </Grid>
               </Paper>
-              {/* <Grid container sx={{height: "auto"}}>
-          <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-            Hello
-          </Grid>
-          <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-      </Grid> */}
-            </Grid>
-          </Paper>
+
         </div>
       </div>
     </div>

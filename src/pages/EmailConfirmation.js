@@ -1,3 +1,4 @@
+
 import React from "react";
 import EmailForm from "../components/EmailForm";
 import bg from "../images/1.jpeg";
@@ -33,3 +34,4 @@ const EmailConfirmation = ({
 };
 
 export default EmailConfirmation;
+

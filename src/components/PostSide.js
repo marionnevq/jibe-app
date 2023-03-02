@@ -92,8 +92,19 @@ const PostSide = ({ theme, setLoading }) => {
     });
   };
 
+/*
+ <PostForm
+          currentUser={currentUser}
+          theme={theme}
+          setLoading={setLoading}
+        />
+        
+        */
   return (
-    <div className="postSide" style={{ minWidth: "100%", marginTop: "12px" }}>
+
+
+    <div className="postSide" style={{ minWidth: "100%", marginTop: "10px" }}>
+
       <Grid
         container
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -111,15 +122,14 @@ const PostSide = ({ theme, setLoading }) => {
           <Paper
             className="feedType"
             sx={{
-              width: "95%",
+              width: "94%",
               height: "45px",
-              paddingBottom: "2px",
-              borderRadius: "0.6rem",
+              borderRadius: "5px",
               boxShadow: "1",
             }}
           >
             <Box
-              className="fyp"
+              className="world"
               onClick={handleWorldFollowing}
               sx={{
                 width: "25%",
@@ -147,28 +157,59 @@ const PostSide = ({ theme, setLoading }) => {
             </Box>
           </Paper>
         </Grid>
-        <PostForm
-          currentUser={currentUser}
-          theme={theme}
-          setLoading={setLoading}
-        />
 
-        <Divider className="divider" sx={{ borderBottomWidth: 3 }}>
-          <Chip
-            className="dividerChip"
-            label="World"
-            sx={{ fontFamily: "Montserrat" }}
-          />
-        </Divider>
 
+      <Grid container item xs={12} sx={{display: "flex", marginTop: "10px" }}>
+     
+          <Paper className='post' sx={{ width:"94%", minHeight: "115px", maxHeight:"750px", borderRadius:"5px", boxShadow:"1" }}>
+           <Box className="postInfo">
+            <Box className='postDp' sx={{ p: 1 }}>
+                <div className="postDp2">
+                <Avatar
+                className="profile-img"
+                src={currentUser === null ? " " : `${currentUser.imageUrl}`}
+                sx={{ width: "50px", height: "50px" }}
+                onClick={() => {
+                  navigate(`/profile/${currentUser.username}`);
+                }}
+              ></Avatar>
+                </div>
+              </Box>
+              <Box className='postText' sx={{ p: 1}}>
+                <TextField className='shareText' placeholder="What's jibin'?" sx={{ width: "100%" }}
+                  InputProps={{ className: "inputTextfield", sx: { height: "auto", fontFamily: "montserrat" } }} multiline/>
+              </Box>
+            <Box className='postPhoto' sx={{ p: 0.5}}>
+              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "30px" }} />
+            </Box>
+           </Box>
+            <div style={{ display: "none"}}>
+              <input type='file' name='myImage' ref={imageRef} onChange={onImageChange} />
+            </div>
+              { image && (
+                  <Box className="previewBox" sx={{ p: 0.5, border: '1px solid #d3d3d3', borderRadius:"5px" }}>
+                    <div className='previewImage'>
+                      <Box className="previewClose" sx={{ marginBottom:"-10px" }}>
+                        <CancelRoundedIcon onClick={() => setImage(null)}  sx={{cursor: "pointer", justifyContent:"right"}}/>
+                      </Box>
+                      <img src={image.image} />
+                  </div>
+                  </Box>
+              )}
+            <Divider className='divider' />
+            <Box className='sharebtn' justifyItems={"center"} sx={{ p: 0.5 }}>
+              <Button className='shareButton' variant='text' 
+                style={{ backgroundColor: "transparent", color:"#EB4660", fontFamily: 'Montserrat', height:"30px", fontSize:"16px", }} >
+                  Post</Button>
+            </Box>
+          </Paper>
+      </Grid>
         <Grid
           container
           item
           xs={12}
           sx={{
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
             marginTop: "10px",
           }}
         >

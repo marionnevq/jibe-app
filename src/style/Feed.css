@@ -9,7 +9,7 @@
     --text-secondary: #424242; /*white*/
     --primary: #ff5d75; /*pink*/
     --secondary: #2C3568; /*dark blue*/
-    --icon: #1C2835; 
+    --icon: #ff5d75; 
     --nav-shadow: rgb(185, 184, 184);
     --nav2-logo: #1C2835;
     --input-field: white;
@@ -23,6 +23,7 @@
     --info: white;
     --foot: #f2f2f2;
     --mode: #2C3568;
+    --bottomborder: #cfcdcd;
   }
   
   [data-theme='dark'] {
@@ -40,7 +41,7 @@
     --input-field: #333333;
     --paper: #343434;
     --textfield: #636363;
-    --divider: #fefefe;
+    --divider:grey;
     --divider-chip: #7f7f7f;
     --header: #EEE8DB;
     --cover: #333333;
@@ -48,6 +49,7 @@
     --info: #333333;
     --foot: #1b1b1b;
     --mode: #fec6ce;
+    --bottomborder: #636363;
   }
 
   .MuiInputLabel-root {
@@ -62,10 +64,6 @@
 
     .parent .profileSide{
         background-color: var( --background);
-    }
-
-    .parent .divider{
-        border-color: var( --divider);
     }
 
     .parent .postSide{
@@ -130,10 +128,13 @@
         color: var(--text-primary);
     }
 
-    .parent .previewClose{
-        color: var(--icon2);
+    .parent .div2{
+        color: var(--divider);
     }
 
+    .parent .dividerComment{
+        color: var(--divider);
+    }
 
     .parent .opName{
         color: var(--text-primary);
@@ -156,13 +157,21 @@
     }
 
     .parent .postPhoto{
-        color: var(--icon2);
+        color: var(--icon);
     }
 
     .parent .likeButton>span{
         color: var(--text-primary);
     }
 
+    .latch-info{
+        width: 100%;
+        height: auto;
+        display: flex;
+        margin-top: 10px;
+        border-bottom: 1px solid var(--bottomborder);
+        padding-bottom: 10px;
+    }
 
     .parent .latchList{
         background-color: var(--paper);
@@ -232,6 +241,11 @@
         font-size: 14px;
     }
 
+    .parent .commentsInfo{
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
     /*end*/
 
     .Feed{
@@ -254,17 +268,24 @@
         align-items: center;
         justify-content: center;
     }
-    
-    .profileDp>img{
-        width: 6rem;
-        border-radius: 50%;
-        border: 5px solid var(--paper);
 
+    .profile-img{
+        border: 4px solid var(--paper);
     }
 
-
-    .profile-img:hover{
+    .profile-feed:hover{
         cursor: pointer;
+    }
+
+    .profile-feed{
+        border: 7px solid var(--info);
+    }
+
+    .latchTitle #text{
+        font-size: 15px; 
+        font-family: "montserrat";
+        color: var(--nav2-logo);
+        margin-left: 15px;
     }
 
   
@@ -378,6 +399,7 @@
 
     .latchDp>img{
         width: 2.5rem;
+        height: 2.5rem;
         border-radius: 50%;
     }
 
@@ -396,6 +418,10 @@
     .latchName>span:nth-of-type(1){
         font-weight: 600;
         font-size: 15px;
+    }
+
+    .latchName>span:nth-of-type(1):hover{
+        color: #ff5d75;
     }
 
     .latchName>span:nth-of-type(2){
@@ -430,13 +456,18 @@
     .post{
         align-items: center;
         align-content: center;
-        justify-content: center;
         margin-bottom: 10px;
+    }
+
+    .commentBtn{
+        width: 100%;
+        color: var(--icon);
+        display: flex;
+        justify-content: flex-end;
     }
 
     .postInfo{
         margin-top: 3px;
-
         display: flex;
         align-items: center;
         align-content: center;
@@ -459,6 +490,15 @@
     }
     .txtContent{
         margin-left: 5px;
+        display: flex;
+    }
+
+    .div2{
+        color: var(--divider);
+    }
+
+    .parent .commentBox>span{
+        justify-content: flex-end;
     }
     
     .txtContent>span{
@@ -573,7 +613,7 @@
     
     .world>span:hover, .fyp>span:hover {
 
-        text-decoration: 2px underline var(--icon2) !important;
+        text-decoration: 2.5px underline #ff5d75  !important;
     }
     
     .sharedPost{
@@ -600,7 +640,7 @@
         display: flex;
         flex-direction: column;
         text-align: left;
-        width: 40000px;
+        /* width: 40000px; */
     }
     
     .options{
@@ -653,6 +693,7 @@
         align-items: center;
         justify-content: center;
     }
+
     .likeButton>span{
         color: black;
         font-family: 'Montserrat', sans-serif;
@@ -717,6 +758,10 @@
         display: flex;
         font-size: 20px;
         font-weight: 600;
+    }
+
+    .titleSale{
+        color: var(--text-primary);
     }
 
     @media only screen and (max-width: 650px) {

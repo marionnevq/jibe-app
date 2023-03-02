@@ -5,19 +5,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import alt from "../images/alternate.jpg";
 import { getCurrentUser, updateCurrentUser } from '../services/user';
+
 import "../style/UserEdit.css";
+
 
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../services/firebase';
 
 const EditUser = ({handleClose}) => {
 
-    const params = useParams();
     const [imageUrl, setImageUrl] = useState(null);
     const [imageUpload, setImageUpload] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
-    const swiperRef = useRef(null);
     const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -61,18 +61,7 @@ const EditUser = ({handleClose}) => {
     
       const handleClickShowPassword = () => setShowPassword(!showPassword);
       const navigate = useNavigate();
-    
-      // const handleImage = (event) => {
-      //     const img = event.target.files[0];
-      //       setImageUrl(URL.createObjectURL(img));
-      //       setForm({
-      //         ...form,
-      //         image: img
-      //       });
-      //       console.log(form);
-      //       console.log(img);
-      //     }
-    
+
       const schema = Joi.object({
         firstname: Joi.string().min(3).max(20).required(),
         lastname: Joi.string().min(3).max(20).required(),
@@ -152,14 +141,8 @@ const EditUser = ({handleClose}) => {
         }
       };
     
-      const isFormInvalid = () => {
-        const result = schema.validate(form);
-        return !!result.error;
-      };
-    
-
   return (
-    <Box className='edit-form' sx={{ ...style, width: "80%",height: "auto", borderRadius: "15px"}}>
+    <Box className='edit-form' sx={{ ...style, width: "80%",height: "auto", borderRadius: "15px", marginBottom: "10px"}}>
           <Grid container sx={{display: "flex", justifyContent: "end", alignItems: "center"}}>
             <IconButton onClick={handleClose}>
                 <CloseIcon />
@@ -185,7 +168,7 @@ const EditUser = ({handleClose}) => {
                 className="img-btn"
                 sx={{ backgroundColor: "#2C3568", textAlign: "center", marginBottom: "5px" }}
             >
-                <Typography id="save">
+                <Typography id="save" sx={{ fontFamily: "Montserrat" }}>
                 Change Profile Picture
                 </Typography>
                 <input
@@ -263,9 +246,10 @@ const EditUser = ({handleClose}) => {
               multiline
             />
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-            <Button variant='contained' onClick={handleSaveChanges} sx={{borderRadius: "35px", marginBottom: "10px"}}>Save Changes</Button>
+            <Button variant='contained' onClick={handleSaveChanges} sx={{borderRadius: "35px", marginBottom: "10px", fontFamily: "Montserrat" }}>Save Changes</Button>
           
-          </div></Box>
+            </div>
+          </Box>
             </Grid>
           </Grid>
           

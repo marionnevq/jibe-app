@@ -1,4 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import {
   Button,
   IconButton,
@@ -11,6 +12,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/likewo.png";
 import { authPasswordChangeForm, saveNewPassword } from "../services/password";
+
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+
 
 const ForgotForm = ({
   token,
@@ -25,6 +29,7 @@ const ForgotForm = ({
       navigate("/login");
     });
   }, []);
+
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -81,6 +86,7 @@ const ForgotForm = ({
     return !!result.error;
   };
 
+
   const handleSubmit = () => {
     setLoading(true);
     saveNewPassword(token, form.password)
@@ -100,95 +106,77 @@ const ForgotForm = ({
       });
   };
   return (
-    <Paper
-      sx={{
-        width: "40%",
-        height: "400px",
-        lineHeight: "1px",
-        borderRadius: "15px",
-      }}
-    >
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "25px" }}
-      >
-        <img src={logo} style={{ width: "15%" }} />
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "15px" }}
-      >
-        <h1 style={{ fontFamily: "montserrat", fontSize: "21px" }}>
-          Change Password
-        </h1>
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}
-      >
+    <Paper sx={{width: "auto", maxWidth: "80%", minHeight: "400px", height: "auto", lineHeight: "1px", borderRadius: "15px", textAlign: "center"}}>
+        <div style={{marginLeft: "20px", marginTop: "20px", fontSize: "70px", textAlign: "left"}}>
+            <IconButton onClick={() => navigate("/login")}>
+                <ArrowBackOutlinedIcon />
+            </IconButton>
+        </div>
+        <div style={{display: "flex", justifyContent: "center", marginTop: "25px"}}>
+            <img src={logo} style={{width: "15%"}}/>
+        </div>
+        <div style={{display: "flex", justifyContent: "center", marginTop: "15px"}}>
+            <h1 style={{fontFamily: "montserrat", fontSize: "21px"}}>Change Password</h1>
+        </div>
+        <div style={{display: "flex", justifyContent: "center", marginTop: "40px"}}>
         <TextField
-          name="password"
-          error={!!errors.password}
-          helperText={errors.password}
-          FormHelperTextProps={{ className: "helperText" }}
-          onChange={handleChange}
-          value={form.password}
-          label="Password"
-          variant="filled"
-          size="small"
-          fullWidth
-          sx={{ width: "80%" }}
-          type={showPassword ? "text" : "password"}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
+            name="password"
+            error={!!errors.password}
+            helperText={errors.password}
+            FormHelperTextProps={{ className: "helperText" }}
+            onChange={handleChange}
+            value={form.password}
+            label="Password"
+            variant="filled"
+            size="small"
+            fullWidth
+            sx={{width: "80%"}}
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
         <TextField
-          name="confirmPwd"
-          error={!!errors.confirmPwd}
-          helperText={errors.confirmPwd}
-          FormHelperTextProps={{ className: "helperText" }}
-          onChange={handleChange}
-          value={form.confirmPwd}
-          label="Confirm Password"
-          variant="filled"
-          size="small"
-          fullWidth
-          sx={{ width: "80%" }}
-          type={showPassword ? "text" : "password"}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          variant="contained"
-          disabled={isFormInvalid()}
-          sx={{ width: "60%", marginTop: "30px" }}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
+            name="confirmPwd"
+            error={!!errors.confirmPwd}
+            helperText={errors.confirmPwd}
+            FormHelperTextProps={{ className: "helperText" }}
+            onChange={handleChange}
+            value={form.confirmPwd}
+            label="Confirm Password"
+            variant="filled"
+            size="small"
+            fullWidth
+            sx={{width: "80%"}}
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div style={{display: "flex", justifyContent: "center"}}>
+      <Button variant='contained' disabled={isFormInvalid()} sx={{width: "50%", marginTop: "30px", marginBottom: "60px", borderRadius: "35px"}} onClick={handleSubmit}>Submit</Button>
+
       </div>
     </Paper>
   );

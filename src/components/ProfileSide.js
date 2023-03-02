@@ -1,12 +1,21 @@
 import LatchSuggestion from "./LatchSuggestion";
 
-import { Avatar, Divider, Grid, Paper } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import alt from "../images/alternate.jpg";
-import * as userService from "../services/user";
 import { getCurrentUser } from "../services/user";
+import * as userService from "../services/user";
+import alt from "../images/alternate.jpg";
+
+
 
 const ProfileSide = ({ theme }) => {
   const [users, setUsers] = useState(null);
@@ -37,7 +46,7 @@ const ProfileSide = ({ theme }) => {
   const GoToProfile = async (user) => {
     console.log(user);
     const username = user.username;
-    navigate(`/profile/visit/${username}/temp`);
+    navigate(`/profile/${username}`);
   };
 
   return (
@@ -64,7 +73,7 @@ const ProfileSide = ({ theme }) => {
             sx={{
               width: "90%",
               minHeight: "270px",
-              borderRadius: "0.6rem",
+              borderRadius: "5px",
               boxShadow: "1",
             }}
           >
@@ -77,7 +86,7 @@ const ProfileSide = ({ theme }) => {
                 backgroundSize: "26%",
                 backgroundAttachment: "fixed",
                 paddingBottom: "15px",
-                borderRadius: "0.6rem",
+                borderRadius: "5px",
               }}
             />
             <Grid
@@ -91,9 +100,9 @@ const ProfileSide = ({ theme }) => {
               }}
             >
               <Avatar
-                className="profile-img"
+                className="profile-feed"
                 src={currentUser === null ? alt : currentUser.imageUrl}
-                sx={{ width: "150px", height: "150px" }}
+                sx={{ width: "100px", height: "100px" }}
                 onClick={() => {
                   navigate(`/profile/${currentUser.username}`);
                 }}
@@ -163,19 +172,22 @@ const ProfileSide = ({ theme }) => {
                 alignItems: "center",
               }}
             >
-              <span>Find more people</span>
+              <h1 id="text" >Find more people</h1>
             </Box>
             <Box
               className="latchList"
               sx={{
                 width: "100%",
-                height: "200px",
+                height: "auto",
+                // height: "200px",
                 flexDirection: "column",
                 p: 0.5,
                 borderRadius: "0.6rem",
+                paddingBottom: "20px",
+                paddingTop: "5px"
               }}
             >
-              {users && users.map((user) => <LatchSuggestion user={user} />)}
+              {users && users.map((user) => <LatchSuggestion user={user} theme={theme} />)}
             </Box>
           </Grid>
         </Grid>

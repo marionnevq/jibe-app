@@ -1,9 +1,13 @@
-import { Divider } from "@mui/material";
+
+import { Avatar } from "@mui/material";
+
 import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router";
+import alt from "../images/alternate.jpg"
+import "../style/Feed.css"
 
-const LatchSuggestion = ({ user }) => {
+const LatchSuggestion = ({ user, theme }) => {
   const navigate = useNavigate();
 
   const GoToProfile = async (user) => {
@@ -15,7 +19,9 @@ const LatchSuggestion = ({ user }) => {
   return (
     <Box
       className="latchInfo"
-      sx={{ width: "100%", height: "100%", display: "flex" }}
+      sx={{ width: "100%", height: "100%", display: "flex", borderRadius: "10px" }}
+      // className="latch-info"
+      // data-theme={theme}
     >
       <Box
         className="latchDp"
@@ -24,13 +30,14 @@ const LatchSuggestion = ({ user }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          marginLeft: "15px"
         }}
       >
-        <img src={user.imageUrl} />
+        <Avatar className="prof-dp" src={user? user.imageUrl : alt} />
       </Box>
       <Box
         className="latchName"
-        sx={{ width: "60%", cursor: "pointer" }}
+        sx={{ width: "100%", cursor: "pointer", marginLeft: "15px" }}
         onClick={() => {
           GoToProfile(user);
         }}
@@ -38,14 +45,6 @@ const LatchSuggestion = ({ user }) => {
         <span>{`${user.firstname} ${user.lastname}`}</span>
         <span>@{user.username}</span>
       </Box>
-
-      {/* <Box className="latchBtn" sx={{ width: "20%" }}>
-        <IconButton className="buttonLatch">
-          <PersonAddIcon sx={{ color: "#EB4660" }} />
-        </IconButton>
-      </Box> */}
-
-      <Divider className="divider" />
     </Box>
   );
 };

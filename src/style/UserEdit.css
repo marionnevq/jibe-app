@@ -1,3 +1,7 @@
+*, html, body{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .edit-form .field-one{
     margin-bottom: 20px;
     width: 80%;

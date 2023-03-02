@@ -1,9 +1,13 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { Avatar, Box, Grid, IconButton, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { searchUsers } from "../services/auth";
-import "../style/NavBar.css";
+
+import { Avatar, Box, Grid, IconButton, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { searchUsers } from '../services/auth';
+import CloseIcon from '@mui/icons-material/Close';
+import "../style/NavBar.css"
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import spinner from "../images/loading1.gif"
+
 
 const ProfileSearch = ({ handleClose, search, theme }) => {
   const [users, setUsers] = useState([]);
@@ -21,109 +25,87 @@ const ProfileSearch = ({ handleClose, search, theme }) => {
     });
   };
 
-  const handleGoToProfile = (username) => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      handleClose();
-      navigate(`/profile/visit/${username}`);
-      setLoading(false);
-      window.location.reload(false);
-    }, 3000);
-  };
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          width: "100%",
+    const handleGoToProfile = (username) => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+            handleClose();
+            navigate(`/profile/visit/${username}`);
+            setLoading(false);
+            window.location.reload(false);
+            
+          }, 1000);
+       
+    }
+
+    if(loading){
+        return <div style={{
+          width: "100%", 
           height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h1 style={{ color: "#f2f2f2" }}>Loading...</h1>
-      </div>
-    );
-  }
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center"}}>
+                  <img src={spinner} style={{width: "5%"}}></img>
+                </div>
+    }
+
 
   console.log(users);
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
 
   return (
-    <Paper
-      className="search-paper"
-      style={{
-        ...style,
-        backgroundColor: () => (theme === "light" ? "white" : "#333333"),
-      }}
-    >
-      <Grid
-        className="search-head"
-        container
+  <Paper
+  className='search-paper'
+  sx={{ backgroundColor: () => (theme === "light" ? "white" : "#333333"), height: "400px" , display: "block", width: "500px", paddingBottom: "30px", borderBottom: "1px solid gray" }}
+  data-theme={theme}>
+    <Grid className='search-head' container sx={{display: "flex", justifyContent: "end", backgroundColor: (() => theme === "light" ? "white" : "#333333")}}>
+          
+          <IconButton className="close-modal" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+          </Grid>
+           <div id='title' >
+          <h2 id="child-modal-title">Search Result</h2>
+          </div>
+  {users.map((user) => 
+    <Grid container item
+    sx={{
+      backgroundColor: () => (theme === "light" ? "white" : "#333333"), borderBottom: "2px soli white", marginBottom: "10px", fontFamily: "montserrat"
+    }}
+  >
+    <Box className="info" sx={{ p: 0.2, marginLeft: "25px"}}>
+      <Box className="opImg" sx={{ p: 1  }}>
+        <div className="opInfo">
+          <Avatar
+            src={user === null? "" : user.imageUrl}
+            alt=""
+            sx={{width: "50px", height: "50px"}} />
+        </div>
+      </Box>
+      <Box
+        className="opName"
+        onClick={() => handleGoToProfile(user.username)}
         sx={{
-          display: "flex",
-          justifyContent: "end",
-          backgroundColor: () => (theme === "light" ? "white" : "#333333"),
-        }}
-      >
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          p: 1,
+          color: () => (theme === "light" ? "#333333" : "white"),
           width: "100%",
-          backgroundColor: () => (theme === "light" ? "white" : "#333333"),
+          marginLeft: "15px"
         }}
       >
-        <h2 id="child-modal-title">Search Result</h2>
-      </div>
-      {users.map((user) => (
-        <Grid
-          container
-          item
-          sx={{
-            backgroundColor: () => (theme === "light" ? "white" : "#333333"),
-            borderBottom: "2px soli white",
-          }}
-        >
-          <Box className="info" sx={{ p: 0.2 }}>
-            <Box className="opImg" sx={{ p: 1 }}>
-              <div className="opInfo">
-                <Avatar src={user === null ? "" : user.imageUrl} alt="" />
-              </div>
-            </Box>
-            <Box
-              className="opName"
-              onClick={() => handleGoToProfile(user.username)}
-              sx={{
-                p: 1,
-                color: () => (theme === "light" ? "#333333" : "white"),
-              }}
-            >
-              <span>
-                {user === null ? "" : `${user.firstname} ${user.lastname}`}
-              </span>
-            </Box>
-          </Box>
-        </Grid>
-      ))}
-    </Paper>
-  );
-};
+        <Box className="name-link" sx={{width: "100%", fontSize: "15px", fontWeight: "600"}}>
+            {user === null
+              ? ""
+              : `${user.firstname} ${user.lastname}`}
+        </Box>
+        <Box className= "uName-link"sx={{width: "100%", fontSize: "12px"}}>
+           {user.username}
+        </Box>
+      </Box>
+    </Box>
+  </Grid>)}
+  </Paper>
+  )
+}
 
-export default ProfileSearch;
+export default ProfileSearch
+

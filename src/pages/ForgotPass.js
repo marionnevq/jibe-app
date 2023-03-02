@@ -1,7 +1,12 @@
+
 import React from "react";
 import { useParams } from "react-router-dom";
 import ForgotForm from "../components/ForgotForm";
-import bg from "../images/1.jpeg";
+
+
+import ForgotForm from '../components/ForgotForm'
+import bg from "../images/1.png"
+
 
 const ForgotPass = ({
   setLoading,
@@ -11,6 +16,7 @@ const ForgotPass = ({
 }) => {
   const params = useParams();
   return (
+
     <div
       style={{
         backgroundImage: `url(${bg})`,

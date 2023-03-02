@@ -33,6 +33,7 @@
 .right-grid{
     display: inline-block; 
     text-align: center;
+    padding-bottom: 40px;
 }
 
 .right-grid img{

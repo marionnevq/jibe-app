@@ -73,7 +73,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
             }}
           >
             <Avatar
-              className="profile-img"
+              className="profile-image"
               src={currentUser === null ? alt : currentUser.imageUrl}
             ></Avatar>
           </Grid>
@@ -101,20 +101,16 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                   {currentUser === null ? 0 : currentUser.postsCount}
                 </h3>
-                <h1
-                  style={{
-                    fontSize: "20px",
-                    fontFamily: "poppins",
-                    fontWeight: "lighter",
-                  }}
-                >
+
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+
                   Posts
                 </h1>
               </Grid>
@@ -131,20 +127,16 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                   {currentUser === null ? 0 : currentUser.followersCount}
                 </h3>
-                <h1
-                  style={{
-                    fontSize: "20px",
-                    fontFamily: "poppins",
-                    fontWeight: "lighter",
-                  }}
-                >
+
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500  }}>
+
                   Followers
                 </h1>
               </Grid>
@@ -161,20 +153,16 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
               >
                 <h3
                   style={{
-                    fontSize: "35px",
+                    fontSize: "20px",
                     fontFamily: "montserrat",
-                    fontWeight: "500",
+                    fontWeight: "700",
                   }}
                 >
                   {currentUser === null ? 0 : currentUser.followingCount}
                 </h3>
-                <h1
-                  style={{
-                    fontSize: "20px",
-                    fontFamily: "poppins",
-                    fontWeight: "lighter",
-                  }}
-                >
+
+                <h1 style={{ fontSize: "15px", fontFamily: "montserrat", fontWeight:"lighter", fontWeight: 500 }}>
+
                   Following
                 </h1>
               </Grid>
@@ -311,12 +299,16 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   wordBreak: "break-word",
                 }}
               >
-                <h1 style={{ fontSize: "40px" }}>
+
+                <h1 style={{ fontSize: "20px"}}>
+
                   {currentUser === null
                     ? ""
                     : `${currentUser.firstname} ${currentUser.lastname}`}
                 </h1>
-                <h3 style={{ fontSize: "30px" }}>
+
+                <h3 style={{ fontSize: "15px"}}>
+
                   @{currentUser === null ? "" : `${currentUser.username}`}
                 </h3>
                 <Divider className="divider-info" />
@@ -342,11 +334,13 @@ const ProfilePage = ({ onLogout, onSwitch, theme, setLoading }) => {
                   wordBreak: "break-word",
                 }}
               >
+
                 <PostForm
                   currentUser={currentUser}
                   setLoading={setLoading}
                   theme={theme}
                 />
+
               </Paper>
             </Grid>
 

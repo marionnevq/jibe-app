@@ -11,7 +11,7 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   const [image, setImage] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const imageRef = useRef();
-
+  const [postDisabled, setPostDisabled] = useState(true);
   const handleImage = (event) => {
     const img = event.target.files[0];
     setImage({
@@ -23,6 +23,8 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   };
 
   const handleSavePost = () => {
+    let isInvalid = isFormInvalid();
+    if (isInvalid) return;
     if (imageUpload == null) {
       setLoading(true);
       createPost({
@@ -64,6 +66,19 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
   const handleChange = ({ currentTarget: input }) => {
     setPostBody(input.value);
   };
+
+  const isFormInvalid = () => {
+    if (postBody.replaceAll(/\s/g, "").length == 0) {
+      if (imageUpload == null) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Grid
       container

@@ -87,7 +87,7 @@ const NavBar = ({onLogout, onSwitch, theme}) => {
   const themeNow = theme;
 
   return (
-    <div style={{overflow: "scroll"}}>
+    <div >
        <Modal
         open={show}
         onClose={handleClose}

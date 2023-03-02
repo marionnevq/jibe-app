@@ -191,6 +191,7 @@
 
 .post {
     background-color: var(--info);
+    border-radius: 35px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -302,7 +303,7 @@
         width: 95%;
         height: auto;
         padding-bottom: 2px;
-        border-radius: 0.6rem;
+        border-radius: 35px;
         box-shadow: 3;
         margin-left: 10px;
         background-color: var(--info),

@@ -26,6 +26,9 @@ import "../style/Feed.css";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { checkLiked, createLike, getLike, removeLike } from "../services/like";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import { useNavigate } from "react-router-dom";
 
 const PostPage = ({
   postId,
@@ -44,7 +47,8 @@ const PostPage = ({
   const [commentForm, setCommentForm] = useState("");
   const [user, setUser] = useState(null);
   const [like, setLike] = useState(false);
-
+  const navigate = useNavigate();
+  
   async function selectPost() {
     const post = await postService.getPost(params.postId);
     const comment = await commentService.getComments(params.postId);
@@ -62,6 +66,13 @@ const PostPage = ({
   useEffect(() => {
     selectPost();
   }, []);
+
+  const convertTime = (postDate) => {
+    TimeAgo.addLocale(en);
+    const timeAgo = new TimeAgo("en-US");
+    const ago = timeAgo.format(new Date(postDate));
+    return ago;
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -156,7 +167,7 @@ const PostPage = ({
                     ? ""
                     : `${post.userFirstname} ${post.userLastname}`}
                 </span>
-                <span>{post == null ? "" : post.datePosted}</span>
+                <span>{post == null ? "" : convertTime(post.datePosted)}</span>
               </Box>
             </Box>
             <Box className="postContent" sx={{ p: 0.2 }}>
@@ -245,9 +256,10 @@ const PostPage = ({
               {comments.map((comment) => (
                 <>
                   <ListItem alignItems="flex-start" key={comment.commentID}>
-                    <ListItemAvatar>
+                    <ListItemAvatar >
                       <Avatar
                         alt={comment.userUsername}
+                        onClick={() => {navigate(`/profile/visit/${comment.userUsername}`)}}
                         src={
                           comment.userImageUrl == null
                             ? comment.userUsername
@@ -258,6 +270,7 @@ const PostPage = ({
                     <ListItemText
                       sx={{ fontFamily: "Montserrat" }}
                       className="name"
+                      onClick={() => {navigate(`/profile/visit/${comment.userUsername}`)}}
                       primary={
                         <>
                           {comment.userUsername}
@@ -268,7 +281,7 @@ const PostPage = ({
                             sx={{ float: "right", fontFamily: "Montserrat" }}
                             className="username"
                           >
-                            {comment.dateCommented}
+                            {convertTime(comment.dateCommented)}
                           </Typography>
                         </>
                       }

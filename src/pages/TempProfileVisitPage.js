@@ -13,19 +13,13 @@ import { fetchUserByUsername } from "../services/auth";
 import { checkFollowing, followUser, unfollowUser } from "../services/follow";
 import { getCurrentUser } from "../services/user";
 
-const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
+const TempProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
   const params = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-
-  // useEffect(() => {
-  //   setLoading(true);
-
-  // }, []);
-
   useEffect(() => {
     setLoading(true);
     getCurrentUser().then((response) => {
@@ -40,19 +34,6 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
       setLoading(false);
     });
   }, []);
-  
-  const handleSubmit = (form) => {
-    // employeeService
-    //   .updateEmployee(employee.id, form)
-    //   .then(() => {
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response && error.response.status === 400) {
-    //       alert(error.response.data.message[0]);
-    //     }
-    //   });
-  };
 
   const [open, setOpen] = React.useState(false);
 
@@ -62,6 +43,10 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   const handleLatch = () => {
     if (isFollowing) {
@@ -74,11 +59,6 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
       });
     }
   };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
   return (
     <div style={{ height: "auto" }}>
       <Modal
@@ -140,14 +120,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "21px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
-                    {user === null ? 0 : user.postsCount}
+                    {user && user.postsCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Posts
                   </h1>
                 </Grid>
@@ -164,14 +144,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "21px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
-                    {user === null ? 0 : user.followersCount}
+                    {user && user.followersCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Followers
                   </h1>
                 </Grid>
@@ -188,14 +168,14 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 >
                   <h3
                     style={{
-                      fontSize: "35px",
+                      fontSize: "21px",
                       fontFamily: "montserrat",
                       fontWeight: "500",
                     }}
                   >
-                    {user === null ? 0 : user.followingCount}
+                    {user && user.followingCount}
                   </h3>
-                  <h1 style={{ fontSize: "20px", fontFamily: "montserrat" }}>
+                  <h1 style={{ fontSize: "15px", fontFamily: "montserrat" }}>
                     Following
                   </h1>
                 </Grid>
@@ -210,13 +190,6 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                     alignItems: "center",
                   }}
                 >
-                  {/* <Button
-                    variant="contained"
-                    className="latch-btn1"
-                    onClick={handleOpen}
-                  >
-                    <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
-                  </Button> */}
                   {isFollowing ? (
                     <Button
                       variant="outlined"
@@ -265,7 +238,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
               >
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    {user === null ? 0 : user.postsCount}
+                    {user && user.postsCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Posts
@@ -273,7 +246,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 </div>
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    {user === null ? 0 : user.followersCount}
+                    {user && user.followersCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Followers
@@ -281,7 +254,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 </div>
                 <div className="mobile-items">
                   <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
-                    {user === null ? 0 : user.followingCount}
+                    {user && user.followingCount}
                   </h3>
                   <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
                     Following
@@ -301,9 +274,6 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                     width: "100%",
                   }}
                 >
-                  {/* <Button className="btn-latch" variant="contained">
-                    <PersonAddIcon sx={{ marginRight: "10px" }} /> Latch
-                  </Button> */}
                   {isFollowing ? (
                     <Button
                       variant="outlined"
@@ -357,13 +327,11 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                     wordBreak: "break-word",
                   }}
                 >
-                  <h1 style={{ fontSize: "40px" }}>
+                  <h1>
                     {" "}
                     {user === null ? "" : `${user.firstname} ${user.lastname}`}
                   </h1>
-                  <h3 style={{ fontSize: "30px" }}>
-                    @{user === null ? "" : user.username}
-                  </h3>
+                  <h3>@{user === null ? "" : user.username}</h3>
                   <Divider className="divider-info" />
                   <h4>{user === null ? "" : user.bio}</h4>
                 </Paper>
@@ -375,57 +343,11 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 md={8.5}
                 sx={{ height: "auto" }}
               >
-                {user && <PostVisit theme={theme} user={user} />}
+                {/* <PostVisit theme={theme} user={user} /> */}
               </Grid>
-              <Paper className="bottom-foot">
-                <Grid container className="foot" style={{ height: "auto" }}>
-                  <Grid
-                    className="left"
-                    item
-                    xs={12}
-                    md={3.5}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "start",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <Paper
-                      className="window-name"
-                      style={{
-                        width: "95%",
-                        borderRadius: "0.6rem",
-                        boxShadow: "none",
-                        height: "auto",
-                        paddingRight: "10px",
-                        paddingLeft: "10px",
-                        wordBreak: "break-word",
-                      }}
-                    >
-                      <h1>
-                        {" "}
-                        {user === null
-                          ? ""
-                          : `${user.firstname} ${user.lastname}`}
-                      </h1>
-                      <h3>@{user === null ? "" : user.username}</h3>
-                      <Divider className="divider-info" />
-                      <h4>{user === null ? "" : user.bio}</h4>
-                    </Paper>
-                  </Grid>
-                  <Grid
-                    className="post-corner"
-                    item
-                    xs={12}
-                    md={8.5}
-                    sx={{ height: "auto" }}
-                  >
-                    <PostVisit theme={theme} user={user} />
-                  </Grid>
-                </Grid>
-              </Paper>
-              {/* <Grid container sx={{height: "auto"}}>
+            </Grid>
+          </Paper>
+          {/* <Grid container sx={{height: "auto"}}>
           <Grid container item xs={12} md={12} sx={{height: "100px"}}>
             Hello
           </Grid>
@@ -433,13 +355,10 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
           <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
           <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
       </Grid> */}
-            </Grid>
-          </Paper>
         </div>
       </div>
     </div>
   );
 };
 
-
-export default ProfileVisitPage;
+export default TempProfileVisitPage;

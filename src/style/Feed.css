@@ -1,26 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-
+    --bg-image: url(https://4kwallpapers.com/images/walls/thumbs_3t/8624.jpeg);
+    --nav-background: #EEE8DB;
     --background: #f2f2f2; /*white*/
     --background-two: #f2f2f2; /*cream*/
     --text-primary: #000; /*black*/
     --text-secondary: #424242; /*white*/
     --primary: #ff5d75; /*pink*/
     --secondary: #2C3568; /*dark blue*/
-    --icon: #EB4660; 
+    --icon: #1C2835; 
     --nav-shadow: rgb(185, 184, 184);
     --nav2-logo: #1C2835;
     --input-field: white;
     --paper: white;
     --textfield: #f2f2f2;
-    --divider: #d2d2d2;
-    --dividerChip: #EEE8DB;
+    --divider: #f2f2f2;
+    --divider-chip: #d4d4d4;
     --header: #16202A;
-    --icon2: #EB4660; 
+    --cover: #22294f;
+    --bottom-paper: #a9a7a7;
+    --info: white;
+    --foot: #f2f2f2;
+    --mode: #2C3568;
   }
   
   [data-theme='dark'] {
+   --bg-image: url(https://img.freepik.com/free-vector/dark-wavy-background_23-2148399820.jpg?w=900&t=st=1677510491~exp=1677511091~hmac=514029579bfa92e73d2c93210cf2ce9d4734fa4fd66d2dd8b647e7e09a15ead2);
+    --nav-background: #1b1b1b;
     --background: #1b1b1b; /*dark blue*/
     --background-two: #3f3f3f; /*darker blue*/
     --text-primary: white; /*white*/
@@ -33,10 +40,14 @@
     --input-field: #333333;
     --paper: #343434;
     --textfield: #636363;
-    --divider: #636363;
-    --dividerChip: #b8b8b8;
+    --divider: #fefefe;
+    --divider-chip: #7f7f7f;
     --header: #EEE8DB;
-    --icon2: white; 
+    --cover: #333333;
+    --bottom-paper: #636363;
+    --info: #333333;
+    --foot: #1b1b1b;
+    --mode: #fec6ce;
   }
 
   .MuiInputLabel-root {
@@ -116,6 +127,7 @@
 
     .parent .shareText{
         background-color: var(--textfield);
+        color: var(--text-primary);
     }
 
     .parent .previewClose{
@@ -196,16 +208,28 @@
     }
 
     .parent .header{
-        background-color: var(--header);
+        background-image: var(--bg-image);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-attachment: scroll;
     }
 
     .parent .dividerChip{
-        background-color: var(--dividerChip);
+        background-color: var(--divider-chip);
         color: var(--text-primary);
     }
 
-    .parent .latchBtn{
+    .parent .buttonLatch{
         color: var(--icon2);
+    }
+
+    .parent .shareText{
+        border: none;
+    }
+
+    .parent .inputTextfield{
+        color: var(--text-primary);
+        font-size: 14px;
     }
 
     /*end*/
@@ -234,11 +258,12 @@
     .profileDp>img{
         width: 6rem;
         border-radius: 50%;
-        border: 3px solid var(--paper);
+        border: 5px solid var(--paper);
+
     }
 
 
-    .profileDp>img:hover{
+    .profile-img:hover{
         cursor: pointer;
     }
 
@@ -548,7 +573,7 @@
     
     .world>span:hover, .fyp>span:hover {
 
-        text-decoration: 3px underline #EB4660 !important;
+        text-decoration: 2px underline var(--icon2) !important;
     }
     
     .sharedPost{
@@ -568,8 +593,6 @@
     .opInfo>img{
         width: 2.5rem;
         border-radius: 50%;
-        box-shadow: 3px;
-        box-shadow: 2px 2px 2px gray; 
     }
     
     .opName{

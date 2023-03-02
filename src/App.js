@@ -26,6 +26,7 @@ import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 import ForgotPass from "./pages/ForgotPass";
 
+
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [posts, setPosts] = useState([]);
@@ -194,6 +195,21 @@ function App() {
           element={
             accessToken ? (
               <ProfileVisitPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/profile/visit/:username/temp"
+          element={
+            accessToken ? (
+              <TempProfileVisitPage
                 onLogout={handleLogout}
                 onSwitch={switchTheme}
                 theme={theme}

@@ -170,6 +170,9 @@
     background-color: var(--info);
 }
 
+.imgContent {
+    border: 1px solid var(--divider);
+}
 @media only screen and (max-width: 600px) {
 
     .main-header{

@@ -1,11 +1,12 @@
 import "@fontsource/poppins";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import {
   Button,
   Grid,
   IconButton,
   InputAdornment,
-  TextField,
+  TextField
 } from "@mui/material";
 import Joi from "joi";
 import React, { useContext, useState } from "react";
@@ -14,12 +15,6 @@ import { UserContext } from "../context/UserContext";
 import Logo2 from "../images/logo-noblack-label.png";
 import reg from "../images/reg.png";
 import "../style/Register.css";
-
-import Joi from "joi";
-import LoginSwiper from "../components/LoginSwiper";
-import { UserContext } from "../context/UserContext";
-import { register } from "../services/auth";
-import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 
 const Register = ({ handleSubmit }) => {

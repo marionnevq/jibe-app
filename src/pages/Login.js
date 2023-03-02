@@ -127,7 +127,7 @@ const Login = ({ onLogin, setLoading }) => {
           </div>
           <div style={{width: "100%",display: "flex", justifyContent: "center"}}>
             <div style={{width: "65%",display: "flex", justifyContent: "start", color: "#2c3568", marginLeft: "10px", marginTop: "10px"}}>
-              <a href="/forgot/password" style={{textDecoration: "none", fontFamily: "montserrat", fontSize: "15px", fontWeight: "600"}}>Forgot Password</a>
+              <a href="/forgot" style={{textDecoration: "none", fontFamily: "montserrat", fontSize: "15px", fontWeight: "600"}}>Forgot Password</a>
             </div>
           </div>
           <div>

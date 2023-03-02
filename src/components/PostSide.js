@@ -1,4 +1,6 @@
-import { Chip, Divider, Grid, Paper } from "@mui/material";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import PhotoIcon from "@mui/icons-material/Photo";
+import { Avatar, Button, Divider, Grid, Paper, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -92,7 +94,7 @@ const PostSide = ({ theme, setLoading }) => {
     });
   };
 
-/*
+  /*
  <PostForm
           currentUser={currentUser}
           theme={theme}
@@ -101,10 +103,7 @@ const PostSide = ({ theme, setLoading }) => {
         
         */
   return (
-
-
     <div className="postSide" style={{ minWidth: "100%", marginTop: "10px" }}>
-
       <Grid
         container
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -158,24 +157,42 @@ const PostSide = ({ theme, setLoading }) => {
           </Paper>
         </Grid>
 
+        <Grid
+          container
+          item
+          xs={12}
+          sx={{ display: "flex", marginTop: "10px" }}
+        >
+          <PostForm
+            currentUser={currentUser}
+            theme={theme}
+            setLoading={setLoading}
+          />
+          {/* <Paper
+            className="post"
+            sx={{
+              width: "94%",
+              minHeight: "115px",
+              maxHeight: "750px",
+              borderRadius: "5px",
+              boxShadow: "1",
+            }}
+          > */}
 
-      <Grid container item xs={12} sx={{display: "flex", marginTop: "10px" }}>
-     
-          <Paper className='post' sx={{ width:"94%", minHeight: "115px", maxHeight:"750px", borderRadius:"5px", boxShadow:"1" }}>
-           <Box className="postInfo">
-            <Box className='postDp' sx={{ p: 1 }}>
+          {/* <Box className="postInfo"> */}
+          {/* <Box className="postDp" sx={{ p: 1 }}>
                 <div className="postDp2">
-                <Avatar
-                className="profile-img"
-                src={currentUser === null ? " " : `${currentUser.imageUrl}`}
-                sx={{ width: "50px", height: "50px" }}
-                onClick={() => {
-                  navigate(`/profile/${currentUser.username}`);
-                }}
-              ></Avatar>
+                  <Avatar
+                    className="profile-img"
+                    src={currentUser === null ? " " : `${currentUser.imageUrl}`}
+                    sx={{ width: "50px", height: "50px" }}
+                    onClick={() => {
+                      navigate(`/profile/${currentUser.username}`);
+                    }}
+                  ></Avatar>
                 </div>
-              </Box>
-              <Box className='postText' sx={{ p: 1}}>
+              </Box> */}
+          {/* <Box className='postText' sx={{ p: 1}}>
                 <TextField className='shareText' placeholder="What's jibin'?" sx={{ width: "100%" }}
                   InputProps={{ className: "inputTextfield", sx: { height: "auto", fontFamily: "montserrat" } }} multiline/>
               </Box>
@@ -201,9 +218,11 @@ const PostSide = ({ theme, setLoading }) => {
               <Button className='shareButton' variant='text' 
                 style={{ backgroundColor: "transparent", color:"#EB4660", fontFamily: 'Montserrat', height:"30px", fontSize:"16px", }} >
                   Post</Button>
-            </Box>
-          </Paper>
-      </Grid>
+            </Box> */}
+          {/* 
+            </Box> */}
+          {/* </Paper> */}
+        </Grid>
         <Grid
           container
           item

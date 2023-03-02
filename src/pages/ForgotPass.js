@@ -2,9 +2,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ForgotForm from "../components/ForgotForm";
-
-
-import ForgotForm from '../components/ForgotForm'
 import bg from "../images/1.png"
 
 

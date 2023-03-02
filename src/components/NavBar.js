@@ -32,11 +32,8 @@ import nav2 from "../images/nav2.png";
 import nav3 from "../images/nav3.png";
 import { getUser } from "../services/auth";
 import { deleteNotification, getNotifications } from "../services/notification";
+import ProfileSearch from "../components/ProfileSearch";
 
-import { useState } from "react";
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box } from "@mui/system";
 import Joi from "joi";
 
 

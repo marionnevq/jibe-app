@@ -5,10 +5,13 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
   Avatar,
-  Button, Divider, IconButton, Menu,
+  Button,
+  Divider,
+  IconButton,
+  Menu,
   MenuItem,
   Modal,
-  Paper
+  Paper,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import TimeAgo from "javascript-time-ago";
@@ -105,143 +108,156 @@ const PostComponent = ({ post, theme }) => {
       */
   return (
     <Paper
-    data-theme={theme}
-              className="post"
-              sx={{
-                width: "94%",
-                height: "auto",
-                paddingBottom: "2px",
-                borderRadius: "5px",
-                boxShadow: "3",
+      data-theme={theme}
+      className="post"
+      sx={{
+        width: "94%",
+        height: "auto",
+        paddingBottom: "2px",
+        borderRadius: "5px",
+        boxShadow: "3",
+      }}
+    >
+      <Modal
+        open={opened}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
+      >
+        <EditPost handleClose={handleClose} post={post} />
+      </Modal>
+      <Box className="info" sx={{ p: 0.2 }}>
+        <Box className="opImg" sx={{ p: 1 }}>
+          <div className="opInfo">
+            <Avatar
+              src={post.userImageUrl === null ? alt : post.userImageUrl}
+              onClick={() => {
+                navigate(`/profile/visit/${post.userUsername}`);
               }}
-              
+              alt=""
+            />
+          </div>
+        </Box>
+        <Box className="opName" sx={{ p: 1 }}>
+          <span
+            onClick={() => {
+              navigate(`/profile/visit/${post.userUsername}`);
+            }}
+          >
+            {post === null ? "" : `${post.userFirstname} ${post.userLastname}`}
+          </span>
+
+          <span>{convertTime(post.datePosted)}</span>
+        </Box>
+      </Box>
+      <Box className="postContent" sx={{ p: 0.2 }}>
+        <div className="postContent2">
+          <Box className="txtContent" sx={{ p: 0.2 }}>
+            <span>{post.length === 0 ? "" : post.body}</span>
+          </Box>
+          {post && post.imageUrl === null ? (
+            ""
+          ) : (
+            <Box
+              className="imgBox"
+              sx={{
+                // p: 1,
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                paddingTop: "5px",
+                paddingBottom: "5px",
+                border: "none",
+              }}
             >
+              <img
+                src={`${post.imageUrl}`}
+                style={{ width: "100%", height: "70%", border: "none" }}
+              />
+            </Box>
+          )}
+          <Box className="txtContent" sx={{ p: 0.2 }}>
+            <Box sx={{ width: "50%", paddingLeft: "50px" }}>
+              <span>
+                {post.numLikes === 0 ? (
+                  ""
+                ) : (
+                  <img
+                    src={liked}
+                    alt=""
+                    style={{ width: "25px", height: "25px" }}
+                  />
+                )}
+                &nbsp;{post.numLikes === 0 ? "" : `${post.numLikes}`}
+              </span>
+            </Box>
 
-              <Box className="info" sx={{ p: 0.2 }}>
-                <Box className="opImg" sx={{ p: 1 }}>
-                  <div className="opInfo">
-                    <Avatar
-                      src={post.userImageUrl === null ? alt : post.userImageUrl}
-                      onClick={() => {
-                        navigate(`/profile/visit/${post.userUsername}`);
-                      }}
-                      alt=""
-                    />
-                  </div>
-                </Box>
-                <Box className="opName" sx={{ p: 1 }}>
-                  <span
-                    onClick={() => {
-                      navigate(`/profile/visit/${post.userUsername}`);
+            <Box
+              className="commentBox"
+              sx={{
+                width: "50%",
+                display: "flex",
+                justifyContent: "flex-end",
+                paddingRight: "50px",
+              }}
+            >
+              <span>
+                {post.numComments === 0 ? (
+                  ""
+                ) : (
+                  <ModeCommentIcon
+                    sx={{
+                      color: "#ff5d75",
+                      width: "15px",
+                      height: "15px",
                     }}
-                  >
-                    {post === null
-                      ? ""
-                      : `${post.userFirstname} ${post.userLastname}`}
-                  </span>
-
-                  <span>{convertTime(post.datePosted)}</span>
-                </Box>
-              </Box>
-              <Box className="postContent" sx={{ p: 0.2 }}>
-                <div className="postContent2">
-                  <Box className="txtContent" sx={{ p: 0.2 }}>
-                    <span>{post.length === 0 ? "" : post.body}</span>
-                  </Box>
-                  {post && post.imageUrl === null ? (
-                    ""
-                  ) : (
-                    <Box
-                      className="imgBox"
-                      sx={{
-                        // p: 1,
-                        display: "flex",
-                        justifyContent: "center",
-                        width: "100%",
-                        paddingTop: "5px",
-                        paddingBottom: "5px",
-                        border: "none"
-                      }}
-                    >
-                      <img
-                        src={`${post.imageUrl}`}
-                        style={{ width: "100%", height: "70%", border: "none" }}
-                      />
-                    </Box>
-                  )}
-                  <Box className="txtContent" sx={{ p: 0.2 }}>
-                    <Box sx={{  width: "50%", paddingLeft: "50px" }}>
-                      <span>
-                        {post.numLikes === 0 ? (
-                          ""
-                        ) : (
-                          <img
-                            src={liked}
-                            alt=""
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                        )}
-                        &nbsp;{post.numLikes === 0 ? "" : `${post.numLikes}`}
-                      </span>
-                      </Box>
-
-                    <Box className="commentBox" sx={{ width: "50%", display: "flex", justifyContent: "flex-end", paddingRight: "50px" }}>      
-                      <span>
-                        {post.numComments === 0 ? (
-                          ""
-                        ) : (
-                          <ModeCommentIcon
-                            sx={{
-                              color: "#ff5d75",
-                              width: "15px",
-                              height: "15px",
-                            }}
-                          />
-                        )}
-                        &nbsp;{post.numComments === 0 ? "" : `${post.numComments}`}
-                      </span>
-                    </Box>  
-                    {/* <span> <img src={liked} style={{width: "20px", height: "20px" }}/> {`${post.numLikes}`}</span> */}
-                  </Box>
-                </div>
-              </Box>
-              <Divider className='divider'/>
-              <Box
-                className="reactions"
-                sx={{
-                  p: 0.2,
-                  color: () => (theme === "light" ? "#333333" : "white"),
-                }}
-              >
-                <Box className="like" sx={{ p: 0.2 }}>
-                  <div className="likebtn" onClick={handleChangeIcon}>
-                    <Button className="likeButton" sx={{ width: "280px" }}>
-                      {like ? <img src={liked} /> : <img src={unlike} />}
-                      {like ? <span>Liked</span> : <span>Like</span>}
-                    </Button>
-                  </div>
-                </Box>
-                <Divider
-                  className="divider"
-                  sx={{ height: 28, m: 0.5 }}
-                  orientation="vertical"
-                />
-                <Box className="comment" sx={{ p: 0.2 }}>
-                  <Button
-                    className="commentButton" sx={{ width: "280px" }}
-                    onClick={() => {
-                      navigate(`/posts/${post.postID}`);
-                    }}
-                  >
-                    <ModeCommentOutlinedIcon />
-                    <span>Comment</span>
-                  </Button>
-                </Box>
-              </Box>
-              {/* <Divider className='divider' sx={{ marginBottom:"10px" }}/> */}
-            </Paper>
-
-  )
-}
+                  />
+                )}
+                &nbsp;{post.numComments === 0 ? "" : `${post.numComments}`}
+              </span>
+            </Box>
+            {/* <span> <img src={liked} style={{width: "20px", height: "20px" }}/> {`${post.numLikes}`}</span> */}
+          </Box>
+        </div>
+      </Box>
+      <Divider className="divider" />
+      <Box
+        className="reactions"
+        sx={{
+          p: 0.2,
+          color: () => (theme === "light" ? "#333333" : "white"),
+        }}
+      >
+        <Box className="like" sx={{ p: 0.2 }}>
+          <div className="likebtn" onClick={handleChangeIcon}>
+            <Button className="likeButton" sx={{ width: "280px" }}>
+              {like ? <img src={liked} /> : <img src={unlike} />}
+              {like ? <span>Liked</span> : <span>Like</span>}
+            </Button>
+          </div>
+        </Box>
+        <Divider
+          className="divider"
+          sx={{ height: 28, m: 0.5 }}
+          orientation="vertical"
+        />
+        <Box className="comment" sx={{ p: 0.2 }}>
+          <Button
+            className="commentButton"
+            sx={{ width: "280px" }}
+            onClick={() => {
+              navigate(`/posts/${post.postID}`);
+            }}
+          >
+            <ModeCommentOutlinedIcon />
+            <span>Comment</span>
+          </Button>
+        </Box>
+      </Box>
+      {/* <Divider className='divider' sx={{ marginBottom:"10px" }}/> */}
+    </Paper>
+  );
+};
 
 export default PostComponent;

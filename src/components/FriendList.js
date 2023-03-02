@@ -1,21 +1,13 @@
 
-import React, { useEffect, useRef, useState } from 'react'
-import { Avatar, Button, Divider, Grid, IconButton, Paper, TextField } from '@mui/material'
-import { Box } from '@mui/system'
-import alt from "../images/alternate.jpg"
-
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import { Avatar, Divider, Grid, IconButton, Paper } from '@mui/material';
+import { Avatar, Button, Divider, Grid, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import alt from "../images/alternate.jpg";
+
+import { useNavigate } from 'react-router-dom';
 import * as userService from "../services/user";
 
-import { async } from 'q';
 import EditIcon from "@mui/icons-material/Edit";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import PhotoIcon from "@mui/icons-material/Photo";
 
 
 const FriendList = ({ theme }) => {

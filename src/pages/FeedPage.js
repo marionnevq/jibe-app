@@ -1,10 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
 import NavBar from "../components/NavBar";
-
-import "../style/Feed.css";
-import ProfileSide from "../components/ProfileSide";
-
 import PostSide from "../components/PostSide";
 import ProfileSide from "../components/ProfileSide";
 import TrendSide from "../components/TrendSide";

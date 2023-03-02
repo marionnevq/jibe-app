@@ -94,11 +94,10 @@ const PostForm = ({ currentUser, theme, setLoading }) => {
       <Paper
         className="post"
         sx={{
-          width: "95%",
+          width: "94%",
           minHeight: "120px",
           maxHeight: "100%",
-          paddingBottom: "2px",
-          borderRadius: "0.6rem",
+          borderRadius: "5px",
           boxShadow: "1",
         }}
       >

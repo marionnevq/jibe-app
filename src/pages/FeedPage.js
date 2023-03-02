@@ -11,14 +11,14 @@ const FeedPage = ({ onLogout, onSwitch, theme, currentUser, setLoading }) => {
   return (
     <div data-theme={theme} className="parent">
       <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
-      <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} md={3}>
+      <Grid container sx={{ minHeight: "100vh"}}>
+        <Grid item xs={12} md={3} sx={{position: "sticky", position: "-webkit-sticky" }}>
           <ProfileSide theme={theme} user={currentUser} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{overflow: "auto"}}>
           <PostSide setLoading={setLoading} />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={3} sx={{position: "sticky"}}>
           <TrendSide />
         </Grid>
       </Grid>

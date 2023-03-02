@@ -182,7 +182,14 @@ const handleWorldFollowing = async () => {
            <Box className="postInfo">
             <Box className='postDp' sx={{ p: 1 }}>
                 <div className="postDp2">
-                  <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt=""/>
+                <Avatar
+                className="profile-img"
+                src={currentUser === null ? " " : `${currentUser.imageUrl}`}
+                sx={{ width: "50px", height: "50px" }}
+                onClick={() => {
+                  navigate(`/profile/${currentUser.username}`);
+                }}
+              ></Avatar>
                 </div>
               </Box>
               <Box className='postText' sx={{ p: 1}}>

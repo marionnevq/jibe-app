@@ -104,9 +104,9 @@
     display: none;
 }
 
-.top-head .profile-img{
+.top-head .profile-image{
     width: 200px;
-    height: auto;
+    height: 200px;
     margin-top: -75px;
     border: 10px solid var(--info);
 }

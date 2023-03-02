@@ -110,11 +110,12 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
                 alignItems: "center",
               }}
             >
-              {user === null ? (
-                <Avatar className="profile-img" src={alt} />
-              ) : (
-                <Avatar className="profile-img" src={user.imageUrl} />
-              )}
+              {user === null ? 
+                <Avatar className="profile-image" src={alt} />
+               : 
+                <Avatar className="profile-image" src={user.imageUrl} />
+              }
+
             </Grid>
 
             <Grid

@@ -64,8 +64,9 @@
         background-color: var( --background);
     }
 
-    .parent .divider{
-        border-color: var( --divider);
+    .latchName .divider-feed{
+        border-color: var( --divider-chip);
+        height: 1px;
     }
 
     .parent .postSide{
@@ -262,9 +263,19 @@
 
     }
 
-
-    .profile-img:hover{
+    .profile-feed:hover{
         cursor: pointer;
+    }
+
+    .profile-feed{
+        border: 7px solid var(--info);
+    }
+
+    .latchTitle #text{
+        font-size: 15px; 
+        font-family: "montserrat";
+        color: var(--nav2-logo);
+        margin-left: 15px;
     }
 
   

@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { getAccessToken, login, register } from "./services/auth";
 import useLocalStorage from "use-local-storage";
 import ProfileVisitPage from "./pages/ProfileVisitPage";
-import Loading from "./images/Loading.gif";
+import Loading from "./images/loading1.gif"
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
@@ -68,11 +68,13 @@ function App() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    bgcolor: "#fff",
+    display: "flex",
+    justofyContent: "center",
+    alignItems: "center",
+    marginLeft: "35px",
     pt: 1,
     pl: 1,
     pr: 1,
-    borderRadius: 25,
   };
 
   const handleRegister = async (event, form) => {
@@ -161,7 +163,7 @@ function App() {
       <CssBaseline />
       <Modal open={loading}>
         <Box sx={style}>
-          <img src={Loading} alt="Loading..." />
+          <img src={Loading} alt="Loading..." style={{width: "30%"}} />
         </Box>
       </Modal>
       <Routes>
@@ -188,13 +190,19 @@ function App() {
         />
         <Route
           path="/change/password"
-          element={
-              <ForgotPass setLoading={setLoading} />}
+          element={ accessToken ? (
+            <Navigate to="/login" />
+              ) : (
+                <ForgotPass setLoading={setLoading} />
+              )}
         />
         <Route
           path="/forgot/password"
-          element={
-              <EmailConfirmation setLoading={setLoading} />}
+          element={ accessToken ? (
+                <Navigate to="/login" />
+              ) : (
+                <EmailConfirmation setLoading={setLoading} />
+              )}
         />
         <Route
           path="/profile/visit/:username"

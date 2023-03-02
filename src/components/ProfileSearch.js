@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import "../style/NavBar.css"
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import spinner from "../images/loading1.gif"
 
 const ProfileSearch = ({handleClose, search, theme}) => {
     const [users, setUsers] = useState([])
@@ -30,14 +31,19 @@ const ProfileSearch = ({handleClose, search, theme}) => {
             setLoading(false);
             window.location.reload(false);
             
-          }, 3000);
+          }, 1000);
        
     }
 
     if(loading){
-        return <div style={{width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <h1 style={{color: "#f2f2f2"}}>Loading...</h1>
-            </div>
+        return <div style={{
+          width: "100%", 
+          height: "100vh",
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center"}}>
+                  <img src={spinner} style={{width: "5%"}}></img>
+                </div>
     }
 
     console.log(users);

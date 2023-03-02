@@ -17,6 +17,7 @@ import Joi from "joi";
 import LoginSwiper from "../components/LoginSwiper";
 import { UserContext } from "../context/UserContext";
 import { register } from "../services/auth";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 const Register = ({ handleSubmit }) => {
   const { onRegister } = useContext(UserContext);
@@ -37,17 +38,6 @@ const Register = ({ handleSubmit }) => {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const navigate = useNavigate();
-
-  // const handleImage = (event) => {
-  //     const img = event.target.files[0];
-  //       setImageUrl(URL.createObjectURL(img));
-  //       setForm({
-  //         ...form,
-  //         image: img
-  //       });
-  //       console.log(form);
-  //       console.log(img);
-  //     }
 
   const schema = Joi.object({
     firstname: Joi.string().min(3).max(20).required(),
@@ -102,6 +92,7 @@ const Register = ({ handleSubmit }) => {
 
     return !!result.error;
   };
+  
 
   return (
     <Grid container style={{ minHeight: "100vh" }}>
@@ -117,6 +108,11 @@ const Register = ({ handleSubmit }) => {
         </div>
       </Grid>
       <Grid item xs={12} sm={6} className="reg-form">
+        <div style={{marginLeft: "20px", marginTop: "20px",width: "100%", textAlign: "left"}}>
+            <IconButton onClick={() => navigate("/login")} >
+                <ArrowBackOutlinedIcon sx={{fontSize: "30px"}}/>
+            </IconButton>
+        </div>
         <div>
           <img src={Logo2} />
         </div>

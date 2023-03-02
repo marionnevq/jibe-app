@@ -15,7 +15,7 @@ const LatchSuggestion = ({ user }) => {
   return (
     <Box
       className="latchInfo"
-      sx={{ width: "100%", height: "100%", display: "flex" }}
+      sx={{ width: "100%", height: "auto", display: "flex", marginTop: "10px", borderBottom: "1px solid gray", paddingBottom: "10px"  }}
     >
       <Box
         className="latchDp"
@@ -24,13 +24,14 @@ const LatchSuggestion = ({ user }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          marginLeft: "15px"
         }}
       >
         <img src={user.imageUrl} />
       </Box>
       <Box
         className="latchName"
-        sx={{ width: "60%", cursor: "pointer" }}
+        sx={{ width: "100%", cursor: "pointer", marginLeft: "15px" }}
         onClick={() => {
           GoToProfile(user);
         }}
@@ -45,7 +46,7 @@ const LatchSuggestion = ({ user }) => {
         </IconButton>
       </Box> */}
 
-      <Divider className="divider" />
+      <Divider className="divider-feed" />
     </Box>
   );
 };

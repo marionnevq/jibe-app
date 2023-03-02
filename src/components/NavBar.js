@@ -85,19 +85,6 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
     setNotifications(notifs.data);
   };
 
-  // const handleSearchProfiles = () => {
-  //   employeeService
-  //     .updateEmployee(employee.id, form)
-  //     .then(() => {
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       if (error.response && error.response.status === 400) {
-  //         alert(error.response.data.message[0]);
-  //       }
-  //     });
-  // }
-
   const handleChange = ({ currentTarget: input }) => {
     setSearch({
       ...search,
@@ -115,7 +102,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   const themeNow = theme;
 
   return (
-    <div>
+    <div style={{position: "sticky" }}>
        <Modal
         open={show}
         onClose={handleClose}

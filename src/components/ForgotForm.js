@@ -2,7 +2,9 @@ import { Button, IconButton, InputAdornment, Paper, TextField } from '@mui/mater
 import React, { useState } from 'react'
 import logo from "../images/likewo.png"
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import Joi from 'joi';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotForm = () => {
 
@@ -13,6 +15,8 @@ const ForgotForm = () => {
         password: "",
         confirmPwd: "",
     });
+
+    const navigate = useNavigate();
 
     const schema = Joi.object({
       password: Joi.string()
@@ -62,7 +66,12 @@ const ForgotForm = () => {
       };
 
   return (
-    <Paper sx={{width: "40%", height: "400px", lineHeight: "1px", borderRadius: "15px"}}>
+    <Paper sx={{width: "auto", maxWidth: "80%", minHeight: "400px", height: "auto", lineHeight: "1px", borderRadius: "15px", textAlign: "center"}}>
+        <div style={{marginLeft: "20px", marginTop: "20px", fontSize: "70px", textAlign: "left"}}>
+            <IconButton onClick={() => navigate("/login")}>
+                <ArrowBackOutlinedIcon />
+            </IconButton>
+        </div>
         <div style={{display: "flex", justifyContent: "center", marginTop: "25px"}}>
             <img src={logo} style={{width: "15%"}}/>
         </div>
@@ -126,7 +135,7 @@ const ForgotForm = () => {
           />
         </div>
         <div style={{display: "flex", justifyContent: "center"}}>
-      <Button variant='contained' disabled={isFormInvalid()} sx={{width: "60%", marginTop: "30px"}}>Submit</Button>
+      <Button variant='contained' disabled={isFormInvalid()} sx={{width: "50%", marginTop: "30px", marginBottom: "60px", borderRadius: "35px"}}>Submit</Button>
       </div>
     </Paper>
   )

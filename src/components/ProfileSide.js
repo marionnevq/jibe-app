@@ -101,7 +101,7 @@ const ProfileSide = ({ theme }) => {
               }}
             >
               <Avatar
-                className="profile-img"
+                className="profile-feed"
                 src={currentUser === null ? alt : currentUser.imageUrl}
                 sx={{ width: "150px", height: "150px" }}
                 onClick={() => {
@@ -173,16 +173,18 @@ const ProfileSide = ({ theme }) => {
                 alignItems: "center",
               }}
             >
-              <span>Find more people</span>
+              <h1 id="text" >Find more people</h1>
             </Box>
             <Box
               className="latchList"
               sx={{
                 width: "100%",
-                height: "200px",
+                height: "auto",
                 flexDirection: "column",
                 p: 0.5,
                 borderRadius: "0.6rem",
+                paddingBottom: "20px",
+                paddingTop: "5px"
               }}
             >
               {users && users.map((user) => <LatchSuggestion user={user} />)}

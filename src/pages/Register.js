@@ -33,6 +33,7 @@ const Register = ({ handleSubmit }) => {
     confirmPwd: "",
     imageUrl: "",
     bio: "",
+    birthday: "",
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -68,6 +69,7 @@ const Register = ({ handleSubmit }) => {
     }),
     imageUrl: Joi.optional(),
     bio: Joi.optional(),
+    birthday: Joi.required(),
   });
 
   const handleChange = ({ currentTarget: input }) => {
@@ -91,16 +93,34 @@ const Register = ({ handleSubmit }) => {
       });
     } else if (error) {
       setErrors({ ...errors, [input.name]: error.details[0].message });
+    } else if (calculate_age(form.birthday) < 18 && input.name === "birthday") {
+      setErrors({ ...errors, [input.name]: "you must be 18 to register" });
     } else {
       delete errors[input.name];
       setErrors(errors);
     }
+    console.log(form);
   };
 
   const isFormInvalid = () => {
     const result = schema.validate(form);
 
+    if (calculate_age(form.birthday) < 18) {
+      return true;
+    }
     return !!result.error;
+  };
+
+  const calculate_age = (dob1) => {
+    var today = new Date();
+    var birthDate = new Date(dob1); // create a date object directly from `dob1` argument
+    var age_now = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age_now--;
+    }
+    console.log(age_now);
+    return age_now;
   };
 
   return (
@@ -232,16 +252,21 @@ const Register = ({ handleSubmit }) => {
         </div>
         <div>
           <TextField
-          id="date"
-          label="Birthday"
-          type="date"
-          variant="filled"
-          className="field-two"
-          defaultValue="2017-05-24"
-          sx={{ width: 220 }}
-          InputLabelProps={{
-            shrink: true,
-          }}/>
+            name="birthday"
+            error={!!errors.birthday}
+            helperText={errors.birthday}
+            onChange={handleChange}
+            value={form.birthday}
+            label="Birthday"
+            type="date"
+            variant="filled"
+            className="field-two"
+            defaultValue="2017-05-24"
+            sx={{ width: 220 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </div>
         <div className="btn">
           <Button

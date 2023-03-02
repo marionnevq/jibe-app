@@ -36,6 +36,7 @@ import { useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from "@mui/system";
+import Joi from "joi";
 
 const NavBar = ({ onLogout, onSwitch, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -46,11 +47,22 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   });
   const [click, setClick] = useState("unclicked");
   const open = Boolean(anchorEl);
-  
+  const [errors, setErrors] = useState({});
   const openNotif = Boolean(anchorElNotif);
   const navigate = useNavigate();
   const [opened, setOpen] = React.useState(false);
   const show = Boolean(opened);
+  const schema = Joi.object({
+    username: Joi.string()
+    .min(1)
+    .required()
+});
+
+  const isFormInvalid = () => {
+    const result = schema.validate(search);
+    return !!result.error;
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -92,6 +104,20 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
       [input.name]: input.value,
     });
     console.log(input.value);
+
+    const { error } = schema
+      .extract(input.name)
+      .label(input.name)
+      .validate(input.value);
+
+    if (error) {
+      setErrors({ ...errors, [input.name]: "Field required" });
+    } else if (error) {
+        setErrors({ ...errors, [input.name]: error.details[0].message });
+    }else {
+        delete errors[input.name];
+        setErrors(errors);
+    }
   };
 
   const handleClearNotifications = async() => {
@@ -113,14 +139,14 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
   };
 
   return (
-    <div style={{position: "sticky" }}>
+    <div style={{position: "sticky"}}>
        <Modal
         open={show}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <div style={{width: "100%", height: "400px", display:"flex", justifyContent: "center", alignItems: "center", marginBottom: "60px", overflowY: "scroll"}}>
+        <div style={{height: "100vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
         <ProfileSearch handleClose={handleClose} search={search.username} theme={theme}/>
         </div>
       </Modal>
@@ -172,6 +198,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
               }}
               aria-label="search"
               onClick={handleOpen}
+              disabled={isFormInvalid()}
             >
               <SearchIcon />
             </IconButton>

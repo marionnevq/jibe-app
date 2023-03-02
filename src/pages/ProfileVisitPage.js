@@ -88,7 +88,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
         aria-describedby="child-modal-description"
         sx={{ overflow: "scroll" }}
       >
-        <EditUser handleClose={handleClose} />
+        <EditUser handleClose={handleClose} theme={theme}/>
       </Modal>
 
       <div data-theme={theme}>

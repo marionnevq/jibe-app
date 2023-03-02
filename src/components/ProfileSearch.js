@@ -49,30 +49,32 @@ const ProfileSearch = ({handleClose, search, theme}) => {
     console.log(users);
 
   return (
-    <Paper
-    className='search-paper'
-    style={{ backgroundColor: () => (theme === "light" ? "white" : "#333333") }}
-  >
+  <Paper
+  className='search-paper'
+  sx={{ backgroundColor: () => (theme === "light" ? "white" : "#333333"), height: "400px" , display: "block", width: "500px", paddingBottom: "30px", borderBottom: "1px solid gray" }}
+  data-theme={theme}>
     <Grid className='search-head' container sx={{display: "flex", justifyContent: "end", backgroundColor: (() => theme === "light" ? "white" : "#333333")}}>
-            <IconButton onClick={handleClose}>
-                <CloseIcon />
-            </IconButton>
+          
+          <IconButton className="close-modal" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
           </Grid>
-           <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", backgroundColor: () => (theme === "light" ? "white" : "#333333")}}>
+           <div id='title' >
           <h2 id="child-modal-title">Search Result</h2>
           </div>
   {users.map((user) => 
     <Grid container item
     sx={{
-      backgroundColor: () => (theme === "light" ? "white" : "#333333"), borderBottom: "2px soli white"
+      backgroundColor: () => (theme === "light" ? "white" : "#333333"), borderBottom: "2px soli white", marginBottom: "10px", fontFamily: "montserrat"
     }}
   >
-    <Box className="info" sx={{ p: 0.2 }}>
+    <Box className="info" sx={{ p: 0.2, marginLeft: "25px"}}>
       <Box className="opImg" sx={{ p: 1  }}>
         <div className="opInfo">
           <Avatar
             src={user === null? "" : user.imageUrl}
-            alt="" />
+            alt=""
+            sx={{width: "50px", height: "50px"}} />
         </div>
       </Box>
       <Box
@@ -81,14 +83,18 @@ const ProfileSearch = ({handleClose, search, theme}) => {
         sx={{
           p: 1,
           color: () => (theme === "light" ? "#333333" : "white"),
+          width: "100%",
+          marginLeft: "15px"
         }}
       >
-
-        <span>
-          {user === null
-            ? ""
-            : `${user.firstname} ${user.lastname}`}
-        </span>
+        <Box className="name-link" sx={{width: "100%", fontSize: "15px", fontWeight: "600"}}>
+            {user === null
+              ? ""
+              : `${user.firstname} ${user.lastname}`}
+        </Box>
+        <Box className= "uName-link"sx={{width: "100%", fontSize: "12px"}}>
+           {user.username}
+        </Box>
       </Box>
     </Box>
   </Grid>)}

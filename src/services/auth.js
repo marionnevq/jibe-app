@@ -53,7 +53,7 @@ export function getCurrentUser() {
 
 //getUser-visit
   export function fetchUserByUsername(username){
-    const user= http.get("/profiles/`${}`");
+    const user= http.get(`/profiles/${username}`);
     return user;
   }
 

@@ -133,6 +133,10 @@ input[type="search"]{
     height: 25px;
   }
 
+  .home{
+    display: none;
+  }
+
   @media only screen and (max-width: 600px) {
     .nav-bar, .nav-bar .icon1, .logo, .btn-nav{
       display: none;
@@ -153,9 +157,8 @@ input[type="search"]{
     }
 
     .click:focus{
-      width: 150px;
+      width: 120px;
       transition: width 0.4s;
-      padding-left: 5px;
     }
 
     .nav-two{
@@ -183,5 +186,9 @@ input[type="search"]{
 
     .nav-bar .icon2{
       margin-left: -25px;
+    }
+
+    .home{
+      display: inline;
     }
   }

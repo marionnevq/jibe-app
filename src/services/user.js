@@ -5,6 +5,7 @@ export function getCurrentUser() {
 }
 
 export function updateCurrentUser(user) {
+  console.log("hello")
   return http.put("/profiles/update", user);
 }
 

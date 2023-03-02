@@ -18,7 +18,7 @@ import Joi from "joi";
 import { getAccessToken, login } from "../services/auth";
 import { UserContext } from "../context/UserContext";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, setLoading }) => {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});

@@ -1,13 +1,15 @@
 import {
   Alert,
+  Box,
   createTheme,
   CssBaseline,
+  Modal,
   Paper,
   Snackbar,
   ThemeProvider,
 } from "@mui/material";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import LoginSwiper from "./components/LoginSwiper";
+
 import FeedPage from "./pages/FeedPage";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -17,14 +19,22 @@ import { useEffect, useState } from "react";
 import { getAccessToken, login, register } from "./services/auth";
 import useLocalStorage from "use-local-storage";
 import ProfileVisitPage from "./pages/ProfileVisitPage";
-
+import Loading from "./images/Loading.gif";
 import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
+import PostPage from "./pages/PostPage";
+import TempProfileVisitPage from "./pages/TempProfileVisitPage";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [posts, setPosts] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("error");
+  const [accessToken, setAccessToken] = useState(getAccessToken());
+  const [loading, setLoading] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(theme);
@@ -51,15 +61,24 @@ function App() {
     },
   });
 
-  const [open, setOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("error");
-  const [accessToken, setAccessToken] = useState(getAccessToken());
-  const navigate = useNavigate();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "#fff",
+    pt: 1,
+    pl: 1,
+    pr: 1,
+    borderRadius: 25,
+  };
 
   const handleRegister = async (event, form) => {
     event.preventDefault();
+
     try {
-      const response = await register(
+      setLoading(true);
+      await register(
         form.firstname,
         form.lastname,
         form.email,
@@ -69,35 +88,52 @@ function App() {
         form.bio
       )
         .then(() => {
-          alert("Registration successful");
+          setSnackbarMessage("Registered Successfully");
+          setSeverity("success");
+          setLoading(false);
+          setOpen(true);
           navigate("/login");
         })
         .catch((err) => {
           const msg = err.response.data;
-          setErrorMessage(msg);
+          setSnackbarMessage(msg);
+          setSeverity("error");
+          setLoading(false);
           setOpen(true);
         });
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
       }
+      setLoading(false);
     }
   };
 
   const handleLogin = async (form) => {
     try {
-      const response = await login(form.email, form.password).catch((err) => {
-        const msg = err.response.data;
-        setErrorMessage(msg);
-        setOpen(true);
-      });
+      setLoading(true);
+      await login(form.email, form.password)
+        .then((response) => {
+          localStorage.setItem("accessToken", response.data.token);
+          setAccessToken(response.data.token);
 
-      localStorage.setItem("accessToken", response.data.token);
-      setAccessToken(response.data.token);
-      navigate("/onboarding");
+          setSnackbarMessage("Logged In Successfully");
+          setSeverity("success");
+          setLoading(false);
+          setOpen(true);
+          navigate("/onboarding");
+        })
+        .catch((err) => {
+          const msg = err.response.data;
+          setSnackbarMessage(msg);
+          setSeverity("error");
+          setLoading(false);
+          setOpen(true);
+        });
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
+        setLoading(false);
       }
     }
   };
@@ -115,13 +151,17 @@ function App() {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
   return (
     <ThemeProvider theme={themes}>
       <CssBaseline />
+      <Modal open={loading}>
+        <Box sx={style}>
+          <img src={Loading} alt="Loading..." />
+        </Box>
+      </Modal>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route
@@ -130,7 +170,7 @@ function App() {
             accessToken ? (
               <Navigate to="/feed" />
             ) : (
-              <Login onLogin={handleLogin} />
+              <Login onLogin={handleLogin} setLoading={setLoading} />
             )
           }
         />
@@ -138,7 +178,7 @@ function App() {
           path="/onboarding"
           element={
             accessToken ? (
-              <Onboarding onLogout={handleLogout} />
+              <Onboarding onLogout={handleLogout} setLoading={setLoading} />
             ) : (
               <Navigate to="/login" />
             )
@@ -147,23 +187,67 @@ function App() {
         <Route
           path="/profile/visit/:username"
           element={
-            accessToken ? <ProfileVisitPage 
-            onLogout={handleLogout}
-            onSwitch={switchTheme}
-            theme={theme}/> : <Navigate to="/login" />
+            accessToken ? (
+              <ProfileVisitPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/profile/visit/:username/temp"
+          element={
+            accessToken ? (
+              <TempProfileVisitPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/posts/:postId"
+          element={
+            accessToken ? (
+              <PostPage
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+                setLoading={setLoading}
+                setOpen={setOpen}
+                setSeverity={setSeverity}
+                setSnackbarMessage={setSnackbarMessage}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
         <Route
           path="/profile/latch-list"
           element={
-            accessToken ? <LatchList 
-            onLogout={handleLogout}
-            onSwitch={switchTheme}
-            theme={theme}/> : <Navigate to="/login" />
+            accessToken ? (
+              <LatchList
+                onLogout={handleLogout}
+                onSwitch={switchTheme}
+                theme={theme}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-        
+
         <Route
           path="/register"
           element={
@@ -183,6 +267,7 @@ function App() {
                 onLogout={handleLogout}
                 onSwitch={switchTheme}
                 theme={theme}
+                setLoading={setLoading}
               />
             ) : (
               <Navigate to="/login" />
@@ -213,8 +298,8 @@ function App() {
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          {errorMessage}
+        <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
+          {snackbarMessage}
         </Alert>
       </Snackbar>
     </ThemeProvider>

@@ -8,7 +8,7 @@ import Joi from "joi";
 import * as userService from "../services/user";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../services/firebase";
-import Loading from "../images/Loading.gif";
+
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -27,19 +27,7 @@ import Like1 from "../images/onboard1.png";
 import Like2 from "../images/onboard.png";
 import FollowCard from "./FollowCard";
 
-const LoginSwiper = () => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "#fff",
-    pt: 1,
-    pl: 1,
-    pr: 1,
-    borderRadius: 25,
-  };
-
+const LoginSwiper = ({ setLoading }) => {
   const [like, setLike] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
@@ -49,7 +37,6 @@ const LoginSwiper = () => {
     bio: "",
   });
   const swiperRef = useRef(null);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const schema = Joi.object({
@@ -81,6 +68,7 @@ const LoginSwiper = () => {
       getDownloadURL(uRef).then((url) => {
         userService.updateCurrentUser({ imageUrl: url, bio });
         setLoading(false);
+        console.log(url);
         swiperRef.current.swiper.slideTo(2);
       });
     });
@@ -113,11 +101,6 @@ const LoginSwiper = () => {
 
   return (
     <>
-      <Modal open={loading}>
-        <Box sx={style}>
-          <img src={Loading} />
-        </Box>
-      </Modal>
       <Grid container sx={{ minHeight: "100vh" }}>
         <Grid container item>
           <Swiper

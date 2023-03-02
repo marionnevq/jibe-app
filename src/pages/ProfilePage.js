@@ -1,23 +1,41 @@
-import React, { useState, useRef } from "react";
-import sana from "../images/sana.jpg";
-import { Grid, Avatar, Paper, Divider, Button, TextField } from "@mui/material";
-import "../style/Profile.css";
-import NavBar from "../components/NavBar";
+import {
+  Avatar,
+  Button,
+  Divider,
+  Grid,
+  Paper,
+  TextField,
+  Modal,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import ProfilePostPage from "../components/ProfilePostPage";
-import { MoreVert } from "@mui/icons-material";
+import React, { useState, useEffect, useRef } from "react";
+import NavBar from "../components/NavBar";
+import "../style/Profile.css";
 import PhotoIcon from "@mui/icons-material/Photo";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import test from "../images/test.jpg";
+import { getUser } from "../services/auth";
+import EditUser from "../components/EditUser";
+import EditIcon from "@mui/icons-material/Edit";
+import ProfilePostArea from "../components/ProfilePostArea";
+import alt from "../images/alternate.jpg";
 
-const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
-  console.log("This is POST_DATA from ProfilePage.js", posts);
-  const [like, setLike] = useState(false);
+const ProfilePage = ({ onLogout, onSwitch, theme }) => {
+  const [loading, setLoading] = useState(false);
+
   const [image, setImage] = useState(null);
   const imageRef = useRef();
+  const [open, setOpen] = React.useState(false);
+  const [currentUser, setCurrentUser] = useState("");
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const current = await getUser();
+    setCurrentUser(current.data);
+    console.log(current.data);
+  };
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -28,299 +46,368 @@ const ProfilePage = ({ onLogout, onSwitch, posts, theme }) => {
     }
   };
 
-  const handleChangeIcon = () => {
-    if (like === false) {
-      setLike(true);
-    } else {
-      setLike(false);
-    }
+  const handleOpen = () => {
+    setOpen(true);
   };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
-    <div data-theme={theme} style={{backgroundColor: "black"}}>
-      <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme}/>
-      {/* <Grid
-        container
-        style={{ minHeight: "100vh" }}
-        spacing={3}
-        className="main-container"
+    <div data-theme={theme}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
       >
-        <Grid item xs={5}>
-          <div className="profile-pic">
-            <Avatar src={sana} sx={{ width: 250, height: 250 }} />
-          </div>
-        </Grid>
-        <Grid item xs >
-          <div className="profile-name">Nikki Fagara</div>
-          <div className="profile-tag">@NikkiFagara</div>
-          <div className="profile-bio">
-            <em>"I am the greatest..."</em>
-          </div>
-          <Grid container spacing={2} columns={15} className="sub-container">
-            <Grid item xs={2.7} className="left">
-              <div className="left-title">Posts</div>
-              <div className="left-sub">12345</div>
-            </Grid>
-            <Grid item xs={4} className="middle">
-              <div className="middle-title">Followers</div>
-              <div className="middle-sub">5.6m</div>
-            </Grid>
-            <Grid item xs={2} className="right">
-              <div className="right-title">Following</div>
-              <div className="right-sub">3</div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} columns={16} className="posts-container">
-          {posts.map((post) => (
-            <ProfilePostPage key={posts.id} post={post} />
-          ))}
-        </Grid>
-      </Grid> */}
-      <Grid container sx={{ minHeight: "100vh", width: "100%" }}>
-        <Paper sx={{ width: "100%" }} >
+        <EditUser handleClose={handleClose} />
+      </Modal>
+      <NavBar onLogout={onLogout} onSwitch={onSwitch} theme={theme} />
+      <div style={{ minHeight: "100vh" }}>
+        <Box className="cover" id="header" />
+
+        <Grid container className="main-header">
           <Grid
+            className="top-head"
+            id="info-head"
+            container
             item
-            className="header"
+            xs={12}
+            md={3.5}
             sx={{
-              width: "auto",
-              height: "300px",
-              backgroundColor: "#FFE5D9",
-              backgroundAttachment: "fixed",
-              paddingBottom: "15px",
-            }}
-          />
-          <Grid
-            item
-            className="profileDp"
-            sx={{
-              width: "auto",
-              marginTop: "-150px",
               display: "flex",
-              paddingLeft: "150px",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Avatar
-              alt="Sana Minatozaki"
-              src={sana}
-              sx={{ width: 300, height: 300, boxShadow: "2" }}
-            />
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
-            >
-              <Box className="title-head">
-                <span>Posts</span>
-              </Box>
-              <Box className="sub-head">
-                <span>1.2k</span>
-              </Box>
-            </Box>
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
-            >
-              <Box className="title-head">
-                <span>Followers</span>
-              </Box>
-              <Box className="sub-head">
-                <span>10.8m</span>
-              </Box>
-            </Box>
-            <Box
-              className="names"
-              sx={{ marginTop: "200px", paddingLeft: "200px" }}
-            >
-              <Box className="title-head">
-                <span>Following</span>
-              </Box>
-              <Box className="sub-head">
-                <span>3</span>
-              </Box>
-            </Box>
+              className="profile-img"
+              src={currentUser === null ? alt : currentUser.imageUrl}
+            ></Avatar>
           </Grid>
-          <Divider variant="fullWidth" sx={{ paddingTop: "50px" }} />
-          <Grid container sx={{ minHeight: "100vh"}}>
-            <Grid item xs={12} md={4} sx={{ marginTop: "30px" }}>
-              <Box className="user-details">
-                <Box className="name-head">
-                  <span>Nikki Fagara</span>
-                </Box>
-                <Box className="username-head">
-                  <span>@nikkifagara</span>
-                </Box>
-                <Box className="bio-head">
-                  <span>
-                    <em>"I am the greatest.."</em>
-                  </span>
-                </Box>
-              </Box>
+
+          <Grid
+            className="bottom-head"
+            id="info-head"
+            container
+            item
+            xs={12}
+            md={8.5}
+            sx={{ height: "auto" }}
+          >
+            <div className="web">
               <Grid
-                container
+                id="details"
                 item
                 xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "35px",
+                    fontFamily: "montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                 {currentUser === null ? 0 : currentUser.postsCount}
+                </h3>
+                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                  Posts
+                </h1>
+              </Grid>
+              <Grid
+                id="details"
+                item
+                xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "35px",
+                    fontFamily: "montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  {currentUser === null ? 0 : currentUser.followersCount}
+                </h3>
+                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter"  }}>
+                  Followers
+                </h1>
+              </Grid>
+              <Grid
+                id="details"
+                item
+                xs={12}
+                md={2.5}
+                sx={{
+                  display: "block",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "35px",
+                    fontFamily: "montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  {currentUser === null ? 0 : currentUser.followingCount}
+                </h3>
+                <h1 style={{ fontSize: "20px", fontFamily: "poppins", fontWeight:"lighter" }}>
+                  Following
+                </h1>
+              </Grid>
+              <Grid
+                id="button-follow"
+                item
+                xs={12}
+                md={3}
                 sx={{
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <Paper
-                  className="post"
-                  sx={{
-                    width: "95%",
-                    minHeight: "120px",
-                    maxHeight: "680px",
-                    paddingBottom: "2px",
-                    marginTop: "150px",
-                    borderRadius: "0.6rem",
-                    boxShadow: "3",
-                  }}
+                <Button
+                  variant="outlined"
+                  className="latch-btn1"
+                  onClick={handleOpen}
                 >
-                  <Box className="postInfo">
-                    <Box className="postText" sx={{ p: 1 }}>
-                      <TextField
-                        className="shareText"
-                        placeholder="What's jibin'?"
-                        sx={{ width: "100%" }}
-                        InputProps={{ sx: { height: "auto" } }}
-                        multiline
-                      />
-                    </Box>
-                    <Box className="postPhoto" sx={{ p: 0.5 }}>
-                      <PhotoIcon
-                        onClick={() => imageRef.current.click()}
-                        sx={{ cursor: "pointer", fontSize: "30px"}}
-                      />
-                    </Box>
-                  </Box>
-                  <div style={{ display: "none" }}>
-                    <input
-                      type="file"
-                      name="myImage"
-                      ref={imageRef}
-                      onChange={onImageChange}
-                    />
-                  </div>
-                  {image && (
-                    <Box
-                      className="previewBox"
-                      sx={{
-                        p: 0.5,
-                        border: "1px solid #d3d3d3",
-                        borderRadius: "7px",
-                      }}
-                    >
-                      <div className="previewImage">
-                        <Box className="previewClose" sx={{ p: 0.5 }}>
-                          <CancelRoundedIcon
-                            onClick={() => setImage(null)}
-                            sx={{ cursor: "pointer", justifyContent: "right" }}
-                          />
-                        </Box>
-                        <img src={image.image} />
-                      </div>
-                    </Box>
-                  )}
-                  <Divider />
-                  <Box
-                    className="sharebtn"
-                    justifyItems={"center"}
-                    sx={{ p: 0.5 }}
-                  >
-                    <Button
-                      className="shareButton"
-                      variant="text"
-                      style={{
-                        backgroundColor: "transparent",
-                        color: "#EB4660",
-                        fontFamily: "Montserrat",
-                        height: "30px",
-                        fontSize: "16px",
-                      }}
-                    >
-                      Post
-                    </Button>
-                  </Box>
-                </Paper>
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit
+                </Button>
               </Grid>
+            </div>
+          </Grid>
+
+          <div className="mobile" style={{ display: "block" }}>
+            <div className="name-info" >
+              <h1 className="name-details">
+                {currentUser === null
+                  ? ""
+                  : `${currentUser.firstname} ${currentUser.lastname}`}
+              </h1>
+              <h3>@{currentUser === null ? "" : `${currentUser.username}`}</h3>
+            </div>
+            <Grid
+              container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "auto",
+                marginTop: "30px",
+              }}
+            >
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.postsCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Posts
+                </h1>
+              </div>
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.followersCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Followers
+                </h1>
+              </div>
+              <div className="mobile-items">
+                <h3 style={{ fontSize: "21px", fontFamily: "montserrat" }}>
+                {currentUser === null ? 0 : currentUser.followingCount}
+                </h3>
+                <h1 style={{ fontSize: "18px", fontFamily: "montserrat" }}>
+                  Following
+                </h1>
+              </div>
+            </Grid>
+          </div>
+          <Divider className="divider-mobile" />
+          <div className="button">
+            <Grid container item>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Button className="btn-latch" variant="outlined">
+                  <EditIcon sx={{ marginRight: "10px" }} /> Edit Profile
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </Grid>
+        <Paper className="bottom-foot">
+          <Grid container className="foot" style={{ height: "auto" }}>
+            <Grid
+              className="left"
+              item
+              xs={12}
+              md={3.5}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+              }}
+            >
+              <Paper
+                className="window-name"
+                style={{
+                  width: "95%",
+                  borderRadius: "0.6rem",
+                  boxShadow: "none",
+                  height: "auto",
+                  paddingRight: "10px",
+                  paddingLeft: "10px",
+                  wordBreak: "break-word",
+                }}
+              >
+                <h1 style={{ fontSize: "40px"}}>
+                  {currentUser === null
+                    ? ""
+                    : `${currentUser.firstname} ${currentUser.lastname}`}
+                </h1>
+                <h3 style={{ fontSize: "30px"}}>
+                  @{currentUser === null ? "" : `${currentUser.username}`}
+                </h3>
+                <Divider className="divider-info" />
+                <h4>
+                  <em>
+                    {`${currentUser.bio}` === ""
+                      ? "No Bio"
+                      : `${currentUser.bio}`}
+                  </em>
+                </h4>
+              </Paper>
+              <Paper
+                className="window-name"
+                style={{
+                  marginTop: "10px",
+                  width: "95%",
+                  borderRadius: "0.6rem",
+                  boxShadow: "none",
+                  height: "auto",
+                  paddingRight: "10px",
+                  paddingLeft: "10px",
+                  wordBreak: "break-word",
+                }}
+              >
+                <Box className="postInfo">
+                  <Box className="postText" sx={{ p: 1 }}>
+                    <TextField
+                      className="shareText"
+                      placeholder="What's jibin'?"
+                      sx={{ width: "100%" }}
+                      InputProps={{ sx: { height: "auto" } }}
+                      multiline
+                    />
+                  </Box>
+                  <Box className="postPhoto" sx={{ p: 0.5 }}>
+                    <PhotoIcon
+                      onClick={() => imageRef.current.click()}
+                      sx={{ cursor: "pointer", fontSize: "30px" }}
+                    />
+                  </Box>
+                </Box>
+                <div style={{ display: "none" }}>
+                  <input
+                    type="file"
+                    name="myImage"
+                    ref={imageRef}
+                    onChange={onImageChange}
+                  />
+                </div>
+                {image && (
+                  <Box
+                    className="previewBox"
+                    sx={{
+                      p: 0.5,
+                      border: "1px solid #d3d3d3",
+                      borderRadius: "7px",
+                    }}
+                  >
+                    <div className="previewImage">
+                      <Box className="previewClose" sx={{ p: 0.5 }}>
+                        <CancelRoundedIcon
+                          onClick={() => setImage(null)}
+                          sx={{
+                            cursor: "pointer",
+                            justifyContent: "right",
+                          }}
+                        />
+                      </Box>
+                      <img src={image.image} />
+                    </div>
+                  </Box>
+                )}
+                <Divider />
+                <Box
+                  className="sharebtn"
+                  justifyItems={"center"}
+                  sx={{ p: 0.5 }}
+                >
+                  <Button
+                    className="shareButton"
+                    variant="text"
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "#EB4660",
+                      fontFamily: "Montserrat",
+                      height: "30px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Post
+                  </Button>
+                </Box>
+              </Paper>
             </Grid>
 
             <Grid
+              className="post-corner"
               item
               xs={12}
-              md={8}
-              sx={{ paddingTop: "50px", paddingLeft: "50px" }}
+              md={8.5}
+              sx={{ height: "auto" }}
             >
-              {" "}
-              <Paper
-                className="post"
-                sx={{
-                  width: "95%",
-                  height: "auto",
-                  paddingBottom: "2px",
-                  borderRadius: "0.6rem",
-                  boxShadow: "3",
-                }}
-              >
-                <Box className="info" sx={{ p: 3 }}>
-                  <Box className="opImg" sx={{ p: 1 }}>
-                    <div className="opInfo">
-                      <Avatar
-                        alt="Sana Minatozaki"
-                        src={sana}
-                        sx={{ width: 56, height: 56 }}
-                      />
-                    </div>
-                  </Box>
-                  <Box className="opName" sx={{ p: 2 }}>
-                    <span>Nikki Fagara</span>
-                    <span>a few minutes ago</span>
-                  </Box>
-                  <Box className="options" sx={{ p: 3 }}>
-                    <MoreVert />
-                  </Box>
-                </Box>
-                <Box className="postContent" sx={{ p: 3 }}>
-                  <div className="postContent2">
-                    <Box className="caption-content" sx={{ p: 2 }}>
-                      <span>#NewHeader</span>
-                    </Box>
-                    <Box
-                      className="imgContent"
-                      sx={{
-                        p: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <img src={test} style={{ width: "70%" }} />
-                    </Box>
-                  </div>
-                </Box>
-                <Divider />
-                <Box className="reactions" sx={{ p: 0.2 }}>
-                  <Box className="like" sx={{ p: 0.2 }}>
-                    <div className="likebtn" onClick={handleChangeIcon}>
-                      <Button className="likeButton">
-                        {like ? <img src={liked} /> : <img src={unlike} />}
-                        {like ? <span>Like</span> : <span>Liked</span>}
-                      </Button>
-                    </div>
-                  </Box>
-                  <Box className="comment" sx={{ p: 0.2 }}>
-                    <Button className="commentButton">
-                      <ModeCommentOutlinedIcon />
-                      <span>Comment</span>
-                    </Button>
-                  </Box>
-                </Box>
-                <Divider sx={{ marginBottom: "10px" }} />
-              </Paper>
+              <ProfilePostArea theme={theme} />
             </Grid>
           </Grid>
         </Paper>
-      </Grid>
+
+        {/* <Grid container sx={{height: "auto"}}>
+        <Grid container item xs={12} md={12} sx={{height: "100px"}}>
+          Hello
+        </Grid>
+        <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
+        <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
+        <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
+    </Grid> */}
+      </div>
     </div>
   );
 };

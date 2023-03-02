@@ -259,10 +259,11 @@
         width: 6rem;
         border-radius: 50%;
         border: 5px solid var(--paper);
+
     }
 
 
-    .profileDp>img:hover{
+    .profile-img:hover{
         cursor: pointer;
     }
 

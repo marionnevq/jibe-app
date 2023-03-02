@@ -2,39 +2,34 @@ import {
   Avatar,
   Button,
   Divider,
-  Grid,
   IconButton,
   Paper,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import bg1 from "../images/bg1.jpg";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import alt from "../images/alternate.jpg";
 import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { Box } from "@mui/system";
-import { getUserPosts } from "../services/post";
-import { useParams } from "react-router";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { getUserPosts } from "../services/post";
+import { getUser } from "../services/auth";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import alt from "../images/alternate.jpg";
 import { useNavigate } from "react-router-dom";
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
 
-const PostVisit = ({ theme, user }) => {
+const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
-  const params = useParams();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    setLoading(true);
-    getUserPosts(params.username).then((response) => {
-      console.log(response.data);
-      setPosts(response.data);
-      setLoading(false);
-    });
-  }, []);
 
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
@@ -43,6 +38,18 @@ const PostVisit = ({ theme, user }) => {
     return ago;
   };
 
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const current = await getUser();
+    setCurrentUser(current.data);
+    await getUserPosts(current.data.username).then((userPosts) => {
+      setPosts(userPosts.data);
+      console.log(userPosts.data);
+    });
+  };
   const handleChangeIcon = () => {
     if (like === false) {
       setLike(true);
@@ -51,17 +58,23 @@ const PostVisit = ({ theme, user }) => {
     }
   };
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div
-      style={{ display: "flex",
+      style={{
+        display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         marginTop: "10px",
-        marginLeft: "1.3rem", }}
+        marginLeft: "1.3rem",
+      }}
     >
       {posts.map((post) => (
         <Paper
@@ -78,7 +91,10 @@ const PostVisit = ({ theme, user }) => {
           <Box className="info" sx={{ p: 0.2 }}>
             <Box className="opImg" sx={{ p: 1 }}>
               <div className="opInfo">
-                <img src={user === null ? "" : user.imageUrl} alt="" />
+                <Avatar
+                  className="profile-img"
+                  src={currentUser === null ? alt : currentUser.imageUrl}
+                ></Avatar>
               </div>
             </Box>
             <Box
@@ -89,9 +105,38 @@ const PostVisit = ({ theme, user }) => {
               }}
             >
               <span>
-                {user === null ? "" : `${user.firstname} ${user.lastname}`}
+                {currentUser === null
+                  ? ""
+                  : `${currentUser.firstname} ${currentUser.lastname}`}
               </span>
               <span>{convertTime(post.datePosted)}</span>
+            </Box>
+            <Box className="options" sx={{ p: 1 }}>
+              <IconButton className="options" onClick={handleOpenMenu}>
+                <MoreHorizIcon />
+              </IconButton>
+              <Menu
+                // id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleCloseMenu}
+                className="menu"
+              >
+                <MenuItem
+                  className="menuItem"
+                  sx={{ fontFamily: "montserrat" }}
+                >
+                  <EditRoundedIcon />
+                  &nbsp;&nbsp;Edit
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  sx={{ fontFamily: "montserrat" }}
+                >
+                  <DeleteRoundedIcon />
+                  &nbsp; Move to trash
+                </MenuItem>
+              </Menu>
             </Box>
           </Box>
           <Box
@@ -105,31 +150,27 @@ const PostVisit = ({ theme, user }) => {
               <Box className="txtContent" sx={{ p: 0.2 }}>
                 <span>{post.length === 0 ? "" : post.body}</span>
               </Box>
-              {post.length === 0 ? null : (
-                <div
-                  style={{
-                    width: "100%",
+              {post && post.imageUrl === null ? (
+                <Divider className="divider" />
+              ) : (
+                <Box
+                  className="imgContent"
+                  sx={{
                     display: "flex",
                     justifyContent: "center",
+                    width: "95%",
+                    marginLeft: "30px",
+                    border: "1px solid lightgrey",
+                    borderRadius: "0.6rem",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
                   }}
                 >
-                  <Box
-                    className="imgContent"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "98%",
-                      border: () =>
-                        theme === "light"
-                          ? "0.1px solid lightgrey"
-                          : "0.1px solid Gray",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    <img src={`${post.imageUrl}`} style={{ width: "60%" }} />
-                  </Box>
-                </div>
+                  <img
+                    src={`${post.imageUrl}`}
+                    style={{ width: "80%", height: "80%" }}
+                  />
+                </Box>
               )}
             </div>
           </Box>
@@ -164,7 +205,11 @@ const PostVisit = ({ theme, user }) => {
             }}
           >
             <Box className="like" sx={{ p: 0.2 }}>
-              <div className="likebtn" onClick={handleChangeIcon}>
+              <div
+                className="likebtn"
+                onClick={handleChangeIcon}
+                sx={{ color: () => (theme === "light" ? "#333333" : "white") }}
+              >
                 <Button className="likeButton">
                   {like ? <img src={liked} /> : <img src={unlike} />}
                   {like ? <span>Liked</span> : <span>Like</span>}
@@ -177,7 +222,12 @@ const PostVisit = ({ theme, user }) => {
               orientation="vertical"
             />
             <Box className="comment" sx={{ p: 0.2 }}>
-              <Button className="commentButton" onClick={() => {navigate(`/posts/${post.postID}`)}}>
+              <Button
+                className="commentButton"
+                onClick={() => {
+                  navigate(`/posts/${post.postID}`);
+                }}
+              >
                 <ModeCommentOutlinedIcon />
                 <span>Comment</span>
               </Button>
@@ -190,4 +240,4 @@ const PostVisit = ({ theme, user }) => {
   );
 };
 
-export default PostVisit;
+export default ProfilePostArea;

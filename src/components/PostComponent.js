@@ -1,35 +1,28 @@
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
   Avatar,
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  InputBase,
-  Menu,
+  Button, Divider, IconButton, Menu,
   MenuItem,
   Modal,
-  Paper,
-  TextField,
+  Paper
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import { getCurrentUser } from "../services/user";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import alt from "../images/alternate.jpg";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import { checkLiked, createLike, getLike, removeLike } from "../services/like";
-import "../style/Feed.css";
-import { useNavigate } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import EditPost from "./EditPost";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import alt from "../images/alternate.jpg";
+import liked from "../images/liked.png";
+import unlike from "../images/unlike.png";
+import { checkLiked, createLike, getLike, removeLike } from "../services/like";
 import { deletePost } from "../services/post";
+import { getCurrentUser } from "../services/user";
+import "../style/Feed.css";
+import EditPost from "./EditPost";
 
 const PostComponent = ({ post, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);

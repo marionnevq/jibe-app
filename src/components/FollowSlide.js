@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import * as followService from "../services/follow";
 import "../style/swiper.css";
 
-import "swiper/css/navigation";
+import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../style/swiper.css";
-import "swiper/css";
 
 const FollowSlide = ({ user, currentUser }) => {
   const [isFollowed, setIsFollowed] = useState(false);

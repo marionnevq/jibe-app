@@ -1,11 +1,11 @@
-import { Box, Button, Divider, Grid, Paper, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
-import PhotoIcon from "@mui/icons-material/Photo";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import PhotoIcon from "@mui/icons-material/Photo";
+import { Box, Button, Divider, Grid, Paper, TextField } from "@mui/material";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
-import { createPost } from "../services/post";
 import { storage } from "../services/firebase";
+import { createPost } from "../services/post";
 const PostForm = ({ currentUser, theme, setLoading }) => {
   const [postBody, setPostBody] = useState("");
   const [image, setImage] = useState(null);

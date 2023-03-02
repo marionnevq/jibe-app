@@ -1,17 +1,16 @@
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Avatar, Button, Divider, Grid, Modal, Paper } from "@mui/material";
-import { Box, display } from "@mui/system";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import EditUser from "../components/EditUser";
 import NavBar from "../components/NavBar";
 import alt from "../images/alternate.jpg";
-import "../style/ProfileVisit.css";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import PostVisit from "../components/PostVisit";
-import EditUser from "../components/EditUser";
 import { fetchUserByUsername } from "../services/auth";
 import { checkFollowing, followUser, unfollowUser } from "../services/follow";
 import { getCurrentUser } from "../services/user";
+import "../style/ProfileVisit.css";
 
 const TempProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
   const params = useParams();

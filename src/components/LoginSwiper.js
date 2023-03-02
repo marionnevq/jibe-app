@@ -1,30 +1,27 @@
-import { useRef, useState } from "react";
-import "swiper/css/navigation";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-import "../style/swiper.css";
-import "swiper/css";
-import Joi from "joi";
-import * as userService from "../services/user";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Joi from "joi";
+import { useRef, useState } from "react";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { storage } from "../services/firebase";
+import * as userService from "../services/user";
+import "../style/swiper.css";
 
-import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Grid,
-  Modal,
-  Paper,
+  Grid, Paper,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import { Box } from "@mui/system";
-import { Navigation, Keyboard, Pagination } from "swiper";
+import { useNavigate } from "react-router-dom";
+import { Keyboard, Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import alternate from "../images/alternate.jpg";
 import txtlogo from "../images/nav1.png";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Like1 from "../images/onboard1.png";
 import Like2 from "../images/onboard.png";
+import Like1 from "../images/onboard1.png";
 import FollowCard from "./FollowCard";
 
 const LoginSwiper = ({ setLoading }) => {

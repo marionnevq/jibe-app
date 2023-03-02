@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, Paper, Typography } from "@mui/material";
-import { Navigation, Keyboard, Pagination, EffectCoverflow } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Paper } from "@mui/material";
+import { EffectCoverflow, Keyboard, Navigation, Pagination } from "swiper";
 import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
-import "../style/swiper.css";
-import "swiper/css";
-import alternate from "../images/mar.jpg";
-import { USER_DATA } from "../Data/sample";
-import "../style/swiper.css";
 import * as userService from "../services/user";
+import "../style/swiper.css";
 import FollowSlide from "./FollowSlide";
 
 const FollowCard = () => {

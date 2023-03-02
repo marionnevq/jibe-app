@@ -4,28 +4,26 @@ import {
   createTheme,
   CssBaseline,
   Modal,
-  Paper,
   Snackbar,
   ThemeProvider,
 } from "@mui/material";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
+import { useEffect, useState } from "react";
+import useLocalStorage from "use-local-storage";
+import Loading from "./images/Loading.gif";
+import EmailConfirmation from "./pages/EmailConfirmation";
 import FeedPage from "./pages/FeedPage";
+import ForgotPass from "./pages/ForgotPass";
+import LatchList from "./pages/LatchList";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import Register from "./pages/Register";
 import Onboarding from "./pages/Onboarding";
-import { useEffect, useState } from "react";
-import { getAccessToken, login, register } from "./services/auth";
-import useLocalStorage from "use-local-storage";
-import ProfileVisitPage from "./pages/ProfileVisitPage";
-import Loading from "./images/Loading.gif";
-import { POSTS_DATA } from "./Data/posts";
-import ProfilePage from "./pages/ProfilePage";
-import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
-import ForgotPass from "./pages/ForgotPass";
-import EmailConfirmation from "./pages/EmailConfirmation";
+import ProfilePage from "./pages/ProfilePage";
+import ProfileVisitPage from "./pages/ProfileVisitPage";
+import Register from "./pages/Register";
+import { getAccessToken, login, register } from "./services/auth";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");

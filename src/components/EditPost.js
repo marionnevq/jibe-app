@@ -1,12 +1,11 @@
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import alt from "../images/alternate.jpg";
 import CloseIcon from "@mui/icons-material/Close";
-import { getPost, updatePost } from "../services/post.js";
+import {  updatePost } from "../services/post.js";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import { storage } from "../services/firebase";
-import { getCurrentUser } from "../services/user";
+
 
 const EditPost = ({ handleClose, post }) => {
   const [imageUrl, setImageUrl] = useState(null);

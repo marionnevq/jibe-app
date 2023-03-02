@@ -1,12 +1,12 @@
-import { Avatar, Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
-import Joi from 'joi';
-import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import "../style/UserEdit.css"
-import alt from "../images/alternate.jpg"
 import CloseIcon from '@mui/icons-material/Close';
+import { Avatar, Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import Joi from 'joi';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import alt from "../images/alternate.jpg";
 import { getCurrentUser, updateCurrentUser } from '../services/user';
-import { getUser } from '../services/auth';
+import "../style/UserEdit.css";
+
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../services/firebase';
 

@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import EmailForm from "../components/EmailForm";
 import bg from "../images/1.jpeg";
 

@@ -1,9 +1,9 @@
 import { Button, Paper, TextField } from "@mui/material";
-import React, { useState } from "react";
-import logo from "../images/likewo.png";
 import Joi from "joi";
-import { getResetPasswordLink } from "../services/password";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../images/likewo.png";
+import { getResetPasswordLink } from "../services/password";
 
 const EmailForm = ({
   setLoading,

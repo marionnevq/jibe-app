@@ -1,16 +1,16 @@
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   IconButton,
   InputAdornment,
   Paper,
-  TextField,
+  TextField
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import logo from "../images/likewo.png";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Joi from "joi";
-import { authPasswordChangeForm, saveNewPassword } from "../services/password";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../images/likewo.png";
+import { authPasswordChangeForm, saveNewPassword } from "../services/password";
 
 const ForgotForm = ({
   token,

@@ -1,22 +1,19 @@
+import "@fontsource/poppins";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Grid,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Joi from "joi";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import Logo2 from "../images/logo-noblack-label.png";
-import { Link, useNavigate } from "react-router-dom";
-import "@fontsource/poppins";
 import reg from "../images/reg.png";
 import "../style/Register.css";
-import Joi from "joi";
-import LoginSwiper from "../components/LoginSwiper";
-import { UserContext } from "../context/UserContext";
-import { register } from "../services/auth";
 
 const Register = ({ handleSubmit }) => {
   const { onRegister } = useContext(UserContext);

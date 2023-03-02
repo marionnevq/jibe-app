@@ -1,3 +1,6 @@
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Avatar,
   Box,
@@ -16,24 +19,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import * as postService from "../services/post";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import * as commentService from "../services/comment";
-import * as userService from "../services/user";
-import "../style/Feed.css";
-import unlike from "../images/unlike.png";
-import liked from "../images/liked.png";
-import { checkLiked, createLike, getLike, removeLike } from "../services/like";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { useNavigate } from "react-router-dom";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EditPost from "../components/EditPost";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import EditComment from "../components/EditComment";
+import NavBar from "../components/NavBar";
+import liked from "../images/liked.png";
+import unlike from "../images/unlike.png";
+import * as commentService from "../services/comment";
+import { checkLiked, createLike, getLike, removeLike } from "../services/like";
+import * as postService from "../services/post";
+import * as userService from "../services/user";
+import "../style/Feed.css";
 
 const PostPage = ({
   postId,

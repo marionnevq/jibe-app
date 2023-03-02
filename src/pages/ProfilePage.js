@@ -1,23 +1,13 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  Grid,
-  Paper,
-  TextField,
-  Modal,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState, useEffect, useRef } from "react";
-import NavBar from "../components/NavBar";
-import "../style/Profile.css";
-import PhotoIcon from "@mui/icons-material/Photo";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { getUser } from "../services/auth";
-import EditUser from "../components/EditUser";
 import EditIcon from "@mui/icons-material/Edit";
+import { Avatar, Button, Divider, Grid, Modal, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useRef, useState } from "react";
+import EditUser from "../components/EditUser";
+import NavBar from "../components/NavBar";
 import ProfilePostArea from "../components/ProfilePostArea";
 import alt from "../images/alternate.jpg";
+import { getUser } from "../services/auth";
+import "../style/Profile.css";
 
 import PostForm from "../components/PostForm";
 

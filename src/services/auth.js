@@ -1,26 +1,28 @@
 import jwtDecode from "jwt-decode";
 import http from "./http";
 
-export function register( 
-    firstname, 
+export function register(
+  firstname,
+  lastname,
+  email,
+  username,
+  password,
+  imageUrl,
+  bio
+) {
+  return http.post("/auth/register", {
+    firstname,
     lastname,
-    email, 
-    username, 
-    password, 
+    username,
+    email,
+    password,
     imageUrl,
-    bio, ) {
-          return http.post("/auth/register", { 
-            firstname, 
-            lastname,
-            username, 
-            email,
-            password, 
-            imageUrl,
-            bio  });
-          }
+    bio,
+  });
+}
 
 export function login(email, password) {
-  console.log("Hello login")
+  console.log("Hello login");
   return http.post("/auth/authenticate", { email, password });
 }
 
@@ -39,22 +41,20 @@ export function getCurrentUser() {
 }
 //getUser-me
 
-  export function getUser() {
-    const user= http.get("/users/me");
-    return user;
-  }
+export function getUser() {
+  const user = http.get("/users/me");
+  return user;
+}
 
 //getUsers-search
 
-  export function searchUsers(searchQuery) {
-    const user= http.get(`/profiles/${searchQuery}/search`)
-    return user;
-  }
+export function searchUsers(searchQuery) {
+  const user = http.get(`/profiles/${searchQuery}/search`);
+  return user;
+}
 
 //getUser-visit
-  export function fetchUserByUsername(username){
-    const user= http.get(`/profiles/${username}`);
-    return user;
-  }
-
-
+export function fetchUserByUsername(username) {
+  const user = http.get(`/profiles/${username}`);
+  return user;
+}

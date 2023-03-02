@@ -7,8 +7,6 @@ import {
   MenuItem,
   Modal,
   Paper,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -31,13 +29,18 @@ import ModeCommentIcon from "@mui/icons-material/ModeComment";
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const opening = Boolean(anchorEl);
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const opened = Boolean(anchorEl);
   const navigate = useNavigate();
-
+  const [open, setOpen] = React.useState(false);
+  const opened = Boolean(open);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
@@ -49,14 +52,7 @@ const ProfilePostArea = ({ theme }) => {
     loadUser();
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
 
   const loadUser = async () => {
     const current = await getUser();
@@ -105,7 +101,7 @@ const ProfilePostArea = ({ theme }) => {
           }}
         >
            <Modal
-        open={open}
+        open={opened}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
@@ -144,7 +140,7 @@ const ProfilePostArea = ({ theme }) => {
               <Menu
           id="basic-menu"
           anchorEl={anchorEl}
-          open={opened}
+          open={opening}
           onClose={handleCloseMenu}
           sx={{width:"500px", paddingTop: "-30px"}}
         >

@@ -204,22 +204,7 @@ function App() {
             )
           }
         />
-
-        <Route
-          path="/profile/visit/:username/temp"
-          element={
-            accessToken ? (
-              <TempProfileVisitPage
-                onLogout={handleLogout}
-                onSwitch={switchTheme}
-                theme={theme}
-              />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
+        
         <Route
           path="/posts/:postId"
           element={

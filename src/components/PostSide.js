@@ -41,10 +41,7 @@ const PostSide = ({ theme, setLoading }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const [choice, setChoice]=useState(true)
-
-  // const [postDate, setPostDate] = useState("");
   const [image, setImage] = useState(null);
-  const open = Boolean(anchorEl);
   const imageRef = useRef();
 
   const onImageChange = (event) => {
@@ -100,26 +97,18 @@ useEffect(() => {
   }); 
 };
 
-const handleShowFollowing = async () => {
-  await getFollowingPost().then((response) => {
-    console.log(response.data);
-    setPosts(response.data);
-  });
-};
-
 const handleWorldFollowing = async () => {
-  await getWorldPost().then((response) => {
+  await getWorldPost().then(async(response) => {
     console.log(response.data);
     setPosts(response.data);
   });
-};
 
 
     await getCurrentUser().then((response) => {
     
       setCurrentUser(response.data);
     }); 
-  };
+};
   
   const handleShowFollowing = async () => {
     await getFollowingPost().then((response) => {
@@ -127,21 +116,6 @@ const handleWorldFollowing = async () => {
       setPosts(response.data);
     });
   };
-  
-  const handleWorldFollowing = async () => {
-    await getWorldPost().then((response) => {
-      console.log(response.data);
-      setPosts(response.data);
-    });
-  };
-  
-  // const handleWorldFollowing = async () => {
-  //   await getWorldPost().then((response) => {
-  //     console.log(response.data);
-  //     setPosts(response.data);
-  //   });
-  // };
-
 
   return (
 

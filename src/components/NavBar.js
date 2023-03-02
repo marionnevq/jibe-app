@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Grid, Menu, MenuItem, Modal, Paper, Switch } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PeopleIcon from '@mui/icons-material/People';
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
-import SearchIcon from '@mui/icons-material/Search';
-import Divider from '@mui/material/Divider';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import HomeIcon from '@mui/icons-material/Home';
-import nav from "../images/nav.png"
-import nav1 from "../images/nav1.png"
-import nav2 from "../images/nav2.png"
-import nav3 from "../images/nav3.png"
-import React, { useState, useEffect } from "react";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import React, { useEffect } from "react";
 import {
   Badge,
   Grid,
+  IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
+  Modal,
   Paper,
   Switch,
   Typography,
@@ -46,13 +28,13 @@ import nav1 from "../images/nav1.png";
 import nav2 from "../images/nav2.png";
 import nav3 from "../images/nav3.png";
 import "../style/NavBar.css";
-
 import { getUser } from "../services/auth";
-
 import { Link, useNavigate } from 'react-router-dom';
 import ProfileSearch from './ProfileSearch';
-import { Link, useNavigate } from "react-router-dom";
 import { deleteNotification, getNotifications } from "../services/notification";
+import { useState } from "react";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const NavBar = ({ onLogout, onSwitch, theme }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -124,11 +106,16 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
     console.log(input.value);
   };
 
+  const handleClearNotifications = async() => {
+    notifications.forEach(async (notification) => {
+      await deleteNotification(notification.id);
+    });
+  };
 
   const themeNow = theme;
 
   return (
-    <div >
+    <div>
        <Modal
         open={show}
         onClose={handleClose}
@@ -139,56 +126,6 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
         <ProfileSearch handleClose={handleClose} search={search.username} theme={theme}/>
       </Modal>
     
-    <Grid className='nav-bar' container style={{minHeight : "auto"}}>
-      <Grid className= "logo" item xs={12} md={1}>
-      {
-          themeNow === "light" ? 
-          <img src={nav} style={{width: "80%"}} onClick={() => navigate("/feed")}/> :
-          <img src={nav1} style={{width: "80%"}} onClick={() => navigate("/feed")}/>
-      } 
-      </Grid>
-      <Grid container item xs={12} md={11} style={{height: "60px"}}>
-        <div className='left'>
-        {
-          themeNow === "light" ? 
-          <img className='nav-two' src={nav3}  onClick={() => navigate("/feed")}/>:
-          <img className='nav-two' src={nav2}  onClick={() => navigate("/feed")}/>
-      } 
-        
-        <Paper
-      component="form"
-      className="search"
-      sx={{backgroundColor: (() => theme === "light" ? "white" : "#333333")}}
-    >
-      <IconButton 
-        type="button" 
-        sx={{ p: '10px',color: (() => theme === "light" ? "#1C2835" : "#f2f2f2") }} 
-        aria-label="search"
-        onClick={handleOpen}
-      >
-        <SearchIcon />
-      </IconButton>
-      <Divider className='divider' orientation="vertical" />
-      <input
-      onChange={handleChange}
-        name='username'
-        autoComplete='off'
-        value={search.username}
-        placeholder="Search"
-        className="click" id='search'
-        type="search"
-        style={{border: "none", outlineColor: (() => theme === "light" ? "#f2f2f2" : "#333333")}}
-      />
-    </Paper>
-  const handleClearNotifications = () => {
-    notifications.forEach(async (notification) => {
-      await deleteNotification(notification.id);
-    });
-  };
-
-  const themeNow = theme;
-
-  return (
     <Grid className="nav-bar" container style={{ minHeight: "auto" }}>
       <Grid className="logo" item xs={12} md={1}>
         {themeNow === "light" ? (
@@ -235,7 +172,7 @@ const NavBar = ({ onLogout, onSwitch, theme }) => {
                 color: () => (theme === "light" ? "#1C2835" : "#f2f2f2"),
               }}
               aria-label="search"
-              // onClick={}
+              onClick={handleOpen}
             >
               <SearchIcon />
             </IconButton>

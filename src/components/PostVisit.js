@@ -17,11 +17,8 @@ import { Box } from "@mui/system";
 import { getUserPosts } from "../services/post";
 import { useNavigate, useParams } from "react-router";
 import TimeAgo from "javascript-time-ago";
+import en from 'javascript-time-ago/locale/en'
 import "../style/ProfileVisit.css"
-import en from "javascript-time-ago/locale/en";
-import { useNavigate } from "react-router-dom";
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
-
 
 const PostVisit = ({ theme, user }) => {
   const [like, setLike] = useState(false);
@@ -43,7 +40,7 @@ const PostVisit = ({ theme, user }) => {
     const timeAgo = new TimeAgo("en-US");
     const ago = timeAgo.format(new Date(postDate));
     return ago;
-  };
+  }
 
   const handleChangeIcon = () => {
     if (like === false) {
@@ -61,15 +58,15 @@ const PostVisit = ({ theme, user }) => {
 
   return (
     <div
-
       style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
     >
     {posts.map((post) => 
       <Paper
       className="post"
       sx={{
-        backgroundColor: () => (theme === "light" ? "white" : "#333333"),
+        backgroundColor: () => (theme === "light" ? "white" : "#333333")
       }}
+      
     >
       <Box className="info" sx={{ p: 0.2 }}>
         <Box className="opImg" sx={{ p: 1  }}>
@@ -81,17 +78,11 @@ const PostVisit = ({ theme, user }) => {
         </Box>
         <Box
           className="opName"
-
           sx={{
-            width: "95%",
-            height: "auto",
-            paddingBottom: "2px",
-            borderRadius: "0.6rem",
-            boxShadow: "3",
-            backgroundColor: () => (theme === "light" ? "white" : "#333333"),
+            p: 1,
+            color: () => (theme === "light" ? "#333333" : "white"),
           }}
         >
-
 
           <span>
             {user === null
@@ -123,102 +114,44 @@ const PostVisit = ({ theme, user }) => {
               alt="" style={{width: "65%"}}
             />
             </Box>
-          </Box>
-          <Box
-            className="postContent"
-            sx={{
-              p: 0.2,
-              color: () => (theme === "light" ? "#333333" : "white"),
-            }}
-          >
-            <div className="postContent2">
-              <Box className="txtContent" sx={{ p: 0.2 }}>
-                <span>{post.length === 0 ? "" : post.body}</span>
-              </Box>
-              {post.length === 0 ? null : (
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box
-                    className="imgContent"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "98%",
-                      border: () =>
-                        theme === "light"
-                          ? "0.1px solid lightgrey"
-                          : "0.1px solid Gray",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    <img src={`${post.imageUrl}`} style={{ width: "60%" }} />
-                  </Box>
-                </div>
-              )}
             </div>
-
-          </Box>
-          {/* <Divider /> */}
-          <Box
-            className="txtContent"
-            sx={{
-              p: 0.2,
-              color: () => (theme === "light" ? "#333333" : "white"),
-            }}
-          >
-            <span>
-              {post.numLikes === 0 ? "" : <img src={liked} alt="" style={{width: "25px", height: "25px"}} />}
-              {post.numLikes === 0 ? "" : `${post.numLikes}`}
-            </span>
-            <span>
-              {post.numComments === 0 ? (
-                ""
-              ) : (
-                <ModeCommentIcon
-                  sx={{ color: "#ff5d75", width: "15px", height: "15px" }}
-                />
-              )}
-              {post.numComments === 0 ? "" : `${post.numComments}`}
-            </span>
-          </Box>
-          <Box
-            className="reactions"
-            sx={{
-              p: 0.2,
-              color: () => (theme === "light" ? "#333333" : "white"),
-            }}
-          >
-            <Box className="like" sx={{ p: 0.2 }}>
-              <div className="likebtn" onClick={handleChangeIcon}>
-                <Button className="likeButton">
-                  {like ? <img src={liked} /> : <img src={unlike} />}
-                  {like ? <span>Liked</span> : <span>Like</span>}
-                </Button>
-              </div>
-            </Box>
-            <Divider
-              className="divider"
-              sx={{ height: 28, m: 0.5 }}
-              orientation="vertical"
-            />
-            <Box className="comment" sx={{ p: 0.2 }}>
-              <Button className="commentButton" onClick={() => {navigate(`/posts/${post.postID}`)}}>
-                <ModeCommentOutlinedIcon />
-                <span>Comment</span>
-              </Button>
-            </Box>
-          </Box>
-          {/* <Divider sx={{ marginBottom: "10px" }} /> */}
-        </Paper>
-      ))}
+          )}
+        </div>
+      </Box>
+      {/* <Divider /> */}
+      <Box
+        className="reactions"
+        sx={{
+          p: 0.2,
+          color: () => (theme === "light" ? "#333333" : "white"),
+          borderTop: (() => theme === "dark" ? "1px solid #636363" : "1px solid lightgrey")
+        }}
+      >
+        <Box className="like" sx={{ p: 0.2 }}>
+          <div className="likebtn" onClick={handleChangeIcon}>
+            <Button className="likeButton">
+              {like ? <img src={liked} /> : <img src={unlike} />}
+              {like ? <span>Liked</span> : <span>Like</span>}
+            </Button>
+          </div>
+        </Box>
+        <Divider
+          className="divider"
+          sx={{ height: 28, m: 0.5 }}
+          orientation="vertical"
+        />
+        <Box className="comment" sx={{ p: 0.2 }}>
+          <Button className="commentButton" onClick={() => navigate(`/posts/${post.postID}`)}>
+            <ModeCommentOutlinedIcon />
+            <span>Comment</span>
+          </Button>
+        </Box>
+      </Box>
+      {/* <Divider sx={{ marginBottom: "10px" }} /> */}
+    </Paper>)}
     </div>
-  );
+   
+  )
 };
 
 export default PostVisit;

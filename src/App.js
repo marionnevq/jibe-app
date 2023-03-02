@@ -25,6 +25,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
 import ForgotPass from "./pages/ForgotPass";
+import EmailConfirmation from "./pages/EmailConfirmation";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -185,8 +186,27 @@ function App() {
           }
         />
         <Route
+          path="/password/reset/:token"
+          element={
+            <ForgotPass
+              setLoading={setLoading}
+              setSnackbarMessage={setSnackbarMessage}
+              setSeverity={setSeverity}
+              setOpen={setOpen}
+            />
+          }
+        />
+
+        <Route
           path="/forgot"
-          element={<ForgotPass setLoading={setLoading} />}
+          element={
+            <EmailConfirmation
+              setLoading={setLoading}
+              setSnackbarMessage={setSnackbarMessage}
+              setSeverity={setSeverity}
+              setOpen={setOpen}
+            />
+          }
         />
         <Route
           path="/profile/visit/:username"

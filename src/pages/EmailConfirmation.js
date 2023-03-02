@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ForgotForm from "../components/ForgotForm";
+import EmailForm from "../components/EmailForm";
 import bg from "../images/1.jpeg";
 
-const ForgotPass = ({
+const EmailConfirmation = ({
   setLoading,
   setSnackbarMessage,
   setSeverity,
   setOpen,
 }) => {
-  const params = useParams();
   return (
     <div
       style={{
@@ -24,8 +23,7 @@ const ForgotPass = ({
         alignItems: "center",
       }}
     >
-      <ForgotForm
-        token={params.token}
+      <EmailForm
         setLoading={setLoading}
         setSnackbarMessage={setSnackbarMessage}
         setSeverity={setSeverity}
@@ -35,4 +33,4 @@ const ForgotPass = ({
   );
 };
 
-export default ForgotPass;
+export default EmailConfirmation;

@@ -66,6 +66,13 @@ const PostSide = ({ theme, setLoading }) => {
     setAnchorEl(null);
   };
 
+
+
+//get post
+useEffect(() => {
+  loadUser();
+}, []);
+
   const convertTime = (postDate) => {
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
@@ -78,146 +85,91 @@ const PostSide = ({ theme, setLoading }) => {
     loadUser();
   }, []);
 
-  const loadUser = async () => {
-    await getWorldPost().then((response) => {
-      console.log(response.data);
-      setPosts(response.data);
-    });
+
+  const user = await getCurrentUser().then((response) => {
+    setCurrentUser(response.data);
+  }); 
+};
+
+const handleShowFollowing = async () => {
+  await getFollowingPost().then((response) => {
+    console.log(response.data);
+    setPosts(response.data);
+  });
+};
+
+const handleWorldFollowing = async () => {
+  await getWorldPost().then((response) => {
+    console.log(response.data);
+    setPosts(response.data);
+  });
+};
+
 
     await getCurrentUser().then((response) => {
       setCurrentUser(response.data);
     });
   };
 
+
   return (
-    <div className="postSide" style={{ minWidth: "100%", marginTop: "12px" }}>
-      <Grid
-        container
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Grid
-          container
-          item
-          xs={12}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Paper
-            className="feedType"
-            sx={{
-              width: "95%",
-              height: "45px",
-              paddingBottom: "2px",
-              borderRadius: "0.6rem",
-              boxShadow: "1",
-            }}
-          >
-            <Box
-              className="fyp"
-              sx={{
-                width: "25%",
-                height: "45px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <span style={{ cursor: "pointer" }}>World</span>
+
+    <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>
+    <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+      
+      <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Paper className='feedType' sx={{ width:"95%", height:"45px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+            <Box className='fyp' onClick={handleWorldFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
+              <span style={{ cursor: "pointer"}}>World</span>
             </Box>
             {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
-            <Box
-              className="fyp"
-              sx={{
-                width: "25%",
-                height: "45px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <span style={{ cursor: "pointer" }}>For You</span>
+            <Box className='fyp' onClick={handleShowFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
+              <span style={{ cursor: "pointer"}}>For You</span>
+
             </Box>
           </Paper>
         </Grid>
 
-        <Grid
-          container
-          item
-          xs={12}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10px",
-          }}
-        >
-          <PostForm
-            currentUser={currentUser}
-            theme={theme}
-            setLoading={setLoading}
-          />
-        </Grid>
-
-        <Divider className="divider">
-          <Chip
-            className="dividerChip"
-            label="WORLD"
-            sx={{ fontFamily: "Montserrat" }}
-          />
-        </Divider>
-
-        <Grid
-          container
-          item
-          xs={12}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10px",
-          }}
-        >
-          {posts.map((post) => (
-            <Paper
-              className="post"
-              sx={{
-                width: "95%",
-
-                height: "auto",
-                paddingBottom: "2px",
-                borderRadius: "0.6rem",
-                boxShadow: "3",
-              }}
-            >
-              <Box className="info" sx={{ p: 0.2 }}>
-                <Box className="opImg" sx={{ p: 1 }}>
-                  <div className="opInfo">
-                    <Avatar
-                      src={post.userImageUrl === null ? alt : post.userImageUrl}
-                      onClick={() => {
-                        navigate(`/profile/visit/${post.userUsername}`);
-                      }}
-                      alt=""
-                    />
+      <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+     
+          <Paper className='post' sx={{ width:"95%", minHeight: "120px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
+           <Box className="postInfo">
+            <Box className='postDp' sx={{ p: 1 }}>
+                <div className="postDp2">
+                  <img src={currentUser === null ? " " : `${currentUser.imageUrl}`} alt=""/>
+                </div>
+              </Box>
+              <Box className='postText' sx={{ p: 1}}>
+                <TextField className='shareText' placeholder="What's jibin'?" sx={{ width: "100%" }}
+                  InputProps={{ className: "inputTextfield", sx: { height: "auto", fontFamily: "montserrat" } }} multiline/>
+              </Box>
+            <Box className='postPhoto' sx={{ p: 0.5}}>
+              <PhotoIcon onClick={() => imageRef.current.click()} sx={{ cursor:"pointer", fontSize: "30px" }} />
+            </Box>
+           </Box>
+            <div style={{ display: "none"}}>
+              <input type='file' name='myImage' ref={imageRef} onChange={onImageChange} />
+            </div>
+              { image && (
+                  <Box className="previewBox" sx={{ p: 0.5, border: '1px solid #d3d3d3', borderRadius:"7px" }}>
+                    <div className='previewImage'>
+                      <Box className="previewClose" sx={{ marginBottom:"-10px" }}>
+                        <CancelRoundedIcon onClick={() => setImage(null)}  sx={{cursor: "pointer", justifyContent:"right"}}/>
+                      </Box>
+                      <img src={image.image} />
                   </div>
-                </Box>
-                <Box className="opName" sx={{ p: 1 }}>
-                  <span
-                    onClick={() => {
-                      navigate(`/profile/visit/${post.userUsername}`);
-                    }}
-                  >
-                    {post === null
-                      ? ""
-                      : `${post.userFirstname} ${post.userLastname}`}
-                  </span>
+                  </Box>
+              )}
+            <Divider className='divider' />
+            <Box className='sharebtn' justifyItems={"center"} sx={{ p: 0.5 }}>
+              <Button className='shareButton' variant='text' 
+                style={{ backgroundColor: "transparent", color:"#EB4660", fontFamily: 'Montserrat', height:"30px", fontSize:"16px", }} >
+                  Post</Button>
+            </Box>
+          </Paper>
+      </Grid>
 
-                  <span>{convertTime(post.datePosted)}</span>
-                </Box>
-                {/* <Box className="optionBox" sx={{ p: 1 }}>
+      <Divider className='divider' sx={{ borderBottomWidth: 3 }}><Chip className='dividerChip' label="World" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
                   <IconButton className="options" onClick={handleOpenMenu}>
                     <MoreHorizIcon />
@@ -343,63 +295,6 @@ const PostSide = ({ theme, setLoading }) => {
               {/* <Divider className='divider' sx={{ marginBottom:"10px" }}/> */}
             </Paper>
           ))}
-
-          {/* <Paper className='post' sx={{ width:"95%", minHeight: "150px", maxHeight:"680px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
-          <Box className="info" sx={{ p:0.2  }}>
-             <Box className='opImg' sx={{ p: 1 }}>
-               <div className="opInfo">
-                 <img src={mk} alt=""/>
-               </div>
-             </Box>
-             <Box className='opName' sx={{ p: 1 }}>
-               <span>Mark Lee</span>
-              <span>a few minutes ago</span>
-             </Box>
-             <Box sx={{ p: 1 }}>
-             <IconButton className='options' onClick={handleOpenMenu}>
-                    <MoreHorizIcon/>
-                </IconButton>
-
-                <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} className="menuBox" >
-                  <MenuItem className='menuItem'  sx={{ fontFamily: "montserrat" }}>
-                    <EditRoundedIcon />&nbsp;&nbsp;Edit
-                  </MenuItem>
-                  <MenuItem className='menuItem' sx={{ fontFamily: "montserrat" }}>
-                    <DeleteRoundedIcon/>&nbsp; Move to trash
-                  </MenuItem>
-                </Menu>
-             </Box>
-           </Box>
-           <Box className='postContent'  sx={{ p: 0.2 }}>
-             <div className='postContent2'>
-               <Box className='txtContent' sx={{ p: 0.2 }}>
-                 <span>a smile at the end of a long day is something that should be appreciated more #goodnight</span>
-               </Box>
-             </div>
-           </Box>
-           <Divider className='divider' />
-           <Box className='reactions' sx={{ p: 0.2 }}>
-             <Box className='like' sx={{ p: 0.2 }}> 
-              <div className='likebtn' onClick={handleChangeIcon}>
-                <Button className='likeButton'>
-                 {
-                   like? <img src={liked} /> :  <img src={unlike} />
-                 }
-                 {
-                   like? <span>Like</span> : <span>Liked</span>
-                 }
-                </Button>
-               </div>
-             </Box> 
-             <Box className='comment' sx={{ p: 0.2 }}>
-               <Button className='commentButton'>
-                 <ModeCommentOutlinedIcon />
-                 <span>Comment</span>
-               </Button>
-             </Box>
-           </Box>
-           <Divider className='divider' sx={{ marginBottom:"10px" }}/>
-        </Paper> */}
         </Grid>
       </Grid>
     </div>

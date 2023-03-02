@@ -1,15 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Button, Divider, Grid, IconButton, Paper } from '@mui/material'
 import { Box } from '@mui/system'
 import alt from "../images/alternate.jpg"
-import "../style/LatchList.css"
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import "../style/LatchList.css";
+import { useNavigate } from 'react-router-dom';
+import * as userService from "../services/user";
+import { async } from 'q';
 
 const FriendList = ({ theme }) => {
+
+
+  const [users, setUsers] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null)
+  const navigate = useNavigate();
+
+  //get follow list
+  async function getFollowingList() {
+    const currUser = await userService.getCurrentUser().then( async (response) => {
+      setCurrentUser(response.data);
+      console.log(response.data);
+      await userService.getFollowList(response.data.username).then((response) => {
+        setUsers(response.data);
+        console.log(response.data);
+      });
+    });
+
+  }
+  useEffect(() => {
+    getFollowingList();
+  }, []);
+
+
   return (
     <div data-theme={theme}>
-        <div style={{minHeight: "100vh"}} >
+    <div style={{ minWidth: "100%", minHeight:"100vh" }} >
       <Box className="cover" id="header"/>
-      
       <Grid container className='main-header'>
         <Grid  className='top-head' id='info-head' container item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "center"}} >
         <Avatar className='profile-img' src={alt} ></Avatar>
@@ -31,7 +57,8 @@ const FriendList = ({ theme }) => {
           </Grid>
           <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             {/* <Button variant='contained' className='latch-btn1'><PersonAddIcon sx={{marginRight: "10px"}}/> Latch</Button> */}
-          </Grid></div>
+          </Grid>
+          </div>
         </Grid>
         
         <div className='mobile' style={{display: "block"}}>
@@ -62,28 +89,34 @@ const FriendList = ({ theme }) => {
           </Grid>
         </Grid></div>
       </Grid>
-      <Paper className='bottom-foot'>
-        <Grid container className= 'foot' style= {{height: "auto"}}>
-          <Grid className='left' item xs={12} md={3.5} sx={{display: "flex", justifyContent: "center", alignItems: "start", marginTop: "10px"}}>
-            <Paper className='window-name' style={{width: "95%", borderRadius:"0.6rem", boxShadow: "none", height: "auto", paddingRight: "10px", paddingLeft: "10px", wordBreak: "break-word"}} >
-                <h1>Jim Lloyd</h1>
-                <h3>@jimlloyddg</h3>
-                <h4>No one can ever be word word word  word word word  word word word </h4>
-            </Paper>
-          </Grid>
-          <Grid className='post-corner' item xs={12} md={8.5} sx={{height: "auto"}}>
-              {/* <PostVisit /> */}
-          </Grid>
-        </Grid>
-      </Paper>
-      {/* <Grid container sx={{height: "auto"}}>
-          <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-            Hello
-          </Grid>
-          <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-      </Grid> */}
+      {/*LatchList*/}
+      <Grid item xs={12} className='bottom-foot' sx={{ minHeight: "100vh", display: "flex", justifyContent:"center" }}>
+        <Paper className='list' sx={{ height: "auto", display: "flex", flexDirection:"column"  }}>
+          <Box className="title" sx={{ margin:"3px", display: "flex", flexDirection: "column", width: "90%", borderRadius:"0.3rem" }}>
+            <span><Divider className='dividerTitle'>Latch List</Divider></span>
+          </Box>
+            <Box className="latchBox" sx={{ margin:"5px", display: "flex", flexDirection: "column", width: "95%", borderRadius:"0.3rem"}}>
+            {users && users.map((user) => (
+                <Box className="nameList" sx={{ display:"flex", width:"100%", marginTop: "5px"  }} >
+                  <Box className="latchInfoBox" sx={{ display:"flex", width:"100%", height:"100px" }}>
+                      <Box classname="latchImg" sx={{ display:"flex", width:"25%", height:"100px",  alignItems:"center", justifyContent:"center" }}>
+                          <img src={user.imageUrl}style={{ width:"4.5rem", borderRadius:"10%", height:"70%" }}/>
+                      </Box>
+                      <Box classname="latchInfo" sx={{ display:"flex", width:"60%", height:"100px", flexDirection:"column" , justifyContent:"center"}}>
+                          <span style={{ fontWeight:"700" }}>{`${user.firstname} ${user.lastname}`}</span>
+                          <span style={{ fontWeight:"400", fontSize:"13.5px" }}>@{`${user.username}`}</span>
+                      </Box>
+                      <Box classname="latchOption" sx={{ display:"flex", width:"15%", height:"100px"}}>
+                          <IconButton>
+                              <PersonRemoveIcon sx={{ fontSize:"30px" }}/>
+                          </IconButton>
+                      </Box>
+                </Box>
+            </Box>
+            ))}
+            </Box>
+        </Paper>
+      </Grid>
       </div>
     </div>
   )

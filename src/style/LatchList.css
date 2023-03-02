@@ -131,27 +131,53 @@
     font-family: "montserrat";
 }
 
-.bottom-foot .window-name h1{
-    font-size: 21px;
+.bottom-foot .list{
+    background-color: var(--paper);
+    border-radius: 6px ;
+    display: flex;
+    width: 50%;
+    height: 500px;
+    margin-top: 10px ;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
-.bottom-foot .window-name h3{
-    font-size: 15px;
-    font-weight: 400;
+
+.bottom-foot  .latchInfoBox{
+    border: 1px solid var(--divider);
+    border-radius: 1rem;
 }
 
-.bottom-foot .window-name h3{
-    font-size: 15px;
+.list .latchInfo{
+    background-color: #16202A;
+} 
+
+.bottom-foot .latchInfo{
+    color: var(--text-primary);
 }
 
-.bottom-foot{
-    height: auto;
-    
+.bottom-foot .title{
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--text-primary);
 }
 
-.post-corner{
-    padding-bottom: 20px;
+.bottom-foot .dividerTitle{
+    color: var(--text-secondary);
 }
+
+.bottom-foot .latchInfo>span:nth-of-type(1){
+    font-size: 50px;
+}
+
+.bottom-foot .latchInfo{
+    background-color: #000;
+}
+
+
+
 
 @media only screen and (max-width: 600px) {
 
@@ -248,6 +274,18 @@
 
     .foot .left{
         display: none;
+    }
+
+    .bottom-foot .list{
+        width: 85%;
+    }
+
+    .bottom-foot .latchImg{
+        width: 25%;
+    }
+
+    .bottom-foot .latchInfo{
+        width: 60%;
     }
 }
 

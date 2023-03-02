@@ -9,7 +9,6 @@ export function getWorldPost() {
 }
 
 export function getFollowingPost() {
-
     return http.get(`/posts/following`);
   }
 

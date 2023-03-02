@@ -130,7 +130,7 @@ const PostComponent = ({ post, theme }) => {
         <EditPost handleClose={handleClose} post={post} />
       </Modal>
       <Box className="info" sx={{  }}>
-        <Box className="opImg" sx={{ p: 1,  float: "left", justifyContent: "center", border: "1px solid red" }}>
+        <Box className="opImg" sx={{ p: 1,  float: "left", justifyContent: "center" }}>
           <div className="opInfo">
             <Avatar
               src={post.userImageUrl === null ? alt : post.userImageUrl}

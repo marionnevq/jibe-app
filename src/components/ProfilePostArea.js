@@ -3,6 +3,9 @@ import {
   Button,
   Divider,
   IconButton,
+  Menu,
+  MenuItem,
+  Modal,
   Paper,
   Menu,
   MenuItem,
@@ -17,11 +20,13 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { getUserPosts } from "../services/post";
 import { getUser } from "../services/auth";
+import EditPost from "./EditPost";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import alt from "../images/alternate.jpg";
 import { useNavigate } from "react-router-dom";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
+
 
 const ProfilePostArea = ({ theme }) => {
   const [like, setLike] = useState(false);
@@ -29,6 +34,8 @@ const ProfilePostArea = ({ theme }) => {
   const open = Boolean(anchorEl);
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const opened = Boolean(anchorEl);
   const navigate = useNavigate();
 
   const convertTime = (postDate) => {
@@ -41,6 +48,15 @@ const ProfilePostArea = ({ theme }) => {
   useEffect(() => {
     loadUser();
   }, []);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const loadUser = async () => {
     const current = await getUser();
@@ -88,6 +104,15 @@ const ProfilePostArea = ({ theme }) => {
             backgroundColor: () => (theme === "light" ? "white" : "#333333"),
           }}
         >
+           <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+        sx={{ overflow: "scroll" }}
+      >
+        <EditPost handleClose={handleClose} post={post} />
+      </Modal>
           <Box className="info" sx={{ p: 0.2 }}>
             <Box className="opImg" sx={{ p: 1 }}>
               <div className="opInfo">
@@ -112,19 +137,21 @@ const ProfilePostArea = ({ theme }) => {
               <span>{convertTime(post.datePosted)}</span>
             </Box>
             <Box className="options" sx={{ p: 1 }}>
-              <IconButton className="options" onClick={handleOpenMenu}>
+
+              <IconButton onClick={handleOpenMenu}>
                 <MoreHorizIcon />
               </IconButton>
               <Menu
-                // id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleCloseMenu}
-                className="menu"
-              >
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={opened}
+          onClose={handleCloseMenu}
+          sx={{width:"500px", paddingTop: "-30px"}}
+        >
                 <MenuItem
                   className="menuItem"
                   sx={{ fontFamily: "montserrat" }}
+                  onClick={handleOpen}
                 >
                   <EditRoundedIcon />
                   &nbsp;&nbsp;Edit

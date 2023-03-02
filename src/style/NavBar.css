@@ -137,6 +137,24 @@ input[type="search"]{
     display: none;
   }
 
+  .search-paper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 120px;
+    height: auto;
+    width: 35%;
+    padding: 5;
+    overflow: scroll; 
+    background-color: var(--input-field);
+  }
+
+  .seach-head{
+    display: flex;
+    justify-content: end;
+    background-color: var(--input-field);
+  }
+
   @media only screen and (max-width: 600px) {
     .nav-bar, .nav-bar .icon1, .logo, .btn-nav{
       display: none;
@@ -190,5 +208,16 @@ input[type="search"]{
 
     .home{
       display: inline;
+    }
+
+    .search-paper{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 120px;
+      max-height: 300px;
+      width: 55%;
+      padding: 5;
+      overflow: scroll; 
     }
   }

@@ -46,8 +46,8 @@ export function getCurrentUser() {
 
 //getUsers-search
 
-  export function searchUsers() {
-    const user= http.get("/profiles");
+  export function searchUsers(searchQuery) {
+    const user= http.get(`/profiles/${searchQuery}/search`)
     return user;
   }
 

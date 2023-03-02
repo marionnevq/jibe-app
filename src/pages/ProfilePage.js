@@ -26,6 +26,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
   const imageRef = useRef();
   const [open, setOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = useState("");
+  
 
   useEffect(() => {
     loadUser();
@@ -196,6 +197,12 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
             </div>
           </Grid>
 
+          <Grid id='button-follow'item xs={12} md={3} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Button variant='outlined' className='latch-btn1' sx={{fontWeight: "bold", border: "2px solid #ff5d75"}} fullWidth><EditIcon sx={{marginRight: "10px"}}/> Edit</Button>
+          </Grid></div>
+        </Grid>
+
+
           <div className="mobile" style={{ display: "block" }}>
             <div className="name-info" >
               <h1 className="name-details">
@@ -203,6 +210,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                   ? ""
                   : `${currentUser.firstname} ${currentUser.lastname}`}
               </h1>
+
               <h3>@{currentUser === null ? "" : `${currentUser.username}`}</h3>
             </div>
             <Grid
@@ -325,6 +333,7 @@ const ProfilePage = ({ onLogout, onSwitch, theme }) => {
                       InputProps={{ sx: { height: "auto" } }}
                       multiline
                     />
+
                   </Box>
                   <Box className="postPhoto" sx={{ p: 0.5 }}>
                     <PhotoIcon

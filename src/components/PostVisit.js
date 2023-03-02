@@ -15,11 +15,13 @@ import unlike from "../images/unlike.png";
 import liked from "../images/liked.png";
 import { Box } from "@mui/system";
 import { getUserPosts } from "../services/post";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import TimeAgo from "javascript-time-ago";
+import "../style/ProfileVisit.css"
 import en from "javascript-time-ago/locale/en";
 import { useNavigate } from "react-router-dom";
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
+
 
 const PostVisit = ({ theme, user }) => {
   const [like, setLike] = useState(false);
@@ -55,17 +57,31 @@ const PostVisit = ({ theme, user }) => {
     return <h1>Loading...</h1>;
   }
 
+  const color = theme === 'solid light'? "lightgrey" : " solid Gray"
+
   return (
     <div
-      style={{ display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        marginTop: "10px",
-        marginLeft: "1.3rem", }}
+
+      style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px" }}
     >
-      {posts.map((post) => (
-        <Paper
-          className="post"
+    {posts.map((post) => 
+      <Paper
+      className="post"
+      sx={{
+        backgroundColor: () => (theme === "light" ? "white" : "#333333"),
+      }}
+    >
+      <Box className="info" sx={{ p: 0.2 }}>
+        <Box className="opImg" sx={{ p: 1  }}>
+          <div className="opInfo">
+            <Avatar
+              src={post === null? "" : post.userImageUrl}
+              alt="" />
+          </div>
+        </Box>
+        <Box
+          className="opName"
+
           sx={{
             width: "95%",
             height: "auto",
@@ -75,23 +91,37 @@ const PostVisit = ({ theme, user }) => {
             backgroundColor: () => (theme === "light" ? "white" : "#333333"),
           }}
         >
-          <Box className="info" sx={{ p: 0.2 }}>
-            <Box className="opImg" sx={{ p: 1 }}>
-              <div className="opInfo">
-                <img src={user === null ? "" : user.imageUrl} alt="" />
-              </div>
-            </Box>
+
+
+          <span>
+            {user === null
+              ? ""
+              : `${post.userFirstname} ${post.userLastname}`}
+          </span>
+          <span>{convertTime(post.datePosted)}</span>
+        </Box>
+      </Box>
+      <Box
+        className="postContent"
+        sx={{
+          p: 0.2,
+          color: () => (theme === "light" ? "#333333" : "white"),
+        }}
+      >
+        <div className="postContent2" >
+          <Box className="txtContent" sx={{ p: 0.2 }}>
+            <span>{post.length === 0 ? "" : post.body}</span>
+          </Box>
+          {post.length === 0 ? null : (
+            <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
             <Box
-              className="opName"
-              sx={{
-                p: 1,
-                color: () => (theme === "light" ? "#333333" : "white"),
-              }}
+              className="imgContent"
+              sx={{ display: "flex", justifyContent: "center", width: "100%", borderTop: () => theme === "dark" ? "1px solid #3F3F3F" : "1px solid lightgrey", paddingTop: "10px", paddingBottom: "10px", marginBottom: "5px"}}
             >
-              <span>
-                {user === null ? "" : `${user.firstname} ${user.lastname}`}
-              </span>
-              <span>{convertTime(post.datePosted)}</span>
+               <img
+              src={user === null ? "" : post.imageUrl}
+              alt="" style={{width: "65%"}}
+            />
             </Box>
           </Box>
           <Box
@@ -132,6 +162,7 @@ const PostVisit = ({ theme, user }) => {
                 </div>
               )}
             </div>
+
           </Box>
           {/* <Divider /> */}
           <Box

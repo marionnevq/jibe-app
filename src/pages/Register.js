@@ -230,7 +230,19 @@ const Register = ({ handleSubmit }) => {
             }}
           />
         </div>
-
+        <div>
+          <TextField
+          id="date"
+          label="Birthday"
+          type="date"
+          variant="filled"
+          className="field-two"
+          defaultValue="2017-05-24"
+          sx={{ width: 220 }}
+          InputLabelProps={{
+            shrink: true,
+          }}/>
+        </div>
         <div className="btn">
           <Button
             variant="contained"

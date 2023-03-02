@@ -24,7 +24,8 @@ import { POSTS_DATA } from "./Data/posts";
 import ProfilePage from "./pages/ProfilePage";
 import LatchList from "./pages/LatchList";
 import PostPage from "./pages/PostPage";
-import TempProfileVisitPage from "./pages/TempProfileVisitPage";
+import ForgotPass from "./pages/ForgotPass";
+
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -183,6 +184,11 @@ function App() {
               <Navigate to="/login" />
             )
           }
+        />
+        <Route
+          path="/forgot"
+          element={
+              <ForgotPass setLoading={setLoading} />}
         />
         <Route
           path="/profile/visit/:username"

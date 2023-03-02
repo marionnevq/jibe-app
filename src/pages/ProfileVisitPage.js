@@ -40,7 +40,7 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
       setLoading(false);
     });
   }, []);
-
+  
   const handleSubmit = (form) => {
     // employeeService
     //   .updateEmployee(employee.id, form)
@@ -440,5 +440,6 @@ const ProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
     </div>
   );
 };
+
 
 export default ProfileVisitPage;

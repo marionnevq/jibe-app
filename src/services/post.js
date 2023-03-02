@@ -17,6 +17,11 @@ export function createPost(post) {
 
 }
 
+export function updatePost(postID, post) {
+  return http.put(`/posts/update/${postID}`, {...post});
+}
+
 export function getUserPosts(username) {
   return http.get(`/profiles/${username}/posts`);
 }
+

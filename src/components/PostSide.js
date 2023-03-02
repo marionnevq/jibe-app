@@ -29,16 +29,23 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import PostForm from "./PostForm";
+import PostComponent from "./PostComponent";
+import { async } from "q";
 
 const PostSide = ({ theme, setLoading }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const [postDate, setPostDate] = useState("");
+  const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+  const [choice, setChoice]=useState(true)
+
   // const [postDate, setPostDate] = useState("");
   const [image, setImage] = useState(null);
   const open = Boolean(anchorEl);
   const imageRef = useRef();
-  const navigate = useNavigate();
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -66,8 +73,6 @@ const PostSide = ({ theme, setLoading }) => {
     setAnchorEl(null);
   };
 
-
-
 //get post
 useEffect(() => {
   loadUser();
@@ -80,11 +85,15 @@ useEffect(() => {
     return ago;
   };
 
-  //get post
   useEffect(() => {
     loadUser();
   }, []);
 
+  const loadUser = async () => {
+    const world = await getWorldPost().then((response) => {
+      console.log(response.data);
+      setPosts(response.data);
+    });
 
   const user = await getCurrentUser().then((response) => {
     setCurrentUser(response.data);
@@ -107,24 +116,87 @@ const handleWorldFollowing = async () => {
 
 
     await getCurrentUser().then((response) => {
+    
       setCurrentUser(response.data);
+    }); 
+  };
+  
+  const handleShowFollowing = async () => {
+    await getFollowingPost().then((response) => {
+      console.log(response.data);
+      setPosts(response.data);
     });
   };
+  
+  const handleWorldFollowing = async () => {
+    await getWorldPost().then((response) => {
+      console.log(response.data);
+      setPosts(response.data);
+    });
+  };
+  
+  // const handleWorldFollowing = async () => {
+  //   await getWorldPost().then((response) => {
+  //     console.log(response.data);
+  //     setPosts(response.data);
+  //   });
+  // };
 
 
   return (
 
-    <div className='postSide' style={{ minWidth: "100%", marginTop: "12px"}}>
-    <Grid container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-      
-      <Grid container item xs={12} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <Paper className='feedType' sx={{ width:"95%", height:"45px", paddingBottom: "2px", borderRadius:"0.6rem", boxShadow:"1"}}>
-            <Box className='fyp' onClick={handleWorldFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
-              <span style={{ cursor: "pointer"}}>World</span>
+    <div className="postSide" style={{ minWidth: "100%", marginTop: "12px" }}>
+      <Grid
+        container
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Grid
+          container
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Paper
+            className="feedType"
+            sx={{
+              width: "95%",
+              height: "45px",
+              paddingBottom: "2px",
+              borderRadius: "0.6rem",
+              boxShadow: "1",
+            }}
+          >
+            <Box
+              className="fyp"
+              onClick={handleWorldFollowing}
+              sx={{
+                width: "25%",
+                height: "45px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              
+            >
+              <span style={{ cursor: "pointer" }}>World</span>
             </Box>
             {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
-            <Box className='fyp' onClick={handleShowFollowing} sx={{ width:"25%", height:"45px",  display:"flex", justifyContent:"center", alignItems:"center"  }} >
-              <span style={{ cursor: "pointer"}}>For You</span>
+            <Box
+              className="fyp"
+              onClick={handleShowFollowing}
+              sx={{
+                width: "25%",
+                height: "45px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ cursor: "pointer" }}>For You</span>
 
             </Box>
           </Paper>
@@ -171,130 +243,19 @@ const handleWorldFollowing = async () => {
 
       <Divider className='divider' sx={{ borderBottomWidth: 3 }}><Chip className='dividerChip' label="World" sx={{ fontFamily: 'Montserrat'}} /></Divider>
 
-                  <IconButton className="options" onClick={handleOpenMenu}>
-                    <MoreHorizIcon />
-                  </IconButton>
-
-                  <Menu
-                    // id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleCloseMenu}
-                    className="menu"
-                  >
-                    <MenuItem
-                      className="menuItem"
-                      sx={{ fontFamily: "montserrat" }}
-                    >
-                      <EditRoundedIcon />
-                      &nbsp;&nbsp;Edit
-                    </MenuItem>
-                    <MenuItem
-                      className="menuItem"
-                      sx={{ fontFamily: "montserrat" }}
-                    >
-                      <DeleteRoundedIcon />
-                      &nbsp; Move to trash
-                    </MenuItem>
-                  </Menu>
-
-                </Box> */}
-              </Box>
-              <Box className="postContent" sx={{ p: 0.2 }}>
-                <div className="postContent2">
-                  <Box className="txtContent" sx={{ p: 0.2 }}>
-                    <span>{post.length === 0 ? "" : post.body}</span>
-                  </Box>
-                  {post && post.imageUrl === null ? (
-                    <Divider className="divider" />
-                  ) : (
-                    <Box
-                      className="imgContent"
-                      sx={{
-                        p: 1,
-                        display: "flex",
-                        justifyContent: "center",
-                        width: "95%",
-                        marginLeft: "23px",
-
-                        borderRadius: "0.6rem",
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                      }}
-                    >
-                      <img
-                        src={`${post.imageUrl}`}
-                        style={{ width: "80%", height: "80%" }}
-                      />
-                    </Box>
-                  )}
-                  <Box className="txtContent" sx={{ p: 0.2 }}>
-                    <span>
-                      {post.numLikes === 0 ? (
-                        ""
-                      ) : (
-                        <img
-                          src={liked}
-                          alt=""
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                      )}
-                      {post.numLikes === 0 ? "" : `${post.numLikes}`}
-                    </span>
-                    <span>
-                      {post.numComments === 0 ? (
-                        ""
-                      ) : (
-                        <ModeCommentIcon
-                          sx={{
-                            color: "#ff5d75",
-                            width: "15px",
-                            height: "15px",
-                          }}
-                        />
-                      )}
-                      {post.numComments === 0 ? "" : `${post.numComments}`}
-                    </span>
-                    {/* <span> <img src={liked} style={{width: "20px", height: "20px" }}/> {`${post.numLikes}`}</span> */}
-                  </Box>
-                </div>
-              </Box>
-              {/* <Divider className='divider'/> */}
-              <Box
-                className="reactions"
-                sx={{
-                  p: 0.2,
-                  color: () => (theme === "light" ? "#333333" : "white"),
-                }}
-              >
-                <Box className="like" sx={{ p: 0.2 }}>
-                  <div className="likebtn" onClick={handleChangeIcon}>
-                    <Button className="likeButton">
-                      {like ? <img src={liked} /> : <img src={unlike} />}
-                      {like ? <span>Liked</span> : <span>Like</span>}
-                    </Button>
-                  </div>
-                </Box>
-                <Divider
-                  className="divider"
-                  sx={{ height: 28, m: 0.5 }}
-                  orientation="vertical"
-                />
-                <Box className="comment" sx={{ p: 0.2 }}>
-                  <Button
-                    className="commentButton"
-                    onClick={() => {
-                      navigate(`/posts/${post.postID}`);
-                    }}
-                  >
-                    <ModeCommentOutlinedIcon />
-                    <span>Comment</span>
-                  </Button>
-                </Box>
-              </Box>
-              {/* <Divider className='divider' sx={{ marginBottom:"10px" }}/> */}
-            </Paper>
-          ))}
+        <Grid
+          container
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+        {posts.map((post) => (
+         <PostComponent post={post} currentUser={currentUser} />))}
         </Grid>
       </Grid>
     </div>

@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import React, { useState } from "react";
 import * as followService from "../services/follow";
 import "../style/swiper.css";
-
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/effect-fade";

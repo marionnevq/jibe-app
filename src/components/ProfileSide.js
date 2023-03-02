@@ -1,5 +1,4 @@
 import LatchSuggestion from "./LatchSuggestion";
-
 import {
   Avatar,
   Button,
@@ -12,11 +11,9 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getCurrentUser } from "../services/user";
-import dp from "../images/nik.jpg";
-import alternate from "../images/alternate.jpg";
 import * as userService from "../services/user";
 import alt from "../images/alternate.jpg";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+
 
 const ProfileSide = ({ theme }) => {
   const [users, setUsers] = useState(null);

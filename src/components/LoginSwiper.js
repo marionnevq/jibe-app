@@ -8,17 +8,14 @@ import Joi from "joi";
 import * as userService from "../services/user";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../services/firebase";
-
 import { useNavigate } from "react-router-dom";
 import {
   Button,
   Grid,
-  Modal,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { Navigation, Keyboard, Pagination } from "swiper";
 import alternate from "../images/alternate.jpg";
 import txtlogo from "../images/nav1.png";

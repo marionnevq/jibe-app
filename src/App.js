@@ -29,7 +29,7 @@ import EmailConfirmation from "./pages/EmailConfirmation";
 
 
 function App() {
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [theme, setTheme] = useLocalStorage("theme", "light");
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("error");

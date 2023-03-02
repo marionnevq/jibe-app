@@ -6,18 +6,15 @@ import "../style/UserEdit.css"
 import alt from "../images/alternate.jpg"
 import CloseIcon from '@mui/icons-material/Close';
 import { getCurrentUser, updateCurrentUser } from '../services/user';
-import { getUser } from '../services/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../services/firebase';
 
 const EditUser = ({handleClose}) => {
 
-    const params = useParams();
     const [imageUrl, setImageUrl] = useState(null);
     const [imageUpload, setImageUpload] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
-    const swiperRef = useRef(null);
     const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -61,18 +58,7 @@ const EditUser = ({handleClose}) => {
     
       const handleClickShowPassword = () => setShowPassword(!showPassword);
       const navigate = useNavigate();
-    
-      // const handleImage = (event) => {
-      //     const img = event.target.files[0];
-      //       setImageUrl(URL.createObjectURL(img));
-      //       setForm({
-      //         ...form,
-      //         image: img
-      //       });
-      //       console.log(form);
-      //       console.log(img);
-      //     }
-    
+
       const schema = Joi.object({
         firstname: Joi.string().min(3).max(20).required(),
         lastname: Joi.string().min(3).max(20).required(),
@@ -152,12 +138,6 @@ const EditUser = ({handleClose}) => {
         }
       };
     
-      const isFormInvalid = () => {
-        const result = schema.validate(form);
-        return !!result.error;
-      };
-    
-
   return (
     <Box className='edit-form' sx={{ ...style, width: "80%",height: "auto", borderRadius: "15px"}}>
           <Grid container sx={{display: "flex", justifyContent: "end", alignItems: "center"}}>

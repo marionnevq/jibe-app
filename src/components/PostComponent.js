@@ -128,7 +128,7 @@ const PostComponent = ({ post, theme }) => {
         <EditPost handleClose={handleClose} post={post} />
       </Modal>
       <Box className="info" sx={{ p: 0.2 }}>
-        <Box className="opImg" sx={{ p: 1 }}>
+        <Box className="opImg" sx={{ p: 1,  width: "7%" }}>
           <div className="opInfo">
             <Avatar
               src={post.userImageUrl === null ? alt : post.userImageUrl}
@@ -139,7 +139,7 @@ const PostComponent = ({ post, theme }) => {
             />
           </div>
         </Box>
-        <Box className="opName" sx={{ p: 1 }}>
+        <Box className="opName" sx={{ p: 1, width: "85%"   }}>
           <span
             onClick={() => {
               navigate(`/profile/visit/${post.userUsername}`);
@@ -150,6 +150,39 @@ const PostComponent = ({ post, theme }) => {
 
           <span>{convertTime(post.datePosted)}</span>
         </Box>
+        {currentUser && currentUser.id === post.userID ? (
+          <Box className="options" sx={{ p: 1, width: "5%"  }}>
+            <IconButton onClick={handleOpenMenu}>
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={opening}
+              onClose={handleCloseMenu}
+              sx={{ width: "500px", paddingTop: "-30px" }}
+            >
+              <MenuItem
+                className="menuItem"
+                sx={{ fontFamily: "montserrat" }}
+                onClick={handleOpen}
+              >
+                <EditRoundedIcon />
+                &nbsp;&nbsp;Edit
+              </MenuItem>
+              <MenuItem
+                className="menuItem"
+                sx={{ fontFamily: "montserrat" }}
+                onClick={handleDeletePost}
+              >
+                <DeleteRoundedIcon />
+                &nbsp; Move to trash
+              </MenuItem>
+            </Menu>
+          </Box>
+        ) : (
+          ""
+        )}
       </Box>
       <Box className="postContent" sx={{ p: 0.2 }}>
         <div className="postContent2">

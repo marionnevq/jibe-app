@@ -69,7 +69,12 @@ const EditPost = ({
           setOpen(true);
         });
     } else {
-      const imageRef = ref(storage, post.imageUrl);
+      let imageRef = null;
+      if (post.imageUrl != null) {
+        imageRef = ref(storage, post.imageUrl);
+      } else {
+        imageRef = ref(storage, `${post.userUsername}_${post.postID}`);
+      }
 
       uploadBytes(imageRef, imageUpload).then((snapshot) => {
         const path = snapshot.metadata.fullPath;
@@ -93,7 +98,6 @@ const EditPost = ({
               setSeverity("error");
               setOpen(true);
             });
-          // setLoading(false);
         });
       });
     }

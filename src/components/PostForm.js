@@ -91,20 +91,7 @@ const PostForm = ({ currentUser, theme, setLoading, postFormSX }) => {
         marginTop: "10px",
       }}
     >
-      <Paper
-        className="post"
-        // sx={{
-        //   width: "53%",
-        //   minHeight: "120px",
-        //   maxHeight: "100%",
-        //   borderRadius: "5px",
-        //   boxShadow: "1",
-        //   backgroundColor: () => (theme === "light" ? "white" : "#343434"),
-
-        //   marginRight: "19px"
-        // }}
-        sx={postFormSX}
-      >
+      <Paper className="post" sx={postFormSX}>
         <Box className="postInfo">
           <Box className="postDp" sx={{ p: 1 }}>
             <div className="postDp2">

@@ -346,14 +346,6 @@ const TempProfileVisitPage = ({ onLogout, onSwitch, theme }) => {
               </Grid>
             </Grid>
           </Paper>
-          {/* <Grid container sx={{height: "auto"}}>
-          <Grid container item xs={12} md={12} sx={{height: "100px"}}>
-            Hello
-          </Grid>
-          <Grid container item xs={12} md={12} sx={{backgroundColor: "black", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={4} sx={{backgroundColor: "pink", height: "auto"}}></Grid>
-          <Grid container item xs={12} md={8} sx={{backgroundColor: "yellow", height: "auto"}}></Grid>
-      </Grid> */}
         </div>
       </div>
     </div>

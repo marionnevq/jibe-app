@@ -23,20 +23,6 @@ const ProfilePostArea = ({
   const [currentUser, setCurrentUser] = useState("");
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  // const [open, setOpen] = useState(false);
-  // const opened = Boolean(open);
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-  // const convertTime = (postDate) => {
-  //   TimeAgo.addLocale(en);
-  //   const timeAgo = new TimeAgo("en-US");
-  //   const ago = timeAgo.format(new Date(postDate));
-  //   return ago;
-  // };
 
   useEffect(() => {
     loadUser();
@@ -50,21 +36,6 @@ const ProfilePostArea = ({
       console.log(userPosts.data);
     });
   };
-  // const handleChangeIcon = () => {
-  //   if (like === false) {
-  //     setLike(true);
-  //   } else {
-  //     setLike(false);
-  //   }
-  // };
-
-  // const handleOpenMenu = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const handleCloseMenu = () => {
-  //   setAnchorEl(null);
-  // };
 
   return (
     <div

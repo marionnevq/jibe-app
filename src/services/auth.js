@@ -8,7 +8,8 @@ export function register(
   username,
   password,
   imageUrl,
-  bio
+  bio,
+  birthday
 ) {
   return http.post("/auth/register", {
     firstname,
@@ -18,6 +19,7 @@ export function register(
     password,
     imageUrl,
     bio,
+    birthday,
   });
 }
 

@@ -91,7 +91,8 @@ function App() {
         form.username,
         form.password,
         form.imageUrl,
-        form.bio
+        form.bio,
+        form.birthday
       )
         .then(() => {
           setSnackbarMessage("Registered Successfully");
